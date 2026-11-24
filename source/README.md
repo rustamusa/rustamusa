@@ -11,6 +11,7 @@ The site is one static page, `site/index.html`, assembled from the parts in `sou
 | `manifest.js` | every picture with its caption and group |
 | `app.js` | behaviour: job switcher, galleries, picture viewer, forms, routing |
 | `hero3d.js` | the sample kitchen inside the kitchen job: it loads when the job comes near and draws itself once it is on screen |
+| `pano.js` | the cab look-around in the elevator cab job and on the CNS page: one photoreal panorama, drag to turn |
 
 Build: `node source/build.js` writes `site/index.html`.
 

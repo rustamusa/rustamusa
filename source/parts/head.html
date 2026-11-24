@@ -181,6 +181,22 @@ button{font:inherit;color:inherit}
 .svc a:hover{text-decoration-thickness:2px}
 
 /* ---------- the sample kitchen that draws itself (inside the kitchen job) ---------- */
+/* a look-around: one photoreal panorama, drag to turn */
+.pano{position:relative;display:block;width:100%;aspect-ratio:16/10.6;border-radius:var(--r-sm);overflow:hidden;background:var(--dot-bg);touch-action:pan-y;cursor:grab;-webkit-user-select:none;user-select:none}
+.pano:active{cursor:grabbing}
+.pano:focus-visible{outline:2px solid var(--glow);outline-offset:3px}
+.pano img,.pano canvas{position:absolute;inset:0;width:100%!important;height:100%!important;object-fit:cover;display:block}
+.pano canvas{opacity:0;transition:opacity .6s}
+.pano.live canvas{opacity:1}
+.pano-tip{position:absolute;left:10px;bottom:10px;padding:7px 12px;border-radius:999px;background:rgba(var(--veil),.74);color:var(--veil-on);font:var(--t-small);pointer-events:none;transition:opacity .4s}
+.pano.used .pano-tip{opacity:0}
+/* a second picture under the main one of a job */
+.also{all:unset;box-sizing:border-box;display:grid;grid-template-columns:108px minmax(0,1fr);gap:14px;align-items:center;width:100%;padding:8px;border-radius:var(--r-sm);border:1px solid var(--rule);cursor:zoom-in}
+.also img{display:block;width:100%;height:auto;aspect-ratio:16/10.4;object-fit:cover;object-position:0 0;border-radius:6px;background:#fff}
+.also b{display:block;font:600 1rem/1.25 var(--sans);letter-spacing:-.02em}
+.also span span{display:block;font:var(--t-small);color:var(--on-2);margin-top:3px}
+.also:hover{border-color:var(--rule-2)}
+.also:focus-visible{outline:2px solid var(--glow);outline-offset:3px}
 .stage{position:relative;min-width:0;display:grid;grid-template-columns:minmax(0,1fr)}
 .stage-gl{grid-area:1/1;position:relative;width:100%;aspect-ratio:16/10.6;border-radius:var(--r-sm);background:var(--dot-bg);overflow:hidden;touch-action:pan-y;cursor:grab}
 .stage-gl:active{cursor:grabbing}
@@ -610,7 +626,7 @@ dialog.lb::backdrop{background:rgba(var(--veil),.92)}
   .top-call .arr svg{width:18px;height:18px}
   .svc{grid-template-columns:minmax(0,1fr)}
   .svc li:nth-child(even){padding-left:0;border-left:0}
-  .stage-gl{aspect-ratio:1/.86}
+  .stage-gl,.pano{aspect-ratio:1/.86}
   .ticket{grid-area:2/1;align-self:auto;justify-self:stretch;width:auto;margin:10px 0 0;padding:0;display:grid;grid-template-columns:repeat(4,auto);justify-content:space-between;gap:0 12px;background:none;box-shadow:none;border-radius:0;transform:none}
   .ticket b{display:none}
   .ticket div{display:block;padding:0;border-top:0}

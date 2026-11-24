@@ -9,6 +9,6 @@ const reelsFile = path.join(__dirname, 'parts', 'reels.private.js');
 const withReels = args.includes('--reels') && fs.existsSync(reelsFile);
 const app = P('app.js').replace('/*REELS*/', withReels ? fs.readFileSync(reelsFile, 'utf8').trim() : 'const REELS = [];');
 const out = P('head.html') + P('header.html') + P('home.html') + P('pages.html')
-  + '\n<script>\n' + P('manifest.js').trim() + '\n' + app + '\n' + P('hero3d.js') + '</script>\n</body>\n</html>\n';
+  + '\n<script>\n' + P('manifest.js').trim() + '\n' + app + '\n' + P('hero3d.js') + P('pano.js') + '</script>\n</body>\n</html>\n';
 fs.writeFileSync(dest, out);
 console.log('wrote', dest, (out.length / 1024).toFixed(1) + ' KB', withReels ? '(with the video wall)' : '(no video wall)');
