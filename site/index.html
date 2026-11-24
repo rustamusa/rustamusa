@@ -762,42 +762,60 @@ dialog.lb::backdrop{background:rgba(var(--veil),.92)}
   .hw span{left:6px;bottom:6px;right:6px;max-width:calc(100% - 12px);padding:6px 10px}
 }
 @media (prefers-reduced-motion:reduce){.hw img{transition:none}}
-/* five businesses, one window each: the problems, how AI solved them, what the team learned */
-.wins{display:grid;gap:clamp(20px,2.6vw,34px);margin-top:clamp(26px,3.6vw,44px)}
-.win{border-radius:var(--r);overflow:hidden}
-.win-top{display:grid;grid-template-columns:clamp(170px,17vw,240px) minmax(0,1fr) auto;gap:clamp(16px,2.4vw,34px);align-items:center;padding:clamp(16px,1.9vw,24px) clamp(18px,2.6vw,36px);border-bottom:1px solid var(--rule)}
-.win-pic{display:block;width:100%;height:auto;aspect-ratio:3/2;object-fit:cover;border-radius:var(--r-sm);background:#fff}
-.win-name h3{font:650 clamp(1.8rem,2.8vw,2.6rem)/1.03 var(--sans);letter-spacing:-.042em;text-wrap:balance}
-.win-name p{font:400 1.15rem/1.3 var(--sans);color:var(--on-2);margin-top:8px}
-.win-res{display:grid;justify-items:end;gap:14px;text-align:right}
-.win-big{font:700 clamp(1.9rem,3vw,2.75rem)/1 var(--sans);letter-spacing:-.045em;color:var(--accent);white-space:nowrap}
-.win-cols{display:grid;grid-template-columns:repeat(3,minmax(0,1fr))}
-.win-col{padding:clamp(18px,2.2vw,30px) clamp(18px,2.6vw,36px) clamp(22px,2.6vw,34px);min-width:0}
-.win-col + .win-col{border-left:1px solid var(--rule)}
-.win-ai{background:rgba(255,255,255,.42)}
-.win-col h4{font:700 clamp(1.25rem,1.75vw,1.6rem)/1.15 var(--sans);letter-spacing:-.02em;color:var(--accent)}
-.win-col ul{margin-top:16px;display:grid;gap:14px}
-.win-col li{position:relative;padding-left:22px;font:450 clamp(1.14rem,1.5vw,1.36rem)/1.36 var(--sans);letter-spacing:-.012em;text-wrap:pretty}
-.win-col li::before{content:"";position:absolute;left:0;top:.55em;width:9px;height:9px;border-radius:50%;background:var(--accent)}
-.win-prob li::before{background:transparent;box-shadow:inset 0 0 0 2px var(--accent)}
-@media (max-width:1100px){
-  .win-top{grid-template-columns:clamp(150px,20vw,200px) minmax(0,1fr)}
-  .win-res{grid-column:1/-1;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px 20px;text-align:left}
-}
+/* five businesses, each its own block and its own bottleneck */
+.bzs{display:grid;gap:clamp(20px,2.6vw,36px);margin-top:clamp(26px,3.6vw,44px)}
+.bz{position:relative;display:grid;grid-template-columns:minmax(0,1.08fr) minmax(0,.92fr);gap:clamp(22px,3.6vw,60px);align-items:center;border-radius:var(--r)}
+.bz-fig{margin:0;border-radius:var(--r-sm);overflow:hidden;background:#fff;box-shadow:0 30px 60px -34px rgba(0,0,0,.7)}
+.bz-fig img{display:block;width:100%;height:auto}
+.bz-who{display:flex;flex-wrap:wrap;gap:2px 12px;align-items:baseline}
+.bz-who b{font:650 1.1rem/1.25 var(--sans);letter-spacing:-.02em}
+.bz-who span{font:400 1rem/1.3 var(--sans);color:var(--on-2)}
+.bz h3{font:650 clamp(1.9rem,3.3vw,2.9rem)/1.03 var(--sans);letter-spacing:-.045em;margin-top:12px;text-wrap:balance}
+.bz-text > p:not(.bz-who):not(.bz-res),.bz-text > div > p:not(.bz-who):not(.bz-res){font:400 clamp(1.06rem,1.3vw,1.18rem)/1.45 var(--sans);color:var(--on-2);margin-top:14px;max-width:34em}
+.bz-text p b{color:var(--on);font-weight:650}
+.bz-res{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 16px;margin-top:18px}
+.bz-res s{font:500 1.3rem/1 var(--sans);color:var(--band);text-decoration-thickness:2px}
+.bz-res b{font:700 clamp(2.3rem,4.2vw,3.6rem)/1 var(--sans);letter-spacing:-.05em;color:var(--accent)}
+.bz .pill{margin-top:22px}
+/* image on the right */
+.bz-flip .bz-fig{order:2}
+/* the cab: one big picture, the words over it */
+.bz-cine{grid-template-columns:minmax(0,1fr);overflow:hidden;background:var(--dot-bg)}
+.bz-cine .bz-fig{grid-area:1/1;border-radius:0;box-shadow:none;background:none}
+.bz-cine .bz-fig img{aspect-ratio:1800/945;object-fit:cover}
+.bz-cine .bz-text{grid-area:1/1;align-self:stretch;display:flex;flex-direction:column;justify-content:flex-end;padding:clamp(24px,3.4vw,52px);align-items:flex-start;background:linear-gradient(90deg,rgba(var(--veil),.86) 0%,rgba(var(--veil),.74) 38%,rgba(var(--veil),0) 54%);max-width:none}
+.bz-cine .bz-text > *{max-width:24rem}
+.bz-cine .bz-text > p:not(.bz-who):not(.bz-res){max-width:24rem}
+.bz-cine .bz-text,.bz-cine .bz-who b,.bz-cine h3,.bz-cine .bz-text p b{color:var(--veil-on)}
+/* the tomato band */
+.bz.alt{padding:clamp(22px,3.2vw,48px)}
+.bz.alt .bz-res s{color:var(--on-2)}
+/* text first, two pictures on the right */
+.bz-pair{position:relative;padding-right:clamp(40px,6vw,96px)}
+.bz-phone{position:absolute;right:0;bottom:-6%;width:clamp(110px,13vw,190px);border:4px solid var(--page-lo);border-radius:18px}
+/* the pink card: words, then two phone screens */
+.bz-phones{grid-template-columns:minmax(0,1fr) minmax(0,.85fr);padding:clamp(22px,3.2vw,48px)}
+.bz-ph{display:flex;justify-content:center;gap:clamp(10px,1.6vw,20px)}
+.bz-ph .bz-fig{width:min(46%,230px);border-radius:26px;border:5px solid #12261F;background:#12261F}
+.bz-ph .bz-fig + .bz-fig{margin-top:clamp(30px,4vw,56px)}
+.paper .bz-res s{color:var(--card-on-2)}
 @media (max-width:900px){
-  .win-cols{grid-template-columns:minmax(0,1fr)}
-  .win-col + .win-col{border-left:0;border-top:1px solid var(--rule)}
+  .bz{grid-template-columns:minmax(0,1fr)}
+  .bz-ph{order:-1}
+  .bz-ph .bz-fig{width:min(44%,190px)}
+  .bz-flip .bz-fig{order:0}
+  .bz-duo .bz-pair{order:-1}
+  .bz-cine .bz-fig,.bz-cine .bz-text{grid-area:auto}
+  .bz-cine .bz-fig img{aspect-ratio:16/10;object-position:80% 50%}
+  .bz-cine .bz-text{background:none;padding:6px clamp(18px,4vw,28px) 26px}
+  .bz-cine .bz-text,.bz-cine .bz-who b,.bz-cine h3,.bz-cine .bz-text p b{color:var(--on)}
 }
 @media (max-width:640px){
-  .win-top{grid-template-columns:104px minmax(0,1fr);gap:12px 14px;padding:16px}
-  .win-pic{aspect-ratio:1/1}
-  .win-name h3{font-size:1.45rem}
-  .win-name p{font-size:1rem;margin-top:6px}
-  .win-big{font-size:1.85rem}
-  .win-col{padding:16px 16px 18px}
-  .win-col h4{font-size:1.15rem}
-  .win-col ul{margin-top:10px;gap:9px}
-  .win-col li{font-size:1.08rem;padding-left:18px}
+  .bz h3{font-size:clamp(1.75rem,8vw,2.2rem)}
+  .bz-res b{font-size:2.4rem}
+  .bz.alt,.bz-phones{padding:18px}
+  .bz-pair{padding-right:64px}
+  .bz-phone{width:96px;border-width:3px;border-radius:12px}
 }
 
 /* five projects on one timeline */
@@ -898,70 +916,71 @@ dialog.lb::backdrop{background:rgba(var(--veil),.92)}
 
   <section class="sec2" id="fixes"><div class="wrap">
     <h2 class="h2b">Different businesses, different bottlenecks</h2>
-    <div class="wins">
+    <div class="bzs">
 
-      <article class="win paper" id="b-kitchen">
-        <div class="win-top">
-          <img class="win-pic" src="assets/img/ui-pl-full-kitchen.webp" width="1600" height="1111" style="object-position:86% 58%" alt="The online kitchen builder with its 3D view" loading="lazy" decoding="async">
-          <div class="win-name"><h3>NY Kitchen &amp; Home Design Center</h3><p>Kitchen showroom, Brooklyn</p></div>
-          <div class="win-res"><p class="win-big">days → minutes</p><a class="pill small" href="#nykhdc"><span>See the work</span><i class="arr"><svg aria-hidden="true"><use href="#i-arr"/></svg></i></a></div>
-        </div>
-        <div class="win-cols">
-          <div class="win-col win-prob"><h4>The problems</h4><ul><li>A priced kitchen in 3D took days.</li><li>Website requests reached no one.</li><li>2,828 bot orders buried the store.</li></ul></div>
-          <div class="win-col win-ai"><h4>How AI solved them</h4><ul><li>An online builder prices a 3D kitchen in minutes.</li><li>5 of 5 estimates matched the real invoice to the cent.</li><li>An AI assistant on the site answers and passes on every lead.</li><li>Bot orders cleared. Every request reaches the inbox.</li></ul></div>
-          <div class="win-col win-learn"><h4>What the team learned</h4><ul><li>Start each quote from the customer’s own drawing and a draft invoice.</li><li>Send every quote as one link: options, drawings, one total.</li></ul></div>
+      <article class="bz bz-split" id="b-kitchen">
+        <figure class="bz-fig"><img src="assets/img/ui-pl-full-kitchen.webp" width="1600" height="1111" alt="The online kitchen builder: shape, sizes and a 3D view" loading="lazy" decoding="async"></figure>
+        <div class="bz-text">
+          <p class="bz-who"><b>NY Kitchen &amp; Home Design Center</b><span>Kitchen showroom, Brooklyn</span></p>
+          <h3>The price is where a kitchen gets sold.</h3>
+          <p><b>Before:</b> a priced kitchen with a 3D view took days. Meanwhile the customer visits the next showroom.</p>
+          <p class="bz-res"><s>days</s><b>minutes</b></p>
+          <p><b>Now:</b> the customer draws the kitchen online and gets the price with a 3D view on the spot.</p>
+          <a class="pill small" href="#nykhdc"><span>See the work</span><i class="arr"><svg aria-hidden="true"><use href="#i-arr"/></svg></i></a>
         </div>
       </article>
 
-      <article class="win paper" id="b-cab">
-        <div class="win-top">
-          <img class="win-pic" src="assets/img/cab-wide.webp" width="1800" height="945" style="object-position:76% 50%" alt="A photoreal render of an elevator cab, seen from the lobby" loading="lazy" decoding="async">
-          <div class="win-name"><h3>CNS Elevator Cabs</h3><p>Elevator cab maker, Brooklyn</p></div>
-          <div class="win-res"><p class="win-big">1 week → 2 hours</p><a class="pill small" href="#cns"><span>See the work</span><i class="arr"><svg aria-hidden="true"><use href="#i-arr"/></svg></i></a></div>
-        </div>
-        <div class="win-cols">
-          <div class="win-col win-prob"><h4>The problems</h4><ul><li>No work starts until the building signs the drawings.</li><li>A set took about a week.</li><li>The drafter was far away.</li></ul></div>
-          <div class="win-col win-ai"><h4>How AI solved them</h4><ul><li>One 3D model makes the plans, details, weights and renders.</li><li>143 dimensions checked before a set goes out.</li><li>A set takes two hours. Changes go back the same day.</li></ul></div>
-          <div class="win-col win-learn"><h4>What the team learned</h4><ul><li>Mark a change by hand or say it on a call. The new set comes back the same day.</li><li>Give the building a care sheet with every cab.</li></ul></div>
-        </div>
-      </article>
-
-      <article class="win paper" id="b-sf">
-        <div class="win-top">
-          <img class="win-pic" src="assets/img/sf-li-chat.webp" width="1389" height="868" style="object-position:100% 40%" alt="The Strike Force site with its AI assistant open" loading="lazy" decoding="async">
-          <div class="win-name"><h3>Strike Force</h3><p>Two game venues, Long Island and New Jersey</p></div>
-          <div class="win-res"><p class="win-big">by hand → automatic</p><a class="pill small" href="#strikeforce"><span>See the work</span><i class="arr"><svg aria-hidden="true"><use href="#i-arr"/></svg></i></a></div>
-        </div>
-        <div class="win-cols">
-          <div class="win-col win-prob"><h4>The problems</h4><ul><li>Every online order was copied to a former contractor.</li><li>41 Cyber Monday tickets were coded by hand.</li><li>Site work was paid to a team overseas.</li></ul></div>
-          <div class="win-col win-ai"><h4>How AI solved them</h4><ul><li>The leak closed. Orders reach only the business.</li><li>A ticket gets its code the moment payment clears.</li><li>An AI assistant on both sites answers prices at any hour.</li></ul></div>
-          <div class="win-col win-learn"><h4>What the team learned</h4><ul><li>Pick up each chat lead from email: name, phone, question.</li><li>Check the last 30 leads on the site’s dashboard.</li></ul></div>
+      <article class="bz bz-cine" id="b-cab">
+        <figure class="bz-fig"><img src="assets/img/cab-wide.webp" width="1800" height="945" alt="A photoreal render of an elevator cab with the door open, seen from the lobby" loading="lazy" decoding="async"></figure>
+        <div class="bz-text">
+          <p class="bz-who"><b>CNS Elevator Cabs</b><span>Elevator cab maker, Brooklyn</span></p>
+          <h3>No signed drawings, no job.</h3>
+          <p><b>Before:</b> a drawing set for the building took a week, and the drafter was far away.</p>
+          <p><b>Now:</b> plans, details, weights and renders come from one 3D model. Changes go back the same day.</p>
+          <p class="bz-res"><s>1 week</s><b>2 hours</b></p>
+          <a class="pill small" href="#cns"><span>See the work</span><i class="arr"><svg aria-hidden="true"><use href="#i-arr"/></svg></i></a>
         </div>
       </article>
 
-      <article class="win paper" id="b-lb">
-        <div class="win-top">
-          <img class="win-pic" src="assets/img/lb-home.webp" width="1389" height="868" style="object-position:30% 40%" alt="lbuildny.com home page" loading="lazy" decoding="async">
-          <div class="win-name"><h3>L-Construction Group</h3><p>General contractor, New York City</p></div>
-          <div class="win-res"><p class="win-big">0 → 6 channels</p><a class="pill small" href="#lconstruction"><span>See the work</span><i class="arr"><svg aria-hidden="true"><use href="#i-arr"/></svg></i></a></div>
-        </div>
-        <div class="win-cols">
-          <div class="win-col win-prob"><h4>The problems</h4><ul><li>Houses built since 2015, and nothing online.</li><li>Nothing to send a client who asks to see the work.</li></ul></div>
-          <div class="win-col win-ai"><h4>How AI solved them</h4><ul><li>lbuildny.com built from zero, projects 2015 to 2026.</li><li>Six channels set up under one name.</li><li>A free estimate request right on the site.</li></ul></div>
-          <div class="win-col win-learn"><h4>What the team learned</h4><ul><li>Text a client one link with every channel on it.</li></ul></div>
+      <article class="bz bz-split bz-flip alt" id="b-sf">
+        <figure class="bz-fig"><img src="assets/img/sf-li-chat.webp" width="1389" height="868" alt="The Strike Force site with its AI assistant open" loading="lazy" decoding="async"></figure>
+        <div class="bz-text">
+          <p class="bz-who"><b>Strike Force</b><span>Two game venues, Long Island and New Jersey</span></p>
+          <h3>Every online order went to an outsider.</h3>
+          <p><b>Before:</b> each order was copied to a former contractor. On Cyber Monday, 41 tickets were coded by hand.</p>
+          <p class="bz-res"><s>by hand</s><b>automatic</b></p>
+          <p><b>Now:</b> the leak is closed. A ticket code goes out the moment the payment clears.</p>
+          <a class="pill small" href="#strikeforce"><span>See the work</span><i class="arr"><svg aria-hidden="true"><use href="#i-arr"/></svg></i></a>
         </div>
       </article>
 
-      <article class="win paper" id="b-app">
-        <div class="win-top">
-          <img class="win-pic" src="assets/img/app-board.webp" width="1560" height="1034" style="object-position:50% 30%" alt="Three screens of a private client app" loading="lazy" decoding="async">
-          <div class="win-name"><h3>A private client</h3><p>Meals and training, Brooklyn</p></div>
-          <div class="win-res"><p class="win-big">nothing → one app</p><a class="pill small" href="#work-app"><span>See the work</span><i class="arr"><svg aria-hidden="true"><use href="#i-arr"/></svg></i></a></div>
+      <article class="bz bz-duo" id="b-lb">
+        <div class="bz-text">
+          <p class="bz-who"><b>L-Construction Group</b><span>General contractor, New York City</span></p>
+          <h3>Clients look a builder up before they call.</h3>
+          <p><b>Before:</b> houses built since 2015, and nothing online to show for it.</p>
+          <p class="bz-res"><s>nothing</s><b>6 channels</b></p>
+          <p><b>Now:</b> a website from zero and six channels under one name, with one link to text a client.</p>
+          <a class="pill small" href="#lconstruction"><span>See the work</span><i class="arr"><svg aria-hidden="true"><use href="#i-arr"/></svg></i></a>
         </div>
-        <div class="win-cols">
-          <div class="win-col win-prob"><h4>The problems</h4><ul><li>Meals and training, with no record of either.</li><li>When nothing is written down, something gets missed.</li></ul></div>
-          <div class="win-col win-ai"><h4>How AI solved them</h4><ul><li>One private phone app: menu, deliveries, sessions.</li><li>Each dish shows calories, protein and ingredients.</li></ul></div>
-          <div class="win-col win-learn"><h4>What the client learned</h4><ul><li>Pick next week’s dishes in the app by Thursday 9 PM.</li><li>Check every delivery and session in the same app.</li></ul></div>
+        <div class="bz-pair">
+          <figure class="bz-fig"><img src="assets/img/lb-home.webp" width="1389" height="868" alt="lbuildny.com home page" loading="lazy" decoding="async"></figure>
+          <figure class="bz-fig bz-phone"><img src="assets/img/lb-links.webp" width="500" height="900" alt="The one-link page with every channel" loading="lazy" decoding="async"></figure>
+        </div>
+      </article>
+
+      <article class="bz bz-phones paper" id="b-app">
+        <div class="bz-text">
+          <p class="bz-who"><b>A private client</b><span>Meals and training, Brooklyn</span></p>
+          <h3>When nothing is written down, something gets missed.</h3>
+          <p><b>Before:</b> meals and training for one client, with no record of either.</p>
+          <p class="bz-res"><s>nothing</s><b>one app</b></p>
+          <p><b>Now:</b> next week's menu, deliveries and every session in one private app.</p>
+          <a class="pill small" href="#work-app"><span>See the work</span><i class="arr"><svg aria-hidden="true"><use href="#i-arr"/></svg></i></a>
+        </div>
+        <div class="bz-ph">
+          <figure class="bz-fig"><img src="assets/img/app-menu.webp" width="750" height="1624" alt="The app's menu screen" loading="lazy" decoding="async"></figure>
+          <figure class="bz-fig"><img src="assets/img/app-dish.webp" width="750" height="1624" alt="A dish with calories, protein and ingredients" loading="lazy" decoding="async"></figure>
         </div>
       </article>
 
