@@ -27,18 +27,12 @@
       </div>
       <p class="hero2-note">The first meeting is free.</p>
     </div>
-    <div class="ba hero-ba" id="results">
-      <p class="ba-title">Five real jobs. Drag to compare.</p>
-      <div class="ba" id="ba">
-        <div class="ba-head"><span>Before</span><input type="range" id="ba-range" min="0" max="100" value="0" aria-label="Slide from before to after"><span>After</span></div>
-      <ol class="ba-rows">
-      <li data-b="1" data-a="0.01"><a href="#nykhdc"><span class="ba-what"><b>A priced kitchen in 3D</b><small>Kitchen showroom</small></span><span class="ba-bar"><i></i></span><span class="ba-val"><s>days</s><b>minutes</b></span></a></li>
-      <li data-b="1" data-a="0.03"><a href="#cns"><span class="ba-what"><b>An approval drawing set</b><small>Elevator cab maker</small></span><span class="ba-bar"><i></i></span><span class="ba-val"><s>1 week</s><b>2 hours</b></span></a></li>
-      <li data-b="1" data-a="0.06"><a href="#nykhdc"><span class="ba-what"><b>First reply to a website request</b><small>Kitchen showroom</small></span><span class="ba-bar"><i></i></span><span class="ba-val"><s>lost</s><b>48 min</b></span></a></li>
-      <li data-b="1" data-a="0.0"><a href="#strikeforce"><span class="ba-what"><b>Ticket codes on Cyber Monday</b><small>Game venues, NY + NJ</small></span><span class="ba-bar"><i></i></span><span class="ba-val"><s>by hand</s><b>automatic</b></span></a></li>
-      <li data-b="1" data-a="0.0"><a href="#nykhdc"><span class="ba-what"><b>Design software</b><small>Kitchen showroom</small></span><span class="ba-bar"><i></i></span><span class="ba-val"><s>$2,000 / yr</s><b>$0</b></span></a></li>
-      </ol>
-      </div>
+    <div class="hero-wall" id="results" aria-label="Five real jobs">
+      <a class="hw hw-cab" href="#b-cab"><img src="assets/img/cab-inside.webp" width="1600" height="1100" alt="A photoreal render inside an elevator cab" decoding="async"><span><small>Elevator cab maker</small><b>1 week → 2 hours</b></span></a>
+      <a class="hw hw-kit" href="#b-kitchen"><img src="assets/img/pl-k_09.webp" width="1158" height="962" alt="A kitchen in the online 3D builder" decoding="async"><span><small>Kitchen showroom</small><b>days → minutes</b></span></a>
+      <a class="hw hw-sf" href="#b-sf"><img src="assets/img/sf-nj.webp" width="1389" height="868" alt="The Strike Force New Jersey website" decoding="async"><span><small>Game venues</small><b>by hand → automatic</b></span></a>
+      <a class="hw hw-lb" href="#b-lb"><img src="assets/img/lb-projects.webp" width="1389" height="868" alt="lbuildny.com projects page" decoding="async"><span><small>Builder</small><b>0 → 6 channels</b></span></a>
+      <a class="hw hw-app" href="#b-app"><img src="assets/img/app-board.webp" width="1560" height="1034" alt="Three screens of a private client app" decoding="async"><span><small>Private client</small><b>nothing → one app</b></span></a>
     </div>
   </div></section>
 
@@ -46,8 +40,8 @@
     <h2 class="h2b">Different businesses, different bottlenecks</h2>
     <div class="bzs">
 
-      <article class="bz bz-split">
-        <figure class="bz-fig"><img src="assets/img/pl-k_09.webp" width="1158" height="962" alt="The kitchen builder: a navy L-shaped kitchen in 3D" loading="lazy" decoding="async"></figure>
+      <article class="bz bz-split" id="b-kitchen">
+        <figure class="bz-fig"><img src="assets/img/ui-pl-full-kitchen.webp" width="1600" height="1111" alt="The online kitchen builder: shape, sizes and a 3D view" loading="lazy" decoding="async"></figure>
         <div class="bz-text">
           <p class="bz-who"><b>NY Kitchen &amp; Home Design Center</b><span>Kitchen showroom, Brooklyn</span></p>
           <h3>The price is where a kitchen gets sold.</h3>
@@ -58,7 +52,7 @@
         </div>
       </article>
 
-      <article class="bz bz-cine">
+      <article class="bz bz-cine" id="b-cab">
         <figure class="bz-fig"><img src="assets/img/cab-wide.webp" width="1800" height="945" alt="A photoreal render of an elevator cab with the door open, seen from the lobby" loading="lazy" decoding="async"></figure>
         <div class="bz-text">
           <p class="bz-who"><b>CNS Elevator Cabs</b><span>Elevator cab maker, Brooklyn</span></p>
@@ -70,7 +64,7 @@
         </div>
       </article>
 
-      <article class="bz bz-split bz-flip alt">
+      <article class="bz bz-split bz-flip alt" id="b-sf">
         <figure class="bz-fig"><img src="assets/img/sf-li-chat.webp" width="1389" height="868" alt="The Strike Force site with its AI assistant open" loading="lazy" decoding="async"></figure>
         <div class="bz-text">
           <p class="bz-who"><b>Strike Force</b><span>Two game venues, Long Island and New Jersey</span></p>
@@ -82,7 +76,7 @@
         </div>
       </article>
 
-      <article class="bz bz-duo">
+      <article class="bz bz-duo" id="b-lb">
         <div class="bz-text">
           <p class="bz-who"><b>L-Construction Group</b><span>General contractor, New York City</span></p>
           <h3>Clients look a builder up before they call.</h3>
@@ -97,7 +91,7 @@
         </div>
       </article>
 
-      <article class="bz bz-phones paper">
+      <article class="bz bz-phones paper" id="b-app">
         <div class="bz-text">
           <p class="bz-who"><b>A private client</b><span>Meals and training, Brooklyn</span></p>
           <h3>When nothing is written down, something gets missed.</h3>

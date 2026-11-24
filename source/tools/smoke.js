@@ -50,15 +50,13 @@ const B = 'http://127.0.0.1:8793/';
     ok('typeface file is loaded', await page.evaluate(async () => { await document.fonts.ready; return document.fonts.check('600 20px Geist'); }));
     ok('no first-person copy', await page.evaluate(() => { const t = [...document.querySelectorAll('main *:not(script)')].filter(e => !e.closest('blockquote') && e.children.length === 0).map(e => e.textContent).join(' \n '); return !/(^|[^A-Za-z])(I|I'm|I've|my|me|we|our)([^A-Za-z]|$)/.test(t.replace(/My CV/g, '')); }));
     ok('every in-page link has a target', await page.evaluate(() => { const views = [...document.querySelectorAll('.view')].map(v => v.dataset.view); return [...document.querySelectorAll('a[href^="#"]')].map(a => a.getAttribute('href').slice(1)).filter(h => h && !views.includes(h) && !document.getElementById(h) && !['c1','c2','c3','c4','c5','c6'].includes(h)); }).then(b => b.length === 0 || (fails.push('dead links ' + b.join(',')), false)));
-    /* before and after */
-    ok('five before-after rows', await page.evaluate(() => document.querySelectorAll('.ba-rows li').length === 5));
-    ok('before-after is on the first screen', await page.evaluate(() => { const r = document.querySelector('#ba').getBoundingClientRect(); return r.top < innerHeight * .9; }));
-    await page.waitForTimeout(3000);
-    ok('slider plays to after by itself once seen', await page.evaluate(() => +document.querySelector('#ba-range').value === 100 && document.querySelector('#ba').classList.contains('after')));
-    ok('after: every bar is short', await page.evaluate(() => [...document.querySelectorAll('.ba-bar i')].every(i => i.getBoundingClientRect().width <= i.parentElement.getBoundingClientRect().width * .07)));
-    { const r = await (await page.$('#ba-range')).boundingBox(); await page.mouse.click(r.x + 4, r.y + r.height / 2); await page.waitForTimeout(500); }
-    ok('drag to before: bars full, before values shown', await page.evaluate(() => +document.querySelector('#ba-range').value < 5 && !document.querySelector('#ba').classList.contains('after') && [...document.querySelectorAll('.ba-bar i')].every(i => i.getBoundingClientRect().width >= i.parentElement.getBoundingClientRect().width * .9)));
-    ok('values say days, 1 week, lost, by hand, $2,000', await page.evaluate(() => [...document.querySelectorAll('.ba-val s')].map(s => s.textContent).join('|') === 'days|1 week|lost|by hand|$2,000 / yr'));
+    /* first screen: real work */
+    ok('no sliders on the home page', await page.evaluate(() => !document.querySelector('.view[data-view=home] input[type=range]')));
+    ok('first screen shows five pictures of real work, each with its result', await page.evaluate(() => { const t = [...document.querySelectorAll('.hero-wall .hw')]; return t.length === 5 && t.every(a => a.querySelector('img') && a.querySelector('b').textContent.includes('→') && document.getElementById(a.getAttribute('href').slice(1))); }));
+    ok('the pictures are on the first screen', await page.evaluate(() => document.querySelector('.hero-wall').getBoundingClientRect().top < innerHeight * .6));
+    await page.click('.hw-cab'); await page.waitForTimeout(1200);
+    ok('a picture leads to its business block', Math.abs(await topOf(page, '#b-cab') - 76) < 90, await topOf(page, '#b-cab'));
+    await page.evaluate(() => scrollTo({ top: 0, behavior: 'instant' }));
     /* problem, fix, result */
     ok('five businesses, each its own block with a picture, a bottleneck and a result', await page.evaluate(() => { const b = [...document.querySelectorAll('.bz')]; return b.length === 5 && b.every(x => x.querySelector('.bz-fig img') && x.querySelector('h3').textContent.trim().length > 10 && x.querySelector('.bz-res b').textContent.trim() && x.querySelector('a[href^="#"]')); }));
     ok('not one template: at least four different block layouts', await page.evaluate(() => new Set([...document.querySelectorAll('.bz')].map(b => [...b.classList].filter(c => c !== 'bz').sort().join(' '))).size >= 4));
@@ -81,7 +79,7 @@ const B = 'http://127.0.0.1:8793/';
     ok('showroom page: the kitchen draws itself', await page.evaluate(() => !!document.querySelector('#stage3d canvas')));
     await page.waitForTimeout(6500); ok('kitchen finishes and shows the estimate', await page.evaluate(() => +document.querySelector('#scrub').value === 1000 && document.querySelector('#stage').classList.contains('priced')));
     /* links that used to point into the long page still land somewhere useful */
-    for (const [old, v, id] of [['c1', 'nykhdc', null], ['c2', 'cns', null], ['c6', 'about', 'work-app'], ['faq', 'about', 'faq'], ['workshop', 'about', 'workshop'], ['skills', 'about', 'skills'], ['pages', 'about', 'pages'], ['builder', 'about', 'builder'], ['what', 'home', 'fixes'], ['best', 'home', 'results']]) {
+    for (const [old, v, id] of [['c1', 'nykhdc', null], ['c2', 'cns', null], ['c6', 'about', 'work-app'], ['faq', 'about', 'faq'], ['workshop', 'about', 'workshop'], ['skills', 'about', 'skills'], ['pages', 'about', 'pages'], ['builder', 'about', 'builder'], ['what', 'home', 'fixes'], ['best', 'home', 'fixes']]) {
       await hash(page, old, 1500); const top = id ? await topOf(page, '#' + id) : 0;
       ok('link #' + old + ' opens ' + v + (id ? ' at ' + id : ''), await view(page) === v && (!id || Math.abs(top - 76) < 90 || await page.evaluate(() => innerHeight + scrollY >= document.documentElement.scrollHeight - 4)), [await view(page), top]); }
     /* About view: everything else */
@@ -123,7 +121,6 @@ const B = 'http://127.0.0.1:8793/';
   /* ================= desktop, reduced motion ================= */
   { const { ctx, page } = await open({ viewport: { width: 1280, height: 800 }, reducedMotion: 'reduce' });
     await page.goto(B, { waitUntil: 'load' }); await page.waitForTimeout(500);
-    ok('calm: slider starts at after, nothing moves', await page.evaluate(() => +document.querySelector('#ba-range').value === 100 && document.querySelector('#ba').classList.contains('after')));
     await page.evaluate(() => { location.hash = 'nykhdc'; }); await page.waitForTimeout(600); await page.evaluate(() => document.querySelector('#stage3d').scrollIntoView({ block: 'center', behavior: 'instant' }));
     await page.waitForFunction(() => window.__hero, null, { timeout: 15000 }).catch(() => {}); await page.waitForTimeout(800);
     ok('calm: kitchen is already built', await page.evaluate(() => document.querySelector('#stage').classList.contains('priced')));

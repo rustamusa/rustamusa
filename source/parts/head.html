@@ -735,6 +735,33 @@ dialog.lb::backdrop{background:rgba(var(--veil),.92)}
 /* kitchen on a phone: the facts row is always there, no empty gap under the picture */
 @media (max-width:640px){.ticket{opacity:1!important;transform:none!important;color:var(--on)}.ticket dt{color:var(--on-2)}.ticket dd{font-size:1.05rem}}
 
+
+/* first screen: real work, one picture per business */
+.hero-wall{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-auto-rows:clamp(128px,11.5vw,176px);gap:10px}
+.hw{position:relative;display:block;border-radius:var(--r-sm);overflow:hidden;background:var(--dot-bg);text-decoration:none;box-shadow:0 24px 50px -30px rgba(0,0,0,.7)}
+.hw img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .5s var(--ease)}
+.hw:hover img{transform:scale(1.03)}
+.hw span{position:absolute;left:8px;bottom:8px;right:8px;width:fit-content;max-width:calc(100% - 16px);padding:8px 12px;border-radius:12px;background:rgba(var(--veil),.84);color:var(--veil-on)}
+.hw small{display:block;font:500 1rem/1.2 var(--sans);opacity:.85}
+.hw b{display:block;font:700 1.15rem/1.15 var(--sans);letter-spacing:-.02em;color:var(--accent);margin-top:3px}
+.hw-cab{grid-column:1/3;grid-row:1/3}
+.hw-kit{grid-column:3;grid-row:1}
+.hw-sf{grid-column:3;grid-row:2}
+.hw-lb{grid-column:1;grid-row:3}
+.hw-app{grid-column:2/4;grid-row:3}
+.hw-cab img{object-position:50% 60%}
+.hw-sf img,.hw-lb img{object-position:0 0}
+.hw-kit img{object-position:50% 40%}
+.hw:focus-visible{outline:2px solid var(--glow);outline-offset:3px}
+@media (max-width:640px){
+  .hero-wall{grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:150px}
+  .hw-cab{grid-column:1/3;grid-row:auto;height:auto}
+  .hw-cab{grid-row:span 2}
+  .hw-kit,.hw-sf,.hw-lb{grid-column:auto;grid-row:auto}
+  .hw-app{grid-column:auto;grid-row:auto}
+  .hw span{left:6px;bottom:6px;right:6px;max-width:calc(100% - 12px);padding:6px 10px}
+}
+@media (prefers-reduced-motion:reduce){.hw img{transition:none}}
 /* five businesses, each its own block and its own bottleneck */
 .bzs{display:grid;gap:clamp(20px,2.6vw,36px);margin-top:clamp(26px,3.6vw,44px)}
 .bz{position:relative;display:grid;grid-template-columns:minmax(0,1.08fr) minmax(0,.92fr);gap:clamp(22px,3.6vw,60px);align-items:center;border-radius:var(--r)}

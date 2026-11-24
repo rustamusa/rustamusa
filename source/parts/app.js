@@ -216,7 +216,7 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape' && sheet.clas
 
 /* ---------- pages and anchors ---------- */
 const VIEWS = ['home', 'about', 'design', 'nykhdc', 'cns', 'strikeforce', 'lconstruction'];
-const OLD = { best: 'results', services: 'skills', 'contact-home': 'contact', volunteer: 'me-sec', firstday: 'how', what: 'fixes', loop: 'fixes', c1: 'nykhdc', c2: 'cns', c3: 'nykhdc', c4: 'strikeforce', c5: 'lconstruction', c6: 'work-app', stage: 'nykhdc', words: 'words' };
+const OLD = { best: 'fixes', services: 'skills', 'contact-home': 'contact', volunteer: 'me-sec', firstday: 'how', what: 'fixes', loop: 'fixes', c1: 'nykhdc', c2: 'cns', c3: 'nykhdc', c4: 'strikeforce', c5: 'lconstruction', c6: 'work-app', stage: 'nykhdc', words: 'words' };
 const NAV = { cover: 'fixes', results: 'fixes', nykhdc: 'work', cns: 'work', strikeforce: 'work', lconstruction: 'work', design: 'work', words: 'work' };
 function mark(id){ const k = NAV[id] || id; $$('.nav a').forEach(a => { if (a.getAttribute('href') === '#' + k) a.setAttribute('aria-current', 'true'); else a.removeAttribute('aria-current'); }); }
 /* a link is a view (#cns) or any section inside a view (#faq opens About and scrolls there) */
@@ -267,19 +267,3 @@ function wire(form, msg, need, build, done){
 }
 wire($('#revform'), $('#revmsg'), ['name', 'review'], d => ({ name: d.get('name'), business: d.get('business') || '', rating: (d.get('rating') || '5') + ' / 5', review: d.get('review'), ok_to_publish: d.get('ok_to_publish') ? 'yes' : 'no', _subject: 'New review on mycv4u.com' }), 'Thank you. The review is on its way.');
 wire($('#shopform'), $('#shopmsg'), ['name', 'contact'], d => ({ name: d.get('name'), business: d.get('business') || '', contact: d.get('contact'), would_fix_first: d.get('problem') || '', language: d.get('language') || 'English', _subject: 'Workshop sign-up on mycv4u.com' }), 'Saved. The date and place will come by text.');
-
-/* ---------- before and after: one slider moves every row ---------- */
-(function(){
-  const box = $('#ba'), r = $('#ba-range'); if (!box || !r) return;
-  const rows = $$('.ba-rows li', box).map(li => ({ li, bar: $('.ba-bar i', li), b: +li.dataset.b, a: +li.dataset.a }));
-  const set = t => { box.style.setProperty('--t', t); box.classList.toggle('after', t > .5);
-    rows.forEach(o => { o.bar.style.width = (Math.max(o.b + (o.a - o.b) * t, 0) * 100).toFixed(2) + '%'; }); };
-  r.addEventListener('input', () => { played = true; set(r.value / 100); });
-  let played = false; set(0);
-  /* once, when it comes into view: slide to after by itself, so the point is made without a touch */
-  if (!calm && 'IntersectionObserver' in window) {
-    const io = new IntersectionObserver(es => { if (!es[0].isIntersecting || played) return; io.disconnect(); played = true;
-      const t0 = performance.now() + 900, D = 1800; const step = now => { const u = Math.min(1, Math.max(0, (now - t0) / D)), e = u < .5 ? 2 * u * u : 1 - Math.pow(-2 * u + 2, 2) / 2; r.value = Math.round(e * 100); set(e); if (u < 1) requestAnimationFrame(step); }; requestAnimationFrame(step); }, { threshold: .3 });
-    io.observe(box);
-  } else { r.value = 100; set(1); }
-})();
