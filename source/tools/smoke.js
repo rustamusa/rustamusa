@@ -52,7 +52,8 @@ const B = 'http://127.0.0.1:8793/';
     ok('every in-page link has a target', await page.evaluate(() => { const views = [...document.querySelectorAll('.view')].map(v => v.dataset.view); return [...document.querySelectorAll('a[href^="#"]')].map(a => a.getAttribute('href').slice(1)).filter(h => h && !views.includes(h) && !document.getElementById(h) && !['c1','c2','c3','c4','c5','c6'].includes(h)); }).then(b => b.length === 0 || (fails.push('dead links ' + b.join(',')), false)));
     /* before and after */
     ok('five before-after rows', await page.evaluate(() => document.querySelectorAll('.ba-rows li').length === 5));
-    await page.evaluate(() => document.querySelector('#ba').scrollIntoView({ block: 'center', behavior: 'instant' })); await page.waitForTimeout(2600);
+    ok('before-after is on the first screen', await page.evaluate(() => { const r = document.querySelector('#ba').getBoundingClientRect(); return r.top < innerHeight * .9; }));
+    await page.waitForTimeout(3000);
     ok('slider plays to after by itself once seen', await page.evaluate(() => +document.querySelector('#ba-range').value === 100 && document.querySelector('#ba').classList.contains('after')));
     ok('after: every bar is short', await page.evaluate(() => [...document.querySelectorAll('.ba-bar i')].every(i => i.getBoundingClientRect().width <= i.parentElement.getBoundingClientRect().width * .07)));
     { const r = await (await page.$('#ba-range')).boundingBox(); await page.mouse.click(r.x + 4, r.y + r.height / 2); await page.waitForTimeout(500); }

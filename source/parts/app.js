@@ -217,7 +217,7 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape' && sheet.clas
 /* ---------- pages and anchors ---------- */
 const VIEWS = ['home', 'about', 'design', 'nykhdc', 'cns', 'strikeforce', 'lconstruction'];
 const OLD = { best: 'results', services: 'skills', 'contact-home': 'contact', volunteer: 'me-sec', firstday: 'how', what: 'loop', c1: 'nykhdc', c2: 'cns', c3: 'nykhdc', c4: 'strikeforce', c5: 'lconstruction', c6: 'work-app', stage: 'nykhdc', words: 'words' };
-const NAV = { cover: 'results', nykhdc: 'work', cns: 'work', strikeforce: 'work', lconstruction: 'work', design: 'work', words: 'work' };
+const NAV = { cover: 'loop', results: 'loop', nykhdc: 'work', cns: 'work', strikeforce: 'work', lconstruction: 'work', design: 'work', words: 'work' };
 function mark(id){ const k = NAV[id] || id; $$('.nav a').forEach(a => { if (a.getAttribute('href') === '#' + k) a.setAttribute('aria-current', 'true'); else a.removeAttribute('aria-current'); }); }
 /* a link is a view (#cns) or any section inside a view (#faq opens About and scrolls there) */
 function route(){
@@ -279,7 +279,7 @@ wire($('#shopform'), $('#shopmsg'), ['name', 'contact'], d => ({ name: d.get('na
   /* once, when it comes into view: slide to after by itself, so the point is made without a touch */
   if (!calm && 'IntersectionObserver' in window) {
     const io = new IntersectionObserver(es => { if (!es[0].isIntersecting || played) return; io.disconnect(); played = true;
-      const t0 = performance.now() + 500, D = 1600; const step = now => { const u = Math.min(1, Math.max(0, (now - t0) / D)), e = u < .5 ? 2 * u * u : 1 - Math.pow(-2 * u + 2, 2) / 2; r.value = Math.round(e * 100); set(e); if (u < 1) requestAnimationFrame(step); }; requestAnimationFrame(step); }, { threshold: .5 });
+      const t0 = performance.now() + 900, D = 1800; const step = now => { const u = Math.min(1, Math.max(0, (now - t0) / D)), e = u < .5 ? 2 * u * u : 1 - Math.pow(-2 * u + 2, 2) / 2; r.value = Math.round(e * 100); set(e); if (u < 1) requestAnimationFrame(step); }; requestAnimationFrame(step); }, { threshold: .3 });
     io.observe(box);
   } else { r.value = 100; set(1); }
 })();

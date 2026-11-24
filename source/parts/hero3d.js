@@ -124,13 +124,14 @@
     const sm = (x, a, b) => { const t = Math.min(1, Math.max(0, (x - a) / (b - a))); return t * t * (3 - 2 * t); };
     const out = t => 1 - Math.pow(1 - t, 3);
     let p = calm ? 1 : 0, auto = !calm, t0 = 0, dragA = 0, dragB = 0, W = 1, H = 1, seen = !('IntersectionObserver' in window), begun = seen, tick = 0;
-    if (range) range.value = Math.round(p * 1000);
+    const P0 = .3, toV = x => Math.round(Math.max(0, (x - P0) / (1 - P0)) * 1000);   /* the slider runs from the finished plan to the finished room */
+    if (range) range.value = toV(p);
     const beside = matchMedia('(min-width:641px)');   /* on wide screens the estimate lies over the right corner, so the room moves a little left as it stands up */
     const tmp = new T.Vector3();
     function fit(){ W = host.clientWidth; H = host.clientHeight; if (!W || !H) return; R.setSize(W, H, false); cam.aspect = W / H; cam.updateProjectionMatrix(); }
     function frame(now){
       requestAnimationFrame(frame); if (!seen) return; if (!W || !H) { fit(); return; }
-      if (auto && begun){ if (!t0) t0 = now + 350; const u = Math.min(1, Math.max(0, (now - t0) / 5200)); p = u < .5 ? 2 * u * u : 1 - Math.pow(-2 * u + 2, 2) / 2; if (range) range.value = Math.round(p * 1000); if (u >= 1) auto = false; }
+      if (auto && begun){ if (!t0) t0 = now + 350; const u = Math.min(1, Math.max(0, (now - t0) / 5200)); p = u < .5 ? 2 * u * u : 1 - Math.pow(-2 * u + 2, 2) / 2; if (range) range.value = toV(p); if (u >= 1) auto = false; }
       const draw = sm(p, 0, .3), c = out(sm(p, .26, .78)), up = sm(p, .3, .44);
       planSolid.geometry.setDrawRange(0, Math.floor(nSolid * draw / 2) * 2); planDash.geometry.setDrawRange(0, Math.floor(nDash * sm(p, .12, .3) / 2) * 2);
       brassLine.opacity = .95 - .5 * sm(p, .5, .9); brassDash.opacity = .85 - .6 * sm(p, .5, .9); dimLine.opacity = .95 * sm(p, .16, .28) * (1 - up);
@@ -149,13 +150,13 @@
     }
     fit(); addEventListener('resize', fit); if ('ResizeObserver' in window) new ResizeObserver(fit).observe(host);
     if ('IntersectionObserver' in window) new IntersectionObserver(es => { const e = es[es.length - 1]; seen = e.isIntersecting; if (e.intersectionRatio >= .4) begun = true; }, { threshold: [0, .4] }).observe(host);
-    if (range) range.addEventListener('input', () => { auto = false; p = range.value / 1000; });
+    if (range) range.addEventListener('input', () => { auto = false; p = P0 + (1 - P0) * range.value / 1000; });
     /* drag to turn: sideways on touch (the page still scrolls), both ways with a mouse */
     let down = null;
     host.addEventListener('pointerdown', e => { down = { x: e.clientX, y: e.clientY, a: dragA, b: dragB, m: e.pointerType === 'mouse' }; host.setPointerCapture && host.setPointerCapture(e.pointerId); });
     host.addEventListener('pointermove', e => { if (!down) return; dragA = Math.min(.95, Math.max(-1.25, down.a - (e.clientX - down.x) * .006)); if (down.m) dragB = Math.min(.32, Math.max(-.55, down.b - (e.clientY - down.y) * .004)); });
     ['pointerup', 'pointercancel', 'pointerleave'].forEach(n => host.addEventListener(n, () => { down = null; }));
-    window.__hero = { set: v => { auto = false; p = v; if (range) range.value = Math.round(v * 1000); }, turn: (a, b) => { dragA = a; dragB = b || 0; }, snap: () => { R.render(scene, cam); return R.domElement.toDataURL('image/png'); } };
+    window.__hero = { set: v => { auto = false; p = v; if (range) range.value = toV(v); }, turn: (a, b) => { dragA = a; dragB = b || 0; }, snap: () => { R.render(scene, cam); return R.domElement.toDataURL('image/png'); } };
     requestAnimationFrame(frame);
   }
 })();
