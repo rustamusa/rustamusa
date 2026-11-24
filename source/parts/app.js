@@ -270,7 +270,9 @@ wire($('#shopform'), $('#shopmsg'), ['name', 'contact'], d => ({ name: d.get('na
 
 /* HOME: five businesses as tabs. Tap a tab or swipe the deck sideways. */
 (() => { const deck = $('#deck'); if (!deck) return; const tabs = $$('.btabs .btab'), cards = [...deck.children]; let cur = 0, tk;
-  const set = i => { cur = i; tabs.forEach((t, k) => { t.classList.toggle('on', k === i); t.setAttribute('aria-selected', k === i ? 'true' : 'false'); t.tabIndex = k === i ? 0 : -1; }); };
+  const strip = $('.btabs');
+  const set = i => { const moved = i !== cur; cur = i; tabs.forEach((t, k) => { t.classList.toggle('on', k === i); t.setAttribute('aria-selected', k === i ? 'true' : 'false'); t.tabIndex = k === i ? 0 : -1; });
+    if (moved && strip.scrollWidth > strip.clientWidth + 2) strip.scrollTo({ left: tabs[i].offsetLeft - (strip.clientWidth - tabs[i].offsetWidth) / 2, behavior: calm ? 'instant' : 'smooth' }); };
   const go = (i, smooth) => { i = Math.max(0, Math.min(cards.length - 1, i)); set(i); deck.scrollTo({ left: i * deck.clientWidth, behavior: smooth && !calm ? 'smooth' : 'instant' }); };
   tabs.forEach((t, i) => { t.addEventListener('click', () => go(i, true));
     t.addEventListener('keydown', e => { if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return; e.preventDefault(); const n = (i + (e.key === 'ArrowRight' ? 1 : -1) + tabs.length) % tabs.length; go(n, true); tabs[n].focus(); }); });

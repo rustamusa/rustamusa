@@ -861,24 +861,26 @@ dialog.lb::backdrop{background:rgba(var(--veil),.92)}
 
 /* HOME, one screen: the headline and the call button, then five businesses as tabs */
 .hero4{background:radial-gradient(60% 120% at 88% 0%,var(--hero-glow),transparent 62%)}
-.hero4-in{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:clamp(20px,4vw,64px);align-items:end;padding-block:clamp(18px,2.6vw,36px) clamp(14px,1.8vw,22px)}
+.hero4-in{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:clamp(20px,3vw,48px);align-items:end;padding-block:clamp(14px,1.8vw,26px) clamp(10px,1.2vw,16px)}
 .hero4 h1{font:650 clamp(2.1rem,4.1vw,3.7rem)/1 var(--sans);letter-spacing:-.05em;max-width:17ch;text-wrap:balance}
 .hero4 .hero2-lede{margin-top:12px;font-size:clamp(1.1rem,1.5vw,1.35rem);max-width:none}
 .hero4-cta{display:grid;justify-items:end;gap:10px}
 .hero4 .hero2-note{margin:0}
 .tabsec{padding-block:clamp(8px,1vw,14px) clamp(20px,2.4vw,32px)}
 .btabs-h{font:600 clamp(1.15rem,1.5vw,1.35rem)/1.25 var(--sans);letter-spacing:-.02em;color:var(--on-2)}
-.btabs{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;margin-top:10px}
-.btab{display:flex;align-items:center;gap:10px;min-width:0;padding:6px 12px 6px 6px;border-radius:999px;border:1px solid var(--rule-2);background:var(--well);color:var(--on);font:inherit;text-align:left;cursor:pointer;transition:background .2s,border-color .2s,color .2s}
-.btab img{flex:none;width:46px;height:46px;border-radius:50%;object-fit:cover}
-.btab > span{min-width:0}
-.btab small{display:block;font:500 1rem/1.2 var(--sans);color:var(--on-2)}
-.btab b{display:block;font:700 1rem/1.25 var(--sans);letter-spacing:-.02em}
+.btabs{position:relative;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:clamp(8px,1vw,14px);margin-top:10px}
+.btab{position:relative;display:block;min-width:0;aspect-ratio:2/1;padding:0;border:0;border-radius:14px;overflow:hidden;background:var(--page-lo);font:inherit;text-align:left;cursor:pointer;opacity:.62;transition:opacity .2s,box-shadow .2s}
+.btab img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.btab > span{position:absolute;left:0;right:0;bottom:0;padding:30px 12px 10px;background:linear-gradient(180deg,rgba(var(--veil),0),rgba(var(--veil),.94) 58%)}
+.btab small{display:block;font:500 1rem/1.2 var(--sans);color:var(--veil-on)}
+.btab b{display:block;margin-top:2px;font:700 clamp(1rem,1.3vw,1.2rem)/1.2 var(--sans);letter-spacing:-.02em;color:var(--glow)}
 .btab .t-s{display:none}
-.btab:hover{border-color:var(--on)}
-.btab.on{background:var(--btn);border-color:var(--btn);color:var(--btn-on)}
-.btab.on small{color:inherit}
-.btab:focus-visible{outline:2px solid var(--glow);outline-offset:3px}
+.btab:hover{opacity:1}
+.btab.on{opacity:1;box-shadow:0 0 0 3px var(--glow)}
+.btab:focus-visible{outline:2px solid var(--glow);outline-offset:5px}
+.hero4-soc{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:8px;max-width:25rem}
+.hero4-soc .chip{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding-inline:13px;text-decoration:none}
+.hero4-soc .chip svg{width:18px;height:18px;flex:none}
 .deck{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;overscroll-behavior-x:contain;margin-top:clamp(14px,1.8vw,24px)}
 .deck::-webkit-scrollbar{display:none}
 .deck > .bz{flex:0 0 100%;min-width:0;scroll-snap-align:start;scroll-snap-stop:always}
@@ -895,18 +897,20 @@ main:has(> .view[data-view=home].on) ~ .foot{display:none}
 .deck > .bz{align-content:start;align-items:start}
 .deck .bz-ph .bz-fig{width:clamp(110px,11vw,158px)}
 @media (max-width:900px){
-  .btabs{gap:5px}
-  .btab{flex-direction:column;gap:5px;padding:6px 2px 7px;border-radius:16px;text-align:center}
-  .btab img{width:44px;height:44px}
-  .btab b,.btab .t-l{display:none}
-  .btab .t-s{display:inline}
+  .btabs{display:flex;overflow-x:auto;scroll-snap-type:x proximity;scrollbar-width:none;gap:8px;padding:4px;margin-inline:-4px}
+  .btabs::-webkit-scrollbar{display:none}
+  .btab{flex:0 0 clamp(150px,42vw,200px);aspect-ratio:16/10;scroll-snap-align:start}
   .deck .bz-story{grid-template-columns:minmax(0,1fr)}
 }
 @media (max-width:640px){
-  .hero4-in{grid-template-columns:minmax(0,1fr);gap:14px;padding-block:14px 8px}
+  .hero4-in{grid-template-columns:minmax(0,1fr);gap:10px;padding-block:10px 4px}
   .hero4 h1{font-size:clamp(1.9rem,8.4vw,2.3rem)}
   .hero4 .hero2-lede{font-size:1.05rem;margin-top:8px}
-  .hero4-cta{justify-items:start}
+  .hero4-cta{justify-items:start;gap:8px}
+  .hero4-soc{justify-content:flex-start;max-width:none;gap:8px}
+  .hero4-soc .chip{width:46px;height:46px;min-height:0;padding:0;justify-content:center;border-radius:50%}
+  .hero4-soc .chip span,.wide-only{display:none}
+  .hero4-soc .chip svg{width:20px;height:20px}
   .deck .bz-second{display:none}
   .deck .bz-pair.two{padding:0}
   .deck .bz-site img{aspect-ratio:2/1}
@@ -917,7 +921,7 @@ main:has(> .view[data-view=home].on) ~ .foot{display:none}
   .deck .bz-cine .bz-fig img{aspect-ratio:2/1}
   .deck .bz-who span{display:none}
   .deck .bz.alt{padding:14px}
-  .view[data-view=home]{padding-bottom:84px}
+  .view[data-view=home]{padding-bottom:72px}
 }
 
 /* five projects on one timeline */
