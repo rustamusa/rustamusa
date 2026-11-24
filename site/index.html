@@ -1,0 +1,867 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>My CV</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="A Brooklyn kitchen salesman who builds AI tools for four New York small businesses: an online kitchen builder, elevator cab drawings, AI assistants on three websites, and a contractor's site from zero.">
+<meta property="og:title" content="My CV · AI for Brooklyn small business">
+<meta property="og:description" content="I sell kitchens in Brooklyn. Then I build the software that sells them. Four local businesses, three websites run in parallel.">
+<meta property="og:image" content="https://mycv4u.com/assets/og.png">
+<meta property="og:url" content="https://mycv4u.com/">
+<link rel="canonical" href="https://mycv4u.com/">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23141414'/%3E%3Ctext x='32' y='45' font-family='Georgia,serif' font-size='40' text-anchor='middle' fill='%23F7F5F0'%3ER%3C/text%3E%3Ccircle cx='49' cy='44' r='4' fill='%23D2643A'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --bg:#F7F5F0; --surface:#FFFFFF; --ink:#141414; --ink-2:#5F5B54; --ink-3:#8D887F; --line:#E5E1D8; --soft:#EFECE5;
+  --accent:#B8461F; --accent-soft:#F4E3DA;
+  --nk:#1E6B47; --cns:#5A6672; --sf:#C2931A; --lb:#B06A33;
+  --serif:"Instrument Serif", "Iowan Old Style", Georgia, "Times New Roman", serif;
+  --sans:"Inter", "Segoe UI", system-ui, -apple-system, Helvetica, Arial, sans-serif;
+  --mono:"JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  --r:18px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0F0F0E; --surface:#181816; --ink:#EEEBE4; --ink-2:#A8A399; --ink-3:#77736B; --line:#2A2926; --soft:#1F1E1C;
+  --accent:#E2784F; --accent-soft:#2E1E17; --nk:#4FB585; --cns:#9AA7B3; --sf:#E1B53F; --lb:#D9925A; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0F0F0E; --surface:#181816; --ink:#EEEBE4; --ink-2:#A8A399; --ink-3:#77736B; --line:#2A2926; --soft:#1F1E1C;
+  --accent:#E2784F; --accent-soft:#2E1E17; --nk:#4FB585; --cns:#9AA7B3; --sf:#E1B53F; --lb:#D9925A; color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.65 var(--sans);-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:31;background:var(--bg)}
+.wrap{max-width:1180px;margin:0 auto;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+a{color:inherit}
+a:focus-visible,button:focus-visible,iframe:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:6px}
+h1,h2,h3{margin:0;text-wrap:balance;font-weight:400}
+p{margin:0}
+.eyebrow{font:500 12px/1.4 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--c,var(--accent));margin-right:8px;vertical-align:1px}
+
+/* header */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:30;background:color-mix(in srgb,var(--bg) 82%,transparent);backdrop-filter:saturate(1.4) blur(14px);-webkit-backdrop-filter:saturate(1.4) blur(14px);border-bottom:1px solid transparent;transition:border-color .3s}
+.top.scrolled{border-bottom-color:var(--line)}
+.top .wrap{display:flex;align-items:center;gap:24px;min-height:64px}
+.brand{display:flex;align-items:baseline;gap:10px;text-decoration:none;flex:none}
+.brand b{font:400 26px/1 var(--serif);letter-spacing:-.01em}
+.brand span{font:500 11px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.nav{display:flex;gap:2px;margin-left:auto;overflow-x:auto;scrollbar-width:none;min-width:0}
+.nav::-webkit-scrollbar{display:none}
+.nav a{font:500 14px/1 var(--sans);text-decoration:none;color:var(--ink-2);padding:10px 13px;border-radius:999px;white-space:nowrap;transition:color .2s,background .2s}
+.nav a:hover{color:var(--ink);background:var(--soft)}
+.nav a[aria-current="page"]{color:var(--bg);background:var(--ink)}
+
+/* views */
+.view{display:none}
+.view.on{display:block;animation:enter .6s cubic-bezier(.2,.7,.2,1) both}
+@keyframes enter{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.rv{opacity:0;transform:translateY(22px);transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1)}
+.rv.in{opacity:1;transform:none}
+@media (prefers-reduced-motion: reduce){.view.on{animation:none}.rv{opacity:1;transform:none;transition:none}}
+section{padding-block:clamp(56px,9vw,120px)}
+section + section{padding-top:0}
+
+/* hero */
+.hero{padding-top:clamp(48px,8vw,104px);padding-bottom:clamp(40px,6vw,72px)}
+.hero h1{font:400 clamp(44px,7.6vw,104px)/.98 var(--serif);letter-spacing:-.025em;margin-top:22px;max-width:14ch}
+.hero h1 em{font-style:italic;color:var(--accent)}
+.hero .lede{max-width:56ch;margin-top:28px;font-size:clamp(17px,1.5vw,19px);color:var(--ink-2)}
+.actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:34px}
+.btn{display:inline-flex;align-items:center;gap:10px;font:500 15px/1 var(--sans);padding:15px 22px;border-radius:999px;border:1px solid var(--ink);background:var(--ink);color:var(--bg);text-decoration:none;cursor:pointer;transition:transform .25s,background .25s,color .25s}
+.btn:hover{transform:translateY(-2px)}
+.btn.ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+.btn.ghost:hover{border-color:var(--ink)}
+.btn .arr{transition:transform .25s}
+.btn:hover .arr{transform:translateX(3px)}
+
+.stage{position:relative;border-radius:calc(var(--r) + 8px);background:var(--surface);border:1px solid var(--line);padding:10px;box-shadow:0 1px 0 var(--line),0 40px 80px -40px rgba(20,20,20,.28)}
+.stage iframe{display:block;width:100%;height:clamp(440px,62vw,700px);border:0;border-radius:var(--r);background:#fff}
+.stage .cap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 16px;padding:14px 8px 4px;font-size:14px;color:var(--ink-2)}
+.stage .cap a{color:var(--ink);font-weight:500;text-decoration:none;border-bottom:1px solid var(--line)}
+.stage .cap a:hover{border-color:var(--ink)}
+.live{display:inline-flex;align-items:center;gap:8px;font:500 12px/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--ink)}
+.live i{width:8px;height:8px;border-radius:50%;background:#2FA36B;box-shadow:0 0 0 0 rgba(47,163,107,.5);animation:pulse 2s infinite}
+@keyframes pulse{70%{box-shadow:0 0 0 9px rgba(47,163,107,0)}100%{box-shadow:0 0 0 0 rgba(47,163,107,0)}}
+
+/* numbers */
+.nums{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:1px solid var(--line)}
+.num{padding:28px 24px 0 0;min-width:0}
+.num + .num{padding-left:24px;border-left:1px solid var(--line)}
+.num b{display:block;font:400 clamp(42px,5vw,68px)/1 var(--serif);letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.num span{display:block;margin-top:10px;font-size:14.5px;color:var(--ink-2);max-width:26ch}
+
+/* section heads */
+.sh{display:flex;flex-wrap:wrap;align-items:end;justify-content:space-between;gap:16px 32px;margin-bottom:clamp(28px,4vw,48px)}
+.sh h2{font:400 clamp(36px,4.6vw,60px)/1.02 var(--serif);letter-spacing:-.02em;max-width:18ch}
+.sh p{max-width:44ch;color:var(--ink-2)}
+
+/* business cards */
+.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(16px,2.4vw,28px)}
+.card{display:flex;flex-direction:column;text-decoration:none;border-radius:var(--r);background:var(--surface);border:1px solid var(--line);overflow:hidden;transition:transform .45s cubic-bezier(.2,.7,.2,1),box-shadow .45s,border-color .3s}
+.card:hover{transform:translateY(-4px);box-shadow:0 30px 60px -36px rgba(20,20,20,.35);border-color:color-mix(in srgb,var(--ink) 18%,var(--line))}
+.card .img{aspect-ratio:16/10;overflow:hidden;background:var(--soft)}
+.card img{display:block;width:100%;height:100%;object-fit:cover;transition:transform 1.1s cubic-bezier(.2,.7,.2,1)}
+.card:hover img{transform:scale(1.035)}
+.card .body{padding:22px 24px 24px;display:flex;flex-direction:column;gap:8px;flex:1}
+.card h3{font:400 32px/1.05 var(--serif);letter-spacing:-.01em}
+.card p{color:var(--ink-2);font-size:15px}
+.card .more{margin-top:auto;padding-top:10px;font:500 14px/1 var(--sans);display:flex;align-items:center;gap:8px}
+.card .more span{transition:transform .25s}
+.card:hover .more span{transform:translateX(4px)}
+
+.band{border-radius:calc(var(--r) + 6px);background:var(--ink);color:var(--bg);padding:clamp(28px,5vw,56px);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:clamp(24px,4vw,56px);align-items:center}
+.band h2{font:400 clamp(34px,4.2vw,54px)/1.02 var(--serif);letter-spacing:-.02em}
+.band h2 em{font-style:italic;color:color-mix(in srgb,var(--accent) 70%,var(--bg))}
+.band ul{list-style:none;margin:0;padding:0;display:grid;gap:2px}
+.band li{display:grid;grid-template-columns:auto minmax(0,1fr);gap:16px;align-items:baseline;padding:16px 0;border-bottom:1px solid color-mix(in srgb,var(--bg) 16%,transparent)}
+.band li:last-child{border-bottom:0}
+.band li b{font:400 28px/1 var(--serif)}
+.band li span{color:color-mix(in srgb,var(--bg) 72%,transparent);font-size:15px}
+.band li strong{color:var(--bg);font-weight:500}
+
+.steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(16px,2.4vw,28px)}
+.step{border-top:1px solid var(--ink);padding-top:18px}
+.step i{font:400 italic 22px/1 var(--serif);color:var(--accent)}
+.step h3{font:400 28px/1.1 var(--serif);margin:10px 0 8px}
+.step p{color:var(--ink-2);font-size:15px;max-width:34ch}
+
+/* business page */
+.back{display:inline-flex;align-items:center;gap:8px;font:500 14px/1 var(--sans);color:var(--ink-2);text-decoration:none;margin-bottom:28px}
+.back:hover{color:var(--ink)}
+.bhead{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:clamp(24px,5vw,72px);align-items:end}
+.bhead h1{font:400 clamp(46px,7vw,96px)/.96 var(--serif);letter-spacing:-.025em;margin-top:16px}
+.bhead .lede{font-size:clamp(17px,1.5vw,19px);color:var(--ink-2);max-width:52ch}
+.links{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+.links a{font:500 13.5px/1 var(--sans);padding:10px 14px;border-radius:999px;border:1px solid var(--line);text-decoration:none;background:var(--surface);transition:border-color .2s}
+.links a:hover{border-color:var(--ink)}
+.facts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));margin-top:clamp(40px,6vw,72px);border-top:1px solid var(--line)}
+.facts div{padding:24px 20px 0 0;min-width:0}
+.facts div + div{padding-left:20px;border-left:1px solid var(--line)}
+.facts b{display:block;font:400 clamp(36px,4vw,54px)/1 var(--serif);letter-spacing:-.02em}
+.facts span{display:block;margin-top:10px;font-size:14px;color:var(--ink-2)}
+.did{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 clamp(24px,4vw,56px)}
+.did li{list-style:none;display:grid;grid-template-columns:44px minmax(0,1fr);gap:12px;padding:22px 0;border-top:1px solid var(--line)}
+.did li i{font:400 italic 20px/1.3 var(--serif);color:var(--c,var(--accent))}
+.did li b{display:block;font:600 16.5px/1.35 var(--sans)}
+.did li span{display:block;margin-top:6px;color:var(--ink-2);font-size:15px}
+.did{margin:0;padding:0}
+.feature{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:clamp(20px,3vw,40px);align-items:center}
+.feature figure{margin:0;border-radius:var(--r);overflow:hidden;border:1px solid var(--line);background:var(--surface);cursor:zoom-in}
+.feature figure img{display:block;width:100%;height:auto}
+.feature h3{font:400 clamp(30px,3.4vw,44px)/1.04 var(--serif);letter-spacing:-.015em}
+.feature p{margin-top:14px;color:var(--ink-2)}
+.feature .btn{margin-top:22px}
+
+/* breakdown bar */
+.bar{display:flex;height:56px;border-radius:12px;overflow:hidden;margin-top:8px}
+.bar div{display:flex;align-items:center;padding-left:14px;font:500 14px/1 var(--mono);color:#fff;min-width:0;white-space:nowrap;transform-origin:left;transition:flex-grow 1.2s cubic-bezier(.2,.7,.2,1)}
+.legend{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin-top:18px}
+.legend div{font-size:14px;color:var(--ink-2)}
+.legend b{display:block;font:400 30px/1 var(--serif);color:var(--ink);margin-bottom:4px}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px}
+
+/* gallery */
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px}
+.filters button{font:500 13.5px/1 var(--sans);padding:10px 15px;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--ink-2);cursor:pointer;transition:all .2s}
+.filters button:hover{color:var(--ink);border-color:var(--ink-3)}
+.filters button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--bg)}
+.filters button small{font:500 11.5px/1 var(--mono);opacity:.6;margin-left:6px}
+.wall{columns:3 280px;column-gap:16px}
+.wall.sheets{columns:2 420px}
+.wall button{all:unset;cursor:zoom-in;display:block;break-inside:avoid;margin-bottom:16px;width:100%;border-radius:14px;overflow:hidden;background:var(--surface);border:1px solid var(--line);position:relative;transition:transform .4s cubic-bezier(.2,.7,.2,1),box-shadow .4s}
+.wall button:hover{transform:translateY(-3px);box-shadow:0 22px 44px -30px rgba(20,20,20,.4)}
+.wall button:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.wall img{display:block;width:100%;height:auto;background:var(--soft)}
+.wall .c{display:block;padding:11px 14px 13px;font-size:13.5px;line-height:1.4;color:var(--ink-2);border-top:1px solid var(--line)}
+.more-btn{display:flex;justify-content:center;margin-top:12px}
+
+.next{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:28px 0;border-top:1px solid var(--line);text-decoration:none}
+.next span{font:500 12px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.next b{font:400 clamp(30px,4vw,48px)/1 var(--serif);letter-spacing:-.015em}
+.next:hover b{color:var(--accent)}
+
+/* about */
+.path{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px}
+.path li{border-top:1px solid var(--ink);padding-top:16px;position:relative}
+.path li::before{content:"";position:absolute;top:-5px;left:0;width:9px;height:9px;border-radius:50%;background:var(--accent)}
+.path b{display:block;font:400 26px/1.1 var(--serif);margin:8px 0 6px}
+.path p{font-size:15px;color:var(--ink-2)}
+.tools{display:flex;flex-wrap:wrap;gap:8px}
+.tools span{font-size:14px;padding:10px 14px;border-radius:999px;background:var(--surface);border:1px solid var(--line)}
+.tools span b{font-weight:600}
+.mail{display:flex;flex-wrap:wrap;align-items:center;gap:14px 20px;padding:clamp(24px,4vw,40px);border-radius:calc(var(--r) + 6px);background:var(--surface);border:1px solid var(--line)}
+.mail code{font:400 clamp(26px,3.6vw,44px)/1.1 var(--serif);user-select:all;word-break:break-all}
+.mail .eyebrow{flex-basis:100%}
+.copy{font:500 14px/1 var(--sans);padding:12px 16px;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--ink);cursor:pointer}
+.copy:hover{border-color:var(--ink)}
+footer{padding-block:40px 56px;color:var(--ink-3);font-size:13.5px;border-top:1px solid var(--line);margin-top:40px}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
+
+
+/* hero split + mosaic */
+.hsplit{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:clamp(24px,4vw,56px);align-items:center}
+.hhome{padding-top:clamp(28px,4.5vw,64px);padding-bottom:clamp(32px,5vw,60px)}
+.hsplit h1{font-size:clamp(38px,4.9vw,70px);max-width:14ch;margin-top:16px}
+.hsplit .actions{margin-top:26px}
+.hsplit .who{margin-top:18px}
+.hsplit .lede{margin-top:20px}
+.mosaic{display:grid;grid-template-columns:1.25fr 1fr;grid-template-rows:1fr 1fr;gap:10px;aspect-ratio:5/4;min-width:0}
+.mosaic button{all:unset;cursor:zoom-in;position:relative;border-radius:14px;overflow:hidden;background:var(--soft);border:1px solid var(--line);min-height:0}
+.mosaic button:first-child{grid-row:1/3}
+.mosaic img{display:block;width:100%;height:100%;object-fit:cover;transition:transform 1s cubic-bezier(.2,.7,.2,1)}
+.mosaic button:hover img{transform:scale(1.04)}
+.mosaic button span{position:absolute;left:10px;bottom:10px;font:500 12px/1 var(--sans);padding:7px 10px;border-radius:999px;background:color-mix(in srgb,var(--bg) 88%,transparent);color:var(--ink)}
+.mosaic button:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.who{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+.who span{font:500 13.5px/1 var(--sans);padding:9px 13px;border-radius:999px;background:var(--surface);border:1px solid var(--line)}
+.btn.hot{background:var(--accent);border-color:var(--accent);color:#fff}
+/* role */
+.role{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(14px,2vw,22px)}
+.role a,.role div{display:flex;flex-direction:column;gap:8px;padding:24px;border-radius:var(--r);background:var(--surface);border:1px solid var(--line);text-decoration:none;min-width:0;transition:transform .35s cubic-bezier(.2,.7,.2,1),border-color .3s}
+.role a:hover{transform:translateY(-3px);border-color:var(--ink)}
+.role i{font:400 italic 22px/1 var(--serif);color:var(--accent)}
+.role b{font:400 27px/1.08 var(--serif);letter-spacing:-.01em}
+.role p{color:var(--ink-2);font-size:15px}
+.role .wide{grid-column:1/-1}
+.role em{margin-top:auto;padding-top:6px;font:500 13.5px/1.3 var(--sans);font-style:normal;color:var(--ink)}
+/* design gallery */
+.dhead{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:clamp(20px,4vw,56px);align-items:end}
+.dhead h1{font:400 clamp(44px,6.6vw,92px)/.96 var(--serif);letter-spacing:-.025em;margin-top:16px}
+.catnote{margin:-6px 0 20px;color:var(--ink-2);font-size:15.5px;max-width:70ch;min-height:1.6em}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px}
+.grid button{all:unset;cursor:zoom-in;position:relative;border-radius:12px;overflow:hidden;background:var(--soft);border:1px solid var(--line);aspect-ratio:4/3}
+.grid img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .8s cubic-bezier(.2,.7,.2,1)}
+.grid button:hover img{transform:scale(1.05)}
+.grid button span{position:absolute;inset:auto 0 0 0;padding:26px 12px 10px;font-size:13px;line-height:1.35;color:#fff;background:linear-gradient(transparent,rgba(0,0,0,.62));opacity:0;transition:opacity .3s}
+.grid button:hover span,.grid button:focus-visible span{opacity:1}
+.grid button:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+@media (hover:none){.grid button span{opacity:1}}
+/* closing call to action on every tab */
+.cta{margin-top:8px;border-radius:calc(var(--r) + 6px);background:var(--ink);color:var(--bg);padding:clamp(26px,4.5vw,48px);display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:20px 32px}
+.cta h2{font:400 clamp(30px,3.8vw,48px)/1.04 var(--serif);letter-spacing:-.02em;max-width:20ch}
+.cta h2 em{font-style:italic;color:color-mix(in srgb,var(--accent) 70%,var(--bg))}
+.cta .acts{display:flex;flex-wrap:wrap;gap:10px}
+.cta .btn{background:var(--bg);color:var(--ink);border-color:var(--bg)}
+.cta .btn.ghost{background:transparent;color:var(--bg);border-color:color-mix(in srgb,var(--bg) 35%,transparent)}
+.cta .btn.hot{background:var(--accent);border-color:var(--accent);color:#fff}
+.lb img{touch-action:pan-y}
+@media (max-width:900px){
+  .hsplit{display:flex;flex-direction:column;align-items:stretch;gap:0}
+  .htext{display:contents}
+  .hsplit .eyebrow{order:1}.hsplit h1{order:2}.hsplit .mosaic{order:3;margin-top:20px}.hsplit .lede{order:4}.hsplit .who{order:5}.hsplit .actions{order:6}
+  .hsplit .mosaic{grid-template-columns:repeat(3,minmax(0,1fr));grid-template-rows:none;aspect-ratio:auto;height:clamp(120px,34vw,240px)}
+  .hsplit .mosaic button:first-child{grid-row:auto}
+  .hsplit .mosaic button span{display:none}
+  .hsplit .actions .btn{padding:13px 18px}
+  .dhead{grid-template-columns:minmax(0,1fr)}
+  .role{grid-template-columns:minmax(0,1fr)}
+  .mosaic{aspect-ratio:4/3}
+}
+@media (max-width:520px){.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}}
+
+/* lightbox */
+dialog.lb{max-width:min(1500px,96vw);max-height:94vh;width:auto;padding:0;border:0;border-radius:16px;background:var(--surface);color:var(--ink);overflow:hidden}
+dialog.lb[open]{animation:pop .3s cubic-bezier(.2,.7,.2,1)}
+@keyframes pop{from{opacity:0;transform:scale(.98)}}
+dialog.lb::backdrop{background:rgba(8,8,8,.86);backdrop-filter:blur(4px)}
+.lb img{display:block;max-width:min(1500px,96vw);max-height:calc(94vh - 60px);width:auto;height:auto;margin:auto;background:#fff}
+.lbbar{display:flex;align-items:center;gap:8px;padding:10px 12px 10px 16px;font-size:14px;border-top:1px solid var(--line)}
+.lbbar span{flex:1;min-width:0;color:var(--ink-2)}
+.lbbar button{font:500 14px/1 var(--sans);padding:10px 13px;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--ink);cursor:pointer}
+.lbbar button:hover{border-color:var(--ink)}
+
+.nf{min-height:50vh;display:flex;flex-direction:column;justify-content:center;gap:18px}
+.nf h1{font:400 clamp(46px,7vw,90px)/1 var(--serif)}
+
+@media (max-width:900px){
+  .bhead,.feature,.band{grid-template-columns:minmax(0,1fr)}
+  .nums,.facts{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .nums .num:nth-child(3),.facts div:nth-child(3){padding-left:0;border-left:0}
+  .num,.facts div{padding-bottom:24px}
+  .path{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .legend{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:720px){
+  .top .wrap{flex-wrap:wrap;gap:4px;padding-block:10px 6px}
+  .nav{margin-left:0;width:100%;margin-inline:-4px}
+  .brand span{display:none}
+  .cards,.did,.steps{grid-template-columns:minmax(0,1fr)}
+  .stage iframe{height:520px}
+  .bar div{font-size:12px;padding-left:8px}
+  .bar div em{display:none}
+}
+@media (max-width:440px){.path{grid-template-columns:minmax(0,1fr)}.wall.sheets{columns:1}}
+
+/* promoter additions */
+.call{display:inline-flex;align-items:center;gap:8px;flex:none;font:500 14px/1 var(--sans);text-decoration:none;padding:10px 14px;border-radius:999px;background:var(--accent);color:#fff;margin-left:6px;white-space:nowrap}
+.call:hover{filter:brightness(1.08)}
+.call svg{width:15px;height:15px}
+.claim{font:400 clamp(28px,3.4vw,44px)/1.08 var(--serif);color:var(--accent);margin-top:14px;max-width:22ch;text-wrap:balance}
+.claim b{font-weight:400;font-style:italic}
+.proof{display:flex;flex-wrap:wrap;align-items:center;gap:10px 18px;margin-top:26px;font-size:14px;color:var(--ink-2)}
+.proof .stars{color:#D69E2E;letter-spacing:2px;font-size:15px}
+.proof b{color:var(--ink);font-weight:600}
+.proof a{text-decoration:none;border-bottom:1px solid var(--line)}
+.proof a:hover{border-color:var(--ink)}
+.quote{display:grid;grid-template-columns:auto minmax(0,1fr);gap:22px;align-items:start;padding:clamp(26px,4vw,44px);border-radius:calc(var(--r) + 6px);background:var(--surface);border:1px solid var(--line)}
+.quote .q{font:400 92px/.7 var(--serif);color:var(--accent)}
+.quote blockquote{margin:0;font:400 clamp(22px,2.4vw,30px)/1.3 var(--serif);text-wrap:pretty;max-width:46ch}
+.quote cite{display:block;margin-top:16px;font:500 13px/1.4 var(--mono);letter-spacing:.06em;text-transform:uppercase;font-style:normal;color:var(--ink-3)}
+.quote cite a{color:inherit}
+.reach{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:clamp(16px,2vw,24px)}
+.reach .box{padding:clamp(24px,3.4vw,40px);border-radius:calc(var(--r) + 6px);background:var(--ink);color:var(--bg);display:flex;flex-direction:column;gap:18px;min-width:0}
+.reach .box h2{font:400 clamp(34px,4.4vw,58px)/1 var(--serif);letter-spacing:-.02em}
+.reach .box h2 em{color:var(--accent)}
+.reach .row{display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px;padding-top:16px;border-top:1px solid color-mix(in srgb,var(--bg) 18%,transparent);min-width:0}
+.reach .row .eyebrow{flex-basis:100%;color:color-mix(in srgb,var(--bg) 60%,transparent)}
+.reach .big{font:400 clamp(26px,3.2vw,40px)/1.1 var(--serif);color:var(--bg);text-decoration:none;word-break:break-all}
+.reach .big:hover{color:var(--accent)}
+.reach .chip{font:500 14px/1 var(--sans);padding:11px 15px;border-radius:999px;border:1px solid color-mix(in srgb,var(--bg) 30%,transparent);background:transparent;color:var(--bg);text-decoration:none;cursor:pointer}
+.reach .chip:hover{border-color:var(--bg)}
+.reach .chip.hot{background:var(--accent);border-color:var(--accent);color:#fff}
+.visit{display:grid;grid-template-rows:auto 1fr;border-radius:calc(var(--r) + 6px);overflow:hidden;background:var(--surface);border:1px solid var(--line);text-decoration:none;min-width:0}
+.visit svg{display:block;width:100%;height:auto;background:var(--soft)}
+.visit .vb{padding:20px 22px 22px;display:flex;flex-direction:column;gap:6px}
+.visit .vb b{font:400 26px/1.15 var(--serif)}
+.visit .vb span{color:var(--ink-2);font-size:15px}
+.visit .vb i{font-style:normal;margin-top:8px;font:500 14px/1 var(--sans);color:var(--accent)}
+.visit:hover .vb i{text-decoration:underline}
+.map .st{stroke:var(--line);stroke-width:7}
+.map .av{stroke:var(--line);stroke-width:13}
+.map .wt{fill:color-mix(in srgb,var(--cns) 22%,var(--soft))}
+.map .pk{fill:color-mix(in srgb,var(--nk) 18%,var(--soft))}
+.map text{font:500 11px var(--mono);letter-spacing:.06em;fill:var(--ink-3)}
+.map .pin{fill:var(--accent)}
+.map .ring{fill:none;stroke:var(--accent);stroke-width:2;transform-origin:center;transform-box:fill-box;animation:ping 2.4s ease-out infinite}
+@keyframes ping{from{transform:scale(.6);opacity:.9}to{transform:scale(2.6);opacity:0}}
+@media (prefers-reduced-motion: reduce){.map .ring{animation:none}}
+.locs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.loc{padding:24px;border-radius:var(--r);background:var(--surface);border:1px solid var(--line);display:flex;flex-direction:column;gap:10px;min-width:0}
+.loc b{font:400 28px/1.1 var(--serif)}
+.loc span{color:var(--ink-2);font-size:15px}
+.loc .links{margin-top:6px}
+@media (max-width:900px){.reach,.locs{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:720px){.brand{order:1}.call{order:2;margin-left:auto}.nav{order:3}.call .n{display:inline}.call{padding:10px 12px}.quote{grid-template-columns:minmax(0,1fr);gap:4px}.quote .q{font-size:70px}}
+</style>
+
+<header class="top" id="top"><div class="wrap">
+  <a class="brand" href="#home"><b>My CV</b><span>Brooklyn, NY</span></a>
+  <nav class="nav" aria-label="Sections">
+    <a href="#home">Overview</a><a href="#design">Design work</a><a href="#nykhdc">NYKHDC</a><a href="#cns">CNS Cabs</a><a href="#strikeforce">Strike Force</a><a href="#lconstruction">L-Construction</a><a href="#about">About</a>
+  </nav>
+  <a class="call" href="tel:+19179436912" aria-label="Call 917-943-6912"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg><span class="n">917-943-6912</span></a>
+</div></header>
+
+<main>
+<!-- ============ HOME ============ -->
+<div class="view" data-view="home">
+  <section class="hero hhome"><div class="wrap hsplit">
+    <div class="htext">
+      <p class="eyebrow">Sales &amp; design · Brooklyn showroom · AI builder</p>
+      <h1>I sell kitchens in Brooklyn. <em>Then I build the software that sells them.</em></h1>
+      <p class="lede">I design and sell kitchens, baths, doors and stairs at a Brooklyn showroom, and I draw the renders clients say yes to. With AI tools (mostly Claude, plus ChatGPT) I also build working software for four local businesses.</p>
+      <div class="who"><span>44 renders &amp; drawings</span><span>3 websites I run</span><span>4 businesses</span><span>★ 4.7 showroom on Google</span></div>
+      <div class="actions"><a class="btn hot" href="#contact">Work with me <span class="arr">→</span></a><a class="btn ghost" href="#design">See the design work</a><a class="btn ghost" href="tel:+19179436912">Call 917-943-6912</a></div>
+    </div>
+    <div class="mosaic rv"><button type="button" data-k="r-walkin-closet-render-aerial-02" aria-label="Open large: Walk-in closet inside: shelving towers, drawers and island"><img src="assets/img/r-walkin-closet-render-aerial-02.webp" alt="Walk-in closet inside: shelving towers, drawers and island"><span>Closets & built-ins</span></button><button type="button" data-k="m-kitchen-island-render-01" aria-label="Open large: Client render: kitchen with island"><img src="assets/img/m-kitchen-island-render-01.webp" alt="Client render: kitchen with island"><span>Kitchens</span></button><button type="button" data-k="r-kitchen-cherry-shaker-render-01" aria-label="Open large: Cherry shaker kitchen with farmhouse sink, client render"><img src="assets/img/r-kitchen-cherry-shaker-render-01.webp" alt="Cherry shaker kitchen with farmhouse sink, client render"><span>Kitchens</span></button></div>
+  </div></section>
+
+  <section style="padding-top:0"><div class="wrap">
+    <div class="nums rv">
+      <div class="num"><b>Days → min</b><span>Time to a priced kitchen with a 3D render</span></div>
+      <div class="num"><b>3</b><span>Live websites run in parallel, each with an AI assistant</span></div>
+      <div class="num"><b>2,828</b><span>Bot orders cleaned out of one store</span></div>
+      <div class="num"><b>44</b><span>Renders and drawings for real clients, in one gallery</span></div>
+    </div>
+  </div></section>
+
+  <section style="padding-top:0"><div class="wrap">
+    <div class="sh rv"><h2>What I do, <em style="font-style:italic;color:var(--accent)">every day</em></h2><p>One person, seven jobs that usually take a team. Tap any card to see the proof.</p></div>
+    <div class="role">
+      <a class="rv" href="#nykhdc"><i>01</i><b>Sales at the showroom</b><p>Kitchens, countertops, doors, tile and shower glass. I take the client from first visit to delivery and keep them posted the whole way.</p><em>The showroom →</em></a>
+      <a class="rv" href="#design"><i>02</i><b>Design and renders</b><p>Kitchens, baths, doors and stairs drawn in 3D before anything is ordered, so the client sees it and says yes.</p><em>44 renders and drawings →</em></a>
+      <a class="rv" href="#strikeforce"><i>03</i><b>Three websites, run in parallel</b><p>nykhdc.com and both Strike Force sites: AI assistants, plugins, store and fixes, all kept current.</p><em>The sites →</em></a>
+      <a class="rv" href="#nykhdc"><i>04</i><b>My own AI tools</b><p>An online kitchen and countertop builder, a 3D design studio, and a bath selection tool, built for the showroom.</p><em>Try the builder →</em></a>
+      <a class="rv" href="https://payrolls.nyc/" target="_blank" rel="noopener"><i>05</i><b>Payrolls.nyc</b><p>A payroll monitoring tool I built myself. All payments in one place, and it runs fully on its own.</p><em>payrolls.nyc ↗</em></a>
+      <a class="rv" href="#lconstruction"><i>06</i><b>Work for local businesses</b><p>Elevator cab drawings for CNS, a website and social pages from zero for a contractor, and more on request.</p><em>See the businesses →</em></a>
+      <a class="rv wide" href="https://www.instagram.com/leanbodyrustam/" target="_blank" rel="noopener"><i>07</i><b>Video and content</b><p>I shoot and edit video myself on a professional Sony FX30 camera: reels and short films for Instagram, from filming to final cut.</p><em>My video on Instagram ↗</em></a>
+    </div>
+  </div></section>
+
+  <section style="padding-top:0"><div class="wrap">
+    <div class="stage rv">
+      <iframe id="live-planner" data-src="planner/index.html" title="Kitchen and countertop builder, live 3D" loading="lazy"></iframe>
+      <div class="cap"><span class="live"><i></i>Live, not a screenshot</span><span>The kitchen and countertop builder I made for NYKHDC. Pick a shape, stone and sink, then drag to turn it.</span><a href="planner/index.html" target="_blank" rel="noopener">Open full screen ↗</a></div>
+    </div>
+  </div></section>
+
+
+  <section><div class="wrap">
+    <div class="sh rv"><h2>Four businesses, one person</h2><p>Each one has its own page with everything I made for it: the tools, the sites, the drawings and the numbers.</p></div>
+    <div class="cards">
+      <a class="card rv" href="#nykhdc"><div class="img"><img src="assets/img/m-kitchen-island-render-01.webp" alt="Kitchen render made for a showroom client" loading="lazy"></div><div class="body"><p class="eyebrow"><span class="dot" style="--c:var(--nk)"></span>Kitchen &amp; bath showroom</p><h3>NY Kitchen &amp; Home Design Center</h3><p>The showroom's first online kitchen and countertop builder, a 3D design studio, an AI assistant and a rebuilt store.</p><span class="more">Open <span>→</span></span></div></a>
+      <a class="card rv" href="#cns"><div class="img"><img src="assets/img/cns-hero.webp" alt="Elevator cab render from an approval drawing set" loading="lazy" style="object-position:50% 22%"></div><div class="body"><p class="eyebrow"><span class="dot" style="--c:var(--cns)"></span>Elevator cab interiors</p><h3>CNS Elevator Cabs</h3><p>Approval drawing sets with renders, details and a weight calculation, all from one 3D model.</p><span class="more">Open <span>→</span></span></div></a>
+      <a class="card rv" href="#strikeforce"><div class="img"><img src="assets/img/sf-li-chat.webp" alt="Strike Force website with the AI assistant open" loading="lazy" style="object-position:70% 50%"></div><div class="body"><p class="eyebrow"><span class="dot" style="--c:var(--sf)"></span>Game venues · 2 locations</p><h3>Strike Force</h3><p>Two websites I run: AI assistants on both, plugins kept current, an order leak closed.</p><span class="more">Open <span>→</span></span></div></a>
+      <a class="card rv" href="#lconstruction"><div class="img"><img src="assets/img/lb-home.webp" alt="L-Construction Group website home page" loading="lazy"></div><div class="body"><p class="eyebrow"><span class="dot" style="--c:var(--lb)"></span>General contractor</p><h3>L-Construction Group</h3><p>No online presence at all before. I built lbuildny.com from zero and set up his social pages.</p><span class="more">Open <span>→</span></span></div></a>
+    </div>
+  </div></section>
+
+  <section style="padding-top:0"><div class="wrap">
+    <div class="band rv">
+      <h2>Three websites, <em>run in parallel</em></h2>
+      <ul>
+        <li><b>01</b><span><strong>nykhdc.com</strong> · online builder, AI assistant, store and shop kept clean</span></li>
+        <li><b>02</b><span><strong>strikeforcesports.net</strong> · Long Island · AI assistant, plugins updated</span></li>
+        <li><b>03</b><span><strong>strikeforcenj.com</strong> · New Jersey · AI assistant, plugins updated</span></li>
+      </ul>
+    </div>
+  </div></section>
+
+  <section><div class="wrap">
+    <div class="sh rv"><h2>How I work</h2></div>
+    <div class="steps">
+      <div class="step rv"><i>01</i><h3>Listen first</h3><p>Ask the owner where they lose the most time or money.</p></div>
+      <div class="step rv"><i>02</i><h3>Fix one thing</h3><p>Ship the fix for that one problem and measure it before and after.</p></div>
+      <div class="step rv"><i>03</i><h3>Leave a tool</h3><p>Hand over something the staff can run without me, and show them how.</p></div>
+    </div>
+  </div></section>
+  <section style="padding-top:0"><div class="wrap">
+    <div class="quote rv"><span class="q" aria-hidden="true">“</span><div><blockquote>We ordered 17 doors, 4 of which were custom made, and despite some manufacturing issues that were beyond the control of Rustam and the NY Kitchen and Home Design Center team, they did an excellent job keeping me updated on the status. … The doors are beautiful and fit perfectly.</blockquote><cite>Showroom customer · August 2023 · <a href="https://maps.google.com/?cid=10413442390860399771" target="_blank" rel="noopener">Google review ↗</a></cite></div></div>
+  </div></section>
+  <section id="contact-home"><div class="wrap">
+    <div class="reach rv">
+      <div class="box">
+        <h2>Got a business that runs on paper? <em>Let's fix one thing.</em></h2>
+        <div class="row"><span class="eyebrow">Call or text</span><a class="big" href="tel:+19179436912">917-943-6912</a><a class="chip hot" href="tel:+19179436912">Call</a><a class="chip" href="https://wa.me/19179436912" target="_blank" rel="noopener">WhatsApp ↗</a><button class="chip" type="button" data-copy="917-943-6912">Copy</button></div>
+        <div class="row"><span class="eyebrow">Email</span><a class="big" href="mailto:rustam.shb@gmail.com">rustam.shb@gmail.com</a><button class="chip" type="button" data-copy="rustam.shb@gmail.com">Copy</button></div>
+        <div class="row"><span class="eyebrow">Video</span><a class="big" href="https://www.instagram.com/leanbodyrustam/" target="_blank" rel="noopener">@leanbodyrustam</a><a class="chip" href="https://www.instagram.com/leanbodyrustam/" target="_blank" rel="noopener">Instagram ↗</a></div>
+      </div>
+      <a class="visit" href="https://maps.google.com/?cid=10413442390860399771" target="_blank" rel="noopener" aria-label="Open the showroom in Google Maps">
+        <svg class="map" viewBox="0 0 560 260" role="img" aria-label="Map sketch of the showroom on 22nd Street, Brooklyn">
+          <g class="st">
+            <line x1="40" y1="0" x2="40" y2="260"/><line x1="130" y1="0" x2="130" y2="260"/><line x1="220" y1="0" x2="220" y2="260"/><line x1="310" y1="0" x2="310" y2="260"/><line x1="400" y1="0" x2="400" y2="260"/><line x1="490" y1="0" x2="490" y2="260"/>
+            <line x1="0" y1="110" x2="560" y2="110"/><line x1="0" y1="200" x2="560" y2="200"/><line x1="0" y1="40" x2="560" y2="40"/>
+          </g>
+          <line class="av" x1="0" y1="150" x2="560" y2="150"/>
+          <line class="av" x1="0" y1="250" x2="560" y2="250"/>
+          <text x="226" y="244" transform="rotate(-90 226 244)">22ND ST</text>
+          <circle class="ring" cx="265" cy="128" r="10"/>
+          <circle class="pin" cx="265" cy="128" r="9"/>
+          <circle cx="265" cy="128" r="3.5" fill="#fff"/>
+        </svg>
+        <div class="vb"><span class="eyebrow">Find me at the showroom</span><b>161 22nd Street</b><span>Brooklyn, NY 11232 · kitchens, doors, counters and tile on display</span><i>Open in Google Maps ↗</i></div>
+      </a>
+    </div>
+  </div></section>
+</div>
+
+<!-- ============ DESIGN ============ -->
+<div class="view" data-view="design">
+  <section class="hero" style="padding-bottom:clamp(24px,4vw,40px)"><div class="wrap">
+    <a class="back" href="#home">← Overview</a>
+    <div class="dhead">
+      <div><p class="eyebrow"><span class="dot"></span>Design work · real clients · 3D before anything is ordered</p><h1>44 renders and drawings</h1></div>
+      <p class="lede" style="font-size:clamp(17px,1.5vw,19px);color:var(--ink-2)">Kitchens, baths, doors, stairs and more, drawn so the client can see it before paying a deposit. Pick a category, tap any picture for the large view, and use the arrows to go through them.</p>
+    </div>
+  </div></section>
+  <section style="padding-top:0"><div class="wrap">
+    <div class="dgal"></div>
+  </div></section>
+  <section style="padding-top:0"><div class="wrap"><div class="cta rv"><h2>Want this for <em>your business?</em></h2><div class="acts"><a class="btn hot" href="tel:+19179436912">Call 917-943-6912</a><a class="btn ghost" href="https://wa.me/19179436912" target="_blank" rel="noopener">WhatsApp ↗</a><a class="btn ghost" href="mailto:rustam.shb@gmail.com">Email me</a></div></div></div></section>
+</div>
+
+<!-- ============ NYKHDC ============ -->
+<div class="view" data-view="nykhdc" style="--accent:var(--nk)">
+  <section class="hero"><div class="wrap">
+    <a class="back" href="#home">← Overview</a>
+    <div class="bhead">
+      <div><p class="eyebrow"><span class="dot"></span>Kitchen &amp; bath showroom · Brooklyn · owner Slava</p><h1>NY Kitchen &amp; Home Design Center</h1><p class="claim">A priced kitchen with a render: <b>days → minutes.</b></p></div>
+      <div><p class="lede">I run sales here, and I rebuilt most of how the showroom sells. The biggest piece is an online kitchen and countertop builder, the first this showroom has ever had. Customers draw the countertop or lay out the kitchen, pick real stones and sinks, see it in 3D and send it to us for a quote.</p>
+      <div class="links"><a href="https://nykhdc.com/" target="_blank" rel="noopener">nykhdc.com ↗</a><a href="https://nykhdc-builder.vercel.app/#countertop" target="_blank" rel="noopener">Countertop builder ↗</a><a href="planner/index.html" target="_blank" rel="noopener">Try it here ↗</a><a href="https://maps.google.com/?cid=10413442390860399771" target="_blank" rel="noopener">★ 4.7 Google reviews ↗</a><a href="https://www.instagram.com/kitchen4nyc/" target="_blank" rel="noopener">Instagram ↗</a><a href="https://www.facebook.com/profile.php?id=61577946412733" target="_blank" rel="noopener">Facebook ↗</a></div></div>
+    </div>
+    <div class="facts rv">
+      <div><b>Days → min</b><span>Time to a priced kitchen with a render</span></div>
+      <div><b>5 / 5</b><span>Builder estimates that matched real invoices to the cent</span></div>
+      <div><b>105</b><span>Quartz colors in the builder, plus granite, laminate and sinks</span></div>
+      <div><b>1 person</b><span>Quoting, inbox and website, kept running with AI tools</span></div>
+    </div>
+  </div></section>
+
+  <section style="padding-top:0"><div class="wrap">
+    <div class="feature rv">
+      <figure data-open="nk-site-builder"><img src="assets/img/nk-site-builder.webp" alt="Countertop builder on the live NYKHDC site" loading="lazy"></figure>
+      <div><p class="eyebrow">New on nykhdc.com</p><h3>The showroom's first online builder</h3><p>Shape, size, sink, cooktop, edge and stone in five steps. Top view with dimensions, square footage and a 3D preview, then one form sends the whole design to the showroom.</p><a class="btn" href="planner/index.html" target="_blank" rel="noopener">Try the builder <span class="arr">↗</span></a></div>
+    </div>
+  </div></section>
+
+  <section style="padding-top:0"><div class="wrap">
+    <div class="reach rv">
+      <div class="quote" style="grid-template-columns:minmax(0,1fr)"><span class="q" aria-hidden="true">“</span><div><blockquote>Excellent customer service! I arrived at the store as they were literally closing but they stayed open a little bit longer to accommodate me.</blockquote><cite>BBB review, February 2022 · <a href="https://nykhdc.com/reviews" target="_blank" rel="noopener">All reviews ↗</a> · <a href="https://maps.google.com/?cid=10413442390860399771" target="_blank" rel="noopener">4.7 on Google ↗</a></cite></div></div>
+      <a class="visit" href="https://maps.google.com/?cid=10413442390860399771" target="_blank" rel="noopener" aria-label="Open the showroom in Google Maps">
+        <svg class="map" viewBox="0 0 560 260" role="img" aria-label="Map sketch of the showroom on 22nd Street, Brooklyn">
+          <g class="st">
+            <line x1="40" y1="0" x2="40" y2="260"/><line x1="130" y1="0" x2="130" y2="260"/><line x1="220" y1="0" x2="220" y2="260"/><line x1="310" y1="0" x2="310" y2="260"/><line x1="400" y1="0" x2="400" y2="260"/><line x1="490" y1="0" x2="490" y2="260"/>
+            <line x1="0" y1="110" x2="560" y2="110"/><line x1="0" y1="200" x2="560" y2="200"/><line x1="0" y1="40" x2="560" y2="40"/>
+          </g>
+          <line class="av" x1="0" y1="150" x2="560" y2="150"/>
+          <line class="av" x1="0" y1="250" x2="560" y2="250"/>
+          <text x="226" y="244" transform="rotate(-90 226 244)">22ND ST</text>
+          <circle class="ring" cx="265" cy="128" r="10"/>
+          <circle class="pin" cx="265" cy="128" r="9"/>
+          <circle cx="265" cy="128" r="3.5" fill="#fff"/>
+        </svg>
+        <div class="vb"><span class="eyebrow">Visit the showroom</span><b>161 22nd Street</b><span>Brooklyn, NY 11232 · showroom line (347) 916-0835</span><i>Open in Google Maps ↗</i></div>
+      </a>
+    </div>
+  </div></section>
+
+  <section style="padding-top:0"><div class="wrap">
+    <div class="sh rv"><h2>What I built</h2></div>
+    <ul class="did">
+      <li class="rv"><i>01</i><div><b>Online kitchen &amp; countertop builder</b><span>Live on the site for every customer. Countertop, kitchen wall by wall, or just photos.</span></div></li>
+      <li class="rv"><i>02</i><div><b>Kitchen Studio 3D</b><span>Our own design studio with real cabinet codes and the supplier catalog. Render, estimate, invoice and shop drawings from one model, in place of software that costs about $2,000 a year.</span></div></li>
+      <li class="rv"><i>03</i><div><b>AI assistant on nykhdc.com</b><span>Answers questions about kitchens, counters, doors and baths, then hands the lead to the showroom.</span></div></li>
+      <li class="rv"><i>04</i><div><b>Store cleanup</b><span>2,828 bot orders removed, 73 stale callbacks closed, 24 out-of-stock products hidden. Website requests now reach our shared inbox.</span></div></li>
+      <li class="rv"><i>05</i><div><b>Instagram and Facebook shop</b><span>770 views in 14 days from near zero, 70.6% from people who didn't follow yet.</span></div></li>
+      <li class="rv"><i>06</i><div><b>Client renders and shop drawings</b><span>Renders with notes for clients, dimensioned plans with cabinet codes, countertop piece drawings.</span></div></li>
+      <li class="rv"><i>07</i><div><b>Bathroom selection tool</b><span>One page where a client compares tubs, shower glass and vanities for every bathroom.</span></div></li>
+      <li class="rv"><i>08</i><div><b>One inbox, run by one person</b><span>400 emails sent Oct 1 to Nov 23. Median first reply 48 minutes, 33 companies in one week.</span></div></li>
+    </ul>
+  </div></section>
+
+  <section style="padding-top:0"><div class="wrap">
+    <div class="sh rv"><h2>Everything, in one place</h2><p>The live site, the builder in 3D, the studio, client renders and drawings. Client names, addresses and prices are removed.</p></div>
+    <div class="gal" data-biz="nykhdc"></div>
+  </div></section>
+    <section style="padding-top:0"><div class="wrap"><div class="cta rv"><h2>Want this for <em>your business?</em></h2><div class="acts"><a class="btn hot" href="tel:+19179436912">Call 917-943-6912</a><a class="btn ghost" href="https://wa.me/19179436912" target="_blank" rel="noopener">WhatsApp ↗</a><a class="btn ghost" href="mailto:rustam.shb@gmail.com">Email me</a></div></div></div></section>
+  <div class="wrap"><a class="next" href="#cns"><span>Next</span><b>CNS Elevator Cabs →</b></a></div>
+</div>
+
+<!-- ============ CNS ============ -->
+<div class="view" data-view="cns" style="--accent:var(--cns)">
+  <section class="hero"><div class="wrap">
+    <a class="back" href="#home">← Overview</a>
+    <div class="bhead">
+      <div><p class="eyebrow"><span class="dot"></span>Elevator cab interiors · New York · owner Steven</p><h1>CNS Elevator Cabs</h1><p class="claim">A 10-sheet approval set: <b>a week → a couple of hours.</b></p></div>
+      <div><p class="lede">Approval drawings: the set a building signs before a new cab interior is built. I draw the whole set with AI tools from one 3D model, so the renders, elevations, details and the weight calculation all agree with each other.</p></div>
+    </div>
+    <div class="facts rv">
+      <div><b>10</b><span>Sheets in one approval set</span></div>
+      <div><b>143</b><span>Dimensions checked</span></div>
+      <div><b>553 lb</b><span>Cab weight, calculated part by part</span></div>
+      <div><b>Week → hours</b><span>A week of a technician's time became a couple of hours</span></div>
+    </div>
+  </div></section>
+
+  <section style="padding-top:0"><div class="wrap">
+    <div class="feature rv">
+      <figure data-open="cns-r3-01"><img src="assets/img/cns-r3-01.webp" alt="Sheet 1: cab interior renders with parts list" loading="lazy"></figure>
+      <div><p class="eyebrow">Sheet 1 of 10</p><h3>Renders and drawings from the same model</h3><p>The perspectives on sheet 1 come from the model that makes the plans and details, so what the building approves is what gets built. Four revisions went out between November 5 and November 10.</p></div>
+    </div>
+  </div></section>
+
+  <section style="padding-top:0"><div class="wrap">
+    <div class="sh rv"><h2>What's in the set</h2></div>
+    <ul class="did">
+      <li class="rv"><i>01</i><div><b>Renders and parts list</b><span>Rear, corner and landing views, and every part with its material and weight.</span></div></li>
+      <li class="rv"><i>02</i><div><b>Plans and elevations</b><span>Plan view, ceiling plan, all walls, the door wall and canopy, ventilation area.</span></div></li>
+      <li class="rv"><i>03</i><div><b>Details</b><span>Panel joints, strike jamb, return, handrail, base, ceiling and access panel.</span></div></li>
+      <li class="rv"><i>04</i><div><b>Weight calculation</b><span>How each weight in the parts list is made, adding up to 553 lb.</span></div></li>
+      <li class="rv"><i>05</i><div><b>Care sheet for the building</b><span>Cleaning instructions, a maintenance schedule and the material key.</span></div></li>
+      <li class="rv"><i>06</i><div><b>Local and fast</b><span>The drafter used to be far away. I'm in Brooklyn and turn changes around the same day.</span></div></li>
+    </ul>
+  </div></section>
+
+  <section style="padding-top:0"><div class="wrap">
+    <div class="sh rv"><h2>The full set</h2><p>All ten sheets of revision 3. The building address is removed from every title block.</p></div>
+    <div class="gal" data-biz="cns"></div>
+  </div></section>
+    <section style="padding-top:0"><div class="wrap"><div class="cta rv"><h2>Want this for <em>your business?</em></h2><div class="acts"><a class="btn hot" href="tel:+19179436912">Call 917-943-6912</a><a class="btn ghost" href="https://wa.me/19179436912" target="_blank" rel="noopener">WhatsApp ↗</a><a class="btn ghost" href="mailto:rustam.shb@gmail.com">Email me</a></div></div></div></section>
+  <div class="wrap"><a class="next" href="#strikeforce"><span>Next</span><b>Strike Force →</b></a></div>
+</div>
+
+<!-- ============ STRIKE FORCE ============ -->
+<div class="view" data-view="strikeforce" style="--accent:var(--sf)">
+  <section class="hero"><div class="wrap">
+    <a class="back" href="#home">← Overview</a>
+    <div class="bhead">
+      <div><p class="eyebrow"><span class="dot"></span>Game venues · Long Island &amp; New Jersey · owner Slava</p><h1>Strike Force</h1><p class="claim">Two sites, two AI assistants, <b>68 jobs done since August.</b></p></div>
+      <div><p class="lede">Two locations, two websites, and I run both. I added an AI assistant to each site, keep every plugin current on both, and fix what was broken before I came. With nykhdc.com, that's three sites I run in parallel.</p>
+      <div class="links"><a href="https://www.strikeforcesports.net/" target="_blank" rel="noopener">strikeforcesports.net ↗</a><a href="https://strikeforcenj.com/" target="_blank" rel="noopener">strikeforcenj.com ↗</a></div></div>
+    </div>
+    <div class="facts rv">
+      <div><b>2</b><span>Websites, with an AI assistant on each</span></div>
+      <div><b>68</b><span>Pieces of work since August 9</span></div>
+      <div><b>41</b><span>Cyber Monday tickets coded by hand last year. Now set up to send on payment</span></div>
+      <div><b>Closed</b><span>A leak that copied every online order to a former contractor</span></div>
+    </div>
+  </div></section>
+
+  <section style="padding-top:0"><div class="wrap">
+    <div class="feature rv">
+      <figure data-open="sf-li-chat"><img src="assets/img/sf-li-chat.webp" alt="StrikeForce Assistant open on the Long Island site" loading="lazy"></figure>
+      <div><p class="eyebrow">On both sites</p><h3>An assistant that knows the prices</h3><p>It works out prices for tickets, sessions and parties from the site itself, takes a name and a phone first, and passes the lead to staff.</p></div>
+    </div>
+  </div></section>
+
+  <section style="padding-top:0"><div class="wrap">
+    <div class="sh rv"><h2>Two locations, both online</h2></div>
+    <div class="locs">
+      <div class="loc rv"><span class="eyebrow">Long Island</span><b>Farmingdale, NY</b><span>125 Route 110 · (631) 242-1197</span><div class="links"><a href="https://www.strikeforcesports.net/" target="_blank" rel="noopener">Site ↗</a><a href="https://www.google.com/maps/search/?api=1&amp;query=StrikeForce+Sports+125+Route+110+Farmingdale+NY" target="_blank" rel="noopener">Google Maps ↗</a><a href="https://www.yelp.com/biz/strikeforce-sports-farmingdale" target="_blank" rel="noopener">Yelp ↗</a><a href="https://www.instagram.com/strikeforce_sports/" target="_blank" rel="noopener">Instagram ↗</a><a href="https://www.facebook.com/strikeforcesportsairsoft/" target="_blank" rel="noopener">Facebook ↗</a></div></div>
+      <div class="loc rv"><span class="eyebrow">New Jersey</span><b>Hackettstown, NJ</b><span>13 NJ-57 · (908) 684-7045</span><div class="links"><a href="https://strikeforcenj.com/" target="_blank" rel="noopener">Site ↗</a><a href="https://www.google.com/maps/search/?api=1&amp;query=StrikeForce+Sports+13+NJ-57+Hackettstown+NJ" target="_blank" rel="noopener">Google Maps ↗</a><a href="https://www.yelp.com/biz/strikeforce-sports-hackettstown" target="_blank" rel="noopener">Yelp ↗</a><a href="https://www.instagram.com/strikeforcenj/" target="_blank" rel="noopener">Instagram ↗</a><a href="https://www.facebook.com/strikeforcenj" target="_blank" rel="noopener">Facebook ↗</a></div></div>
+    </div>
+  </div></section>
+
+  <section style="padding-top:0"><div class="wrap">
+    <div class="sh rv"><h2>Where the 68 went</h2><p>From my report to the owner. Only 3 of 68 were routine maintenance.</p></div>
+    <div class="rv" id="sfbar">
+      <div class="bar" role="img" aria-label="68 pieces of work: 35 new builds, 21 fixes, 9 problems found, 3 maintenance">
+        <div style="flex:0 1 0;background:var(--sf)">35 <em>&nbsp;new</em></div><div style="flex:0 1 0;background:#7B6A3C">21 <em>&nbsp;fixes</em></div><div style="flex:0 1 0;background:#4D5560">9</div><div style="flex:0 1 0;background:#9A958C">3</div>
+      </div>
+      <div class="legend">
+        <div><b>35</b><i style="background:var(--sf)"></i>New builds</div>
+        <div><b>21</b><i style="background:#7B6A3C"></i>Fixes to things broken before me</div>
+        <div><b>9</b><i style="background:#4D5560"></i>Problems found and documented</div>
+        <div><b>3</b><i style="background:#9A958C"></i>Maintenance</div>
+      </div>
+    </div>
+  </div></section>
+
+  <section><div class="wrap">
+    <div class="sh rv"><h2>What I did</h2></div>
+    <ul class="did">
+      <li class="rv"><i>01</i><div><b>AI assistants on both sites</b><span>Prices, sessions and parties, answered at any hour.</span></div></li>
+      <li class="rv"><i>02</i><div><b>Plugins kept current on two sites</b><span>Updates, checks and fixes, on Long Island and New Jersey together.</span></div></li>
+      <li class="rv"><i>03</i><div><b>Order leak closed</b><span>Every online order was also emailed to a former contractor. Not anymore.</span></div></li>
+      <li class="rv"><i>04</i><div><b>Cyber Monday, set up to run itself</b><span>41 tickets were coded by hand last year. This year each ticket is set up to get its code on payment.</span></div></li>
+      <li class="rv"><i>05</i><div><b>Audits in plain English</b><span>9 fixes on Oct 1, 12 improvements on Nov 18, and a Meta ads review with 8 findings.</span></div></li>
+      <li class="rv"><i>06</i><div><b>Work brought home</b><span>Site work used to be paid to a team overseas. Now it's done here, in New York.</span></div></li>
+    </ul>
+  </div></section>
+
+  <section style="padding-top:0"><div class="wrap">
+    <div class="sh rv"><h2>The sites</h2></div>
+    <div class="gal" data-biz="sf"></div>
+  </div></section>
+    <section style="padding-top:0"><div class="wrap"><div class="cta rv"><h2>Want this for <em>your business?</em></h2><div class="acts"><a class="btn hot" href="tel:+19179436912">Call 917-943-6912</a><a class="btn ghost" href="https://wa.me/19179436912" target="_blank" rel="noopener">WhatsApp ↗</a><a class="btn ghost" href="mailto:rustam.shb@gmail.com">Email me</a></div></div></div></section>
+  <div class="wrap"><a class="next" href="#lconstruction"><span>Next</span><b>L-Construction Group →</b></a></div>
+</div>
+
+<!-- ============ L-CONSTRUCTION ============ -->
+<div class="view" data-view="lconstruction" style="--accent:var(--lb)">
+  <section class="hero"><div class="wrap">
+    <a class="back" href="#home">← Overview</a>
+    <div class="bhead">
+      <div><p class="eyebrow"><span class="dot"></span>General contractor · New York City · owner Lubomir</p><h1>L-Construction Group</h1><p class="claim">Zero online presence <b>→ a website and 6 channels.</b></p></div>
+      <div><p class="lede">Lubomir builds houses from the foundation up and had no online presence at all. I built lbuildny.com from zero and set up his social pages, plus a links page he sends to clients.</p>
+      <div class="links"><a href="https://lbuildny.com" target="_blank" rel="noopener">lbuildny.com ↗</a><a href="https://lbuildny.com/links" target="_blank" rel="noopener">Links page ↗</a><a href="https://www.instagram.com/lbuildny/" target="_blank" rel="noopener">Instagram ↗</a><a href="https://www.youtube.com/@lbuildny" target="_blank" rel="noopener">YouTube ↗</a><a href="https://www.yelp.com/biz/l-construction-group-brooklyn" target="_blank" rel="noopener">Yelp ↗</a><a href="https://www.houzz.com/pro/lconstruction-group" target="_blank" rel="noopener">Houzz ↗</a></div></div>
+    </div>
+    <div class="facts rv">
+      <div><b>0 → 1</b><span>Website, built from nothing</span></div>
+      <div><b>6</b><span>Channels set up and linked from one page</span></div>
+      <div><b>2015–26</b><span>Projects on the site, sorted by type</span></div>
+      <div><b>1 link</b><span>One page with every channel, to send to clients</span></div>
+    </div>
+  </div></section>
+
+  <section style="padding-top:0"><div class="wrap">
+    <div class="sh rv"><h2>What I did</h2></div>
+    <ul class="did">
+      <li class="rv"><i>01</i><div><b>Website lbuildny.com</b><span>Services, projects from 2015 to 2026 by type, videos, and a free estimate request.</span></div></li>
+      <li class="rv"><i>02</i><div><b>Links page</b><span>Every channel on one page, made for sending to clients by text.</span></div></li>
+      <li class="rv"><i>03</i><div><b>Social pages</b><span>Set up under one name and linked from the site.</span></div></li>
+      <li class="rv"><i>04</i><div><b>Listings</b><span>Profiles where his customers look for a builder, linked from the links page.</span></div></li>
+    </ul>
+  </div></section>
+
+  <section style="padding-top:0"><div class="wrap">
+    <div class="sh rv"><h2>The site</h2></div>
+    <div class="gal" data-biz="lb"></div>
+  </div></section>
+    <section style="padding-top:0"><div class="wrap"><div class="cta rv"><h2>Want this for <em>your business?</em></h2><div class="acts"><a class="btn hot" href="tel:+19179436912">Call 917-943-6912</a><a class="btn ghost" href="https://wa.me/19179436912" target="_blank" rel="noopener">WhatsApp ↗</a><a class="btn ghost" href="mailto:rustam.shb@gmail.com">Email me</a></div></div></div></section>
+  <div class="wrap"><a class="next" href="#about"><span>Next</span><b>About me →</b></a></div>
+</div>
+
+<!-- ============ ABOUT ============ -->
+<div class="view" data-view="about">
+  <section class="hero"><div class="wrap">
+    <a class="back" href="#home">← Overview</a>
+    <p class="eyebrow">About · the person behind it is Rustam</p>
+    <h1 style="font:400 clamp(46px,7vw,96px)/.96 var(--serif);letter-spacing:-.025em;margin-top:16px;max-width:16ch">From oil fields to a Brooklyn showroom</h1>
+  </div></section>
+  <section style="padding-top:0"><div class="wrap">
+    <ol class="path">
+      <li class="rv"><span class="eyebrow">Before NYC</span><b>Geologist and coil tubing engineer</b><p>Well work and geology in oil and gas.</p></li>
+      <li class="rv"><span class="eyebrow">New York</span><b>Busboy</b><p>Started from zero in a new country and a new language.</p></li>
+      <li class="rv"><span class="eyebrow">Showroom</span><b>Sales manager</b><p>Kitchens, countertops, doors, tile and shower glass.</p></li>
+      <li class="rv"><span class="eyebrow">Now</span><b>Designer and builder for local businesses</b><p>Renders for showroom clients, three websites, and tools like payrolls.nyc that run on their own.</p></li>
+    </ol>
+  </div></section>
+  <section style="padding-top:0"><div class="wrap">
+    <div class="sh rv"><h2>Tools I use</h2><p>I'm not a programmer by training. I work with AI tools (mostly Claude, plus ChatGPT) for code, drawings, renders and documents.</p></div>
+    <div class="tools rv"><span><b>Claude</b> · code, drawings, renders</span><span><b>ChatGPT</b> · about a year, paid</span><span><b>Grok</b> · social content</span><span><b>three.js</b> · 3D builders</span><span><b>Vercel</b> · fast sites</span><span><b>Plugins</b> · kept current on two sites</span><span><b>Outlook</b> · inbox workflows</span><span><b>Meta shop</b> · Instagram and Facebook</span><span><b>Sony FX30</b> · shooting and editing video</span><span><b>English · Russian</b></span></div>
+  </div></section>
+  <section id="contact"><div class="wrap">
+    <div class="reach rv">
+      <div class="box">
+        <h2>Got a business that runs on paper? <em>Let's fix one thing.</em></h2>
+        <div class="row"><span class="eyebrow">Call or text</span><a class="big" href="tel:+19179436912">917-943-6912</a><a class="chip hot" href="tel:+19179436912">Call</a><a class="chip" href="https://wa.me/19179436912" target="_blank" rel="noopener">WhatsApp ↗</a><button class="chip" type="button" data-copy="917-943-6912">Copy</button></div>
+        <div class="row"><span class="eyebrow">Email</span><a class="big" href="mailto:rustam.shb@gmail.com">rustam.shb@gmail.com</a><button class="chip" type="button" data-copy="rustam.shb@gmail.com">Copy</button></div>
+        <div class="row"><span class="eyebrow">Video</span><a class="big" href="https://www.instagram.com/leanbodyrustam/" target="_blank" rel="noopener">@leanbodyrustam</a><a class="chip" href="https://www.instagram.com/leanbodyrustam/" target="_blank" rel="noopener">Instagram ↗</a></div>
+      </div>
+      <a class="visit" href="https://maps.google.com/?cid=10413442390860399771" target="_blank" rel="noopener" aria-label="Open the showroom in Google Maps">
+        <svg class="map" viewBox="0 0 560 260" role="img" aria-label="Map sketch of the showroom on 22nd Street, Brooklyn">
+          <g class="st">
+            <line x1="40" y1="0" x2="40" y2="260"/><line x1="130" y1="0" x2="130" y2="260"/><line x1="220" y1="0" x2="220" y2="260"/><line x1="310" y1="0" x2="310" y2="260"/><line x1="400" y1="0" x2="400" y2="260"/><line x1="490" y1="0" x2="490" y2="260"/>
+            <line x1="0" y1="110" x2="560" y2="110"/><line x1="0" y1="200" x2="560" y2="200"/><line x1="0" y1="40" x2="560" y2="40"/>
+          </g>
+          <line class="av" x1="0" y1="150" x2="560" y2="150"/>
+          <line class="av" x1="0" y1="250" x2="560" y2="250"/>
+          <text x="226" y="244" transform="rotate(-90 226 244)">22ND ST</text>
+          <circle class="ring" cx="265" cy="128" r="10"/>
+          <circle class="pin" cx="265" cy="128" r="9"/>
+          <circle cx="265" cy="128" r="3.5" fill="#fff"/>
+        </svg>
+        <div class="vb"><span class="eyebrow">Find me at the showroom</span><b>161 22nd Street</b><span>Brooklyn, NY 11232 · kitchens, doors, counters and tile on display</span><i>Open in Google Maps ↗</i></div>
+      </a>
+    </div>
+  </div></section>
+</div>
+
+<!-- ============ 404 ============ -->
+<div class="view" data-view="nf"><section><div class="wrap nf">
+  <p class="eyebrow">404</p><h1>This page isn't here.</h1><p style="color:var(--ink-2)">The link may be old. Everything is on the overview.</p>
+  <div><a class="btn" href="#home">Back to overview <span class="arr">→</span></a></div>
+</div></section></div>
+</main>
+
+<footer><div class="wrap"><span>My CV · Brooklyn, NY · <a href="tel:+19179436912">917-943-6912</a> · rustam.shb@gmail.com · built with AI tools</span><span>Client names, addresses and prices removed from all pictures</span></div></footer>
+
+<dialog class="lb" id="lb" aria-label="Picture viewer">
+  <img id="lb-img" alt="">
+  <div class="lbbar"><span id="lb-cap"></span><button type="button" id="lb-prev" aria-label="Previous picture">←</button><button type="button" id="lb-next" aria-label="Next picture">→</button><button type="button" id="lb-close">Close</button></div>
+</dialog>
+
+<script>
+const M = [{"k":"nk-site-home","biz":"nykhdc","grp":"site","cap":"nykhdc.com today: the store I run and keep updated","w":1389,"h":868},{"k":"nk-site-builder","biz":"nykhdc","grp":"site","cap":"Countertop builder on the live site, open to every customer","w":1389,"h":868},{"k":"nk-site-banner","biz":"nykhdc","grp":"site","cap":"Home page: the new online builder and the catalog","w":1389,"h":868},{"k":"nk-site-chat","biz":"nykhdc","grp":"site","cap":"AI assistant on nykhdc.com: answers, then hands the lead to the showroom","w":1389,"h":868},{"k":"pl-c_00","biz":"nykhdc","grp":"builder","cap":"Countertop planner, live 3D","w":1158,"h":962},{"k":"pl-c_01","biz":"nykhdc","grp":"builder","cap":"Countertop planner, live 3D","w":1158,"h":962},{"k":"pl-c_02","biz":"nykhdc","grp":"builder","cap":"Countertop planner, live 3D","w":1158,"h":962},{"k":"pl-c_03","biz":"nykhdc","grp":"builder","cap":"Countertop planner, live 3D","w":1158,"h":962},{"k":"pl-c_04","biz":"nykhdc","grp":"builder","cap":"Countertop planner, live 3D","w":1158,"h":962},{"k":"pl-c_05","biz":"nykhdc","grp":"builder","cap":"Countertop planner, live 3D","w":1158,"h":962},{"k":"pl-c_06","biz":"nykhdc","grp":"builder","cap":"Countertop planner, live 3D","w":1158,"h":962},{"k":"pl-c_07","biz":"nykhdc","grp":"builder","cap":"Countertop planner, live 3D","w":1158,"h":962},{"k":"pl-c_08","biz":"nykhdc","grp":"builder","cap":"Countertop planner, live 3D","w":1158,"h":962},{"k":"pl-c_09","biz":"nykhdc","grp":"builder","cap":"Countertop planner, live 3D","w":1158,"h":962},{"k":"pl-c_10","biz":"nykhdc","grp":"builder","cap":"Countertop planner, live 3D","w":1158,"h":962},{"k":"pl-c_11","biz":"nykhdc","grp":"builder","cap":"Countertop planner, live 3D","w":1158,"h":962},{"k":"pl-c_12","biz":"nykhdc","grp":"builder","cap":"Countertop planner, live 3D","w":1158,"h":962},{"k":"pl-c_13","biz":"nykhdc","grp":"builder","cap":"Countertop planner, live 3D","w":1158,"h":962},{"k":"pl-cplan_1","biz":"nykhdc","grp":"builder","cap":"Countertop planner, top view","w":1158,"h":962},{"k":"pl-cplan_13","biz":"nykhdc","grp":"builder","cap":"Countertop planner, top view","w":1158,"h":962},{"k":"pl-cplan_5","biz":"nykhdc","grp":"builder","cap":"Countertop planner, top view","w":1158,"h":962},{"k":"pl-cplan_9","biz":"nykhdc","grp":"builder","cap":"Countertop planner, top view","w":1158,"h":962},{"k":"pl-k_00","biz":"nykhdc","grp":"builder","cap":"Kitchen builder, live 3D","w":1158,"h":962},{"k":"pl-k_01","biz":"nykhdc","grp":"builder","cap":"Kitchen builder, live 3D","w":1158,"h":962},{"k":"pl-k_02","biz":"nykhdc","grp":"builder","cap":"Kitchen builder, live 3D","w":1158,"h":962},{"k":"pl-k_03","biz":"nykhdc","grp":"builder","cap":"Kitchen builder, live 3D","w":1158,"h":962},{"k":"pl-k_04","biz":"nykhdc","grp":"builder","cap":"Kitchen builder, live 3D","w":1158,"h":962},{"k":"pl-k_05","biz":"nykhdc","grp":"builder","cap":"Kitchen builder, live 3D","w":1158,"h":962},{"k":"pl-k_06","biz":"nykhdc","grp":"builder","cap":"Kitchen builder, live 3D","w":1158,"h":962},{"k":"pl-k_07","biz":"nykhdc","grp":"builder","cap":"Kitchen builder, live 3D","w":1158,"h":962},{"k":"pl-k_08","biz":"nykhdc","grp":"builder","cap":"Kitchen builder, live 3D","w":1158,"h":962},{"k":"pl-k_09","biz":"nykhdc","grp":"builder","cap":"Kitchen builder, live 3D","w":1158,"h":962},{"k":"pl-k_10","biz":"nykhdc","grp":"builder","cap":"Kitchen builder, live 3D","w":1158,"h":962},{"k":"pl-k_11","biz":"nykhdc","grp":"builder","cap":"Kitchen builder, live 3D","w":1158,"h":962},{"k":"pl-k_12","biz":"nykhdc","grp":"builder","cap":"Kitchen builder, live 3D","w":1158,"h":962},{"k":"pl-k_13","biz":"nykhdc","grp":"builder","cap":"Kitchen builder, live 3D","w":1158,"h":962},{"k":"pl-k_14","biz":"nykhdc","grp":"builder","cap":"Kitchen builder, live 3D","w":1158,"h":962},{"k":"pl-k_15","biz":"nykhdc","grp":"builder","cap":"Kitchen builder, live 3D","w":1158,"h":962},{"k":"pl-k_16","biz":"nykhdc","grp":"builder","cap":"Kitchen builder, live 3D","w":1158,"h":962},{"k":"pl-k_17","biz":"nykhdc","grp":"builder","cap":"Kitchen builder, live 3D","w":1158,"h":962},{"k":"pl-k_18","biz":"nykhdc","grp":"builder","cap":"Kitchen builder, live 3D","w":1158,"h":962},{"k":"pl-k_19","biz":"nykhdc","grp":"builder","cap":"Kitchen builder, live 3D","w":1158,"h":962},{"k":"pl-k_20","biz":"nykhdc","grp":"builder","cap":"Kitchen builder, live 3D","w":1158,"h":962},{"k":"pl-k_21","biz":"nykhdc","grp":"builder","cap":"Kitchen builder, live 3D","w":1158,"h":962},{"k":"pl-k_22","biz":"nykhdc","grp":"builder","cap":"Kitchen builder, live 3D","w":1158,"h":962},{"k":"pl-k_23","biz":"nykhdc","grp":"builder","cap":"Kitchen builder, live 3D","w":1158,"h":962},{"k":"pl-k_24","biz":"nykhdc","grp":"builder","cap":"Kitchen builder, live 3D","w":1158,"h":962},{"k":"pl-k_25","biz":"nykhdc","grp":"builder","cap":"Kitchen builder, live 3D","w":1158,"h":962},{"k":"pl-k_26","biz":"nykhdc","grp":"builder","cap":"Kitchen builder, live 3D","w":1158,"h":962},{"k":"pl-k_27","biz":"nykhdc","grp":"builder","cap":"Kitchen builder, live 3D","w":1158,"h":962},{"k":"pl-kplan_10","biz":"nykhdc","grp":"builder","cap":"Kitchen builder, top view with dimensions","w":1158,"h":962},{"k":"pl-kplan_17","biz":"nykhdc","grp":"builder","cap":"Kitchen builder, top view with dimensions","w":1158,"h":962},{"k":"pl-kplan_24","biz":"nykhdc","grp":"builder","cap":"Kitchen builder, top view with dimensions","w":1158,"h":962},{"k":"pl-kplan_3","biz":"nykhdc","grp":"builder","cap":"Kitchen builder, top view with dimensions","w":1158,"h":962},{"k":"pl-k2-01","biz":"nykhdc","grp":"builder","cap":"Kitchen builder, live 3D, camera turned","w":1158,"h":962},{"k":"pl-k2-02","biz":"nykhdc","grp":"builder","cap":"Kitchen builder, live 3D, camera turned","w":1158,"h":962},{"k":"pl-k2-03","biz":"nykhdc","grp":"builder","cap":"Kitchen builder, live 3D, camera turned","w":1158,"h":962},{"k":"pl-k2-04","biz":"nykhdc","grp":"builder","cap":"Kitchen builder, live 3D, camera turned","w":1158,"h":962},{"k":"pl-k2-05","biz":"nykhdc","grp":"builder","cap":"Kitchen builder, live 3D, camera turned","w":1158,"h":962},{"k":"pl-k2-07","biz":"nykhdc","grp":"builder","cap":"Kitchen builder, live 3D, camera turned","w":1158,"h":962},{"k":"pl-k2-08","biz":"nykhdc","grp":"builder","cap":"Kitchen builder, live 3D, camera turned","w":1158,"h":962},{"k":"pl-k2-10","biz":"nykhdc","grp":"builder","cap":"Kitchen builder, live 3D, camera turned","w":1158,"h":962},{"k":"pl-k2-11","biz":"nykhdc","grp":"builder","cap":"Kitchen builder, live 3D, camera turned","w":1158,"h":962},{"k":"pl-k2-13","biz":"nykhdc","grp":"builder","cap":"Kitchen builder, live 3D, camera turned","w":1158,"h":962},{"k":"pl-k2-14","biz":"nykhdc","grp":"builder","cap":"Kitchen builder, live 3D, camera turned","w":1158,"h":962},{"k":"pl-k2-15","biz":"nykhdc","grp":"builder","cap":"Kitchen builder, live 3D, camera turned","w":1158,"h":962},{"k":"pls-L","biz":"nykhdc","grp":"builder","cap":"Countertop planner, live 3D","w":1155,"h":959},{"k":"pls-U","biz":"nykhdc","grp":"builder","cap":"Countertop planner, live 3D","w":1155,"h":959},{"k":"pls-L-double","biz":"nykhdc","grp":"builder","cap":"Countertop planner, live 3D","w":1155,"h":959},{"k":"pls-granite","biz":"nykhdc","grp":"builder","cap":"Countertop planner, live 3D","w":1155,"h":959},{"k":"pls-kitchen","biz":"nykhdc","grp":"builder","cap":"Countertop planner, live 3D","w":1155,"h":959},{"k":"pls-kitchen-U","biz":"nykhdc","grp":"builder","cap":"Countertop planner, live 3D","w":1155,"h":959},{"k":"pls-straight-island","biz":"nykhdc","grp":"builder","cap":"Countertop planner, live 3D","w":1155,"h":959},{"k":"pls-kitchen-galley","biz":"nykhdc","grp":"builder","cap":"Countertop planner, live 3D","w":1155,"h":959},{"k":"pls-kitchen-island","biz":"nykhdc","grp":"builder","cap":"Countertop planner, live 3D","w":1155,"h":959},{"k":"pls-kitchen-dark","biz":"nykhdc","grp":"builder","cap":"Countertop planner, live 3D","w":1155,"h":959},{"k":"ui-pl-full-L","biz":"nykhdc","grp":"builder","cap":"Client planner: shape, size and sink in a few taps","w":1600,"h":1111},{"k":"ui-pl-full-kitchen","biz":"nykhdc","grp":"builder","cap":"Client planner: kitchen mode","w":1600,"h":1111},{"k":"ui-pl-full-dark","biz":"nykhdc","grp":"builder","cap":"Client planner: island with double sink","w":1600,"h":1111},{"k":"ui-kitchen-hero","biz":"nykhdc","grp":"site","cap":"Kitchen landing page with hotspots","w":1440,"h":900},{"k":"ui-studio-pro","biz":"nykhdc","grp":"studio","cap":"Kitchen Studio 3D: real SKUs, live dimensions, supplier catalog","w":923,"h":788},{"k":"m-bath-selection-tool-vanity-01","biz":"nykhdc","grp":"site","cap":"Bathroom selection tool I built for a client","w":970,"h":978},{"k":"sf-li","biz":"sf","grp":"site","cap":"strikeforcesports.net, Long Island: site I run, assistant bottom right","w":1389,"h":868},{"k":"sf-li-chat","biz":"sf","grp":"site","cap":"StrikeForce Assistant: prices, sessions and parties, then the lead goes to staff","w":1389,"h":868},{"k":"sf-nj","biz":"sf","grp":"site","cap":"strikeforcenj.com, New Jersey: second site, same assistant and plugins","w":1389,"h":868},{"k":"lb-home","biz":"lb","grp":"site","cap":"lbuildny.com: built from zero","w":1389,"h":868},{"k":"lb-projects","biz":"lb","grp":"site","cap":"Projects 2015\u20132026, filtered by type","w":1389,"h":868},{"k":"lb-links","biz":"lb","grp":"site","cap":"lbuildny.com/links: one page for every channel","w":500,"h":900},{"k":"r-walkin-closet-render-aerial-02","biz":"nykhdc","grp":"renders","cat":"closets","cap":"Walk-in closet inside: shelving towers, drawers and island","w":1312,"h":738},{"k":"m-kitchen-island-render-01","biz":"nykhdc","grp":"renders","cap":"Client render: kitchen with island","w":1500,"h":743,"cat":"kitchens"},{"k":"r-kitchen-cherry-shaker-render-01","biz":"nykhdc","grp":"renders","cat":"kitchens","cap":"Cherry shaker kitchen with farmhouse sink, client render","w":1600,"h":861},{"k":"cns-hero","biz":"cns","grp":"renders","cap":"Cab render from the drawing model: rear perspective","w":1097,"h":1373,"cat":"cabs"},{"k":"m-kitchen-render-01","biz":"nykhdc","grp":"renders","cap":"Client render made with Claude","w":1500,"h":743,"cat":"kitchens"},{"k":"r-walkin-closet-render-led-04","biz":"nykhdc","grp":"renders","cat":"closets","cap":"Walk-in closet revision with LED-lit shelving, top view","w":1600,"h":1229},{"k":"m-kitchen-3d-island-annotated-01","biz":"nykhdc","grp":"renders","cap":"Client render with notes: waterfall island, trash pull-out","w":1368,"h":1284,"cat":"kitchens"},{"k":"r-kitchen-large-u-shape-line-3d-overhead-02","biz":"nykhdc","grp":"renders","cat":"kitchens","cap":"Same kitchen from above: island, tall glass cabinets, coffee bar","w":1344,"h":736},{"k":"ct-3d","biz":"nykhdc","grp":"drawings","cap":"Countertop job in 3D, piece by piece","w":1600,"h":960,"cat":"countertops"},{"k":"m-kitchen-3d-pantry-annotated-01","biz":"nykhdc","grp":"renders","cap":"Client render with notes: roll-out pantry trays","w":740,"h":984,"cat":"kitchens"},{"k":"m-kitchen-3dview-01","biz":"nykhdc","grp":"renders","cap":"Design notes for the cabinet supplier","w":1600,"h":995,"cat":"kitchens"},{"k":"m-kitchen-3dview-02","biz":"nykhdc","grp":"renders","cap":"Design notes for the cabinet supplier","w":1600,"h":795,"cat":"kitchens"},{"k":"m-kitchen-island-render-02","biz":"nykhdc","grp":"renders","cap":"Client render: kitchen with island","w":1600,"h":793,"cat":"kitchens"},{"k":"m-kitchen-island-render-03","biz":"nykhdc","grp":"renders","cap":"Client render: kitchen with island","w":1500,"h":743,"cat":"kitchens"},{"k":"m-kitchen-island-render-04","biz":"nykhdc","grp":"renders","cap":"Client render: kitchen with island","w":1500,"h":859,"cat":"kitchens"},{"k":"m-kitchen-island-render-05","biz":"nykhdc","grp":"renders","cap":"Client render: kitchen with island","w":1500,"h":743,"cat":"kitchens"},{"k":"m-kitchen-island-render-06","biz":"nykhdc","grp":"renders","cap":"Client render: kitchen with island","w":1500,"h":743,"cat":"kitchens"},{"k":"m-kitchen-render-02","biz":"nykhdc","grp":"renders","cap":"Client render made with Claude","w":1500,"h":743,"cat":"kitchens"},{"k":"m-kitchen-render-03","biz":"nykhdc","grp":"renders","cap":"Client render made with Claude","w":1500,"h":743,"cat":"kitchens"},{"k":"r-kitchen-large-u-shape-line-3d-01","biz":"nykhdc","grp":"renders","cat":"kitchens","cap":"Large U-shaped kitchen with island and glass pantry wall, 3D line view","w":1600,"h":821},{"k":"r-kitchen-cherry-shaker-render-02","biz":"nykhdc","grp":"renders","cat":"kitchens","cap":"Cherry shaker kitchen: paneled fridge and double wall oven","w":1600,"h":832},{"k":"r-kitchen-coffee-bar-pantry-line-3d-03","biz":"nykhdc","grp":"renders","cat":"kitchens","cap":"Coffee bar wall with tall glass pantry cabinets","w":1600,"h":771},{"k":"r-walkin-closet-plan-01","biz":"nykhdc","grp":"renders","cat":"closets","cap":"Walk-in closet plan with dimensions and a numbered cabinet legend","w":1600,"h":1189},{"k":"r-walkin-closet-render-aerial-01","biz":"nykhdc","grp":"renders","cat":"closets","cap":"Walnut walk-in closet with glass-door cabinets, aerial render","w":1414,"h":831},{"k":"r-walkin-closet-render-front-03","biz":"nykhdc","grp":"renders","cat":"closets","cap":"Walk-in closet front view with recessed ceiling lights","w":1492,"h":762},{"k":"r-door-schedule-table-01","biz":"nykhdc","grp":"drawings","cat":"doors","cap":"Interior door schedule: pocket, bi-fold and swing doors with hardware","w":992,"h":906},{"k":"ct-plan","biz":"nykhdc","grp":"drawings","cap":"Countertop shop drawing: 3 pieces, cut-outs, square footage","w":1600,"h":1059,"cat":"countertops"},{"k":"m-kitchen-lineart-perspective-01","biz":"nykhdc","grp":"drawings","cap":"Kitchen line drawing, aerial view","w":1600,"h":824,"cat":"drawings"},{"k":"m-kitchen-lineart-perspective-02","biz":"nykhdc","grp":"drawings","cap":"Kitchen line drawing, aerial view","w":1388,"h":928,"cat":"drawings"},{"k":"m-kitchen-plan-3d-split-01","biz":"nykhdc","grp":"drawings","cap":"Shop drawing: dimensioned plan with cabinet codes and 3D","w":1600,"h":879,"cat":"drawings"},{"k":"m-kitchen-plan-3d-split-02","biz":"nykhdc","grp":"drawings","cap":"Shop drawing: dimensioned plan with cabinet codes and 3D","w":1600,"h":789,"cat":"drawings"},{"k":"r-kitchen-u-shape-cabinet-floor-plan-01","biz":"nykhdc","grp":"drawings","cat":"drawings","cap":"Cabinet floor plan with dimensions and cabinet codes","w":1600,"h":1223},{"k":"cns-r3-01","biz":"cns","grp":"sheets","cap":"Sheet 1 of 10 \u00b7 Cab interior: rear and corner perspectives, parts list","w":1600,"h":1035,"cat":"cabs"},{"k":"cns-r3-02","biz":"cns","grp":"sheets","cap":"Sheet 2 of 10 \u00b7 Cab snap-shots and finish schedule","w":1600,"h":1035,"cat":"cabs"},{"k":"cns-r3-03","biz":"cns","grp":"sheets","cap":"Sheet 3 of 10 \u00b7 Plan view, ceiling plan, floor tile","w":1600,"h":1035,"cat":"cabs"},{"k":"cns-r3-04","biz":"cns","grp":"sheets","cap":"Sheet 4 of 10 \u00b7 Left side and rear elevations","w":1600,"h":1035,"cat":"cabs"},{"k":"cns-r3-05","biz":"cns","grp":"sheets","cap":"Sheet 5 of 10 \u00b7 Front elevation, canopy, natural ventilation","w":1600,"h":1035,"cat":"cabs"},{"k":"cns-r3-06","biz":"cns","grp":"sheets","cap":"Sheet 6 of 10 \u00b7 Joint details: aluminum extrusion, change of panel","w":1600,"h":1035,"cat":"cabs"},{"k":"cns-r3-07","biz":"cns","grp":"sheets","cap":"Sheet 7 of 10 \u00b7 Rear corner, strike jamb, return, handrail","w":1600,"h":1035,"cat":"cabs"},{"k":"cns-r3-08","biz":"cns","grp":"sheets","cap":"Sheet 8 of 10 \u00b7 Ceiling at wall, access panel, base detail","w":1600,"h":1035,"cat":"cabs"},{"k":"cns-r3-09","biz":"cns","grp":"sheets","cap":"Sheet 9 of 10 \u00b7 Cleaning instructions, maintenance, material key","w":1600,"h":1035,"cat":"cabs"},{"k":"cns-r3-10","biz":"cns","grp":"sheets","cap":"Sheet 10 of 10 \u00b7 Weight calculation: how the 553 lb total is made","w":1600,"h":1035,"cat":"cabs"},{"k":"cns-corner","biz":"cns","grp":"renders","cap":"Cab render: rear corner, from the front left","w":592,"h":640,"cat":"cabs"},{"k":"cns-landing","biz":"cns","grp":"renders","cap":"Cab render: view from the landing, door open","w":511,"h":638,"cat":"cabs"}];
+const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [...r.querySelectorAll(s)];
+const GROUPS = {
+  nykhdc: [['site', 'Live site'], ['studio', 'Kitchen Studio 3D'], ['renders', 'Client renders'], ['drawings', 'Drawings'], ['builder', 'Builder in 3D']],
+  cns: [['renders', 'Renders'], ['sheets', 'Sheets']], sf: [['site', 'Sites']], lb: [['site', 'Site']]
+};
+const byKey = Object.fromEntries(M.map(m => [m.k, m]));
+
+/* lightbox */
+const lb = $('#lb'); let view = [], idx = 0;
+function openLB(list, i){ view = list; idx = i; showLB(); if (!lb.open) lb.showModal(); }
+function showLB(){ const it = view[idx]; $('#lb-img').src = 'assets/img/' + it.k + '.webp'; $('#lb-img').alt = it.cap; $('#lb-cap').textContent = (idx + 1) + ' / ' + view.length + ' · ' + it.cap; }
+$('#lb-prev').onclick = () => { idx = (idx - 1 + view.length) % view.length; showLB(); };
+$('#lb-next').onclick = () => { idx = (idx + 1) % view.length; showLB(); };
+$('#lb-close').onclick = () => lb.close();
+lb.addEventListener('click', e => { if (e.target === lb) lb.close(); });
+document.addEventListener('keydown', e => { if (!lb.open) return; if (e.key === 'ArrowLeft') $('#lb-prev').click(); if (e.key === 'ArrowRight') $('#lb-next').click(); });
+$$('[data-open]').forEach(f => f.addEventListener('click', () => { const it = byKey[f.dataset.open]; const biz = M.filter(m => m.biz === it.biz); openLB(biz, biz.indexOf(it)); }));
+
+/* galleries */
+const PAGE = 24;
+$$('.gal').forEach(g => {
+  const biz = g.dataset.biz, groups = GROUPS[biz];
+  const all = groups.flatMap(([k]) => M.filter(m => m.biz === biz && m.grp === k));
+  let cur = 'all', shown = PAGE;
+  const filters = document.createElement('div'); filters.className = 'filters'; filters.setAttribute('role', 'group'); filters.setAttribute('aria-label', 'Filter pictures');
+  const wall = document.createElement('div'); wall.className = 'wall' + (biz === 'cns' ? ' sheets' : '');
+  const more = document.createElement('div'); more.className = 'more-btn';
+  const list = () => cur === 'all' ? all : all.filter(m => m.grp === cur);
+  function render(){
+    const l = list(); wall.textContent = '';
+    l.slice(0, shown).forEach((it, i) => {
+      const b = document.createElement('button'); b.type = 'button'; b.setAttribute('aria-label', 'Open: ' + it.cap);
+      b.innerHTML = '<img loading="lazy" decoding="async" width="' + it.w + '" height="' + it.h + '" src="assets/thumb/' + it.k + '.webp" alt=""><span class="c"></span>';
+      b.querySelector('.c').textContent = it.cap; b.onclick = () => openLB(l, i); wall.append(b);
+    });
+    more.textContent = '';
+    if (l.length > shown) { const m = document.createElement('button'); m.type = 'button'; m.className = 'btn ghost'; m.textContent = 'Show all ' + l.length; m.onclick = () => { shown = 1e9; render(); }; more.append(m); }
+  }
+  if (groups.length > 1 || all.length > 6) {
+    [['all', 'All']].concat(groups).forEach(([k, name]) => {
+      const n = k === 'all' ? all.length : all.filter(m => m.grp === k).length; if (!n) return;
+      const b = document.createElement('button'); b.type = 'button'; b.setAttribute('aria-pressed', k === cur);
+      b.innerHTML = name + '<small>' + n + '</small>';
+      b.onclick = () => { cur = k; shown = PAGE; $$('button', filters).forEach(x => x.setAttribute('aria-pressed', x === b)); render(); };
+      filters.append(b);
+    });
+    g.append(filters);
+  }
+  g.append(wall, more); render();
+});
+
+
+/* design gallery: every render and drawing, by category */
+const CATS = [["kitchens", "Kitchens", "Full kitchens in 3D: layout, cabinets, island, colors. The client sees the finished room before the order goes in."], ["bath", "Bathrooms", "Showers, tubs, vanities and tile, room by room, so the client picks with the whole bath in view."], ["tile", "Tile", "Tile layouts and patterns drawn to the real wall and floor sizes."], ["doors", "Doors", "Entry, patio and interior doors drawn in place, with sizes and finishes the factory can build from."], ["stairs", "Stairs", "Stairs and railings in 3D, checked for fit before anything is cut."], ["closets", "Closets & built-ins", "Closets, wardrobes and built-ins sized to the space."], ["countertops", "Countertops", "Stone layouts and shop drawings: pieces, seams, cut-outs and square footage."], ["interiors", "Interiors", "Whole rooms and spaces, so the client sees how everything comes together."], ["drawings", "Shop drawings", "Dimensioned plans and elevations with cabinet codes, ready for the supplier."], ["cabs", "Elevator cabs", "Elevator cab interiors for CNS, rendered from the same model as the approval drawings."]];
+const DES = M.filter(m => m.cat);
+(function(){
+  const g = $('.dgal'); if (!g) return;
+  let cur = 'all';
+  const filters = document.createElement('div'); filters.className = 'filters'; filters.setAttribute('role', 'group'); filters.setAttribute('aria-label', 'Pick a category');
+  const note = document.createElement('p'); note.className = 'catnote';
+  const grid = document.createElement('div'); grid.className = 'grid';
+  const list = () => cur === 'all' ? DES : DES.filter(m => m.cat === cur);
+  function render(){
+    const l = list(); grid.textContent = '';
+    const c = CATS.find(x => x[0] === cur); note.textContent = c ? c[2] : 'Every picture is from a real job. Client names, addresses and prices are removed.';
+    l.forEach((it, i) => {
+      const b = document.createElement('button'); b.type = 'button'; b.setAttribute('aria-label', 'Open large: ' + it.cap);
+      b.innerHTML = '<img loading="lazy" decoding="async" src="assets/thumb/' + it.k + '.webp" alt=""><span></span>';
+      b.querySelector('span').textContent = it.cap; b.onclick = () => openLB(l, i); grid.append(b);
+    });
+  }
+  [['all', 'All', '']].concat(CATS).forEach(([k, name]) => {
+    const n = k === 'all' ? DES.length : DES.filter(m => m.cat === k).length; if (!n) return;
+    const b = document.createElement('button'); b.type = 'button'; b.setAttribute('aria-pressed', k === cur);
+    b.innerHTML = name + '<small>' + n + '</small>';
+    b.onclick = () => { cur = k; $$('button', filters).forEach(x => x.setAttribute('aria-pressed', x === b)); render(); };
+    filters.append(b);
+  });
+  g.append(filters, note, grid); render();
+})();
+/* hero mosaic opens the design gallery in the large view */
+$$('.mosaic [data-k]').forEach(b => b.addEventListener('click', () => { const i = DES.findIndex(m => m.k === b.dataset.k); openLB(DES, Math.max(0, i)); }));
+/* swipe in the large view */
+(function(){ let x0 = null; lb.addEventListener('touchstart', e => { x0 = e.touches[0].clientX; }, { passive: true }); lb.addEventListener('touchend', e => { if (x0 === null) return; const dx = e.changedTouches[0].clientX - x0; if (Math.abs(dx) > 50) (dx < 0 ? $('#lb-next') : $('#lb-prev')).click(); x0 = null; }); })();
+
+/* reveal on scroll */
+const io = 'IntersectionObserver' in window ? new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { rootMargin: '0px 0px -8% 0px' }) : null;
+function reveal(root){ $$('.rv:not(.in)', root).forEach(el => io ? io.observe(el) : el.classList.add('in')); }
+
+/* strike force bar grows in */
+const grow = () => { const bars = $$('#sfbar .bar div'); [35, 21, 9, 3].forEach((n, i) => bars[i].style.flexGrow = n); };
+
+/* routing */
+const VIEWS = ['home', 'design', 'nykhdc', 'cns', 'strikeforce', 'lconstruction', 'about'];
+function route(){
+  const h = decodeURIComponent(location.hash.slice(1));
+  let v = h === '' ? 'home' : h === 'contact' ? 'about' : VIEWS.includes(h) ? h : 'nf';
+  $$('.view').forEach(el => el.classList.toggle('on', el.dataset.view === v));
+  $$('.nav a').forEach(a => { if (a.getAttribute('href') === '#' + v) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current'); });
+  const cur = $('.nav a[aria-current]'); if (cur) cur.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+  if (v === 'home') { const f = $('#live-planner'); if (!f.src) f.src = f.dataset.src; }
+  if (v === 'strikeforce') setTimeout(grow, 250);
+  const on = $('.view.on'); reveal(on);
+  window.scrollTo(0, 0);
+  if (h === 'contact') setTimeout(() => $('#contact').scrollIntoView({ behavior: 'smooth' }), 300);
+}
+addEventListener('hashchange', route); route();
+addEventListener('scroll', () => $('#top').classList.toggle('scrolled', scrollY > 8), { passive: true });
+
+/* copy email */
+document.querySelectorAll('[data-copy]').forEach(b => b.onclick = async () => { const v = b.dataset.copy; try { await navigator.clipboard.writeText(v); b.textContent = 'Copied'; } catch (e) { const r = document.createRange(); r.selectNodeContents(b.parentElement.querySelector('.big') || b); const s = getSelection(); s.removeAllRanges(); s.addRange(r); b.textContent = 'Selected'; } setTimeout(() => b.textContent = 'Copy', 1800); });
+</script>
+
+</html>
