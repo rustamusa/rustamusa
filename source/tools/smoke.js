@@ -58,8 +58,8 @@ const B = 'http://127.0.0.1:8793/';
     ok('a picture leads to its business block', Math.abs(await topOf(page, '#b-cab') - 76) < 90, await topOf(page, '#b-cab'));
     await page.evaluate(() => scrollTo({ top: 0, behavior: 'instant' }));
     /* problem, fix, result */
-    ok('five businesses, each its own block with a picture, a bottleneck and a result', await page.evaluate(() => { const b = [...document.querySelectorAll('.bz')]; return b.length === 5 && b.every(x => x.querySelector('.bz-fig img') && x.querySelector('h3').textContent.trim().length > 10 && x.querySelector('.bz-res b').textContent.trim() && x.querySelector('a[href^="#"]')); }));
-    ok('not one template: at least four different block layouts', await page.evaluate(() => new Set([...document.querySelectorAll('.bz')].map(b => [...b.classList].filter(c => c !== 'bz').sort().join(' '))).size >= 4));
+    ok('five businesses, one window each: the problems, how AI solved them, what the team learned', await page.evaluate(() => { const w = [...document.querySelectorAll('.win')]; return w.length === 5 && w.every(x => { const h = [...x.querySelectorAll('.win-col h4')].map(e => e.textContent); return x.querySelector('.win-pic') && x.querySelector('h3').textContent.trim() && x.querySelector('.win-big').textContent.includes('→') && x.querySelector('a[href^="#"]') && h.length === 3 && /problems/i.test(h[0]) && /How AI solved/i.test(h[1]) && /learned/i.test(h[2]) && [...x.querySelectorAll('.win-col ul')].every(u => u.children.length >= 1); }); }));
+    ok('windows: big text, every line 18px or more', await page.evaluate(() => [...document.querySelectorAll('.win-col li, .win-name h3')].every(e => parseFloat(getComputedStyle(e).fontSize) >= 18)));
     ok('no Russian text and no first name inside the quotes', await page.evaluate(() => !/[\u0400-\u04FF]/.test(document.body.innerText) && !/Russian/.test(document.body.innerText) && [...document.querySelectorAll('.word blockquote')].every(q => !/Rustam/.test(q.textContent))));
     ok('Stanley, not Slava', await page.evaluate(() => !/Slava/.test(document.documentElement.innerHTML) && /Stanley/.test(document.querySelector('.words').textContent)));
     ok('no tables on the home page', await page.evaluate(() => !document.querySelector('.view[data-view=home] table, .view[data-view=home] .fx')));
@@ -136,6 +136,7 @@ const B = 'http://127.0.0.1:8793/';
     ok('phone: no sideways scroll', await noSide(page) <= 0, await noSide(page));
     ok('phone: headline and call button fit the first screen', await page.evaluate(() => { const d = document.querySelector('.dock').getBoundingClientRect().top; return ['#cover h1', '#cover .pill.solid'].every(q => { const r = document.querySelector(q).getBoundingClientRect(); return r.top >= 0 && r.bottom <= d; }); }));
     ok('phone: home under 11 screens', await page.evaluate(() => document.documentElement.scrollHeight / innerHeight < 11), await page.evaluate(() => (document.documentElement.scrollHeight / innerHeight).toFixed(1)));
+    ok('phone: window text 17px or more', await page.evaluate(() => [...document.querySelectorAll('.win-col li')].every(e => parseFloat(getComputedStyle(e).fontSize) >= 17)));
     ok('phone: timeline results are readable text', await page.evaluate(() => [...document.querySelectorAll('.ln-res')].every(e => e.offsetParent && parseFloat(getComputedStyle(e).fontSize) >= 16)));
     ok('phone: dock is on screen', await page.evaluate(() => getComputedStyle(document.querySelector('.dock')).display !== 'none'));
     ok('phone: header nav is folded', await page.evaluate(() => getComputedStyle(document.querySelector('.nav')).display === 'none'));
