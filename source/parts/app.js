@@ -216,8 +216,8 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape' && sheet.clas
 
 /* ---------- pages and anchors ---------- */
 const VIEWS = ['home', 'about', 'design', 'nykhdc', 'cns', 'strikeforce', 'lconstruction'];
-const OLD = { best: 'results', services: 'skills', 'contact-home': 'contact', volunteer: 'me-sec', firstday: 'how', what: 'loop', c1: 'nykhdc', c2: 'cns', c3: 'nykhdc', c4: 'strikeforce', c5: 'lconstruction', c6: 'work-app', stage: 'nykhdc', words: 'words' };
-const NAV = { cover: 'loop', results: 'loop', nykhdc: 'work', cns: 'work', strikeforce: 'work', lconstruction: 'work', design: 'work', words: 'work' };
+const OLD = { best: 'results', services: 'skills', 'contact-home': 'contact', volunteer: 'me-sec', firstday: 'how', what: 'fixes', loop: 'fixes', c1: 'nykhdc', c2: 'cns', c3: 'nykhdc', c4: 'strikeforce', c5: 'lconstruction', c6: 'work-app', stage: 'nykhdc', words: 'words' };
+const NAV = { cover: 'fixes', results: 'fixes', nykhdc: 'work', cns: 'work', strikeforce: 'work', lconstruction: 'work', design: 'work', words: 'work' };
 function mark(id){ const k = NAV[id] || id; $$('.nav a').forEach(a => { if (a.getAttribute('href') === '#' + k) a.setAttribute('aria-current', 'true'); else a.removeAttribute('aria-current'); }); }
 /* a link is a view (#cns) or any section inside a view (#faq opens About and scrolls there) */
 function route(){
@@ -242,7 +242,7 @@ addEventListener('hashchange', route); route();
 /* keep the header link in step with what is on screen */
 if ('IntersectionObserver' in window) {
   const spy = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting && $('.view.on').dataset.view === 'home') mark(e.target.id); }), { rootMargin: '-45% 0px -50% 0px' });
-  ['cover', 'results', 'loop', 'work', 'words', 'contact'].forEach(id => { const el = document.getElementById(id); if (el) spy.observe(el); });
+  ['cover', 'fixes', 'work', 'words', 'contact'].forEach(id => { const el = document.getElementById(id); if (el) spy.observe(el); });
 }
 
 /* ---------- copy phone or email ---------- */

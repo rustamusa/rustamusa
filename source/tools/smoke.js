@@ -59,6 +59,9 @@ const B = 'http://127.0.0.1:8793/';
     { const r = await (await page.$('#ba-range')).boundingBox(); await page.mouse.click(r.x + 4, r.y + r.height / 2); await page.waitForTimeout(500); }
     ok('drag to before: bars full, before values shown', await page.evaluate(() => +document.querySelector('#ba-range').value < 5 && !document.querySelector('#ba').classList.contains('after') && [...document.querySelectorAll('.ba-bar i')].every(i => i.getBoundingClientRect().width >= i.parentElement.getBoundingClientRect().width * .9)));
     ok('values say days, 1 week, lost, by hand, $2,000', await page.evaluate(() => [...document.querySelectorAll('.ba-val s')].map(s => s.textContent).join('|') === 'days|1 week|lost|by hand|$2,000 / yr'));
+    /* problem, fix, result */
+    ok('five businesses with problem, fix and result', await page.evaluate(() => { const r = [...document.querySelectorAll('.fx li')]; return r.length === 5 && r.every(li => li.querySelectorAll('.fx-c').length === 2 && li.querySelector('.fx-r b').textContent.trim()); }));
+    ok('no diagram that explains business', await page.evaluate(() => !document.querySelector('.loop, #loop')));
     /* timeline */
     ok('five projects on the timeline', await page.evaluate(() => document.querySelectorAll('.lanes li').length === 5));
     ok('five bars overlap in late October', await page.evaluate(() => { const x = document.querySelector('.ln-five').getBoundingClientRect(); const mid = x.left + x.width / 2; return [...document.querySelectorAll('.ln-track i')].every(i => { const r = i.getBoundingClientRect(); return r.left <= mid && r.right >= mid; }); }));
@@ -74,7 +77,7 @@ const B = 'http://127.0.0.1:8793/';
     ok('showroom page: the kitchen draws itself', await page.evaluate(() => !!document.querySelector('#stage3d canvas')));
     await page.waitForTimeout(6500); ok('kitchen finishes and shows the estimate', await page.evaluate(() => +document.querySelector('#scrub').value === 1000 && document.querySelector('#stage').classList.contains('priced')));
     /* links that used to point into the long page still land somewhere useful */
-    for (const [old, v, id] of [['c1', 'nykhdc', null], ['c2', 'cns', null], ['c6', 'about', 'work-app'], ['faq', 'about', 'faq'], ['workshop', 'about', 'workshop'], ['skills', 'about', 'skills'], ['pages', 'about', 'pages'], ['builder', 'about', 'builder'], ['what', 'home', 'loop'], ['best', 'home', 'results']]) {
+    for (const [old, v, id] of [['c1', 'nykhdc', null], ['c2', 'cns', null], ['c6', 'about', 'work-app'], ['faq', 'about', 'faq'], ['workshop', 'about', 'workshop'], ['skills', 'about', 'skills'], ['pages', 'about', 'pages'], ['builder', 'about', 'builder'], ['what', 'home', 'fixes'], ['best', 'home', 'results']]) {
       await hash(page, old, 1500); const top = id ? await topOf(page, '#' + id) : 0;
       ok('link #' + old + ' opens ' + v + (id ? ' at ' + id : ''), await view(page) === v && (!id || Math.abs(top - 76) < 90 || await page.evaluate(() => innerHeight + scrollY >= document.documentElement.scrollHeight - 4)), [await view(page), top]); }
     /* About view: everything else */
@@ -117,7 +120,6 @@ const B = 'http://127.0.0.1:8793/';
   { const { ctx, page } = await open({ viewport: { width: 1280, height: 800 }, reducedMotion: 'reduce' });
     await page.goto(B, { waitUntil: 'load' }); await page.waitForTimeout(500);
     ok('calm: slider starts at after, nothing moves', await page.evaluate(() => +document.querySelector('#ba-range').value === 100 && document.querySelector('#ba').classList.contains('after')));
-    ok('calm: the loop dot is hidden', await page.evaluate(() => getComputedStyle(document.querySelector('.loop .runner')).display === 'none'));
     await page.evaluate(() => { location.hash = 'nykhdc'; }); await page.waitForTimeout(600); await page.evaluate(() => document.querySelector('#stage3d').scrollIntoView({ block: 'center', behavior: 'instant' }));
     await page.waitForFunction(() => window.__hero, null, { timeout: 15000 }).catch(() => {}); await page.waitForTimeout(800);
     ok('calm: kitchen is already built', await page.evaluate(() => document.querySelector('#stage').classList.contains('priced')));

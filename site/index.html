@@ -696,20 +696,6 @@ dialog.lb::backdrop{background:rgba(var(--veil),.92)}
 .ba.after .ba-val s{opacity:0;transform:translateY(-6px)}
 .ba.after .ba-val b{opacity:1;transform:none}
 .ba-rows a:hover .ba-what b{text-decoration:underline;text-underline-offset:.2em;text-decoration-thickness:1px}
-/* the loop */
-.loop-in{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(28px,5vw,80px);align-items:center}
-.loop svg{width:100%;max-width:460px;display:block;margin-inline:auto;overflow:visible}
-.loop .ring{fill:none;stroke:var(--rule-2);stroke-width:2;stroke-dasharray:3 9;stroke-linecap:round}
-.loop .node circle{fill:var(--on)}
-.loop .node text{fill:var(--on-2);font:500 19px var(--sans)}
-.loop .slow circle{fill:var(--band)}
-.loop .slow text{fill:var(--band);font-weight:700;font-size:22px}
-.loop .runner{fill:var(--accent)}
-.three{margin-top:clamp(24px,3vw,40px);display:grid;gap:22px;counter-reset:n}
-.three li{display:grid;grid-template-columns:52px minmax(0,1fr);gap:4px 16px;counter-increment:n}
-.three li::before{content:counter(n);grid-row:1/3;display:grid;place-items:center;width:52px;height:52px;border-radius:50%;border:1.5px solid var(--accent);color:var(--accent);font:650 1.35rem/1 var(--sans)}
-.three b{font:650 clamp(1.4rem,2.2vw,1.8rem)/1.1 var(--sans);letter-spacing:-.035em}
-.three span{font:400 1.15rem/1.4 var(--sans);color:var(--on-2)}
 /* businesses */
 .biz{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:clamp(24px,3vw,40px)}
 .biz a{display:grid;gap:8px;padding:clamp(22px,2.6vw,32px);border-radius:var(--r);border:1px solid var(--rule-2);text-decoration:none;transition:border-color .2s,background .2s}
@@ -719,8 +705,6 @@ dialog.lb::backdrop{background:rgba(var(--veil),.92)}
 .biz em{font:600 1.2rem/1.2 var(--sans);font-style:normal;color:var(--accent);margin-top:6px}
 .sec2 .word blockquote{font-size:clamp(1.15rem,1.5vw,1.3rem);line-height:1.45}
 @media (max-width:900px){
-  .loop-in{grid-template-columns:minmax(0,1fr)}
-  .loop svg{max-width:340px}
   .ba-rows a{grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"w v" "b b"}
   .ba-what{grid-area:w}.ba-val{grid-area:v}.ba-bar{grid-area:b}
   .biz{grid-template-columns:minmax(0,1fr)}
@@ -750,6 +734,30 @@ dialog.lb::backdrop{background:rgba(var(--veil),.92)}
 @media (max-width:640px){.hero3 h1{font-size:clamp(2.4rem,10.6vw,3.1rem)}.hero3-in{padding-block:28px 40px;gap:30px}}
 /* kitchen on a phone: the facts row is always there, no empty gap under the picture */
 @media (max-width:640px){.ticket{opacity:1!important;transform:none!important;color:var(--on)}.ticket dt{color:var(--on-2)}.ticket dd{font-size:1.05rem}}
+
+/* problem, fix, result: one row per business */
+.fx{margin-top:clamp(26px,3.6vw,44px)}
+.fx-head,.fx li a{display:grid;grid-template-columns:minmax(0,15rem) minmax(0,1fr) minmax(0,1fr) minmax(0,11rem);gap:10px clamp(20px,2.6vw,40px);align-items:start}
+.fx-head{padding-bottom:14px;border-bottom:1px solid var(--rule-2);font:600 1.05rem/1 var(--sans);color:var(--on-2)}
+.fx-head span:last-child{text-align:right}
+.fx li{border-bottom:1px solid var(--rule)}
+.fx li a{padding:26px 0;text-decoration:none;transition:background .2s}
+.fx li a:hover{background:linear-gradient(90deg,transparent,var(--well) 12%,var(--well) 88%,transparent)}
+.fx-biz b{display:block;font:650 clamp(1.25rem,1.7vw,1.5rem)/1.15 var(--sans);letter-spacing:-.03em}
+.fx-biz small{display:block;font:400 1rem/1.3 var(--sans);color:var(--on-2);margin-top:6px}
+.fx-c{font:400 clamp(1.05rem,1.25vw,1.15rem)/1.45 var(--sans);color:var(--on)}
+.fx-c em,.fx-r em{display:none;font:600 1rem/1 var(--sans);font-style:normal;color:var(--on-2);margin-bottom:6px}
+.fx-r{display:grid;justify-items:end;text-align:right;gap:6px}
+.fx-r s{font:500 1.1rem/1 var(--sans);color:var(--band);text-decoration-thickness:1.5px}
+.fx-r b{font:700 clamp(1.6rem,2.4vw,2.2rem)/1 var(--sans);letter-spacing:-.045em;color:var(--accent)}
+.fx li a:hover .fx-biz b{text-decoration:underline;text-underline-offset:.2em;text-decoration-thickness:1px}
+@media (max-width:900px){
+  .fx-head{display:none}
+  .fx li a{grid-template-columns:minmax(0,1fr);gap:14px;padding:24px 0}
+  .fx-c em,.fx-r em{display:block}
+  .fx-r{justify-items:start;text-align:left;grid-template-columns:auto auto;align-items:baseline;justify-content:start;gap:4px 14px}
+  .fx-r em{grid-column:1/-1}
+}
 /* five projects on one timeline */
 .lanes{margin-top:clamp(28px,4vw,48px)}
 .ln-axis,.lanes li a{display:grid;grid-template-columns:minmax(0,17rem) minmax(0,1fr);gap:8px 28px;align-items:center}
@@ -773,9 +781,11 @@ dialog.lb::backdrop{background:rgba(var(--veil),.92)}
   .ln-gap{display:none}
   .ln-track{height:22px}
   .ln-track em{display:none}
-  .ln-res{display:block;margin-top:8px;font:650 1.1rem/1.2 var(--sans);letter-spacing:-.02em;color:var(--accent)}
+  .ln-res{display:block;margin-top:6px;font:600 1.05rem/1.2 var(--sans);color:var(--accent)}
+  .ln-name small{display:none}
+  .lanes li a{padding:14px 0;gap:8px}
 }
-@media (prefers-reduced-motion:reduce){.loop .runner{display:none}}
+
 </style>
 </head>
 <body>
@@ -795,7 +805,7 @@ dialog.lb::backdrop{background:rgba(var(--veil),.92)}
 <header class="top" id="top"><div class="wrap top-in">
   <a class="brand" href="#home" aria-label="My CV, home"><svg aria-hidden="true"><use href="#i-mark"/></svg>My CV</a>
   <nav class="nav" aria-label="Sections">
-    <a href="#loop">How it works</a><a href="#work">Work</a><a href="#words">Owners</a><a href="#reel" id="nav-reel" hidden>Video</a><a href="#about">About</a>
+    <a href="#fixes">Results</a><a href="#work">Projects</a><a href="#words">Owners</a><a href="#reel" id="nav-reel" hidden>Video</a><a href="#about">About</a>
   </nav>
   <div class="soc">
     <a href="https://www.instagram.com/leanbodyrustam/" target="_blank" rel="noopener" aria-label="Instagram"><svg aria-hidden="true"><use href="#i-ig"/></svg></a>
@@ -808,8 +818,8 @@ dialog.lb::backdrop{background:rgba(var(--veil),.92)}
 
 <nav class="sheetnav" id="sheetnav" aria-label="All sections">
   <div class="sheetnav-head"><a class="brand" href="#home"><svg aria-hidden="true"><use href="#i-mark"/></svg>My CV</a><button class="close" type="button" id="menu-close">Close</button></div>
-  <a class="big" href="#loop">How it works <small>find, speed up, automate</small></a>
-  <a class="big" href="#work">Work <small>four businesses</small></a>
+  <a class="big" href="#fixes">Results <small>problem, fix, result</small></a>
+  <a class="big" href="#work">Projects <small>five at the same time</small></a>
   <a class="big" href="#about">About <small>Rustam, Brooklyn</small></a>
   <a class="big" href="#reel" id="sheet-reel" hidden>Video <small>shot and edited</small></a>
   <a class="big" href="#workshop">Workshop <small>free, sign up</small></a>
@@ -850,25 +860,16 @@ dialog.lb::backdrop{background:rgba(var(--veil),.92)}
     </div>
   </div></section>
 
-  <section class="sec2 loop-sec" id="loop"><div class="wrap loop-in">
-    <figure class="loop" aria-hidden="true">
-      <svg viewBox="0 0 400 400">
-        <circle class="ring" cx="200" cy="200" r="150"/>
-        <circle class="runner" r="9"><animateMotion dur="7s" repeatCount="indefinite" path="M200 50 a150 150 0 1 1 -0.1 0"/></circle>
-        <g class="node"><circle cx="200" cy="50" r="8"/><text x="200" y="28" text-anchor="middle">Lead</text></g>
-        <g class="node"><circle cx="330" cy="125" r="8"/><text x="346" y="120">Reply</text></g>
-        <g class="node slow"><circle cx="330" cy="275" r="14"/><text x="352" y="281">Quote</text></g>
-        <g class="node"><circle cx="200" cy="350" r="8"/><text x="200" y="384" text-anchor="middle">Order</text></g>
-        <g class="node"><circle cx="70" cy="275" r="8"/><text x="54" y="281" text-anchor="end">Payment</text></g>
-        <g class="node"><circle cx="70" cy="125" r="8"/><text x="54" y="120" text-anchor="end">Delivery</text></g>
-      </svg>
-    </figure>
-    <div>
-      <h2 class="h2b">Every business is a loop. The slowest step sets the speed.</h2>
-      <ol class="three">
-        <li><b>Find it.</b><span>A day on site, one real order followed start to finish.</span></li>
-        <li><b>Speed it up.</b><span>Rebuilt with AI tools on the business's own accounts.</span></li>
-        <li><b>Automate it.</b><span>It runs without anyone. The team learns to use it.</span></li>
+  <section class="sec2" id="fixes"><div class="wrap">
+    <h2 class="h2b">What was broken, and what works now</h2>
+    <div class="fx">
+      <div class="fx-head" aria-hidden="true"><span></span><span>Problem</span><span>Fix</span><span>Result</span></div>
+      <ol>
+      <li><a href="#nykhdc"><span class="fx-biz"><b>NY Kitchen &amp; Home Design Center</b><small>Kitchen showroom, Brooklyn</small></span><span class="fx-c"><em>Problem</em>A priced kitchen with a 3D view took days. Website requests reached no one.</span><span class="fx-c"><em>Fix</em>An online kitchen builder that prices the job. One inbox and an AI assistant for every request.</span><span class="fx-r"><em>Result</em><s>days</s><b>minutes</b></span></a></li>
+      <li><a href="#cns"><span class="fx-biz"><b>CNS Elevator Cabs</b><small>Elevator cab maker, Brooklyn</small></span><span class="fx-c"><em>Problem</em>A drawing set the building signs took a week. The drafter was far away.</span><span class="fx-c"><em>Fix</em>The whole set drawn with AI tools from one 3D model: plans, details, weights, renders.</span><span class="fx-r"><em>Result</em><s>1 week</s><b>2 hours</b></span></a></li>
+      <li><a href="#strikeforce"><span class="fx-biz"><b>Strike Force</b><small>Two game venues, NY + NJ</small></span><span class="fx-c"><em>Problem</em>Every online order was copied to a former contractor. Ticket codes went out by hand.</span><span class="fx-c"><em>Fix</em>The leak closed. A code goes out the moment a payment clears. An AI assistant on both sites.</span><span class="fx-r"><em>Result</em><s>by hand</s><b>automatic</b></span></a></li>
+      <li><a href="#lconstruction"><span class="fx-biz"><b>L-Construction Group</b><small>General contractor, NYC</small></span><span class="fx-c"><em>Problem</em>Houses built since 2015 and nothing online. Nothing to send a client.</span><span class="fx-c"><em>Fix</em>A website from zero, six channels under one name, one link to text a client.</span><span class="fx-r"><em>Result</em><s>nothing</s><b>6 channels</b></span></a></li>
+      <li><a href="#work-app"><span class="fx-biz"><b>A private client</b><small>Meals and training, Brooklyn</small></span><span class="fx-c"><em>Problem</em>Meals and training for one client, and nothing was tracked.</span><span class="fx-c"><em>Fix</em>A private phone app: next week's menu, deliveries, every session.</span><span class="fx-r"><em>Result</em><s>nothing</s><b>one app</b></span></a></li>
       </ol>
     </div>
   </div></section>
@@ -879,11 +880,11 @@ dialog.lb::backdrop{background:rgba(var(--veil),.92)}
     <div class="lanes" style="--now:95.04%">
       <div class="ln-axis" aria-hidden="true"><span class="ln-gap"></span><span class="ln-months"><span style="left:0.0%">Aug</span><span style="left:25.62%">Sep</span><span style="left:50.41%">Oct</span><span style="left:76.03%">Nov</span><b class="ln-five" style="left:66.94%;width:8.269999999999996%">all five</b><b class="ln-now">now</b></span></div>
       <ol>
-      <li><a href="#nykhdc"><span class="ln-name"><b>NY Kitchen &amp; Home Design Center</b><small>Kitchen showroom, Brooklyn</small><span class="ln-res">Days → minutes</span></span><span class="ln-track"><i style="left:0.0%;width:95.04%"><em>Days → minutes</em></i></span></a></li>
-      <li><a href="#strikeforce"><span class="ln-name"><b>Strike Force</b><small>Two game venues, NY + NJ</small><span class="ln-res">68 pieces of work</span></span><span class="ln-track"><i style="left:6.61%;width:88.43%"><em>68 pieces of work</em></i></span></a></li>
-      <li><a href="#work-app"><span class="ln-name"><b>A private client</b><small>Meal and training app, Brooklyn</small><span class="ln-res">One app for the week</span></span><span class="ln-track"><i style="left:55.37%;width:39.67000000000001%"><em>One app for the week</em></i></span></a></li>
-      <li><a href="#lconstruction"><span class="ln-name"><b>L-Construction Group</b><small>General contractor, NYC</small><span class="ln-res">Nothing → 6 channels</span></span><span class="ln-track"><i style="left:50.41%;width:24.799999999999997%"><em>Nothing → 6 channels</em></i></span></a></li>
-      <li><a href="#cns"><span class="ln-name"><b>CNS Elevator Cabs</b><small>Elevator cab maker, Brooklyn</small><span class="ln-res">A week → hours</span></span><span class="ln-track"><i style="left:66.94%;width:16.53%"><em>A week → hours</em></i></span></a></li>
+      <li><a href="#nykhdc"><span class="ln-name"><b>NY Kitchen &amp; Home Design Center</b><small>Kitchen showroom, Brooklyn</small><span class="ln-res">Aug → now</span></span><span class="ln-track"><i style="left:0.0%;width:95.04%"><em>Aug → now</em></i></span></a></li>
+      <li><a href="#strikeforce"><span class="ln-name"><b>Strike Force</b><small>Two game venues, NY + NJ</small><span class="ln-res">Aug 9 → now</span></span><span class="ln-track"><i style="left:6.61%;width:88.43%"><em>Aug 9 → now</em></i></span></a></li>
+      <li><a href="#work-app"><span class="ln-name"><b>A private client</b><small>Meal and training app, Brooklyn</small><span class="ln-res">Oct 7 → now</span></span><span class="ln-track"><i style="left:55.37%;width:39.67000000000001%"><em>Oct 7 → now</em></i></span></a></li>
+      <li><a href="#lconstruction"><span class="ln-name"><b>L-Construction Group</b><small>General contractor, NYC</small><span class="ln-res">October</span></span><span class="ln-track"><i style="left:50.41%;width:24.799999999999997%"><em>October</em></i></span></a></li>
+      <li><a href="#cns"><span class="ln-name"><b>CNS Elevator Cabs</b><small>Elevator cab maker, Brooklyn</small><span class="ln-res">Oct 21 → Nov 10</span></span><span class="ln-track"><i style="left:66.94%;width:16.53%"><em>Oct 21 → Nov 10</em></i></span></a></li>
       </ol>
     </div>
   </div></section>
@@ -1640,8 +1641,8 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape' && sheet.clas
 
 /* ---------- pages and anchors ---------- */
 const VIEWS = ['home', 'about', 'design', 'nykhdc', 'cns', 'strikeforce', 'lconstruction'];
-const OLD = { best: 'results', services: 'skills', 'contact-home': 'contact', volunteer: 'me-sec', firstday: 'how', what: 'loop', c1: 'nykhdc', c2: 'cns', c3: 'nykhdc', c4: 'strikeforce', c5: 'lconstruction', c6: 'work-app', stage: 'nykhdc', words: 'words' };
-const NAV = { cover: 'loop', results: 'loop', nykhdc: 'work', cns: 'work', strikeforce: 'work', lconstruction: 'work', design: 'work', words: 'work' };
+const OLD = { best: 'results', services: 'skills', 'contact-home': 'contact', volunteer: 'me-sec', firstday: 'how', what: 'fixes', loop: 'fixes', c1: 'nykhdc', c2: 'cns', c3: 'nykhdc', c4: 'strikeforce', c5: 'lconstruction', c6: 'work-app', stage: 'nykhdc', words: 'words' };
+const NAV = { cover: 'fixes', results: 'fixes', nykhdc: 'work', cns: 'work', strikeforce: 'work', lconstruction: 'work', design: 'work', words: 'work' };
 function mark(id){ const k = NAV[id] || id; $$('.nav a').forEach(a => { if (a.getAttribute('href') === '#' + k) a.setAttribute('aria-current', 'true'); else a.removeAttribute('aria-current'); }); }
 /* a link is a view (#cns) or any section inside a view (#faq opens About and scrolls there) */
 function route(){
@@ -1666,7 +1667,7 @@ addEventListener('hashchange', route); route();
 /* keep the header link in step with what is on screen */
 if ('IntersectionObserver' in window) {
   const spy = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting && $('.view.on').dataset.view === 'home') mark(e.target.id); }), { rootMargin: '-45% 0px -50% 0px' });
-  ['cover', 'results', 'loop', 'work', 'words', 'contact'].forEach(id => { const el = document.getElementById(id); if (el) spy.observe(el); });
+  ['cover', 'fixes', 'work', 'words', 'contact'].forEach(id => { const el = document.getElementById(id); if (el) spy.observe(el); });
 }
 
 /* ---------- copy phone or email ---------- */
