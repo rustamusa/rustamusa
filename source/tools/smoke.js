@@ -93,6 +93,15 @@ const B = 'http://127.0.0.1:8793/';
     /* About view: everything else */
     await hash(page, 'about', 900); ok('about view', await view(page) === 'about');
     ok('about: nine kinds of work, five questions with the price first', await page.evaluate(() => document.querySelectorAll('.skills li').length === 9 && document.querySelectorAll('.faq details').length === 5 && /cost/i.test(document.querySelector('.faq summary').textContent)));
+    await page.evaluate(() => { document.querySelectorAll('details.fold').forEach(d => { d.open = false; }); scrollTo({ top: 0, behavior: 'instant' }); }); await page.waitForTimeout(300);
+    ok('about is a short list: twelve sections fold under their headings, under 4 screens', await page.evaluate(() => document.querySelectorAll('.view[data-view=about] details.fold').length === 12 && document.documentElement.scrollHeight / innerHeight < 4));
+    await hash(page, 'faq', 1200);
+    ok('a link to an About section opens it', await page.evaluate(() => document.querySelector('#faq details.fold').open && (Math.abs(document.querySelector('#faq').getBoundingClientRect().top - 76) < 90 || innerHeight + scrollY >= document.documentElement.scrollHeight - 4)));
+    await hash(page, 'design', 900);
+    ok('the gallery opens on kitchens, not on everything', await page.evaluate(() => { const b = document.querySelector('.dgal .filters button[aria-pressed=true]'); return !!b && /^Kitchens/.test(b.textContent); }));
+    { const pub = path.join(__dirname, '..', '..', 'site'); ok('robots.txt, sitemap, icon and a light preview picture are in the site', ['robots.txt', 'sitemap.xml', 'favicon.ico', 'assets/og.jpg'].every(f => fs.existsSync(path.join(pub, f))) && fs.statSync(path.join(pub, 'assets/og.jpg')).size < 300000 && await page.evaluate(() => document.querySelector('meta[property="og:image"]').content.endsWith('/og.jpg'))); }
+    ok('the description counts five businesses', await page.evaluate(() => /Five businesses/.test(document.querySelector('meta[name=description]').content) && !/Six/.test(document.querySelector('meta[name=description]').content)));
+    await hash(page, 'about', 900);
     ok('calendar: 4 site days, 1 workshop', await page.evaluate(() => document.querySelectorAll('.cal-grid .site').length === 4 && document.querySelectorAll('.cal-grid .shop').length === 1));
     ok('private client: no initials, no health details', await page.evaluate(() => !/\bDZ\b/.test(document.documentElement.innerHTML)));
     await hash(page, 'workshop', 900); await page.click('#shopform button[type=submit]'); await page.waitForTimeout(200);

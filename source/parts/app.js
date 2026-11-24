@@ -65,7 +65,7 @@ const CATS = [["cabs", "Elevator cabs", "Elevator cab interiors for CNS, rendere
 const DES = CATS.flatMap(c => M.filter(m => m.cat === c[0]));
 (function(){
   const g = $('.dgal'); if (!g) return;
-  let cur = 'all';
+  let cur = DES.some(m => m.cat === 'kitchens') ? 'kitchens' : 'all';
   const filters = document.createElement('div'); filters.className = 'filters'; filters.setAttribute('role', 'group'); filters.setAttribute('aria-label', 'Pick a category');
   const note = document.createElement('p'); note.className = 'catnote';
   const grid = document.createElement('div'); grid.className = 'grid';
@@ -280,4 +280,18 @@ wire($('#shopform'), $('#shopmsg'), ['name', 'contact'], d => ({ name: d.get('na
   if ('ResizeObserver' in window) new ResizeObserver(() => { if (deck.clientWidth) deck.scrollLeft = cur * deck.clientWidth; }).observe(deck);
   const byHash = () => { const i = cards.findIndex(c => '#' + c.id === location.hash); if (i >= 0) go(i, false); };
   addEventListener('hashchange', byHash); byHash();
+})();
+
+/* ABOUT: every long section folds under its heading. A link to a section opens it. */
+(() => { const v = $('.view[data-view=about]'); if (!v) return;
+  const NAMES = { 'work-app': 'A private client\u2019s app', 'review-sec': 'Leave a review' };
+  $$(':scope > section', v).forEach(sec => { if (!sec.id || sec.id === 'me-sec' || sec.id === 'contact') return;
+    const h = sec.querySelector('h2'), box = sec.querySelector(':scope > .wrap') || sec, name = NAMES[sec.id] || (h && h.textContent.trim()); if (!name) return;
+    const d = document.createElement('details'), s = document.createElement('summary'), body = document.createElement('div');
+    d.className = 'fold'; body.className = 'fold-body'; s.textContent = name; while (box.firstChild) body.append(box.firstChild); d.append(s, body); box.append(d); sec.classList.add('folded');
+    if (h && h.textContent.trim() === name) h.hidden = true; });
+  const open = () => { const el = location.hash.length > 1 && document.getElementById(decodeURIComponent(location.hash.slice(1))); if (!el || !v.contains(el)) return;
+    const inside = el.closest('details.fold'), f = inside || (el.matches('section') ? el.querySelector('details.fold') : null); if (!f || f.open) return; f.open = true;
+    if (inside) requestAnimationFrame(() => scrollTo({ top: el.getBoundingClientRect().top + scrollY - 76, behavior: 'instant' })); };
+  addEventListener('hashchange', open); open();
 })();
