@@ -231,6 +231,65 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
 .role p{color:var(--ink-2);font-size:15px}
 .role .wide{grid-column:1/-1}
 .ghl{display:inline-flex;align-items:center;gap:.35em}.ghl .gh{flex:none}
+.abil{list-style:none;margin:22px 0 0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.abil li{display:flex;flex-direction:column;gap:3px;padding:12px 14px;border-radius:14px;background:var(--surface);border:1px solid var(--line);min-width:0}
+.abil b{font:600 14.5px/1.2 var(--sans);color:var(--ink)}
+.abil span{font-size:13px;line-height:1.35;color:var(--ink-2)}
+.best{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:clamp(12px,1.6vw,18px)}
+.best a{display:flex;flex-direction:column;border-radius:var(--r);background:var(--surface);border:1px solid var(--line);overflow:hidden;text-decoration:none;min-width:0;transition:transform .35s cubic-bezier(.2,.7,.2,1),border-color .3s}
+.best a:hover{transform:translateY(-3px);border-color:var(--ink)}
+.best img,.best .pr{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;object-position:top;background:var(--soft);max-width:100%}
+.best .pr{display:grid;place-items:center}
+.best .pr span{font:400 italic clamp(22px,2vw,28px)/1 var(--serif);color:var(--accent)}
+.best a>div{display:flex;flex-direction:column;gap:6px;padding:16px 16px 18px;flex:1}
+.best b{font:400 21px/1.1 var(--serif);letter-spacing:-.01em}
+.best p{margin:0;font-size:14px;color:var(--ink-2)}
+.best em{margin-top:auto;padding-top:6px;font:500 13.5px/1 var(--sans);font-style:normal;color:var(--accent)}
+@media (max-width:1100px){.best{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:700px){.abil{grid-template-columns:repeat(2,minmax(0,1fr))}.best{grid-template-columns:repeat(2,minmax(0,1fr))}.best b{font-size:18px}.best p{font-size:13px}}
+.tlwrap{margin-top:clamp(36px,5vw,56px)}
+.tl{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:clamp(10px,1.4vw,16px);position:relative}
+.tl li{position:relative;padding-top:30px;min-width:0}
+.tl li::before{content:"";position:absolute;left:0;right:calc(-1 * clamp(10px,1.4vw,16px));top:8px;height:2px;background:var(--line)}
+.tl li:last-child::before{right:0}
+.tl li::after{content:"";position:absolute;left:0;top:3px;width:12px;height:12px;border-radius:50%;background:var(--dot,var(--accent));box-shadow:0 0 0 4px var(--bg)}
+.tl .when{display:block;font:500 13px/1 var(--sans);letter-spacing:.06em;text-transform:uppercase;color:var(--ink);margin-bottom:10px}
+.tl a{display:flex;flex-direction:column;gap:5px;text-decoration:none;padding:14px 14px 16px;border-radius:14px;background:var(--surface);border:1px solid var(--line);height:100%;box-sizing:border-box;transition:border-color .3s}
+.tl a:hover{border-color:var(--ink)}
+.tl b{font:400 19px/1.12 var(--serif);letter-spacing:-.01em}
+.tl p{margin:0;font-size:13.5px;line-height:1.4;color:var(--ink-2)}
+@media (max-width:900px){.tl{grid-template-columns:minmax(0,1fr);gap:12px;padding-left:24px}
+.tl li{padding-top:0}
+.tl li::before{left:-19px;right:auto;top:0;bottom:-12px;width:2px;height:auto}
+.tl li:last-child::before{bottom:auto;height:14px}
+.tl li::after{left:-24px;top:2px}
+.tl .when{margin-bottom:8px}}
+.svc{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(14px,2vw,22px)}
+.svc>div{display:flex;flex-direction:column;gap:10px;align-items:flex-start;padding:clamp(22px,3vw,32px);border-radius:var(--r);background:var(--surface);border:1px solid var(--line);min-width:0}
+.svc b{font:400 clamp(26px,2.6vw,32px)/1.08 var(--serif);letter-spacing:-.01em}
+.svc p{color:var(--ink-2);font-size:15.5px;margin:0 0 6px}
+.revbox{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(20px,4vw,48px);padding:clamp(22px,4vw,44px);border-radius:calc(var(--r) + 6px);background:var(--surface);border:1px solid var(--line)}
+.revtext h2{margin:8px 0 10px}
+.revtext p{color:var(--ink-2);margin:0}
+.revform{display:flex;flex-direction:column;gap:14px;min-width:0}
+.revform>label{display:flex;flex-direction:column;gap:6px;font:500 14px/1.2 var(--sans)}
+.revform>label span{color:var(--ink-3);font-weight:400}
+.revform input:not([type=radio]):not([type=checkbox]),.revform textarea{font:400 16px/1.4 var(--sans);color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:12px 14px;width:100%;box-sizing:border-box}
+.revform input:focus,.revform textarea:focus{outline:2px solid var(--accent);outline-offset:1px;border-color:transparent}
+.revform textarea{resize:vertical;min-height:110px}
+.revform .ok{flex-direction:row;align-items:center;gap:10px;font-weight:400;color:var(--ink-2)}
+.revform .ok input{width:18px;height:18px;accent-color:var(--accent)}
+.rate{border:0;margin:0;padding:0;min-width:0}
+.rate legend{font:500 14px/1.2 var(--sans);padding:0;margin-bottom:6px}
+.stars{display:flex;flex-direction:row-reverse;justify-content:flex-end;gap:4px}
+.stars input{position:absolute;opacity:0;width:1px;height:1px}
+.stars label{font-size:30px;line-height:1;color:var(--line);cursor:pointer;padding:2px}
+.stars input:checked~label,.stars label:hover,.stars label:hover~label{color:var(--accent)}
+.stars input:focus-visible+label{outline:2px solid var(--accent);border-radius:6px}
+.hp{position:absolute!important;left:-9999px!important;width:1px;height:1px;opacity:0}
+.revact{display:flex;flex-wrap:wrap;align-items:center;gap:12px 16px}
+.revmsg{font-size:15px;color:var(--ink-2)}
+@media (max-width:900px){.svc,.revbox{grid-template-columns:minmax(0,1fr)}}
 .quotes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(14px,2vw,22px)}
 .quotes figure{margin:0;display:flex;flex-direction:column;gap:18px;padding:26px;border-radius:var(--r);background:var(--surface);border:1px solid var(--line);min-width:0}
 .quotes blockquote{margin:0;font:400 22px/1.3 var(--serif);letter-spacing:-.005em;color:var(--ink)}
@@ -264,7 +323,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
 @media (max-width:900px){
   .hsplit{display:flex;flex-direction:column;align-items:stretch;gap:0}
   .htext{display:contents}
-  .hsplit .eyebrow{order:1}.hsplit h1{order:2}.hsplit .mosaic{order:3;margin-top:20px}.hsplit .lede{order:4}.hsplit .who{order:5}.hsplit .actions{order:6}
+  .hsplit .eyebrow{order:1}.hsplit h1{order:2}.hsplit .lede{order:3;margin-top:14px}.hsplit .abil{order:4;margin-top:18px}.hsplit .actions{order:5;margin-top:20px}.hsplit .mosaic{order:6;margin-top:22px}
   .hsplit .mosaic{grid-template-columns:repeat(3,minmax(0,1fr));grid-template-rows:none;aspect-ratio:auto;height:clamp(120px,34vw,240px)}
   .hsplit .mosaic button:first-child{grid-row:auto}
   .hsplit .mosaic button span{display:none}
@@ -373,13 +432,20 @@ dialog.lb::backdrop{background:rgba(8,8,8,.86);backdrop-filter:blur(4px)}
 <div class="view" data-view="home">
   <section class="hero hhome"><div class="wrap hsplit">
     <div class="htext">
-      <p class="eyebrow">Sales &amp; design · Brooklyn showroom · AI builder</p>
-      <h1>I sell kitchens in Brooklyn. <em>Then I build the software that sells them.</em></h1>
-      <p class="lede">I design and sell kitchens, baths, doors and stairs at a Brooklyn showroom, and I draw the renders clients say yes to. With AI tools (mostly Claude, plus ChatGPT) I also build working software for four local businesses.</p>
-      <div class="who"><span>52 renders &amp; drawings</span><span>3 websites I run</span><span>4 businesses</span><span>★ 4.7 showroom on Google</span></div>
-      <div class="actions"><a class="btn hot" href="#contact">Work with me <span class="arr">→</span></a><a class="btn ghost" href="#design">See the design work</a><a class="btn ghost" href="tel:+19179436912">Call 917-943-6912</a></div>
+      <p class="eyebrow">Brooklyn · design, AI and video · on site anywhere in NYC</p>
+      <h1>Your one-man tech team. <em>I show up, figure out your flow, and make it work.</em></h1>
+      <p class="lede">By day I design and sell kitchens at a Brooklyn showroom, and I built the software that sells them. Four local businesses already run on what I set up. Now I take on a few more.</p>
+      <ul class="abil"><li><b>Comes to you</b><span>Any day, anywhere in NYC. In person, not a ticket.</span></li><li><b>Films and edits</b><span>Sony FX30: your work, reels and promos.</span></li><li><b>Sets up AI</b><span>Assistants that answer and hand you the lead.</span></li><li><b>Fixes sites</b><span>Plugins, store, forms, speed, updates.</span></li><li><b>Builds the funnel</b><span>From a post or an ad to a call booked.</span></li><li><b>Maps your flow first</b><span>Then picks the tool that fits it.</span></li></ul>
+      <div class="actions"><a class="btn hot" href="tel:+19179436912">Call 917-943-6912</a><a class="btn ghost" href="mailto:rustam.shb@gmail.com">Email me</a><a class="btn ghost" href="#best">See what I built <span class="arr">↓</span></a></div>
     </div>
     <div class="mosaic rv"><button type="button" data-k="r-walkin-closet-render-aerial-02" aria-label="Open large: Walk-in closet inside: shelving towers, drawers and island"><img src="assets/img/r-walkin-closet-render-aerial-02.webp" alt="Walk-in closet inside: shelving towers, drawers and island"><span>Closets & built-ins</span></button><button type="button" data-k="m-kitchen-island-render-01" aria-label="Open large: Client render: kitchen with island"><img src="assets/img/m-kitchen-island-render-01.webp" alt="Client render: kitchen with island"><span>Kitchens</span></button><button type="button" data-k="r-kitchen-cherry-shaker-render-01" aria-label="Open large: Cherry shaker kitchen with farmhouse sink, client render"><img src="assets/img/r-kitchen-cherry-shaker-render-01.webp" alt="Cherry shaker kitchen with farmhouse sink, client render"><span>Kitchens</span></button></div>
+  </div></section>
+
+  <section id="best" style="padding-top:0"><div class="wrap">
+    <div class="sh rv"><h2>The best thing I built <em style="font-style:italic;color:var(--accent)">for each</em></h2><p>Real businesses, real tools. Tap one to see it.</p></div>
+    <div class="best"><a class="rv" href="#nykhdc"><img src="assets/thumb/nk-site-builder.webp" alt="" loading="lazy"><div><span class="eyebrow">NYKHDC showroom</span><b>3D kitchen and countertop builder</b><p>Customers draw the kitchen, pick real stones and see a price in minutes, not days.</p><em>See it →</em></div></a><a class="rv" href="#cns"><img src="assets/thumb/cns-r3-01.webp" alt="" loading="lazy"><div><span class="eyebrow">CNS Elevator Cabs</span><b>Approval drawings with weights done</b><p>A 10-sheet cab set in a couple of hours instead of a week, ready for the building.</p><em>See it →</em></div></a><a class="rv" href="https://payrolls.nyc/" target="_blank" rel="noopener"><div class="pr"><span>payrolls.nyc</span></div><div><span class="eyebrow">My own tool</span><b>payrolls.nyc</b><p>Payroll monitoring that runs on its own: every payment in one place.</p><em>Open ↗</em></div></a><a class="rv" href="#strikeforce"><img src="assets/thumb/sf-li-chat.webp" alt="" loading="lazy"><div><span class="eyebrow">Strike Force</span><b>Two sites with an AI assistant</b><p>Prices, sessions and parties answered day and night, then the lead goes to staff.</p><em>See it →</em></div></a><a class="rv" href="#lconstruction"><img src="assets/thumb/lb-home.webp" alt="" loading="lazy"><div><span class="eyebrow">L-Construction</span><b>A website from zero</b><p>No online presence before. Now lbuildny.com and six channels.</p><em>See it →</em></div></a></div>
+    <div class="tlwrap rv"><div class="sh" style="margin-bottom:18px"><h2>How it <em style="font-style:italic;color:var(--accent)">grew</em></h2><p>Each business, from the month we started.</p></div><ol class="tl"><li class="rv" style="--dot:var(--nk)"><span class="when">2023</span><a href="#nykhdc"><span class="eyebrow">NYKHDC showroom</span><b>Started in sales and design</b><p>Kitchens, countertops, doors and shower glass, plus the renders clients say yes to.</p></a></li><li class="rv" style="--dot:var(--cns)"><span class="when">Dec 2024</span><a href="#cns"><span class="eyebrow">CNS Elevator Cabs</span><b>First approval drawings</b><p>Cab sets with weights for building approval, sheet by sheet.</p></a></li><li class="rv" style="--dot:var(--sf)"><span class="when">Jul 2026</span><a href="#strikeforce"><span class="eyebrow">Strike Force</span><b>Site audit, then two sites</b><p>Both sites rebuilt, with an AI assistant that answers and passes the lead to staff.</p></a></li><li class="rv" style="--dot:var(--nk)"><span class="when">Aug 2026</span><a href="#nykhdc"><span class="eyebrow">NYKHDC</span><b>Three company websites</b><p>Took over the sites and built the 3D kitchen and countertop builder.</p></a></li><li class="rv" style="--dot:var(--lb)"><span class="when">Oct 2026</span><a href="#lconstruction"><span class="eyebrow">L-Construction</span><b>A website from zero</b><p>lbuildny.com, Google and six social channels set up from scratch.</p></a></li></ol></div>
+    <div class="cta rv" style="margin-top:clamp(18px,3vw,28px)"><h2>Taking on a few new <em>local businesses.</em></h2><div class="acts"><a class="btn hot" href="tel:+19179436912">Call 917-943-6912</a><a class="btn" href="mailto:rustam.shb@gmail.com">Email me</a><a class="btn ghost" href="https://wa.me/19179436912" target="_blank" rel="noopener">WhatsApp ↗</a></div></div>
   </div></section>
 
   <section style="padding-top:0"><div class="wrap">
@@ -404,9 +470,34 @@ dialog.lb::backdrop{background:rgba(8,8,8,.86);backdrop-filter:blur(4px)}
     </div>
   </div></section>
 
+  <section id="services" style="padding-top:0"><div class="wrap">
+    <div class="sh rv"><h2>Hands-on, <em style="font-style:italic;color:var(--accent)">too</em></h2><p>Not only screens. Book me for the work that needs a person on site.</p></div>
+    <div class="svc">
+      <div class="rv"><span class="eyebrow">Video and editing</span><b>Your projects, filmed and cut</b><p>I come to the job, film it on a Sony FX30 and edit it myself: portfolio videos, reels and short promos for your site and Instagram.</p><a class="btn ghost" href="https://www.instagram.com/leanbodyrustam/" target="_blank" rel="noopener">See my video ↗</a></div>
+      <div class="rv"><span class="eyebrow">Commercial floor care</span><b>Buffing and deep vacuuming</b><p>My own professional equipment: floor buffer and commercial vacuum. I already do it every week as volunteer floor care at a local church, and I can bring it to your space.</p><a class="btn ghost" href="#contact">Ask about floor care →</a></div>
+    </div>
+  </div></section>
+
   <section style="padding-top:0"><div class="wrap">
     <div class="sh rv"><h2>What clients <em style="font-style:italic;color:var(--accent)">say</em></h2><p>Three business owners I work for, in their own words.</p></div>
     <div class="quotes"><figure class="rv"><blockquote>&ldquo;Rustam basically runs our whole online side. He built us our own kitchen design tool, and now a customer gets a 3D kitchen and a price in minutes, not days. Best decision I made this year.&rdquo;</blockquote><figcaption><b>Slava</b><a href="#nykhdc">Owner, NYKHDC and Strike Force →</a></figcaption></figure><figure class="rv"><blockquote>&ldquo;I send Rustam a change, the new drawings come back fast, weights already done, ready for the building. No back and forth.&rdquo;</blockquote><figcaption><b>Steven</b><a href="#cns">CNS Elevator Cabs →</a></figcaption></figure><figure class="rv"><blockquote>&ldquo;We had zero online. Rustam built lbuildny.com and our social pages from scratch, and now we finally look like a real company. Fast, no excuses.&rdquo;</blockquote><figcaption><b>Lubomir</b><a href="#lconstruction">L-Construction →</a></figcaption></figure></div>
+  </div></section>
+
+  <section id="review" style="padding-top:0"><div class="wrap">
+    <div class="revbox rv">
+      <div class="revtext"><span class="eyebrow">Worked with me?</span><h2>Leave a <em style="font-style:italic;color:var(--accent)">review</em></h2><p>It comes straight to my email. Nothing is posted on this site without your OK.</p></div>
+      <form class="revform" id="revform" novalidate>
+        <label>Your name<input name="name" autocomplete="name" required maxlength="80"></label>
+        <label>Business or project <span>(optional)</span><input name="business" maxlength="120"></label>
+        <fieldset class="rate"><legend>Rating</legend><div class="stars">
+          <input type="radio" name="rating" id="st5" value="5" checked><label for="st5" title="5 stars">★</label><input type="radio" name="rating" id="st4" value="4"><label for="st4" title="4 stars">★</label><input type="radio" name="rating" id="st3" value="3"><label for="st3" title="3 stars">★</label><input type="radio" name="rating" id="st2" value="2"><label for="st2" title="2 stars">★</label><input type="radio" name="rating" id="st1" value="1"><label for="st1" title="1 star">★</label></div>
+        </fieldset>
+        <label>Your review<textarea name="review" rows="4" required maxlength="1500"></textarea></label>
+        <label class="ok"><input type="checkbox" name="ok_to_publish" value="yes"> OK to show my first name and review on this site</label>
+        <input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <div class="revact"><button class="btn hot" type="submit">Send review <span class="arr">→</span></button><span class="revmsg" id="revmsg" role="status"></span></div>
+      </form>
+    </div>
   </div></section>
 
   <section style="padding-top:0"><div class="wrap">
@@ -722,6 +813,13 @@ dialog.lb::backdrop{background:rgba(8,8,8,.86);backdrop-filter:blur(4px)}
     </ol>
     <p class="rv" style="margin-top:28px;max-width:62ch;font-size:17px;color:var(--ink-2)"><b style="color:var(--ink);font-weight:600">Off the clock:</b> personal trainer at Elite Barbell in Brooklyn, jiu-jitsu at the Renzo Gracie Academy, and a dad.</p>
   </div></section>
+  <section id="volunteer" style="padding-top:0"><div class="wrap">
+    <div class="sh rv"><h2>Giving <em style="font-style:italic;color:var(--accent)">back</em></h2><p>Part of who I am, every week.</p></div>
+    <div class="svc vol">
+      <div class="rv"><span class="eyebrow">Every week · volunteer</span><b>Floor care at a local church</b><p>I bring my own floor buffer and commercial vacuum and keep the floors clean, week after week, for free.</p></div>
+      <div class="rv"><span class="eyebrow">Regular donor</span><b>Giving blood</b><p>I donate blood on a regular schedule. One donation can help more than one patient.</p></div>
+    </div>
+  </div></section>
   <section style="padding-top:0"><div class="wrap">
     <div class="sh rv"><h2>Tools I use</h2><p>I'm not a programmer by training. I work with AI tools (mostly Claude, plus ChatGPT) for code, drawings, renders and documents.</p></div>
     <div class="tools rv"><span><b>Claude</b> · code, drawings, renders</span><span><b>ChatGPT</b> · about a year, paid</span><span><b>Grok</b> · social content</span><span><b>three.js</b> · 3D builders</span><span><b>Vercel</b> · fast sites</span><span><b>Plugins</b> · kept current on two sites</span><span><b>Outlook</b> · inbox workflows</span><span><b>Meta shop</b> · Instagram and Facebook</span><span><b>Sony FX30</b> · shooting and editing video</span><span><b>English · Russian</b></span></div>
@@ -762,7 +860,7 @@ dialog.lb::backdrop{background:rgba(8,8,8,.86);backdrop-filter:blur(4px)}
 </div></section></div>
 </main>
 
-<footer><div class="wrap"><span>My CV · Brooklyn, NY · <a href="tel:+19179436912">917-943-6912</a> · rustam.shb@gmail.com · <a class="ghl" href="https://github.com/rustamusa" target="_blank" rel="noopener"><svg class="gh" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg> GitHub</a> · <a class="ghl" aria-label="X" title="X" href="https://x.com/dimklyn" target="_blank" rel="noopener"><svg class="gh" viewBox="0 0 24 24" width="13" height="13" aria-hidden="true"><path fill="currentColor" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a> · built with AI tools</span><span>Client names, addresses and prices removed from all pictures</span></div></footer>
+<footer><div class="wrap"><span>My CV · Brooklyn, NY · <a href="tel:+19179436912">917-943-6912</a> · rustam.shb@gmail.com · <a class="ghl" href="https://github.com/rustamusa" target="_blank" rel="noopener"><svg class="gh" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg> GitHub</a> · <a class="ghl" aria-label="X" title="X" href="https://x.com/dimklyn" target="_blank" rel="noopener"><svg class="gh" viewBox="0 0 24 24" width="13" height="13" aria-hidden="true"><path fill="currentColor" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a> · <a href="#review">Leave a review</a> · built with AI tools</span><span>Client names, addresses and prices removed from all pictures</span></div></footer>
 
 <dialog class="lb" id="lb" aria-label="Picture viewer">
   <img id="lb-img" alt="">
@@ -867,7 +965,7 @@ const grow = () => { const bars = $$('#sfbar .bar div'); [35, 21, 9, 3].forEach(
 const VIEWS = ['home', 'design', 'nykhdc', 'cns', 'strikeforce', 'lconstruction', 'about'];
 function route(){
   const h = decodeURIComponent(location.hash.slice(1));
-  let v = h === '' ? 'home' : h === 'contact' ? 'about' : VIEWS.includes(h) ? h : 'nf';
+  let v = h === '' || h === 'review' || h === 'services' || h === 'best' ? 'home' : h === 'contact' ? 'about' : VIEWS.includes(h) ? h : 'nf';
   $$('.view').forEach(el => el.classList.toggle('on', el.dataset.view === v));
   $$('.nav a').forEach(a => { if (a.getAttribute('href') === '#' + v) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current'); });
   const cur = $('.nav a[aria-current]'); if (cur) cur.scrollIntoView({ block: 'nearest', inline: 'nearest' });
@@ -876,12 +974,34 @@ function route(){
   const on = $('.view.on'); reveal(on);
   window.scrollTo(0, 0);
   if (h === 'contact') setTimeout(() => $('#contact').scrollIntoView({ behavior: 'smooth' }), 300);
+  if (h === 'review' || h === 'services' || h === 'best') setTimeout(() => $('#' + h).scrollIntoView({ behavior: 'smooth' }), 300);
 }
 addEventListener('hashchange', route); route();
 addEventListener('scroll', () => $('#top').classList.toggle('scrolled', scrollY > 8), { passive: true });
 
 /* copy email */
 document.querySelectorAll('[data-copy]').forEach(b => b.onclick = async () => { const v = b.dataset.copy; try { await navigator.clipboard.writeText(v); b.textContent = 'Copied'; } catch (e) { const r = document.createRange(); r.selectNodeContents(b.parentElement.querySelector('.big') || b); const s = getSelection(); s.removeAllRanges(); s.addRange(r); b.textContent = 'Selected'; } setTimeout(() => b.textContent = 'Copy', 1800); });
+/* review form: sent by email through FormSubmit, nothing is published automatically */
+(() => {
+  const f = $('#revform'); if (!f) return;
+  const msg = $('#revmsg');
+  f.addEventListener('submit', async e => {
+    e.preventDefault();
+    const d = new FormData(f);
+    if (!String(d.get('name') || '').trim() || !String(d.get('review') || '').trim()) { msg.textContent = 'Please add your name and a few words.'; return; }
+    if (d.get('_honey')) return;
+    const btn = f.querySelector('button'); btn.disabled = true; msg.textContent = 'Sending…';
+    const body = { name: d.get('name'), business: d.get('business') || '', rating: (d.get('rating') || '5') + ' / 5', review: d.get('review'),
+      ok_to_publish: d.get('ok_to_publish') ? 'yes' : 'no', _subject: 'New review on mycv4u.com', _template: 'table', _captcha: 'false' };
+    try {
+      const r = await fetch('https://formsubmit.co/ajax/rustam.shb@gmail.com', { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' }, body: JSON.stringify(body) });
+      const j = await r.json().catch(() => ({}));
+      if (r.ok && String(j.success) !== 'false') { f.reset(); msg.textContent = 'Thank you! Your review is on its way to me.'; }
+      else throw new Error('send');
+    } catch (err) { msg.textContent = 'It did not send. Please email it to rustam.shb@gmail.com.'; }
+    btn.disabled = false;
+  });
+})();
 </script>
 
 </html>
