@@ -36,167 +36,112 @@ const B = 'http://127.0.0.1:8793/';
   { const { ctx, page } = await open({ viewport: { width: 1440, height: 900 } });
     await page.goto(B, { waitUntil: 'load' }); await page.waitForTimeout(600);
     ok('home view is on', await view(page) === 'home');
-    ok('headline says what this is', (await page.textContent('.hero h1')).replace(/\s+/g, ' ').trim() === 'Hands-on AI help for small businesses in New York.');
-    ok('page title carries the same line', /hands-on AI help for small businesses in New York/i.test(await page.title()));
-    ok('first screen holds headline, call button and results', await page.evaluate(() => ['.hero h1', '.hero-acts .pill.solid', '.proof'].every(q => { const r = document.querySelector(q).getBoundingClientRect(); return r.top >= 0 && r.bottom <= innerHeight; })));
-    ok('one main action on the first screen', await page.evaluate(() => document.querySelectorAll('.hero .pill.solid').length === 1 && document.querySelector('.hero .pill.solid').getAttribute('href') === 'tel:+19179436912'));
-    ok('results card has four rows', await page.evaluate(() => document.querySelectorAll('.proof li a').length === 4));
-    ok('no kitchen on the first screen', await page.evaluate(() => !document.querySelector('.hero canvas, .hero #stage3d') && !window.__hero && !window.THREE));
-    ok('six kinds of work, each tied to a job', await page.evaluate(() => { const l = [...document.querySelectorAll('.svc li')]; return l.length === 6 && l.every(li => { const a = li.querySelector('a[href^="#"]'); return a && document.getElementById(a.getAttribute('href').slice(1)); }); }));
-    ok('six common questions, price first', await page.evaluate(() => { const d = document.querySelectorAll('.faq details'); return d.length === 6 && /cost/i.test(d[0].querySelector('summary').textContent) && /first meeting is free/i.test(d[0].textContent); }));
-    ok('every in-page link has a target', await page.evaluate(() => { const views = [...document.querySelectorAll('.view')].map(v => v.dataset.view); return [...document.querySelectorAll('a[href^="#"]')].map(a => a.getAttribute('href').slice(1)).filter(h => h && !views.includes(h) && !document.getElementById(h)); }).then(b => b.length === 0 || (fails.push('dead links ' + b.join(',')), false)));
-    const fam = await page.evaluate(() => { const set = new Set(), up = []; document.querySelectorAll('body *').forEach(e => { if (!e.childNodes.length || ![...e.childNodes].some(n => n.nodeType === 3 && n.textContent.trim())) return; const c = getComputedStyle(e); set.add(c.fontFamily.split(',')[0].replace(/["']/g, '').trim()); if (c.textTransform === 'uppercase') up.push(e.textContent.trim().slice(0, 20)); }); return { fams: [...set], up: up.slice(0, 5) }; });
+    ok('headline says what this is', /slow step out of a small business/i.test(await page.textContent('#cover h1')));
+    ok('page title says what this is', /AI help for small businesses in New York/i.test(await page.title()));
+    ok('first screen: headline, call button, free first meeting', await page.evaluate(() => ['#cover h1', '#cover .pill.solid', '.hero2-note'].every(q => { const r = document.querySelector(q).getBoundingClientRect(); return r.top >= 0 && r.bottom <= innerHeight; }) && /first meeting is free/i.test(document.querySelector('.hero2-note').textContent)));
+    ok('one main action on the first screen', await page.evaluate(() => document.querySelectorAll('#cover .pill.solid').length === 1 && document.querySelector('#cover .pill.solid').getAttribute('href') === 'tel:+19179436912'));
+    ok('home is short: under 7 screens', await page.evaluate(() => document.documentElement.scrollHeight / innerHeight < 7), await page.evaluate(() => (document.documentElement.scrollHeight / innerHeight).toFixed(1)));
+    ok('no 3D on the home page', await page.evaluate(() => !document.querySelector('.view[data-view=home] #stage3d, .view[data-view=home] .pano')));
+    const small = await page.evaluate(() => { const out = []; document.querySelectorAll('.view[data-view=home] *').forEach(e => { if (!e.offsetParent || e.closest('.ln-months, svg, .foot') || ![...e.childNodes].some(n => n.nodeType === 3 && n.textContent.trim())) return; const f = parseFloat(getComputedStyle(e).fontSize); if (f < 15.5) out.push(f + ':' + e.textContent.trim().slice(0, 24)); }); return out.slice(0, 20); });
+    ok('home: no small print (all text 16px or more)', small.length === 0, small);
+    const fam = await page.evaluate(() => { const set = new Set(), up = []; document.querySelectorAll('body *').forEach(e => { if (![...e.childNodes].some(n => n.nodeType === 3 && n.textContent.trim())) return; const c = getComputedStyle(e); set.add(c.fontFamily.split(',')[0].replace(/["']/g, '').trim()); if (c.textTransform === 'uppercase') up.push(e.textContent.trim().slice(0, 20)); }); return { fams: [...set], up: up.slice(0, 5) }; });
     ok('one typeface on every page', fam.fams.length === 1 && fam.fams[0] === 'Geist', fam.fams);
     ok('no capitalised labels', fam.up.length === 0, fam.up);
     ok('typeface file is loaded', await page.evaluate(async () => { await document.fonts.ready; return document.fonts.check('600 20px Geist'); }));
-    ok('footer has no leftover wording', await page.evaluate(() => !/\bSheets\b/.test(document.querySelector('.foot').textContent)));
-    ok('no first-person copy', await page.evaluate(() => { const t = [...document.querySelectorAll('main *:not(blockquote):not(script)')].filter(e => !e.closest('blockquote') && e.children.length === 0).map(e => e.textContent).join(' \n '); return !/(^|[^A-Za-z])(I|I'm|I've|my|me|we|our)([^A-Za-z]|$)/.test(t.replace(/My CV/g, '')); }));
-    /* the kitchen lives in job 1: it loads when the job is near, and draws only once it is on screen */
-    await page.evaluate(() => { const r = document.querySelector('#stage3d').getBoundingClientRect(); scrollTo({ top: scrollY + r.top - innerHeight - 260, behavior: 'instant' }); });
-    await page.waitForFunction(() => window.__hero, null, { timeout: 15000 }).catch(() => {});
-    ok('kitchen loads as its job comes near', await page.evaluate(() => !!window.__hero && !!document.querySelector('#stage3d canvas')));
-    await page.waitForTimeout(6500);
-    ok('kitchen waits while it is off screen', await page.evaluate(() => +document.querySelector('#scrub').value === 0 && !document.querySelector('#stage').classList.contains('priced')), await page.evaluate(() => document.querySelector('#scrub').value));
-    await page.evaluate(() => document.querySelector('#stage3d').scrollIntoView({ block: 'center', behavior: 'instant' })); await page.waitForTimeout(1500);
-    ok('kitchen starts drawing once it is on screen', await page.evaluate(() => { const v = +document.querySelector('#scrub').value; return v > 0 && v < 1000; }), await page.evaluate(() => document.querySelector('#scrub').value));
-    await page.waitForTimeout(5200);
-    ok('kitchen finishes and shows the estimate', await page.evaluate(() => +document.querySelector('#scrub').value === 1000 && document.querySelector('#stage').classList.contains('priced')));
-    await page.evaluate(() => window.__hero && window.__hero.set(1)); await page.waitForTimeout(500);
-    ok('estimate card shows when built', await page.evaluate(() => document.querySelector('#stage').classList.contains('priced')));
-    await page.evaluate(() => window.__hero && window.__hero.set(0.1)); await page.waitForTimeout(400);
-    ok('estimate card hides on the plan', await page.evaluate(() => !document.querySelector('#stage').classList.contains('priced')));
-    ok('scrub follows', await page.evaluate(() => +document.querySelector('#scrub').value === 100));
-    ok('one job visible at start', await shown(page) === 'c1', await shown(page));
-    await page.evaluate(() => scrollTo({ top: 0, behavior: 'instant' })); await page.waitForTimeout(300);
-    await page.click('.proof a[href="#c3"]'); await page.waitForTimeout(1400);
-    ok('results row opens job 3', await shown(page) === 'c3', await shown(page));
-    ok('tab 3 selected', await page.getAttribute('#t3', 'aria-selected') === 'true');
-    ok('job strip scrolled into view', Math.abs(await topOf(page, '#tabs') - 76) < 60, await topOf(page, '#tabs'));
-    await page.click('#t5'); await page.waitForTimeout(300); ok('tab click opens job 5', await shown(page) === 'c5');
-    await page.keyboard.press('ArrowRight'); await page.waitForTimeout(300); ok('arrow key moves to job 6', await shown(page) === 'c6');
-    ok('focus follows the tab', await page.evaluate(() => document.activeElement.id === 't6'));
-    await page.click('#case-next'); await page.waitForTimeout(500); ok('next wraps to job 1', await shown(page) === 'c1');
-    ok('counter', (await page.textContent('#case-count')).trim() === '1 / 6');
-    ok('next label names the next job', (await page.textContent('#case-next')).includes('Cab drawings'));
-    await page.click('#t3'); await page.waitForTimeout(2400);
-    ok('picture resolved from dots', await page.evaluate(() => { const s = document.querySelector('#c3 .shot'); return !s.classList.contains('raw') && s.classList.contains('done'); }));
-    await page.click('#c3 .shot'); await page.waitForTimeout(400);
-    ok('lightbox opens', await page.evaluate(() => document.querySelector('#lb').open));
-    const s1 = await page.getAttribute('#lb-img', 'src'); ok('lightbox shows the picture', /nk-site-chat/.test(s1), s1);
-    await page.click('#lb-next'); await page.waitForTimeout(200); ok('lightbox next', await page.getAttribute('#lb-img', 'src') !== s1);
-    await page.keyboard.press('Escape'); await page.waitForTimeout(300); ok('lightbox closes', await page.evaluate(() => !document.querySelector('#lb').open));
-    /* the cab job: a photoreal look-around, with the drawings as a second picture */
-    await page.click('#t2'); await page.waitForSelector('#c2 .pano.live', { timeout: 30000 }).catch(() => {});
-    ok('cab look-around goes live in its job', await page.evaluate(() => { const h = document.querySelector('#c2 .pano'); return h.classList.contains('live') && !!h.querySelector('canvas') && typeof h.__look === 'function'; }));
-    ok('look-around keeps its first frame underneath', await page.evaluate(() => { const i = document.querySelector('#c2 .pano img'); return i.complete && i.naturalWidth > 0; }));
-    const l0 = await page.evaluate(() => document.querySelector('#c2 .pano').__look().lon); await page.waitForTimeout(700);
-    ok('look-around sways until touched', Math.abs(await page.evaluate(() => document.querySelector('#c2 .pano').__look().lon) - l0) > .05);
-    { const b = await (await page.$('#c2 .pano')).boundingBox(); await page.mouse.move(b.x + b.width * .6, b.y + b.height * .5); await page.mouse.down(); await page.mouse.move(b.x + b.width * .3, b.y + b.height * .5, { steps: 6 }); await page.mouse.up(); }
-    const l1 = await page.evaluate(() => document.querySelector('#c2 .pano').__look().lon);
-    ok('dragging left turns the view right', l1 - l0 > 15, [l0, l1]);
-    ok('the hint goes away after the first drag', await page.evaluate(() => document.querySelector('#c2 .pano').classList.contains('used')));
-    await page.focus('#c2 .pano'); await page.keyboard.press('ArrowRight'); await page.waitForTimeout(100);
-    ok('arrow keys turn the view', Math.abs(await page.evaluate(() => document.querySelector('#c2 .pano').__look().lon) - l1 - 12) < .01);
-    await page.click('#c2 .also'); await page.waitForTimeout(400);
-    ok('the drawings open large from the cab job', await page.evaluate(() => document.querySelector('#lb').open) && /cns-r3-01/.test(await page.getAttribute('#lb-img', 'src')));
-    await page.keyboard.press('Escape'); await page.waitForTimeout(300);
-    await page.click('#t1'); await page.waitForTimeout(400);
-    ok('kitchen is still there after switching jobs', await page.evaluate(() => { const c = document.querySelector('#stage3d canvas'); return !!c && c.getBoundingClientRect().width > 200; }));
-    await page.click('#c1 .case-links a[href="#builder"]'); await page.waitForTimeout(1300);
-    ok('try the builder scrolls to it', Math.abs(await topOf(page, '#builder') - 76) < 120, await topOf(page, '#builder'));
-    await page.click('#stage-load'); await page.waitForTimeout(700);
-    ok('live builder loads in a frame', await page.evaluate(() => { const f = document.querySelector('#stage-view iframe'); return !!f && /planner\/index\.html$/.test(f.src); }));
-    await hash(page, 'pages', 1200); ok('client pages anchor', Math.abs(await topOf(page, '#pages')) < 90, await topOf(page, '#pages'));
-    ok('five client pages', await page.evaluate(() => document.querySelectorAll('#pages-row .page').length === 5));
-    const sl = await page.evaluate(() => document.querySelector('#pages-row').scrollLeft); await page.click('#pages-next'); await page.waitForTimeout(700);
-    ok('pages arrow scrolls the row', await page.evaluate(() => document.querySelector('#pages-row').scrollLeft) > sl);
-    await page.click('#pages-row .page:nth-child(2) .shot'); await page.waitForTimeout(300);
-    ok('client page opens large', /cp-proposal-table/.test(await page.getAttribute('#lb-img', 'src'))); await page.click('#lb-close');
-    for (const id of ['what', 'how', 'work', 'where', 'workshop', 'skills', 'words', 'about', 'faq', 'contact']) { await hash(page, id, 1100); ok('anchor #' + id, Math.abs(await topOf(page, '#' + id) - 76) < 90 || await page.evaluate(() => innerHeight + scrollY >= document.documentElement.scrollHeight - 4), await topOf(page, '#' + id)); }
-    ok('map lists five places', await page.evaluate(() => document.querySelectorAll('.places li').length === 5));
+    ok('no first-person copy', await page.evaluate(() => { const t = [...document.querySelectorAll('main *:not(script)')].filter(e => !e.closest('blockquote') && e.children.length === 0).map(e => e.textContent).join(' \n '); return !/(^|[^A-Za-z])(I|I'm|I've|my|me|we|our)([^A-Za-z]|$)/.test(t.replace(/My CV/g, '')); }));
+    ok('every in-page link has a target', await page.evaluate(() => { const views = [...document.querySelectorAll('.view')].map(v => v.dataset.view); return [...document.querySelectorAll('a[href^="#"]')].map(a => a.getAttribute('href').slice(1)).filter(h => h && !views.includes(h) && !document.getElementById(h) && !['c1','c2','c3','c4','c5','c6'].includes(h)); }).then(b => b.length === 0 || (fails.push('dead links ' + b.join(',')), false)));
+    /* before and after */
+    ok('five before-after rows', await page.evaluate(() => document.querySelectorAll('.ba-rows li').length === 5));
+    await page.evaluate(() => document.querySelector('#ba').scrollIntoView({ block: 'center', behavior: 'instant' })); await page.waitForTimeout(2600);
+    ok('slider plays to after by itself once seen', await page.evaluate(() => +document.querySelector('#ba-range').value === 100 && document.querySelector('#ba').classList.contains('after')));
+    ok('after: every bar is short', await page.evaluate(() => [...document.querySelectorAll('.ba-bar i')].every(i => i.getBoundingClientRect().width <= i.parentElement.getBoundingClientRect().width * .07)));
+    { const r = await (await page.$('#ba-range')).boundingBox(); await page.mouse.click(r.x + 4, r.y + r.height / 2); await page.waitForTimeout(500); }
+    ok('drag to before: bars full, before values shown', await page.evaluate(() => +document.querySelector('#ba-range').value < 5 && !document.querySelector('#ba').classList.contains('after') && [...document.querySelectorAll('.ba-bar i')].every(i => i.getBoundingClientRect().width >= i.parentElement.getBoundingClientRect().width * .9)));
+    ok('values say days, 1 week, lost, by hand, $2,000', await page.evaluate(() => [...document.querySelectorAll('.ba-val s')].map(s => s.textContent).join('|') === 'days|1 week|lost|by hand|$2,000 / yr'));
+    /* timeline */
+    ok('five projects on the timeline', await page.evaluate(() => document.querySelectorAll('.lanes li').length === 5));
+    ok('five bars overlap in late October', await page.evaluate(() => { const x = document.querySelector('.ln-five').getBoundingClientRect(); const mid = x.left + x.width / 2; return [...document.querySelectorAll('.ln-track i')].every(i => { const r = i.getBoundingClientRect(); return r.left <= mid && r.right >= mid; }); }));
+    await page.click('.lanes a[href="#cns"]'); await page.waitForTimeout(1200);
+    ok('timeline opens a business page', await view(page) === 'cns');
+    await page.evaluate(() => document.querySelector('.view.on .pano').scrollIntoView({ block: 'center', behavior: 'instant' })); await page.waitForSelector('.view.on .pano.live', { timeout: 30000 }).catch(() => {}); await page.waitForTimeout(300);
+    ok('CNS page: cab look-around goes live', await page.evaluate(() => !!document.querySelector('.view.on .pano.live canvas')));
+    { const h = await page.$('.view.on .pano'); const l0 = await page.evaluate(e => e.__look().lon, h); const b = await h.boundingBox(); await page.mouse.move(b.x + b.width * .6, b.y + b.height * .5); await page.mouse.down(); await page.mouse.move(b.x + b.width * .3, b.y + b.height * .5, { steps: 6 }); await page.mouse.up(); ok('dragging turns the cab view', await page.evaluate(e => e.__look().lon, h) - l0 > 15); }
+    ok('CNS page: nine renders, ten sheets', await page.evaluate(() => { const f = [...document.querySelectorAll('.view.on .filters button')].map(b => b.textContent.replace(/\s+/g, ' ').trim()); return f.some(t => /^Renders\s*9$/.test(t)) && f.some(t => /^Sheets\s*10$/.test(t)); }));
+    ok('no building address in the cab pictures or text', await page.evaluate(() => !/279|44th|Boston R/i.test(document.documentElement.innerHTML)));
+    await hash(page, 'nykhdc', 900);
+    await page.evaluate(() => document.querySelector('#stage3d').scrollIntoView({ block: 'center', behavior: 'instant' })); await page.waitForFunction(() => window.__hero, null, { timeout: 20000 }).catch(() => {});
+    ok('showroom page: the kitchen draws itself', await page.evaluate(() => !!document.querySelector('#stage3d canvas')));
+    await page.waitForTimeout(6500); ok('kitchen finishes and shows the estimate', await page.evaluate(() => +document.querySelector('#scrub').value === 1000 && document.querySelector('#stage').classList.contains('priced')));
+    /* links that used to point into the long page still land somewhere useful */
+    for (const [old, v, id] of [['c1', 'nykhdc', null], ['c2', 'cns', null], ['c6', 'about', 'work-app'], ['faq', 'about', 'faq'], ['workshop', 'about', 'workshop'], ['skills', 'about', 'skills'], ['pages', 'about', 'pages'], ['builder', 'about', 'builder'], ['what', 'home', 'loop'], ['best', 'home', 'results']]) {
+      await hash(page, old, 1500); const top = id ? await topOf(page, '#' + id) : 0;
+      ok('link #' + old + ' opens ' + v + (id ? ' at ' + id : ''), await view(page) === v && (!id || Math.abs(top - 76) < 90 || await page.evaluate(() => innerHeight + scrollY >= document.documentElement.scrollHeight - 4)), [await view(page), top]); }
+    /* About view: everything else */
+    await hash(page, 'about', 900); ok('about view', await view(page) === 'about');
+    ok('about: nine kinds of work, five questions with the price first', await page.evaluate(() => document.querySelectorAll('.skills li').length === 9 && document.querySelectorAll('.faq details').length === 6 && /cost/i.test(document.querySelector('.faq summary').textContent)));
     ok('calendar: 4 site days, 1 workshop', await page.evaluate(() => document.querySelectorAll('.cal-grid .site').length === 4 && document.querySelectorAll('.cal-grid .shop').length === 1));
-    ok('nine skills', await page.evaluate(() => document.querySelectorAll('.skills li').length === 9));
-    await hash(page, 'faq', 900); await page.click('.faq details:nth-child(2) summary'); await page.waitForTimeout(200);
-    ok('a question opens', await page.evaluate(() => { const d = document.querySelector('.faq details:nth-child(2)'); return d.open && d.querySelector('p').getBoundingClientRect().height > 10; }));
-    ok('form controls on pink cards are light', await page.evaluate(() => getComputedStyle(document.querySelector('#shopform input[type=radio]')).colorScheme.includes('light')));
+    ok('private client: no initials, no health details', await page.evaluate(() => !/\bDZ\b/.test(document.documentElement.innerHTML)));
     await hash(page, 'workshop', 900); await page.click('#shopform button[type=submit]'); await page.waitForTimeout(200);
     ok('workshop form asks for the missing fields', (await page.textContent('#shopmsg')).includes('fill in'));
+    ok('form controls on pink cards are light', await page.evaluate(() => getComputedStyle(document.querySelector('#shopform input[type=radio]')).colorScheme.includes('light')));
     await hash(page, 'review', 900); ok('review link opens the form', await page.evaluate(() => document.querySelector('#review').open));
     await page.click('#revform button[type=submit]'); await page.waitForTimeout(200); ok('review form asks for the missing fields', (await page.textContent('#revmsg')).includes('fill in'));
-    await hash(page, 'c6', 1200); ok('#c6 opens the client app job', await shown(page) === 'c6');
-    ok('client initials are not in the page', await page.evaluate(() => !/\bDZ\b/.test(document.documentElement.innerHTML)));
+    await hash(page, 'builder', 1200); await page.click('#stage-load'); await page.waitForTimeout(700);
+    ok('live builder loads in a frame', await page.evaluate(() => { const f = document.querySelector('#stage-view iframe'); return !!f && /planner\/index\.html$/.test(f.src); }));
+    await hash(page, 'pages', 1200); const sl = await page.evaluate(() => document.querySelector('#pages-row').scrollLeft); await page.click('#pages-next'); await page.waitForTimeout(700);
+    ok('client pages arrow scrolls the row', await page.evaluate(() => document.querySelector('#pages-row').scrollLeft) > sl);
+    await page.click('#pages-row .page:nth-child(2) .shot'); await page.waitForTimeout(400);
+    ok('client page opens large', await page.evaluate(() => document.querySelector('#lb').open) && /cp-proposal-table/.test(await page.getAttribute('#lb-img', 'src')));
+    await page.click('#lb-next'); await page.waitForTimeout(200); ok('picture viewer: next', !/cp-proposal-table/.test(await page.getAttribute('#lb-img', 'src')));
+    await page.keyboard.press('Escape'); await page.waitForTimeout(300); ok('picture viewer closes', await page.evaluate(() => !document.querySelector('#lb').open));
+    const reels = await page.evaluate(() => document.querySelectorAll('.reel').length);
+    if (REELS === 'reels') { ok('four clips', reels === 4, reels); ok('video link shows', await page.evaluate(() => !document.querySelector('#reel').hidden && !document.querySelector('#nav-reel').hidden)); }
+    else { ok('no clips in the public build', reels === 0, reels); ok('video section and link stay hidden', await page.evaluate(() => document.querySelector('#reel').hidden && document.querySelector('#nav-reel').hidden)); ok('no clip file names in the page', !/reel-(countertop|cabinet-shop|elevator-cab|build-expo)/.test(fs.readFileSync(path.join(SITE, 'index.html'), 'utf8'))); }
     await hash(page, 'contact', 1000); await page.click('[data-copy="917-943-6912"]'); await page.waitForTimeout(200);
     ok('copy button confirms', ['Copied', '917-943-6912'].includes((await page.textContent('[data-copy="917-943-6912"]')).trim()));
     ok('call key dials', await page.getAttribute('#tact', 'href') === 'tel:+19179436912');
-    const reels = await page.evaluate(() => document.querySelectorAll('.reel').length);
-    if (REELS === 'reels') { ok('four clips', reels === 4, reels); ok('video section and nav link show', await page.evaluate(() => !document.querySelector('#reel').hidden && !document.querySelector('#nav-reel').hidden));
-      await hash(page, 'reel', 1000); await page.click('.reel button'); await page.waitForTimeout(900); ok('a clip plays on tap', await page.evaluate(() => { const v = document.querySelector('.reel video'); return !!v.src && document.querySelector('.reel').classList.contains('playing'); }));
-    } else { ok('no clips in the public build', reels === 0, reels); ok('video section and nav link stay hidden', await page.evaluate(() => document.querySelector('#reel').hidden && document.querySelector('#nav-reel').hidden)); ok('no clip file names in the page', !/reel-(countertop|cabinet-shop|elevator-cab|build-expo)/.test(fs.readFileSync(path.join(SITE, 'index.html'), 'utf8'))); }
-    ok('home: no sideways scroll', await noSide(page) <= 0, await noSide(page));
-    await hash(page, 'cns', 900); await page.waitForSelector('.view.on .pano.live', { timeout: 30000 }).catch(() => {});
-    ok('CNS page: look-around goes live', await page.evaluate(() => !!document.querySelector('.view.on .pano.live canvas')));
-    ok('CNS page: nine renders, ten sheets', await page.evaluate(() => { const f = [...document.querySelectorAll('.view.on .filters button')].map(b => b.textContent.replace(/\s+/g, ' ').trim()); return f.some(t => /^Renders\s*9$/.test(t)) && f.some(t => /^Sheets\s*10$/.test(t)); }), await page.evaluate(() => [...document.querySelectorAll('.view.on .filters button')].map(b => b.textContent.replace(/\s+/g, ' ').trim())));
-    ok('no building address in the cab pictures or text', await page.evaluate(() => !/279|44th|Boston R/i.test(document.documentElement.innerHTML)));
     for (const [v, min] of [['nykhdc', 6], ['cns', 6], ['strikeforce', 3], ['lconstruction', 3]]) {
       await hash(page, v, 900); ok('page ' + v, await view(page) === v);
       ok(v + ': gallery has pictures', await page.evaluate(() => document.querySelectorAll('.view.on .wall button').length) >= min);
-      ok(v + ': problem, fix, result', await page.evaluate(() => document.querySelectorAll('.view.on .pdc3 > div').length === 3 && !!document.querySelector('.view.on .pdc3 .now')));
-      ok(v + ': no sideways scroll', await noSide(page) <= 0, await noSide(page)); ok(v + ': starts at the top', await page.evaluate(() => scrollY) < 5);
-    }
-    await hash(page, 'nykhdc', 700); const n0 = await page.evaluate(() => document.querySelectorAll('.view.on .wall button').length);
-    await page.click('.view.on .filters button:nth-child(2)'); await page.waitForTimeout(200); ok('gallery filter narrows', await page.evaluate(() => document.querySelectorAll('.view.on .wall button').length) < n0);
-    await page.click('.view.on .wall button'); await page.waitForTimeout(300); ok('gallery picture opens', await page.evaluate(() => document.querySelector('#lb').open)); await page.click('#lb-close');
-    await page.click('.view.on .back'); await page.waitForTimeout(1000); ok('back returns to the overview', await view(page) === 'home');
+      ok(v + ': problem, fix, result', await page.evaluate(() => document.querySelectorAll('.view.on .pdc3 > div').length === 3));
+      ok(v + ': no sideways scroll', await noSide(page) <= 0, await noSide(page)); }
     await hash(page, 'design', 900); ok('renders page', await view(page) === 'design');
-    const d0 = await page.evaluate(() => document.querySelectorAll('.dgal .grid button').length); ok('renders page has pictures', d0 > 20, d0);
-    await page.click('.dgal .filters button:nth-child(2)'); await page.waitForTimeout(200); ok('renders filter narrows', await page.evaluate(() => document.querySelectorAll('.dgal .grid button').length) < d0);
-    ok('elevator cabs lead the renders', await page.evaluate(() => /cab/i.test(document.querySelector('.dgal .filters button:nth-child(2)').textContent)));
-    for (const [old, want] of [['best', 'work'], ['services', 'skills'], ['firstday', 'how'], ['contact-home', 'contact'], ['volunteer', 'about']]) { await hash(page, old, 1800); ok('old link #' + old, await view(page) === 'home' && (Math.abs(await topOf(page, '#' + want) - 76) < 90 || await page.evaluate(() => innerHeight + scrollY >= document.documentElement.scrollHeight - 4))); }
     await hash(page, 'nothing-here', 700); ok('unknown link shows the not-found page', await view(page) === 'nf');
     await page.click('.nf a'); await page.waitForTimeout(800); ok('not-found leads home', await view(page) === 'home');
+    ok('home: no sideways scroll', await noSide(page) <= 0, await noSide(page));
     ok('every local file answered', missing.length === 0, missing.slice(0, 5));
     await ctx.close(); }
 
-  /* ================= desktop, reduced motion, pictures ================= */
+  /* ================= desktop, reduced motion ================= */
   { const { ctx, page } = await open({ viewport: { width: 1280, height: 800 }, reducedMotion: 'reduce' });
-    await page.goto(B, { waitUntil: 'load' }); await page.waitForTimeout(400); await page.evaluate(() => document.querySelector('#stage3d').scrollIntoView({ block: 'center', behavior: 'instant' }));
-    await page.waitForFunction(() => window.__hero, null, { timeout: 15000 }).catch(() => {}); await page.waitForTimeout(900);
-    ok('calm: pictures are not held as dots', await page.evaluate(() => document.querySelectorAll('.dots.raw').length === 0));
-    await page.click('#t2'); await page.waitForSelector('#c2 .pano.live', { timeout: 30000 }).catch(() => {}); const q0 = await page.evaluate(() => document.querySelector('#c2 .pano').__look().lon); await page.waitForTimeout(600);
-    ok('calm: the look-around does not sway', await page.evaluate(() => document.querySelector('#c2 .pano').__look().lon) === q0); await page.click('#t1'); await page.waitForTimeout(300);
+    await page.goto(B, { waitUntil: 'load' }); await page.waitForTimeout(500);
+    ok('calm: slider starts at after, nothing moves', await page.evaluate(() => +document.querySelector('#ba-range').value === 100 && document.querySelector('#ba').classList.contains('after')));
+    ok('calm: the loop dot is hidden', await page.evaluate(() => getComputedStyle(document.querySelector('.loop .runner')).display === 'none'));
+    await page.evaluate(() => { location.hash = 'nykhdc'; }); await page.waitForTimeout(600); await page.evaluate(() => document.querySelector('#stage3d').scrollIntoView({ block: 'center', behavior: 'instant' }));
+    await page.waitForFunction(() => window.__hero, null, { timeout: 15000 }).catch(() => {}); await page.waitForTimeout(800);
     ok('calm: kitchen is already built', await page.evaluate(() => document.querySelector('#stage').classList.contains('priced')));
-    const bad = await page.evaluate(async () => { const out = []; for (const id of ['c1', 'c2', 'c3', 'c4', 'c5', 'c6']) { location.hash = id; await new Promise(r => setTimeout(r, 250)); }
-      const imgs = [...document.querySelectorAll('.view[data-view=home] img')].filter(i => i.getAttribute('src') && !i.closest('[hidden]')); imgs.forEach(i => { i.loading = 'eager'; });
-      await Promise.all(imgs.map(i => i.complete ? 1 : new Promise(r => { i.onload = i.onerror = r; setTimeout(r, 4000); })));
-      imgs.forEach(i => { if (!i.naturalWidth) out.push(i.getAttribute('src')); }); return out; });
-    ok('every home picture loads', bad.length === 0, bad);
+    const bad = await page.evaluate(async () => { const out = []; for (const v of ['home', 'about', 'nykhdc', 'cns', 'strikeforce', 'lconstruction']) { location.hash = v; await new Promise(r => setTimeout(r, 300));
+      const imgs = [...document.querySelectorAll('.view.on img')].filter(i => i.getAttribute('src') && !i.closest('[hidden]')); imgs.forEach(i => { i.loading = 'eager'; });
+      await Promise.all(imgs.map(i => i.complete ? 1 : new Promise(r => { i.onload = i.onerror = r; setTimeout(r, 4000); }))); imgs.forEach(i => { if (!i.naturalWidth) out.push(i.getAttribute('src')); }); } return out; });
+    ok('every picture loads', bad.length === 0, bad);
     await ctx.close(); }
 
   /* ================= phone ================= */
   { const { ctx, page } = await open({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 2, isMobile: true, hasTouch: true });
     await page.goto(B, { waitUntil: 'load' }); await page.waitForTimeout(700);
     ok('phone: no sideways scroll', await noSide(page) <= 0, await noSide(page));
-    ok('phone: headline and call button fit the first screen', await page.evaluate(() => { const d = document.querySelector('.dock').getBoundingClientRect().top; return ['.hero h1', '.hero-acts .pill.solid'].every(q => { const r = document.querySelector(q).getBoundingClientRect(); return r.top >= 0 && r.bottom <= d; }); }));
+    ok('phone: headline and call button fit the first screen', await page.evaluate(() => { const d = document.querySelector('.dock').getBoundingClientRect().top; return ['#cover h1', '#cover .pill.solid'].every(q => { const r = document.querySelector(q).getBoundingClientRect(); return r.top >= 0 && r.bottom <= d; }); }));
+    ok('phone: home under 8 screens', await page.evaluate(() => document.documentElement.scrollHeight / innerHeight < 8), await page.evaluate(() => (document.documentElement.scrollHeight / innerHeight).toFixed(1)));
+    ok('phone: timeline results are readable text', await page.evaluate(() => [...document.querySelectorAll('.ln-res')].every(e => e.offsetParent && parseFloat(getComputedStyle(e).fontSize) >= 16)));
     ok('phone: dock is on screen', await page.evaluate(() => getComputedStyle(document.querySelector('.dock')).display !== 'none'));
     ok('phone: header nav is folded', await page.evaluate(() => getComputedStyle(document.querySelector('.nav')).display === 'none'));
     await page.tap('#menu-open'); await page.waitForTimeout(300); ok('phone: menu opens', await page.evaluate(() => document.querySelector('#sheetnav').classList.contains('on')));
-    await page.tap('#sheetnav a[href="#where"]'); await page.waitForTimeout(1300);
-    ok('phone: menu link closes the menu', await page.evaluate(() => !document.querySelector('#sheetnav').classList.contains('on') && document.body.style.overflow === ''));
-    ok('phone: menu link goes to the section', Math.abs(await topOf(page, '#where') - 76) < 90, await topOf(page, '#where'));
-    await hash(page, 'c1', 1200); await page.waitForFunction(() => window.__hero, null, { timeout: 15000 }).catch(() => {});
-    ok('phone: kitchen loads in its job', await page.evaluate(() => !!document.querySelector('#stage3d canvas')));
-    await page.evaluate(() => window.__hero && window.__hero.set(1)); await page.waitForTimeout(700);
-    ok('phone: estimate sits under the kitchen, not over it', await page.evaluate(() => { const t = document.querySelector('.ticket').getBoundingClientRect(), g = document.querySelector('#stage3d').getBoundingClientRect(); return t.top >= g.bottom - 1 && t.width > 250 && getComputedStyle(document.querySelector('.ticket')).opacity === '1'; }));
-    await hash(page, 'c2', 1200); await page.waitForSelector('#c2 .pano.live', { timeout: 30000 }).catch(() => {});
-    ok('phone: cab look-around goes live', await page.evaluate(() => { const h = document.querySelector('#c2 .pano'), r = h.getBoundingClientRect(); return h.classList.contains('live') && r.width > 300 && r.height > 250; }));
-    ok('phone: page still scrolls over the look-around', await page.evaluate(() => getComputedStyle(document.querySelector('#c2 .pano')).touchAction === 'pan-y'));
-    await hash(page, 'work', 1000); await page.tap('#t4'); await page.waitForTimeout(400); ok('phone: tab opens job 4', await shown(page) === 'c4');
-    ok('phone: job strip scrolls sideways inside itself', await page.evaluate(() => { const t = document.querySelector('#tabs'); return t.scrollWidth > t.clientWidth; }));
-    ok('phone: tap targets are big enough', await page.evaluate(() => [...document.querySelectorAll('.view.on a.pill, .view.on button.pill, .dock a, #menu-open, .tabs button, .chip, .rb')].filter(e => e.offsetParent).every(e => e.getBoundingClientRect().height >= 40)));
-    for (const v of ['nykhdc', 'cns', 'strikeforce', 'lconstruction', 'design']) { await hash(page, v, 800); ok('phone ' + v + ': no sideways scroll', await noSide(page) <= 0, await noSide(page)); }
-    await hash(page, 'home', 600);
-    const small = await page.evaluate(() => { const out = []; document.querySelectorAll('.view.on *').forEach(e => { if (!e.offsetParent || e.children.length || !e.textContent.trim()) return; const f = parseFloat(getComputedStyle(e).fontSize); if (f < 10.5) out.push(e.tagName + ':' + f + ':' + e.textContent.trim().slice(0, 20)); }); return out.slice(0, 6); });
-    ok('phone: no text under 10.5px', small.length === 0, small);
+    await page.tap('#sheetnav a[href="#work"]'); await page.waitForTimeout(1300);
+    ok('phone: menu link closes the menu and goes to the section', await page.evaluate(() => !document.querySelector('#sheetnav').classList.contains('on')) && Math.abs(await topOf(page, '#work') - 76) < 90, await topOf(page, '#work'));
+    await hash(page, 'cns', 1200); await page.evaluate(() => document.querySelector('.view.on .pano').scrollIntoView({ block: 'center', behavior: 'instant' })); await page.waitForSelector('.view.on .pano.live', { timeout: 30000 }).catch(() => {});
+    ok('phone: cab look-around goes live and lets the page scroll', await page.evaluate(() => { const h = document.querySelector('.view.on .pano'); return h.classList.contains('live') && getComputedStyle(h).touchAction === 'pan-y'; }));
+    ok('phone: tap targets are big enough', await page.evaluate(() => [...document.querySelectorAll('.view.on a.pill, .view.on button.pill, .dock a, #menu-open, .chip, .rb')].filter(e => e.offsetParent).every(e => e.getBoundingClientRect().height >= 40)));
+    for (const v of ['about', 'nykhdc', 'cns', 'strikeforce', 'lconstruction', 'design']) { await hash(page, v, 800); ok('phone ' + v + ': no sideways scroll', await noSide(page) <= 0, await noSide(page)); }
     await ctx.close(); }
 
   ok('no console errors', errs.length === 0, errs.slice(0, 5));
