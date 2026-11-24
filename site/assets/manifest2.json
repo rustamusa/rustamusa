@@ -1098,5 +1098,77 @@
 "w": 511,
 "h": 638,
 "cat": "cabs"
+},
+{
+"k": "m3-kitchen-showroom-display-elevation-01",
+"biz": "nykhdc",
+"grp": "drawings",
+"cat": "drawings",
+"cap": "Showroom display kitchen: elevation with cabinet codes and sizes",
+"w": 1600,
+"h": 900
+},
+{
+"k": "m3-kitchen-galley-walnut-cream-render-01",
+"biz": "nykhdc",
+"grp": "renders",
+"cat": "kitchens",
+"cap": "Galley kitchen: walnut drawer bases, cream handleless uppers",
+"w": 1600,
+"h": 917
+},
+{
+"k": "m3-kitchen-galley-walnut-cream-render-02",
+"biz": "nykhdc",
+"grp": "renders",
+"cat": "kitchens",
+"cap": "Same galley kitchen: sink run with a laundry niche",
+"w": 1600,
+"h": 917
+},
+{
+"k": "m3-kitchen-galley-walnut-cream-render-03",
+"biz": "nykhdc",
+"grp": "renders",
+"cat": "kitchens",
+"cap": "Same galley kitchen, front view: two-tone wood and cream",
+"w": 1600,
+"h": 917
+},
+{
+"k": "m3-kitchen-galley-navy-walnut-finish-concept-01",
+"biz": "nykhdc",
+"grp": "renders",
+"cat": "kitchens",
+"cap": "AI-rendered finish option: navy uppers, walnut bases, marble",
+"w": 1280,
+"h": 720
+},
+{
+"k": "m3-kitchen-galley-espresso-beige-finish-concept-02",
+"biz": "nykhdc",
+"grp": "renders",
+"cat": "kitchens",
+"cap": "AI-rendered finish option: beige gloss uppers, espresso bases",
+"w": 1280,
+"h": 720
+},
+{
+"k": "m3-kitchen-galley-sage-navy-finish-concept-03",
+"biz": "nykhdc",
+"grp": "renders",
+"cat": "kitchens",
+"cap": "AI-rendered finish option: sage uppers, navy bases",
+"w": 1280,
+"h": 720
+},
+{
+"k": "m3-kitchen-galley-oak-wenge-finish-concept-04",
+"biz": "nykhdc",
+"grp": "renders",
+"cat": "kitchens",
+"cap": "AI-rendered finish option: light oak uppers, wenge bases",
+"w": 1280,
+"h": 648
 }
 ]
