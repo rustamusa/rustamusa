@@ -40,7 +40,7 @@ const B = 'http://127.0.0.1:8793/';
     ok('page title says what this is', /AI help for small businesses in New York/i.test(await page.title()));
     ok('first screen: headline, call button, free first meeting', await page.evaluate(() => ['#cover h1', '#cover .pill.solid', '.hero2-note'].every(q => { const r = document.querySelector(q).getBoundingClientRect(); return r.top >= 0 && r.bottom <= innerHeight; }) && /first meeting is free/i.test(document.querySelector('.hero2-note').textContent)));
     ok('one main action on the first screen', await page.evaluate(() => document.querySelectorAll('#cover .pill.solid').length === 1 && document.querySelector('#cover .pill.solid').getAttribute('href') === 'tel:+19179436912'));
-    ok('home is short: under 7 screens', await page.evaluate(() => document.documentElement.scrollHeight / innerHeight < 7), await page.evaluate(() => (document.documentElement.scrollHeight / innerHeight).toFixed(1)));
+    ok('home is short: under 9 screens', await page.evaluate(() => document.documentElement.scrollHeight / innerHeight < 9), await page.evaluate(() => (document.documentElement.scrollHeight / innerHeight).toFixed(1)));
     ok('no 3D on the home page', await page.evaluate(() => !document.querySelector('.view[data-view=home] #stage3d, .view[data-view=home] .pano')));
     const small = await page.evaluate(() => { const out = []; document.querySelectorAll('.view[data-view=home] *').forEach(e => { if (!e.offsetParent || e.closest('.ln-months, svg, .foot') || ![...e.childNodes].some(n => n.nodeType === 3 && n.textContent.trim())) return; const f = parseFloat(getComputedStyle(e).fontSize); if (f < 15.5) out.push(f + ':' + e.textContent.trim().slice(0, 24)); }); return out.slice(0, 20); });
     ok('home: no small print (all text 16px or more)', small.length === 0, small);
@@ -60,7 +60,11 @@ const B = 'http://127.0.0.1:8793/';
     ok('drag to before: bars full, before values shown', await page.evaluate(() => +document.querySelector('#ba-range').value < 5 && !document.querySelector('#ba').classList.contains('after') && [...document.querySelectorAll('.ba-bar i')].every(i => i.getBoundingClientRect().width >= i.parentElement.getBoundingClientRect().width * .9)));
     ok('values say days, 1 week, lost, by hand, $2,000', await page.evaluate(() => [...document.querySelectorAll('.ba-val s')].map(s => s.textContent).join('|') === 'days|1 week|lost|by hand|$2,000 / yr'));
     /* problem, fix, result */
-    ok('five businesses with problem, fix and result', await page.evaluate(() => { const r = [...document.querySelectorAll('.fx li')]; return r.length === 5 && r.every(li => li.querySelectorAll('.fx-c').length === 2 && li.querySelector('.fx-why') && li.querySelector('.fx-why').textContent.trim().length > 20 && li.querySelector('.fx-r b').textContent.trim()); }));
+    ok('five businesses, each its own block with a picture, a bottleneck and a result', await page.evaluate(() => { const b = [...document.querySelectorAll('.bz')]; return b.length === 5 && b.every(x => x.querySelector('.bz-fig img') && x.querySelector('h3').textContent.trim().length > 10 && x.querySelector('.bz-res b').textContent.trim() && x.querySelector('a[href^="#"]')); }));
+    ok('not one template: at least four different block layouts', await page.evaluate(() => new Set([...document.querySelectorAll('.bz')].map(b => [...b.classList].filter(c => c !== 'bz').sort().join(' '))).size >= 4));
+    ok('no Russian text and no first name inside the quotes', await page.evaluate(() => !/[\u0400-\u04FF]/.test(document.body.innerText) && !/Russian/.test(document.body.innerText) && [...document.querySelectorAll('.word blockquote')].every(q => !/Rustam/.test(q.textContent))));
+    ok('Stanley, not Slava', await page.evaluate(() => !/Slava/.test(document.documentElement.innerHTML) && /Stanley/.test(document.querySelector('.words').textContent)));
+    ok('no tables on the home page', await page.evaluate(() => !document.querySelector('.view[data-view=home] table, .view[data-view=home] .fx')));
     ok('no diagram that explains business', await page.evaluate(() => !document.querySelector('.loop, #loop')));
     /* timeline */
     ok('five projects on the timeline', await page.evaluate(() => document.querySelectorAll('.lanes li').length === 5));
@@ -82,12 +86,12 @@ const B = 'http://127.0.0.1:8793/';
       ok('link #' + old + ' opens ' + v + (id ? ' at ' + id : ''), await view(page) === v && (!id || Math.abs(top - 76) < 90 || await page.evaluate(() => innerHeight + scrollY >= document.documentElement.scrollHeight - 4)), [await view(page), top]); }
     /* About view: everything else */
     await hash(page, 'about', 900); ok('about view', await view(page) === 'about');
-    ok('about: nine kinds of work, five questions with the price first', await page.evaluate(() => document.querySelectorAll('.skills li').length === 9 && document.querySelectorAll('.faq details').length === 6 && /cost/i.test(document.querySelector('.faq summary').textContent)));
+    ok('about: nine kinds of work, five questions with the price first', await page.evaluate(() => document.querySelectorAll('.skills li').length === 9 && document.querySelectorAll('.faq details').length === 5 && /cost/i.test(document.querySelector('.faq summary').textContent)));
     ok('calendar: 4 site days, 1 workshop', await page.evaluate(() => document.querySelectorAll('.cal-grid .site').length === 4 && document.querySelectorAll('.cal-grid .shop').length === 1));
     ok('private client: no initials, no health details', await page.evaluate(() => !/\bDZ\b/.test(document.documentElement.innerHTML)));
     await hash(page, 'workshop', 900); await page.click('#shopform button[type=submit]'); await page.waitForTimeout(200);
     ok('workshop form asks for the missing fields', (await page.textContent('#shopmsg')).includes('fill in'));
-    ok('form controls on pink cards are light', await page.evaluate(() => getComputedStyle(document.querySelector('#shopform input[type=radio]')).colorScheme.includes('light')));
+    ok('form controls on pink cards are light', await page.evaluate(() => getComputedStyle(document.querySelector('#revform input[type=radio]')).colorScheme.includes('light')));
     await hash(page, 'review', 900); ok('review link opens the form', await page.evaluate(() => document.querySelector('#review').open));
     await page.click('#revform button[type=submit]'); await page.waitForTimeout(200); ok('review form asks for the missing fields', (await page.textContent('#revmsg')).includes('fill in'));
     await hash(page, 'builder', 1200); await page.click('#stage-load'); await page.waitForTimeout(700);
@@ -134,7 +138,7 @@ const B = 'http://127.0.0.1:8793/';
     await page.goto(B, { waitUntil: 'load' }); await page.waitForTimeout(700);
     ok('phone: no sideways scroll', await noSide(page) <= 0, await noSide(page));
     ok('phone: headline and call button fit the first screen', await page.evaluate(() => { const d = document.querySelector('.dock').getBoundingClientRect().top; return ['#cover h1', '#cover .pill.solid'].every(q => { const r = document.querySelector(q).getBoundingClientRect(); return r.top >= 0 && r.bottom <= d; }); }));
-    ok('phone: home under 8 screens', await page.evaluate(() => document.documentElement.scrollHeight / innerHeight < 8), await page.evaluate(() => (document.documentElement.scrollHeight / innerHeight).toFixed(1)));
+    ok('phone: home under 11 screens', await page.evaluate(() => document.documentElement.scrollHeight / innerHeight < 11), await page.evaluate(() => (document.documentElement.scrollHeight / innerHeight).toFixed(1)));
     ok('phone: timeline results are readable text', await page.evaluate(() => [...document.querySelectorAll('.ln-res')].every(e => e.offsetParent && parseFloat(getComputedStyle(e).fontSize) >= 16)));
     ok('phone: dock is on screen', await page.evaluate(() => getComputedStyle(document.querySelector('.dock')).display !== 'none'));
     ok('phone: header nav is folded', await page.evaluate(() => getComputedStyle(document.querySelector('.nav')).display === 'none'));

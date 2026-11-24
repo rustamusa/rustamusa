@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>My CV: hands-on AI help for small businesses in New York</title>
-<meta name="description" content="On site and in person: the slow step in a business gets rebuilt with AI tools, then the team learns to run it. Six jobs so far. Days became minutes, a week became hours. Brooklyn, English and Russian.">
+<meta name="description" content="On site and in person: the slow step in a business gets rebuilt with AI tools, then the team learns to run it. Six jobs so far. Days became minutes, a week became hours. Brooklyn, New York.">
 <meta property="og:title" content="Hands-on AI help for small businesses in New York">
 <meta property="og:description" content="On site and in person. Six jobs so far: days became minutes, a week became hours.">
 <meta property="og:image" content="https://mycv4u.com/assets/og.png">
@@ -735,32 +735,62 @@ dialog.lb::backdrop{background:rgba(var(--veil),.92)}
 /* kitchen on a phone: the facts row is always there, no empty gap under the picture */
 @media (max-width:640px){.ticket{opacity:1!important;transform:none!important;color:var(--on)}.ticket dt{color:var(--on-2)}.ticket dd{font-size:1.05rem}}
 
-/* problem, fix, result: one row per business */
-.fx{margin-top:clamp(26px,3.6vw,44px)}
-.fx-head,.fx li a{display:grid;grid-template-columns:minmax(0,15rem) minmax(0,1fr) minmax(0,1fr) minmax(0,11rem);gap:10px clamp(20px,2.6vw,40px);align-items:start}
-.fx-head{padding-bottom:14px;border-bottom:1px solid var(--rule-2);font:600 1.05rem/1 var(--sans);color:var(--on-2)}
-.fx-head span:last-child{text-align:right}
-.fx li{border-bottom:1px solid var(--rule)}
-.fx li a{padding:26px 0;text-decoration:none;transition:background .2s}
-.fx li a:hover{background:linear-gradient(90deg,transparent,var(--well) 12%,var(--well) 88%,transparent)}
-.fx-biz b{display:block;font:650 clamp(1.25rem,1.7vw,1.5rem)/1.15 var(--sans);letter-spacing:-.03em}
-.fx-biz small{display:block;font:400 1rem/1.3 var(--sans);color:var(--on-2);margin-top:6px}
-.fx-c{font:400 clamp(1.05rem,1.25vw,1.15rem)/1.45 var(--sans);color:var(--on)}
-.fx-c em,.fx-r em{display:none;font:600 1rem/1 var(--sans);font-style:normal;color:var(--on-2);margin-bottom:6px}
-.fx-why{display:block;margin-top:12px;padding-left:14px;border-left:2px solid var(--band);font:600 clamp(1.05rem,1.25vw,1.15rem)/1.42 var(--sans);letter-spacing:-.01em;color:var(--on)}
-.fx-r{display:grid;justify-items:end;text-align:right;gap:6px}
-.fx-r s{font:500 1.1rem/1 var(--sans);color:var(--band);text-decoration-thickness:1.5px}
-.fx-r b{font:700 clamp(1.6rem,2.4vw,2.2rem)/1 var(--sans);letter-spacing:-.045em;color:var(--accent)}
-.fx li a:hover .fx-biz b{text-decoration:underline;text-underline-offset:.2em;text-decoration-thickness:1px}
+/* five businesses, each its own block and its own bottleneck */
+.bzs{display:grid;gap:clamp(20px,2.6vw,36px);margin-top:clamp(26px,3.6vw,44px)}
+.bz{position:relative;display:grid;grid-template-columns:minmax(0,1.08fr) minmax(0,.92fr);gap:clamp(22px,3.6vw,60px);align-items:center;border-radius:var(--r)}
+.bz-fig{margin:0;border-radius:var(--r-sm);overflow:hidden;background:#fff;box-shadow:0 30px 60px -34px rgba(0,0,0,.7)}
+.bz-fig img{display:block;width:100%;height:auto}
+.bz-who{display:flex;flex-wrap:wrap;gap:2px 12px;align-items:baseline}
+.bz-who b{font:650 1.1rem/1.25 var(--sans);letter-spacing:-.02em}
+.bz-who span{font:400 1rem/1.3 var(--sans);color:var(--on-2)}
+.bz h3{font:650 clamp(1.9rem,3.3vw,2.9rem)/1.03 var(--sans);letter-spacing:-.045em;margin-top:12px;text-wrap:balance}
+.bz-text > p:not(.bz-who):not(.bz-res),.bz-text > div > p:not(.bz-who):not(.bz-res){font:400 clamp(1.06rem,1.3vw,1.18rem)/1.45 var(--sans);color:var(--on-2);margin-top:14px;max-width:34em}
+.bz-text p b{color:var(--on);font-weight:650}
+.bz-res{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 16px;margin-top:18px}
+.bz-res s{font:500 1.3rem/1 var(--sans);color:var(--band);text-decoration-thickness:2px}
+.bz-res b{font:700 clamp(2.3rem,4.2vw,3.6rem)/1 var(--sans);letter-spacing:-.05em;color:var(--accent)}
+.bz .pill{margin-top:22px}
+/* image on the right */
+.bz-flip .bz-fig{order:2}
+/* the cab: one big picture, the words over it */
+.bz-cine{grid-template-columns:minmax(0,1fr);overflow:hidden;background:var(--dot-bg)}
+.bz-cine .bz-fig{grid-area:1/1;border-radius:0;box-shadow:none;background:none}
+.bz-cine .bz-fig img{aspect-ratio:1800/945;object-fit:cover}
+.bz-cine .bz-text{grid-area:1/1;align-self:stretch;display:flex;flex-direction:column;justify-content:flex-end;padding:clamp(24px,3.4vw,52px);align-items:flex-start;background:linear-gradient(90deg,rgba(var(--veil),.86) 0%,rgba(var(--veil),.74) 38%,rgba(var(--veil),0) 54%);max-width:none}
+.bz-cine .bz-text > *{max-width:24rem}
+.bz-cine .bz-text > p:not(.bz-who):not(.bz-res){max-width:24rem}
+.bz-cine .bz-text,.bz-cine .bz-who b,.bz-cine h3,.bz-cine .bz-text p b{color:var(--veil-on)}
+/* the tomato band */
+.bz.alt{padding:clamp(22px,3.2vw,48px)}
+.bz.alt .bz-res s{color:var(--on-2)}
+/* text first, two pictures on the right */
+.bz-pair{position:relative;padding-right:clamp(40px,6vw,96px)}
+.bz-phone{position:absolute;right:0;bottom:-6%;width:clamp(110px,13vw,190px);border:4px solid var(--page-lo);border-radius:18px}
+/* the pink card: words, then two phone screens */
+.bz-phones{grid-template-columns:minmax(0,1fr) minmax(0,.85fr);padding:clamp(22px,3.2vw,48px)}
+.bz-ph{display:flex;justify-content:center;gap:clamp(10px,1.6vw,20px)}
+.bz-ph .bz-fig{width:min(46%,230px);border-radius:26px;border:5px solid #12261F;background:#12261F}
+.bz-ph .bz-fig + .bz-fig{margin-top:clamp(30px,4vw,56px)}
+.paper .bz-res s{color:var(--card-on-2)}
 @media (max-width:900px){
-  .fx-head{display:none}
-  .fx li a{grid-template-columns:minmax(0,1fr);gap:14px;padding:24px 0}
-  .fx-c em{display:inline;margin-right:.45em;color:var(--on-2)}
-  .fx-r em{display:block}
-  .fx li a{gap:12px}
-  .fx-r{justify-items:start;text-align:left;grid-template-columns:auto auto;align-items:baseline;justify-content:start;gap:4px 14px}
-  .fx-r em{grid-column:1/-1}
+  .bz{grid-template-columns:minmax(0,1fr)}
+  .bz-ph{order:-1}
+  .bz-ph .bz-fig{width:min(44%,190px)}
+  .bz-flip .bz-fig{order:0}
+  .bz-duo .bz-pair{order:-1}
+  .bz-cine .bz-fig,.bz-cine .bz-text{grid-area:auto}
+  .bz-cine .bz-fig img{aspect-ratio:16/10;object-position:80% 50%}
+  .bz-cine .bz-text{background:none;padding:6px clamp(18px,4vw,28px) 26px}
+  .bz-cine .bz-text,.bz-cine .bz-who b,.bz-cine h3,.bz-cine .bz-text p b{color:var(--on)}
 }
+@media (max-width:640px){
+  .bz h3{font-size:clamp(1.75rem,8vw,2.2rem)}
+  .bz-res b{font-size:2.4rem}
+  .bz.alt,.bz-phones{padding:18px}
+  .bz-pair{padding-right:64px}
+  .bz-phone{width:96px;border-width:3px;border-radius:12px}
+}
+
 /* five projects on one timeline */
 .lanes{margin-top:clamp(28px,4vw,48px)}
 .ln-axis,.lanes li a{display:grid;grid-template-columns:minmax(0,17rem) minmax(0,1fr);gap:8px 28px;align-items:center}
@@ -821,9 +851,9 @@ dialog.lb::backdrop{background:rgba(var(--veil),.92)}
 
 <nav class="sheetnav" id="sheetnav" aria-label="All sections">
   <div class="sheetnav-head"><a class="brand" href="#home"><svg aria-hidden="true"><use href="#i-mark"/></svg>My CV</a><button class="close" type="button" id="menu-close">Close</button></div>
-  <a class="big" href="#fixes">Results <small>problem, fix, result</small></a>
+  <a class="big" href="#fixes">Results <small>five bottlenecks, fixed</small></a>
   <a class="big" href="#work">Projects <small>five at the same time</small></a>
-  <a class="big" href="#about">About <small>Rustam, Brooklyn</small></a>
+  <a class="big" href="#about">About <small>background, workshop</small></a>
   <a class="big" href="#reel" id="sheet-reel" hidden>Video <small>shot and edited</small></a>
   <a class="big" href="#workshop">Workshop <small>free, sign up</small></a>
   <a class="big" href="#contact">Contact <small>call, text, email</small></a>
@@ -864,16 +894,75 @@ dialog.lb::backdrop{background:rgba(var(--veil),.92)}
   </div></section>
 
   <section class="sec2" id="fixes"><div class="wrap">
-    <h2 class="h2b">What was broken, and what works now</h2>
-    <div class="fx">
-      <div class="fx-head" aria-hidden="true"><span></span><span>Problem, and why it hurt</span><span>Fix</span><span>Result</span></div>
-      <ol>
-      <li><a href="#nykhdc"><span class="fx-biz"><b>NY Kitchen &amp; Home Design Center</b><small>Kitchen showroom, Brooklyn</small></span><span class="fx-c"><em>Problem</em>A priced kitchen with a 3D view took days. Website requests reached no one.<span class="fx-why">The price is where a kitchen gets sold. Make a customer wait days for it, and the next showroom sells it.</span></span><span class="fx-c"><em>Fix</em>An online kitchen builder that prices the job. One inbox and an AI assistant for every request.</span><span class="fx-r"><em>Result</em><s>days</s><b>minutes</b></span></a></li>
-      <li><a href="#cns"><span class="fx-biz"><b>CNS Elevator Cabs</b><small>Elevator cab maker, Brooklyn</small></span><span class="fx-c"><em>Problem</em>A drawing set the building signs took a week. The drafter was far away.<span class="fx-why">No signed drawings, no job. Every day on paperwork is a day the shop can't build or bill.</span></span><span class="fx-c"><em>Fix</em>The whole set drawn with AI tools from one 3D model: plans, details, weights, renders.</span><span class="fx-r"><em>Result</em><s>1 week</s><b>2 hours</b></span></a></li>
-      <li><a href="#strikeforce"><span class="fx-biz"><b>Strike Force</b><small>Two game venues, NY + NJ</small></span><span class="fx-c"><em>Problem</em>Every online order was copied to a former contractor. Ticket codes went out by hand.<span class="fx-why">Every order carried customer data to an outsider. On the busiest sales day of the year, every ticket waited on a person.</span></span><span class="fx-c"><em>Fix</em>The leak closed. A code goes out the moment a payment clears. An AI assistant on both sites.</span><span class="fx-r"><em>Result</em><s>by hand</s><b>automatic</b></span></a></li>
-      <li><a href="#lconstruction"><span class="fx-biz"><b>L-Construction Group</b><small>General contractor, NYC</small></span><span class="fx-c"><em>Problem</em>Houses built since 2015 and nothing online. Nothing to send a client.<span class="fx-why">Clients look a builder up before they call. Nothing online, no call.</span></span><span class="fx-c"><em>Fix</em>A website from zero, six channels under one name, one link to text a client.</span><span class="fx-r"><em>Result</em><s>nothing</s><b>6 channels</b></span></a></li>
-      <li><a href="#work-app"><span class="fx-biz"><b>A private client</b><small>Meals and training, Brooklyn</small></span><span class="fx-c"><em>Problem</em>Meals and training for one client, and nothing was tracked.<span class="fx-why">When nothing is written down, something gets missed, and the client notices.</span></span><span class="fx-c"><em>Fix</em>A private phone app: next week's menu, deliveries, every session.</span><span class="fx-r"><em>Result</em><s>nothing</s><b>one app</b></span></a></li>
-      </ol>
+    <h2 class="h2b">Different businesses, different bottlenecks</h2>
+    <div class="bzs">
+
+      <article class="bz bz-split">
+        <figure class="bz-fig"><img src="assets/img/pl-k_09.webp" width="1158" height="962" alt="The kitchen builder: a navy L-shaped kitchen in 3D" loading="lazy" decoding="async"></figure>
+        <div class="bz-text">
+          <p class="bz-who"><b>NY Kitchen &amp; Home Design Center</b><span>Kitchen showroom, Brooklyn</span></p>
+          <h3>The price is where a kitchen gets sold.</h3>
+          <p><b>Before:</b> a priced kitchen with a 3D view took days. Meanwhile the customer visits the next showroom.</p>
+          <p class="bz-res"><s>days</s><b>minutes</b></p>
+          <p><b>Now:</b> the customer draws the kitchen online and gets the price with a 3D view on the spot.</p>
+          <a class="pill small" href="#nykhdc"><span>See the work</span><i class="arr"><svg aria-hidden="true"><use href="#i-arr"/></svg></i></a>
+        </div>
+      </article>
+
+      <article class="bz bz-cine">
+        <figure class="bz-fig"><img src="assets/img/cab-wide.webp" width="1800" height="945" alt="A photoreal render of an elevator cab with the door open, seen from the lobby" loading="lazy" decoding="async"></figure>
+        <div class="bz-text">
+          <p class="bz-who"><b>CNS Elevator Cabs</b><span>Elevator cab maker, Brooklyn</span></p>
+          <h3>No signed drawings, no job.</h3>
+          <p><b>Before:</b> a drawing set for the building took a week, and the drafter was far away.</p>
+          <p><b>Now:</b> plans, details, weights and renders come from one 3D model. Changes go back the same day.</p>
+          <p class="bz-res"><s>1 week</s><b>2 hours</b></p>
+          <a class="pill small" href="#cns"><span>See the work</span><i class="arr"><svg aria-hidden="true"><use href="#i-arr"/></svg></i></a>
+        </div>
+      </article>
+
+      <article class="bz bz-split bz-flip alt">
+        <figure class="bz-fig"><img src="assets/img/sf-li-chat.webp" width="1389" height="868" alt="The Strike Force site with its AI assistant open" loading="lazy" decoding="async"></figure>
+        <div class="bz-text">
+          <p class="bz-who"><b>Strike Force</b><span>Two game venues, Long Island and New Jersey</span></p>
+          <h3>Every online order went to an outsider.</h3>
+          <p><b>Before:</b> each order was copied to a former contractor. On Cyber Monday, 41 tickets were coded by hand.</p>
+          <p class="bz-res"><s>by hand</s><b>automatic</b></p>
+          <p><b>Now:</b> the leak is closed. A ticket code goes out the moment the payment clears.</p>
+          <a class="pill small" href="#strikeforce"><span>See the work</span><i class="arr"><svg aria-hidden="true"><use href="#i-arr"/></svg></i></a>
+        </div>
+      </article>
+
+      <article class="bz bz-duo">
+        <div class="bz-text">
+          <p class="bz-who"><b>L-Construction Group</b><span>General contractor, New York City</span></p>
+          <h3>Clients look a builder up before they call.</h3>
+          <p><b>Before:</b> houses built since 2015, and nothing online to show for it.</p>
+          <p class="bz-res"><s>nothing</s><b>6 channels</b></p>
+          <p><b>Now:</b> a website from zero and six channels under one name, with one link to text a client.</p>
+          <a class="pill small" href="#lconstruction"><span>See the work</span><i class="arr"><svg aria-hidden="true"><use href="#i-arr"/></svg></i></a>
+        </div>
+        <div class="bz-pair">
+          <figure class="bz-fig"><img src="assets/img/lb-home.webp" width="1389" height="868" alt="lbuildny.com home page" loading="lazy" decoding="async"></figure>
+          <figure class="bz-fig bz-phone"><img src="assets/img/lb-links.webp" width="500" height="900" alt="The one-link page with every channel" loading="lazy" decoding="async"></figure>
+        </div>
+      </article>
+
+      <article class="bz bz-phones paper">
+        <div class="bz-text">
+          <p class="bz-who"><b>A private client</b><span>Meals and training, Brooklyn</span></p>
+          <h3>When nothing is written down, something gets missed.</h3>
+          <p><b>Before:</b> meals and training for one client, with no record of either.</p>
+          <p class="bz-res"><s>nothing</s><b>one app</b></p>
+          <p><b>Now:</b> next week's menu, deliveries and every session in one private app.</p>
+          <a class="pill small" href="#work-app"><span>See the work</span><i class="arr"><svg aria-hidden="true"><use href="#i-arr"/></svg></i></a>
+        </div>
+        <div class="bz-ph">
+          <figure class="bz-fig"><img src="assets/img/app-menu.webp" width="750" height="1624" alt="The app's menu screen" loading="lazy" decoding="async"></figure>
+          <figure class="bz-fig"><img src="assets/img/app-dish.webp" width="750" height="1624" alt="A dish with calories, protein and ingredients" loading="lazy" decoding="async"></figure>
+        </div>
+      </article>
+
     </div>
   </div></section>
 
@@ -898,9 +987,9 @@ dialog.lb::backdrop{background:rgba(var(--veil),.92)}
       <h2 class="h2b">Owners, in their words</h2>
     </div>
     <div class="words">
-      <figure class="word"><blockquote>&ldquo;Rustam basically runs our whole online side. He built us our own kitchen design tool, and now a customer gets a 3D kitchen and a price in minutes, not days. Best decision I made this year.&rdquo;</blockquote><figcaption><span class="seal" aria-hidden="true">S</span><span><b>Slava</b><a href="#nykhdc">Owner, NYKHDC and Strike Force</a></span></figcaption></figure>
-      <figure class="word"><blockquote>&ldquo;I send Rustam a change, the new drawings come back fast, weights already done, ready for the building. No back and forth.&rdquo;</blockquote><figcaption><span class="seal" aria-hidden="true">S</span><span><b>Steven</b><a href="#cns">CNS Elevator Cabs</a></span></figcaption></figure>
-      <figure class="word"><blockquote>&ldquo;We had zero online. Rustam built lbuildny.com and our social pages from scratch, and now we finally look like a real company. Fast, no excuses.&rdquo;</blockquote><figcaption><span class="seal" aria-hidden="true">L</span><span><b>Lubomir</b><a href="#lconstruction">L-Construction Group</a></span></figcaption></figure>
+      <figure class="word"><blockquote>&ldquo;He basically runs our whole online side. Built us our own kitchen design tool, and now a customer gets a 3D kitchen and a price in minutes, not days. Best decision I made this year.&rdquo;</blockquote><figcaption><span class="seal" aria-hidden="true">S</span><span><b>Stanley</b><a href="#nykhdc">Owner, NYKHDC and Strike Force</a></span></figcaption></figure>
+      <figure class="word"><blockquote>&ldquo;I send a change, the new drawings come back fast, weights already done, ready for the building. No back and forth.&rdquo;</blockquote><figcaption><span class="seal" aria-hidden="true">S</span><span><b>Steven</b><a href="#cns">CNS Elevator Cabs</a></span></figcaption></figure>
+      <figure class="word"><blockquote>&ldquo;We had zero online. He built lbuildny.com and our social pages from scratch, and now we finally look like a real company. Fast, no excuses.&rdquo;</blockquote><figcaption><span class="seal" aria-hidden="true">L</span><span><b>Lubomir</b><a href="#lconstruction">L-Construction Group</a></span></figcaption></figure>
     </div>
   </div></section>
 
@@ -912,7 +1001,6 @@ dialog.lb::backdrop{background:rgba(var(--veil),.92)}
         <h2>Call, text or walk in.</h2>
         <p class="lede">In person, anywhere in New York City.</p>
         <a class="tact" id="tact" href="tel:+19179436912"><i><svg aria-hidden="true"><use href="#i-phone"/></svg></i><span><small>Call or text</small><b>917-943-6912</b></span></a>
-        <p lang="ru" style="margin-top:18px;color:var(--on-2)">Можно по-русски: звоните или пишите.</p>
       </div>
       <div class="reach-side">
         <dl class="reach-rows">
@@ -949,7 +1037,7 @@ dialog.lb::backdrop{background:rgba(var(--veil),.92)}
         <p>Sells and designs kitchens at a Brooklyn showroom, and builds the tools that help it sell. Not a programmer by training: a business problem gets taken apart until it is fixed, with AI tools.</p>
         <p>Before New York: logging geologist and coiled tubing engineer in Kazakhstan. In the US: started from zero as a busboy.</p>
         <p>Off the clock: personal trainer at Elite Barbell, jiu-jitsu at the Renzo Gracie Academy, dad.</p>
-        <ul class="chips" style="margin-top:22px" aria-label="Tools"><li class="k">ChatGPT</li><li class="k">Claude</li><li class="k">Grok</li><li>three.js</li><li>Vercel</li><li>WordPress</li><li>Outlook workflows</li><li>Instagram and Facebook shop</li><li>Sony FX30</li><li>English and Russian</li></ul>
+        <ul class="chips" style="margin-top:22px" aria-label="Tools"><li class="k">ChatGPT</li><li class="k">Claude</li><li class="k">Grok</li><li>three.js</li><li>Vercel</li><li>WordPress</li><li>Outlook workflows</li><li>Instagram and Facebook shop</li><li>Sony FX30</li></ul>
       </div>
       <ol class="route">
         <li><span>Kazakhstan, 2013 to 2017</span><div><b>Geologist and field engineer</b><p>Logging geologist at Weatherford, coiled tubing field engineer at Baker Hughes. B.Sc. in geophysical exploration.</p></div></li>
@@ -1069,7 +1157,7 @@ dialog.lb::backdrop{background:rgba(var(--veil),.92)}
       <div class="shopbox paper">
         <div class="shopbox-top">
           <h3>Free workshop for local business owners</h3>
-          <p>Bring a phone and a problem from the business. It gets worked on in the room: replies to customers, quotes, posts, numbers. In Brooklyn, in English and Russian. The date and place come by text.</p>
+          <p>Bring a phone and a problem from the business. It gets worked on in the room: replies to customers, quotes, posts, numbers. In Brooklyn. The date and place come by text.</p>
         </div>
         <form class="form" id="shopform" novalidate>
           <div class="two">
@@ -1078,10 +1166,6 @@ dialog.lb::backdrop{background:rgba(var(--veil),.92)}
           </div>
           <label>Phone or email<input type="text" name="contact" autocomplete="tel" required maxlength="120"></label>
           <label>First thing to fix <span>(optional)</span><textarea name="problem" rows="3" maxlength="800"></textarea></label>
-          <fieldset class="pick"><legend>Language</legend>
-            <label><input type="radio" name="language" value="English" checked>English</label>
-            <label><input type="radio" name="language" value="Russian"><span lang="ru">Русский</span></label>
-          </fieldset>
           <input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
           <div class="form-act"><button class="pill solid small" type="submit"><span>Save a seat</span><i class="arr"><svg aria-hidden="true"><use href="#i-arr"/></svg></i></button><span class="form-msg" id="shopmsg" role="status"></span></div>
         </form>
@@ -1152,7 +1236,6 @@ dialog.lb::backdrop{background:rgba(var(--veil),.92)}
       <details><summary>What kind of business is this for?</summary><p>Independent local businesses: showrooms and shops, contractors, clinics and studios, salons and groomers, restaurants, small manufacturers, game venues.</p></details>
       <details><summary>Which AI tools get used?</summary><p>ChatGPT, Claude and Grok, picked to fit the job. The team gets trained on the one it will keep using.</p></details>
       <details><summary>Who runs it after the visit?</summary><p>The team. Every job ends with the owner or staff running the tool themselves, and a one-page how-to stays behind. Help stays one text away.</p></details>
-      <details><summary>Which languages?</summary><p>English and Russian.</p></details>
     </div>
   </div></section>
 </div>
@@ -1175,7 +1258,7 @@ dialog.lb::backdrop{background:rgba(var(--veil),.92)}
 <div class="view" data-view="nykhdc">
   <section class="phead"><div class="wrap">
     <a class="back" href="#work"><svg aria-hidden="true"><use href="#i-back"/></svg>Back to the overview</a>
-    <p class="note plus">Kitchen and bath showroom <b>/ 161 22nd St, Brooklyn / Owner: Slava</b></p>
+    <p class="note plus">Kitchen and bath showroom <b>/ 161 22nd St, Brooklyn / Owner: Stanley</b></p>
     <h1 style="margin-top:14px">NY Kitchen &amp; Home Design Center</h1>
     <p class="meta">Sales manager here since 2023. In 2026 most of how the showroom sells was rebuilt with AI tools.</p>
     <div class="plinks"><a href="https://nykhdc.com/" target="_blank" rel="noopener">nykhdc.com</a><a href="https://nykhdc-builder.vercel.app/#countertop" target="_blank" rel="noopener">Countertop builder</a><a href="planner/index.html" target="_blank" rel="noopener">Try it here</a><a href="https://maps.google.com/?cid=10413442390860399771" target="_blank" rel="noopener">4.7 on Google</a><a href="https://www.instagram.com/kitchen4nyc/" target="_blank" rel="noopener">Instagram</a><a href="https://www.facebook.com/profile.php?id=61577946412733" target="_blank" rel="noopener">Facebook</a></div>
@@ -1300,7 +1383,7 @@ dialog.lb::backdrop{background:rgba(var(--veil),.92)}
 <div class="view" data-view="strikeforce">
   <section class="phead"><div class="wrap">
     <a class="back" href="#work"><svg aria-hidden="true"><use href="#i-back"/></svg>Back to the overview</a>
-    <p class="note plus">Two game venues <b>/ Long Island and New Jersey / Owner: Slava</b></p>
+    <p class="note plus">Two game venues <b>/ Long Island and New Jersey / Owner: Stanley</b></p>
     <h1 style="margin-top:14px">Strike Force</h1>
     <p class="meta">Two locations, two websites, both run from New York.</p>
     <div class="plinks"><a href="https://www.strikeforcesports.net/" target="_blank" rel="noopener">strikeforcesports.net</a><a href="https://strikeforcenj.com/" target="_blank" rel="noopener">strikeforcenj.com</a></div>
