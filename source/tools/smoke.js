@@ -60,7 +60,7 @@ const B = 'http://127.0.0.1:8793/';
     ok('drag to before: bars full, before values shown', await page.evaluate(() => +document.querySelector('#ba-range').value < 5 && !document.querySelector('#ba').classList.contains('after') && [...document.querySelectorAll('.ba-bar i')].every(i => i.getBoundingClientRect().width >= i.parentElement.getBoundingClientRect().width * .9)));
     ok('values say days, 1 week, lost, by hand, $2,000', await page.evaluate(() => [...document.querySelectorAll('.ba-val s')].map(s => s.textContent).join('|') === 'days|1 week|lost|by hand|$2,000 / yr'));
     /* problem, fix, result */
-    ok('five businesses with problem, fix and result', await page.evaluate(() => { const r = [...document.querySelectorAll('.fx li')]; return r.length === 5 && r.every(li => li.querySelectorAll('.fx-c').length === 2 && li.querySelector('.fx-r b').textContent.trim()); }));
+    ok('five businesses with problem, fix and result', await page.evaluate(() => { const r = [...document.querySelectorAll('.fx li')]; return r.length === 5 && r.every(li => li.querySelectorAll('.fx-c').length === 2 && li.querySelector('.fx-why') && li.querySelector('.fx-why').textContent.trim().length > 20 && li.querySelector('.fx-r b').textContent.trim()); }));
     ok('no diagram that explains business', await page.evaluate(() => !document.querySelector('.loop, #loop')));
     /* timeline */
     ok('five projects on the timeline', await page.evaluate(() => document.querySelectorAll('.lanes li').length === 5));
