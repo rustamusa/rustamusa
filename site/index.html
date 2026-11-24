@@ -818,6 +818,55 @@ dialog.lb::backdrop{background:rgba(var(--veil),.92)}
   .bz-phone{width:96px;border-width:3px;border-radius:12px}
 }
 
+/* each block is a window: the picture and the result on top, then the problem and how AI solved it */
+.bz{padding:clamp(18px,2.6vw,38px)}
+.bz:not(.alt){background:rgba(247,235,245,.05);border:1px solid var(--rule)}
+.bz.alt{--bad:var(--on)}
+.bz-cine{padding:0;row-gap:0}
+.bz-story{grid-column:1/-1;display:grid;grid-template-columns:minmax(0,.86fr) minmax(0,1.14fr);gap:clamp(20px,3.4vw,56px);padding-top:clamp(18px,2.2vw,30px);border-top:1px solid var(--rule-2)}
+.bz-cine .bz-story{grid-area:2/1;padding:clamp(20px,2.6vw,38px);border-top:0}
+.bz-part h4{font:700 clamp(1.25rem,1.7vw,1.55rem)/1.15 var(--sans);letter-spacing:-.025em;color:var(--on)}
+.bz-part ul{margin-top:14px;display:grid;gap:13px}
+.bz-part li{font:400 clamp(1.1rem,1.38vw,1.28rem)/1.38 var(--sans);letter-spacing:-.012em;color:var(--on);text-wrap:pretty}
+.bz-part li b{font-weight:700}
+.bz-was li b{color:var(--bad,var(--band))}
+.bz-ai li b{color:var(--accent)}
+/* a website shown as a website: a bar with its address on top */
+.bz-site{background:var(--page-lo)}
+.bz-url{display:flex;align-items:center;padding:9px 14px;font:500 1rem/1 var(--sans);color:var(--foot-on-2);background:var(--page-lo)}
+.bz-url::before{content:"";flex:none;width:10px;height:10px;border-radius:50%;background:#FF5B3A;box-shadow:16px 0 0 #FFB23E,32px 0 0 #6B4A72;margin-right:46px}
+.bz-pair.two{padding:0 clamp(34px,5vw,84px) clamp(40px,5vw,76px) 0}
+.bz-second{position:absolute;right:0;bottom:0;width:60%;border:4px solid var(--page-lo)}
+.bz-flip > .bz-pair{order:2}
+.bz-flip > .bz-story{order:3}
+@media (min-width:901px){
+  .bz-cine .bz-fig img{aspect-ratio:23/10}
+  .bz-phones{grid-template-columns:minmax(0,1fr) auto minmax(0,1.05fr);align-items:center}
+  .bz-phones .bz-story{grid-column:auto;grid-template-columns:minmax(0,1fr);border-top:0;padding-top:0}
+  .bz-phones .bz-ph .bz-fig{width:clamp(120px,12vw,172px)}
+}
+@media (max-width:900px){
+  .bz-story{grid-template-columns:minmax(0,1fr)}
+  .bz-flip > .bz-pair{order:0}
+  .bz-cine .bz-story{grid-area:auto;padding:4px clamp(18px,4vw,28px) 24px}
+}
+@media (max-width:640px){
+  .bz{padding:16px}
+  .bz-cine{padding:0}
+  .bz h3{font-size:clamp(1.55rem,7vw,1.9rem)}
+  .bz-res b{font-size:2.1rem}
+  .bz .pill{margin-top:16px}
+  .bz-part ul{margin-top:10px;gap:10px}
+  .bz-part li{font-size:1.0625rem;line-height:1.34}
+  .bz-part h4{font-size:1.2rem}
+  .bz-story{gap:16px;padding-top:16px}
+  .bz-site img{aspect-ratio:16/9;object-fit:cover;object-position:50% 0}
+  .bz-ph .bz-fig{width:min(38%,150px)}
+  .bz-pair.two{padding:0 28px 44px 0}
+  .bz-url{padding:7px 10px}
+  .bz-url::before{width:8px;height:8px;box-shadow:13px 0 0 #FFB23E,26px 0 0 #6B4A72;margin-right:36px}
+}
+
 /* five projects on one timeline */
 .lanes{margin-top:clamp(28px,4vw,48px)}
 .ln-axis,.lanes li a{display:grid;grid-template-columns:minmax(0,17rem) minmax(0,1fr);gap:8px 28px;align-items:center}
@@ -916,17 +965,20 @@ dialog.lb::backdrop{background:rgba(var(--veil),.92)}
 
   <section class="sec2" id="fixes"><div class="wrap">
     <h2 class="h2b">Different businesses, different bottlenecks</h2>
+    <p class="lede2">Each problem had sat there for months or years. Then AI got plugged into what the business already runs: its mailbox, its website admin, its drawings, through MCP connectors, the browser and code.</p>
     <div class="bzs">
 
       <article class="bz bz-split" id="b-kitchen">
-        <figure class="bz-fig"><img src="assets/img/ui-pl-full-kitchen.webp" width="1600" height="1111" alt="The online kitchen builder: shape, sizes and a 3D view" loading="lazy" decoding="async"></figure>
+        <div class="bz-pair two"><figure class="bz-fig bz-site"><figcaption class="bz-url">nykhdc.com</figcaption><img src="assets/img/nk-site-chat.webp" width="1389" height="868" alt="nykhdc.com with its AI assistant open" loading="lazy" decoding="async"></figure><figure class="bz-fig bz-site bz-second"><figcaption class="bz-url">Kitchen builder</figcaption><img src="assets/img/ui-pl-full-kitchen.webp" width="1600" height="1111" alt="The online kitchen builder: shape, sizes and a 3D view" loading="lazy" decoding="async"></figure></div>
         <div class="bz-text">
           <p class="bz-who"><b>NY Kitchen &amp; Home Design Center</b><span>Kitchen showroom, Brooklyn</span></p>
           <h3>The price is where a kitchen gets sold.</h3>
-          <p><b>Before:</b> a priced kitchen with a 3D view took days. Meanwhile the customer visits the next showroom.</p>
           <p class="bz-res"><s>days</s><b>minutes</b></p>
-          <p><b>Now:</b> the customer draws the kitchen online and gets the price with a 3D view on the spot.</p>
           <a class="pill small" href="#nykhdc"><span>See the work</span><i class="arr"><svg aria-hidden="true"><use href="#i-arr"/></svg></i></a>
+        </div>
+        <div class="bz-story">
+          <div class="bz-part bz-was"><h4>The problem</h4><ul><li><b>Since February 2024</b> website requests were copied to a former developer. The showroom got 2 of about 27.</li><li><b>For a year</b> 8,722 fake bot orders and returns sat in the store, unnoticed.</li></ul></div>
+          <div class="bz-part bz-ai"><h4>How AI solved it</h4><ul><li><b>Price engine.</b> A customer draws the kitchen and sees it in 3D. The showroom has the estimate in minutes. 5 of 5 matched the invoice to the cent.</li><li><b>Outlook and the store admin.</b> AI read the mailbox and every site setting, found where requests were going and cleared 2,828 bot orders.</li><li><b>Own server.</b> New forms and an AI assistant on the site. Every request lands in one inbox.</li></ul></div>
         </div>
       </article>
 
@@ -935,22 +987,26 @@ dialog.lb::backdrop{background:rgba(var(--veil),.92)}
         <div class="bz-text">
           <p class="bz-who"><b>CNS Elevator Cabs</b><span>Elevator cab maker, Brooklyn</span></p>
           <h3>No signed drawings, no job.</h3>
-          <p><b>Before:</b> a drawing set for the building took a week, and the drafter was far away.</p>
-          <p><b>Now:</b> plans, details, weights and renders come from one 3D model. Changes go back the same day.</p>
           <p class="bz-res"><s>1 week</s><b>2 hours</b></p>
           <a class="pill small" href="#cns"><span>See the work</span><i class="arr"><svg aria-hidden="true"><use href="#i-arr"/></svg></i></a>
+        </div>
+        <div class="bz-story">
+          <div class="bz-part bz-was"><h4>The problem</h4><ul><li><b>A week</b> for every drawing set, drawn by hand by a drafter far away.</li><li><b>Plans, details and weight</b> must all agree before a building signs.</li></ul></div>
+          <div class="bz-part bz-ai"><h4>How AI solved it</h4><ul><li><b>A call and a photo.</b> The owner’s call and hand mark-ups become the list of changes.</li><li><b>One 3D model.</b> All 10 sheets, the weights, the AutoCAD file and the photoreal renders come out of it, so they agree.</li><li><b>Self-check.</b> All 143 dimensions verified before a set goes out.</li></ul></div>
         </div>
       </article>
 
       <article class="bz bz-split bz-flip alt" id="b-sf">
-        <figure class="bz-fig"><img src="assets/img/sf-li-chat.webp" width="1389" height="868" alt="The Strike Force site with its AI assistant open" loading="lazy" decoding="async"></figure>
+        <div class="bz-pair two"><figure class="bz-fig bz-site"><figcaption class="bz-url">strikeforcesports.net</figcaption><img src="assets/img/sf-li-chat.webp" width="1389" height="868" alt="The Strike Force Long Island site with its AI assistant open" loading="lazy" decoding="async"></figure><figure class="bz-fig bz-site bz-second"><figcaption class="bz-url">strikeforcenj.com</figcaption><img src="assets/img/sf-nj.webp" width="1389" height="868" alt="The Strike Force New Jersey site" loading="lazy" decoding="async"></figure></div>
         <div class="bz-text">
           <p class="bz-who"><b>Strike Force</b><span>Two game venues, Long Island and New Jersey</span></p>
           <h3>Every online order went to an outsider.</h3>
-          <p><b>Before:</b> each order was copied to a former contractor. On Cyber Monday, 41 tickets were coded by hand.</p>
           <p class="bz-res"><s>by hand</s><b>automatic</b></p>
-          <p><b>Now:</b> the leak is closed. A ticket code goes out the moment the payment clears.</p>
           <a class="pill small" href="#strikeforce"><span>See the work</span><i class="arr"><svg aria-hidden="true"><use href="#i-arr"/></svg></i></a>
+        </div>
+        <div class="bz-story">
+          <div class="bz-part bz-was"><h4>The problem</h4><ul><li><b>Every online order</b> was also emailed to a former contractor.</li><li><b>19 months</b> without an update for 17 plugins on the New Jersey site. 41 Cyber Monday tickets coded by hand.</li></ul></div>
+          <div class="bz-part bz-ai"><h4>How AI solved it</h4><ul><li><b>WordPress admin.</b> AI checked where every order, form and alert was sent. That found the leak.</li><li><b>Store API.</b> Customers used to call for prices. Now an AI assistant on both sites adds up tickets, rentals and tax, fills the cart and emails each lead to staff.</li><li><b>Payment hook.</b> A ticket gets its code the moment the payment clears.</li></ul></div>
         </div>
       </article>
 
@@ -958,29 +1014,27 @@ dialog.lb::backdrop{background:rgba(var(--veil),.92)}
         <div class="bz-text">
           <p class="bz-who"><b>L-Construction Group</b><span>General contractor, New York City</span></p>
           <h3>Clients look a builder up before they call.</h3>
-          <p><b>Before:</b> houses built since 2015, and nothing online to show for it.</p>
           <p class="bz-res"><s>nothing</s><b>6 channels</b></p>
-          <p><b>Now:</b> a website from zero and six channels under one name, with one link to text a client.</p>
           <a class="pill small" href="#lconstruction"><span>See the work</span><i class="arr"><svg aria-hidden="true"><use href="#i-arr"/></svg></i></a>
         </div>
-        <div class="bz-pair">
-          <figure class="bz-fig"><img src="assets/img/lb-home.webp" width="1389" height="868" alt="lbuildny.com home page" loading="lazy" decoding="async"></figure>
-          <figure class="bz-fig bz-phone"><img src="assets/img/lb-links.webp" width="500" height="900" alt="The one-link page with every channel" loading="lazy" decoding="async"></figure>
+        <div class="bz-pair"><figure class="bz-fig bz-site"><figcaption class="bz-url">lbuildny.com</figcaption><img src="assets/img/lb-home.webp" width="1389" height="868" alt="lbuildny.com home page" loading="lazy" decoding="async"></figure><figure class="bz-fig bz-phone"><img src="assets/img/lb-links.webp" width="500" height="900" alt="The one-link page with every channel" loading="lazy" decoding="async"></figure></div>
+        <div class="bz-story">
+          <div class="bz-part bz-was"><h4>The problem</h4><ul><li><b>Projects since 2015</b> and nothing online. No website, no pages.</li><li><b>Nothing to send</b> a client who asks to see the work.</li></ul></div>
+          <div class="bz-part bz-ai"><h4>How AI solved it</h4><ul><li><b>The builder’s own photos.</b> Years of jobs sorted into projects from 2015 to 2026, by type.</li><li><b>A website from zero.</b> lbuildny.com: 5 services, 4 videos, a free estimate request.</li><li><b>One link.</b> Six channels on a single page, made to text to a client.</li></ul></div>
         </div>
       </article>
 
-      <article class="bz bz-phones paper" id="b-app">
+      <article class="bz bz-phones" id="b-app">
         <div class="bz-text">
           <p class="bz-who"><b>A private client</b><span>Meals and training, Brooklyn</span></p>
           <h3>When nothing is written down, something gets missed.</h3>
-          <p><b>Before:</b> meals and training for one client, with no record of either.</p>
           <p class="bz-res"><s>nothing</s><b>one app</b></p>
-          <p><b>Now:</b> next week's menu, deliveries and every session in one private app.</p>
           <a class="pill small" href="#work-app"><span>See the work</span><i class="arr"><svg aria-hidden="true"><use href="#i-arr"/></svg></i></a>
         </div>
-        <div class="bz-ph">
-          <figure class="bz-fig"><img src="assets/img/app-menu.webp" width="750" height="1624" alt="The app's menu screen" loading="lazy" decoding="async"></figure>
-          <figure class="bz-fig"><img src="assets/img/app-dish.webp" width="750" height="1624" alt="A dish with calories, protein and ingredients" loading="lazy" decoding="async"></figure>
+        <div class="bz-ph"><figure class="bz-fig"><img src="assets/img/app-menu.webp" width="750" height="1624" alt="The app’s menu screen" loading="lazy" decoding="async"></figure><figure class="bz-fig"><img src="assets/img/app-dish.webp" width="750" height="1624" alt="A dish with calories, protein and ingredients" loading="lazy" decoding="async"></figure></div>
+        <div class="bz-story">
+          <div class="bz-part bz-was"><h4>The problem</h4><ul><li><b>Nothing was tracked.</b> Meals and training for one client, with no record of either.</li></ul></div>
+          <div class="bz-part bz-ai"><h4>How AI solved it</h4><ul><li><b>One private phone app.</b> Next week’s menu, every delivery and every session.</li><li><b>Each dish</b> comes with calories, protein and ingredients.</li><li><b>A weekly deadline.</b> The menu is confirmed by Thursday 9 PM. 12 sessions logged in 4 weeks.</li></ul></div>
         </div>
       </article>
 
