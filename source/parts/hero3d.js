@@ -125,6 +125,7 @@
     const out = t => 1 - Math.pow(1 - t, 3);
     let p = calm ? 1 : 0, auto = !calm, t0 = 0, dragA = 0, dragB = 0, W = 1, H = 1, seen = !('IntersectionObserver' in window), begun = seen, tick = 0;
     if (range) range.value = Math.round(p * 1000);
+    const beside = matchMedia('(min-width:641px)');   /* on wide screens the estimate lies over the right corner, so the room moves a little left as it stands up */
     const tmp = new T.Vector3();
     function fit(){ W = host.clientWidth; H = host.clientHeight; if (!W || !H) return; R.setSize(W, H, false); cam.aspect = W / H; cam.updateProjectionMatrix(); }
     function frame(now){
@@ -139,6 +140,7 @@
       const phi = .035 + (.98 + dragB) * c, th = (.62 + dragA) * c + sway, r = (455 + 20 * c) * narrow;
       const cx = 71 - 1 * c, cy = 26 * c, cz = 52 - 2 * c;
       cam.position.set(cx + r * Math.sin(phi) * Math.sin(th), cy + r * Math.cos(phi), cz + r * Math.sin(phi) * Math.cos(th)); cam.lookAt(cx, cy, cz);
+      const skew = beside.matches ? 3.3 * sm(p, .6, .95) : 0; if (Math.abs(cam.filmOffset - skew) > .001) { cam.filmOffset = skew; cam.updateProjectionMatrix(); }
       R.render(scene, cam);
       const tagO = draw * (1 - up);
       for (const t of tags){ tmp.copy(t.v).project(cam); t.el.style.opacity = tagO.toFixed(3); if (tagO > .01) t.el.style.transform = 'translate(' + ((tmp.x * .5 + .5) * W).toFixed(1) + 'px,' + ((-tmp.y * .5 + .5) * H).toFixed(1) + 'px) translate(-50%,-50%)'; }
