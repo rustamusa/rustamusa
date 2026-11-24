@@ -14,90 +14,91 @@
 </nav>
 
 <main>
-<!-- =====================================================  HOME: short, one point per screen  -->
+<!-- =====================================================  HOME: one screen. The headline, then five businesses as tabs  -->
 <div class="view on" data-view="home">
 
-  <section class="hero3" id="cover"><div class="wrap hero3-in">
-    <div class="hero3-copy">
+  <section class="hero4" id="cover"><div class="wrap hero4-in">
+    <div class="hero4-copy">
       <h1>AI that takes the slow step out of a small business.</h1>
       <p class="hero2-lede">In person, in New York. Days of work become minutes.</p>
-      <div class="hero-acts">
-        <a class="pill solid big" href="tel:+19179436912"><span>Call 917-943-6912</span><i class="arr"><svg aria-hidden="true"><use href="#i-phone"/></svg></i></a>
-        <a class="pill big" href="#work"><span>See the work</span><i class="arr"><svg aria-hidden="true"><use href="#i-down"/></svg></i></a>
-      </div>
-      <p class="hero2-note">The first meeting is free.</p>
     </div>
-    <div class="hero-wall" id="results" aria-label="Five real jobs">
-      <a class="hw hw-cab" href="#b-cab"><img src="assets/img/cab-inside.webp" width="1600" height="1100" alt="A photoreal render inside an elevator cab" decoding="async"><span><small>Elevator cab maker</small><b>1 week → 2 hours</b></span></a>
-      <a class="hw hw-kit" href="#b-kitchen"><img src="assets/img/pl-k_09.webp" width="1158" height="962" alt="A kitchen in the online 3D builder" decoding="async"><span><small>Kitchen showroom</small><b>days → minutes</b></span></a>
-      <a class="hw hw-sf" href="#b-sf"><img src="assets/img/sf-nj.webp" width="1389" height="868" alt="The Strike Force New Jersey website" decoding="async"><span><small>Game venues</small><b>by hand → automatic</b></span></a>
-      <a class="hw hw-lb" href="#b-lb"><img src="assets/img/lb-projects.webp" width="1389" height="868" alt="lbuildny.com projects page" decoding="async"><span><small>Builder</small><b>0 → 6 channels</b></span></a>
-      <a class="hw hw-app" href="#b-app"><img src="assets/img/app-board.webp" width="1560" height="1034" alt="Three screens of a private client app" decoding="async"><span><small>Private client</small><b>nothing → one app</b></span></a>
+    <div class="hero4-cta">
+      <a class="pill solid big" href="tel:+19179436912"><span>Call 917-943-6912</span><i class="arr"><svg aria-hidden="true"><use href="#i-phone"/></svg></i></a>
+      <p class="hero2-note">The first meeting is free.</p>
     </div>
   </div></section>
 
-  <section class="sec2" id="fixes"><div class="wrap">
-    <h2 class="h2b">Different businesses, different bottlenecks</h2>
-    <p class="lede2">Each of these problems had sat there for months or years. Then AI was plugged into what the business already runs: the mailbox, the website admin, the drawings. Through MCP connectors, the browser and plain code.</p>
-    <div class="bzs">
+  <section class="tabsec" id="fixes"><div class="wrap">
+    <h2 class="btabs-h">Five businesses, served at the same time</h2>
+    <div class="btabs" role="tablist" aria-label="Five businesses">
+      <button class="btab on" type="button" role="tab" id="t-kitchen" aria-controls="b-kitchen" aria-selected="true"><img src="assets/img/pl-k_09.webp" width="96" height="96" alt="" decoding="async"><span><small><span class="t-l">Kitchen showroom</span><span class="t-s">Kitchens</span></small><b>days → minutes</b></span></button>
+      <button class="btab" type="button" role="tab" id="t-cab" aria-controls="b-cab" aria-selected="false" tabindex="-1"><img src="assets/img/cab-inside.webp" width="96" height="96" alt="" decoding="async"><span><small><span class="t-l">Elevator cab maker</span><span class="t-s">Cabs</span></small><b>1 week → 2 hours</b></span></button>
+      <button class="btab" type="button" role="tab" id="t-sf" aria-controls="b-sf" aria-selected="false" tabindex="-1"><img src="assets/img/sf-nj.webp" width="96" height="96" alt="" decoding="async"><span><small><span class="t-l">Game venues</span><span class="t-s">Games</span></small><b>by hand → automatic</b></span></button>
+      <button class="btab" type="button" role="tab" id="t-lb" aria-controls="b-lb" aria-selected="false" tabindex="-1"><img src="assets/img/lb-projects.webp" width="96" height="96" alt="" decoding="async"><span><small><span class="t-l">Builder</span><span class="t-s">Builder</span></small><b>0 → 6 channels</b></span></button>
+      <button class="btab" type="button" role="tab" id="t-app" aria-controls="b-app" aria-selected="false" tabindex="-1"><img src="assets/img/app-board.webp" width="96" height="96" alt="" decoding="async"><span><small><span class="t-l">Private client</span><span class="t-s">App</span></small><b>nothing → one app</b></span></button>
+    </div>
+    <div class="deck" id="deck">
 
-      <article class="bz bz-split" id="b-kitchen">
-        <div class="bz-pair two"><figure class="bz-fig bz-site"><figcaption class="bz-url">nykhdc.com</figcaption><img src="assets/img/nk-site-chat.webp" width="1389" height="868" alt="nykhdc.com with its AI assistant open" loading="lazy" decoding="async"></figure><figure class="bz-fig bz-site bz-second"><figcaption class="bz-url">Kitchen builder</figcaption><img src="assets/img/ui-pl-full-kitchen.webp" width="1600" height="1111" alt="The online kitchen builder: shape, sizes and a 3D view" loading="lazy" decoding="async"></figure></div>
+      <article class="bz bz-split" id="b-kitchen" role="tabpanel" aria-labelledby="t-kitchen">
+        <div class="bz-pair two"><figure class="bz-fig bz-site"><figcaption class="bz-url">nykhdc.com</figcaption><img src="assets/img/nk-site-chat.webp" width="1389" height="868" alt="nykhdc.com with its AI assistant open" decoding="async"></figure><figure class="bz-fig bz-site bz-second"><figcaption class="bz-url">Kitchen builder</figcaption><img src="assets/img/ui-pl-full-kitchen.webp" width="1600" height="1111" alt="The online kitchen builder: shape, sizes and a 3D view" decoding="async"></figure></div>
         <div class="bz-text">
           <p class="bz-who"><b>NY Kitchen &amp; Home Design Center</b><span>Kitchen showroom, Brooklyn</span></p>
           <h3>The price is where a kitchen gets sold.</h3>
-          <p class="bz-was">A priced kitchen with a 3D view took <b>days</b>. By then the customer was in the next showroom. And since <b>February 2024</b> the website’s requests were being copied to a former developer: of about 27 real ones, the showroom saw <b>2</b>.</p>
+          <p class="bz-was">A priced kitchen took <b>days</b>. And since <b>February 2024</b> website requests were being copied to a former developer.</p>
           <p class="bz-res"><s>days</s><b>minutes</b></p>
-          <p class="bz-now">AI went through the Outlook inbox and every setting in the store admin, found where the requests were going, and cleared <b>2,828</b> bot orders on the way. Today a customer draws the kitchen online and sees it in 3D, and the showroom has the estimate in minutes. <b>5&nbsp;of&nbsp;5</b> matched the real invoice to the cent.</p>
+          <p class="bz-now">AI found the leak through Outlook and the store admin. Now the showroom has a 3D kitchen priced in <b>minutes</b>.</p>
+          <blockquote class="bz-q">&ldquo;Best decision I made this year.&rdquo; <cite>Stanley, owner</cite></blockquote>
           <a class="pill small" href="#nykhdc"><span>See the work</span><i class="arr"><svg aria-hidden="true"><use href="#i-arr"/></svg></i></a>
         </div>
       </article>
 
-      <article class="bz bz-cine" id="b-cab">
+      <article class="bz bz-cine" id="b-cab" role="tabpanel" aria-labelledby="t-cab">
         <figure class="bz-fig"><img src="assets/img/cab-wide.webp" width="1800" height="945" alt="A photoreal render of an elevator cab with the door open, seen from the lobby" loading="lazy" decoding="async"></figure>
         <div class="bz-text">
           <p class="bz-who"><b>CNS Elevator Cabs</b><span>Elevator cab maker, Brooklyn</span></p>
           <h3>No signed drawings, no job.</h3>
           <p class="bz-res"><s>1 week</s><b>2 hours</b></p>
-          <a class="pill small" href="#cns"><span>See the work</span><i class="arr"><svg aria-hidden="true"><use href="#i-arr"/></svg></i></a>
         </div>
         <div class="bz-story">
-          <p class="bz-was">Before anyone cuts metal, the building signs a full set: plans, details and a weight that all have to agree. Each set was drawn by hand, <b>about a week</b> apiece, by a drafter far away.</p>
-          <p class="bz-now">Now the owner makes a call or marks up a print by hand, and the new set comes back the same day. One 3D model turns out all <b>10 sheets</b>, the weight calculation, the AutoCAD file and the photoreal renders, so nothing disagrees. <b>143 dimensions</b> check themselves before a set leaves.</p>
+          <p class="bz-was">The building signs a full drawing set before any metal is cut. Each set took <b>a week</b> by hand.</p>
+          <p class="bz-now">One 3D model turns out all <b>10 sheets</b>, the weights and the renders. A change comes back the same day.</p>
+          <a class="pill small" href="#cns"><span>See the work</span><i class="arr"><svg aria-hidden="true"><use href="#i-arr"/></svg></i></a>
         </div>
       </article>
 
-      <article class="bz bz-split bz-flip alt" id="b-sf">
+      <article class="bz bz-split bz-flip alt" id="b-sf" role="tabpanel" aria-labelledby="t-sf">
         <div class="bz-pair two"><figure class="bz-fig bz-site"><figcaption class="bz-url">strikeforcesports.net</figcaption><img src="assets/img/sf-li-chat.webp" width="1389" height="868" alt="The Strike Force Long Island site with its AI assistant open" loading="lazy" decoding="async"></figure><figure class="bz-fig bz-site bz-second"><figcaption class="bz-url">strikeforcenj.com</figcaption><img src="assets/img/sf-nj.webp" width="1389" height="868" alt="The Strike Force New Jersey site" loading="lazy" decoding="async"></figure></div>
         <div class="bz-text">
-          <p class="bz-who"><b>Strike Force</b><span>Two game venues, Long Island and New Jersey</span></p>
+          <p class="bz-who"><b>Strike Force</b><span>Two game venues, New York and New Jersey</span></p>
           <h3>Every online order went to an outsider.</h3>
-          <p class="bz-was">Name, phone, address, what they bought: a copy of every order was emailed to a <b>former contractor</b>. On the New Jersey site 17 plugins had gone <b>19 months</b> without an update. And last Cyber Monday, <b>41 tickets</b> were coded by hand.</p>
+          <p class="bz-was">A copy of every online order went to a <b>former contractor</b>. And 41 Cyber Monday tickets were coded by hand.</p>
           <p class="bz-res"><s>by hand</s><b>automatic</b></p>
-          <p class="bz-now">AI checked, inside the WordPress admin, where every order, form and alert was being sent. One address did not belong there. It is gone. Now a ticket gets its code the moment the payment clears, and an AI assistant on both sites adds up tickets, rentals and tax, fills the cart and sends the lead to staff.</p>
+          <p class="bz-now">AI found the leak in the WordPress admin. Now a ticket gets its code on payment, and an AI assistant answers prices.</p>
+          <blockquote class="bz-q">&ldquo;He basically runs our whole online side.&rdquo; <cite>Stanley, owner</cite></blockquote>
           <a class="pill small" href="#strikeforce"><span>See the work</span><i class="arr"><svg aria-hidden="true"><use href="#i-arr"/></svg></i></a>
         </div>
       </article>
 
-      <article class="bz bz-duo" id="b-lb">
+      <article class="bz bz-duo" id="b-lb" role="tabpanel" aria-labelledby="t-lb">
         <div class="bz-text">
           <p class="bz-who"><b>L-Construction Group</b><span>General contractor, New York City</span></p>
           <h3>Clients look a builder up before they call.</h3>
-          <p class="bz-was">Houses built from the foundation up <b>since 2015</b>. Online: nothing. No website, no pages, not one link to send a client who asks to see the work.</p>
+          <p class="bz-was">Houses built <b>since 2015</b>. Online: nothing. Not one link to send a client.</p>
           <p class="bz-res"><s>nothing</s><b>6 channels</b></p>
-          <p class="bz-now">Years of the builder’s own job photos became <b>lbuildny.com</b>: projects from 2015 to 2026 sorted by type, 4 videos, a free estimate request. Six channels now sit behind one link, made to text to a client.</p>
+          <p class="bz-now">Years of job photos became <b>lbuildny.com</b>. Six channels now sit behind one link.</p>
+          <blockquote class="bz-q">&ldquo;Fast, no excuses.&rdquo; <cite>Lubomir, owner</cite></blockquote>
           <a class="pill small" href="#lconstruction"><span>See the work</span><i class="arr"><svg aria-hidden="true"><use href="#i-arr"/></svg></i></a>
         </div>
         <div class="bz-pair"><figure class="bz-fig bz-site"><figcaption class="bz-url">lbuildny.com</figcaption><img src="assets/img/lb-home.webp" width="1389" height="868" alt="lbuildny.com home page" loading="lazy" decoding="async"></figure><figure class="bz-fig bz-phone"><img src="assets/img/lb-links.webp" width="500" height="900" alt="The one-link page with every channel" loading="lazy" decoding="async"></figure></div>
       </article>
 
-      <article class="bz bz-phones" id="b-app">
+      <article class="bz bz-phones" id="b-app" role="tabpanel" aria-labelledby="t-app">
         <div class="bz-text">
           <p class="bz-who"><b>A private client</b><span>Meals and training, Brooklyn</span></p>
           <h3>When nothing is written down, something gets missed.</h3>
           <p class="bz-was">Meals and training for one client, every week, and <b>no record</b> of either.</p>
           <p class="bz-res"><s>nothing</s><b>one app</b></p>
-          <p class="bz-now">Now it lives in one private phone app. The client picks next week’s dishes, each with its calories, protein and ingredients. The menu is confirmed by <b>Thursday 9 PM</b>, and every delivery and session is logged: 12 sessions in 4 weeks.</p>
+          <p class="bz-now">One private phone app now holds next week’s menu, every delivery and every session.</p>
           <a class="pill small" href="#work-app"><span>See the work</span><i class="arr"><svg aria-hidden="true"><use href="#i-arr"/></svg></i></a>
         </div>
         <div class="bz-ph"><figure class="bz-fig"><img src="assets/img/app-menu.webp" width="750" height="1624" alt="The app’s menu screen" loading="lazy" decoding="async"></figure><figure class="bz-fig"><img src="assets/img/app-dish.webp" width="750" height="1624" alt="A dish with calories, protein and ingredients" loading="lazy" decoding="async"></figure></div>
@@ -106,57 +107,6 @@
     </div>
   </div></section>
 
-  <section class="sec2" id="work"><div class="wrap">
-    <h2 class="h2b">Five projects at the same time</h2>
-    <p class="lede2">One person, four businesses and a private client, August to November 2026. Tap one to see the work.</p>
-    <div class="lanes" style="--now:95.04%">
-      <div class="ln-axis" aria-hidden="true"><span class="ln-gap"></span><span class="ln-months"><span style="left:0.0%">Aug</span><span style="left:25.62%">Sep</span><span style="left:50.41%">Oct</span><span style="left:76.03%">Nov</span><b class="ln-five" style="left:66.94%;width:8.269999999999996%">all five</b><b class="ln-now">now</b></span></div>
-      <ol>
-      <li><a href="#nykhdc"><span class="ln-name"><b>NY Kitchen &amp; Home Design Center</b><small>Kitchen showroom, Brooklyn</small><span class="ln-res">Aug → now</span></span><span class="ln-track"><i style="left:0.0%;width:95.04%"><em>Aug → now</em></i></span></a></li>
-      <li><a href="#strikeforce"><span class="ln-name"><b>Strike Force</b><small>Two game venues, NY + NJ</small><span class="ln-res">Aug 9 → now</span></span><span class="ln-track"><i style="left:6.61%;width:88.43%"><em>Aug 9 → now</em></i></span></a></li>
-      <li><a href="#work-app"><span class="ln-name"><b>A private client</b><small>Meal and training app, Brooklyn</small><span class="ln-res">Oct 7 → now</span></span><span class="ln-track"><i style="left:55.37%;width:39.67000000000001%"><em>Oct 7 → now</em></i></span></a></li>
-      <li><a href="#lconstruction"><span class="ln-name"><b>L-Construction Group</b><small>General contractor, NYC</small><span class="ln-res">October</span></span><span class="ln-track"><i style="left:50.41%;width:24.799999999999997%"><em>October</em></i></span></a></li>
-      <li><a href="#cns"><span class="ln-name"><b>CNS Elevator Cabs</b><small>Elevator cab maker, Brooklyn</small><span class="ln-res">Oct 21 → Nov 10</span></span><span class="ln-track"><i style="left:66.94%;width:16.53%"><em>Oct 21 → Nov 10</em></i></span></a></li>
-      </ol>
-    </div>
-  </div></section>
-
-  <!-- ---------- owners ---------- -->
-  <section class="sec2" id="words"><div class="wrap">
-    <div class="sec-head">
-      <h2 class="h2b">Owners, in their words</h2>
-    </div>
-    <div class="words">
-      <figure class="word"><blockquote>&ldquo;He basically runs our whole online side. Built us our own kitchen design tool, and now a customer gets a 3D kitchen and a price in minutes, not days. Best decision I made this year.&rdquo;</blockquote><figcaption><span class="seal" aria-hidden="true">S</span><span><b>Stanley</b><a href="#nykhdc">Owner, NYKHDC and Strike Force</a></span></figcaption></figure>
-      <figure class="word"><blockquote>&ldquo;I send a change, the new drawings come back fast, weights already done, ready for the building. No back and forth.&rdquo;</blockquote><figcaption><span class="seal" aria-hidden="true">S</span><span><b>Steven</b><a href="#cns">CNS Elevator Cabs</a></span></figcaption></figure>
-      <figure class="word"><blockquote>&ldquo;We had zero online. He built lbuildny.com and our social pages from scratch, and now we finally look like a real company. Fast, no excuses.&rdquo;</blockquote><figcaption><span class="seal" aria-hidden="true">L</span><span><b>Lubomir</b><a href="#lconstruction">L-Construction Group</a></span></figcaption></figure>
-    </div>
-  </div></section>
-
-
-  <!-- ---------- contact ---------- -->
-  <section class="band alt" id="contact"><div class="wrap">
-    <div class="reach">
-      <div>
-        <h2>Call, text or walk in.</h2>
-        <p class="lede">In person, anywhere in New York City.</p>
-        <a class="tact" id="tact" href="tel:+19179436912"><i><svg aria-hidden="true"><use href="#i-phone"/></svg></i><span><small>Call or text</small><b>917-943-6912</b></span></a>
-      </div>
-      <div class="reach-side">
-        <dl class="reach-rows">
-          <div class="reach-row"><dt>Email</dt><dd><a class="reach-big" href="mailto:rustam.shb@gmail.com">rustam.shb@gmail.com</a><button class="chip" type="button" data-copy="rustam.shb@gmail.com">Copy</button></dd></div>
-          <div class="reach-row"><dt>Message</dt><dd><a class="chip" href="https://wa.me/19179436912" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-wa"/></svg>WhatsApp</a><button class="chip" type="button" data-copy="917-943-6912">Copy the number</button></dd></div>
-          <div class="reach-row"><dt>Follow</dt><dd><a class="chip" href="https://www.instagram.com/leanbodyrustam/" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-ig"/></svg>Instagram</a><a class="chip" href="https://x.com/dimklyn" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-x"/></svg>X</a><a class="chip" href="https://github.com/rustamusa" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-gh"/></svg>GitHub</a></dd></div>
-        </dl>
-      <a class="visit" href="https://maps.google.com/?cid=10413442390860399771" target="_blank" rel="noopener" aria-label="Open the showroom in Google Maps">
-        <span class="note">The base</span>
-        <span><b>161 22nd Street</b><span>Brooklyn, NY 11232</span></span>
-        <span>The showroom: kitchens, doors, counters and tile on display. Walk in, or call first.</span>
-        <u>Open in Google Maps</u>
-      </a>
-      </div>
-    </div>
-  </div></section>
 </div>
 
 <!-- =====================================================  ABOUT: everything else, one tap away  -->
@@ -194,6 +144,34 @@
   </div></section>
 
   <!-- ---------- day one ---------- -->
+  <section class="sec2" id="work"><div class="wrap">
+    <h2 class="h2b">Five projects at the same time</h2>
+    <p class="lede2">One person, four businesses and a private client, August to November 2026. Tap one to see the work.</p>
+    <div class="lanes" style="--now:95.04%">
+      <div class="ln-axis" aria-hidden="true"><span class="ln-gap"></span><span class="ln-months"><span style="left:0.0%">Aug</span><span style="left:25.62%">Sep</span><span style="left:50.41%">Oct</span><span style="left:76.03%">Nov</span><b class="ln-five" style="left:66.94%;width:8.269999999999996%">all five</b><b class="ln-now">now</b></span></div>
+      <ol>
+      <li><a href="#nykhdc"><span class="ln-name"><b>NY Kitchen &amp; Home Design Center</b><small>Kitchen showroom, Brooklyn</small><span class="ln-res">Aug → now</span></span><span class="ln-track"><i style="left:0.0%;width:95.04%"><em>Aug → now</em></i></span></a></li>
+      <li><a href="#strikeforce"><span class="ln-name"><b>Strike Force</b><small>Two game venues, NY + NJ</small><span class="ln-res">Aug 9 → now</span></span><span class="ln-track"><i style="left:6.61%;width:88.43%"><em>Aug 9 → now</em></i></span></a></li>
+      <li><a href="#work-app"><span class="ln-name"><b>A private client</b><small>Meal and training app, Brooklyn</small><span class="ln-res">Oct 7 → now</span></span><span class="ln-track"><i style="left:55.37%;width:39.67000000000001%"><em>Oct 7 → now</em></i></span></a></li>
+      <li><a href="#lconstruction"><span class="ln-name"><b>L-Construction Group</b><small>General contractor, NYC</small><span class="ln-res">October</span></span><span class="ln-track"><i style="left:50.41%;width:24.799999999999997%"><em>October</em></i></span></a></li>
+      <li><a href="#cns"><span class="ln-name"><b>CNS Elevator Cabs</b><small>Elevator cab maker, Brooklyn</small><span class="ln-res">Oct 21 → Nov 10</span></span><span class="ln-track"><i style="left:66.94%;width:16.53%"><em>Oct 21 → Nov 10</em></i></span></a></li>
+      </ol>
+    </div>
+  </div></section>
+
+  <!-- ---------- owners ---------- -->
+  <section class="sec2" id="words"><div class="wrap">
+    <div class="sec-head">
+      <h2 class="h2b">Owners, in their words</h2>
+    </div>
+    <div class="words">
+      <figure class="word"><blockquote>&ldquo;He basically runs our whole online side. Built us our own kitchen design tool, and now a customer gets a 3D kitchen and a price in minutes, not days. Best decision I made this year.&rdquo;</blockquote><figcaption><span class="seal" aria-hidden="true">S</span><span><b>Stanley</b><a href="#nykhdc">Owner, NYKHDC and Strike Force</a></span></figcaption></figure>
+      <figure class="word"><blockquote>&ldquo;I send a change, the new drawings come back fast, weights already done, ready for the building. No back and forth.&rdquo;</blockquote><figcaption><span class="seal" aria-hidden="true">S</span><span><b>Steven</b><a href="#cns">CNS Elevator Cabs</a></span></figcaption></figure>
+      <figure class="word"><blockquote>&ldquo;We had zero online. He built lbuildny.com and our social pages from scratch, and now we finally look like a real company. Fast, no excuses.&rdquo;</blockquote><figcaption><span class="seal" aria-hidden="true">L</span><span><b>Lubomir</b><a href="#lconstruction">L-Construction Group</a></span></figcaption></figure>
+    </div>
+  </div></section>
+
+
   <section class="sec tight" id="work-app"><div class="wrap">
     <div class="feature">
       <figure><button class="shot" type="button" data-open="app-board" aria-label="Open large: three screens of the meal plan app"><img src="assets/img/app-board.webp" width="1560" height="1034" alt="Three phone screens of a private meal plan app: the menu, a dish with calories and protein, dinner choices" loading="lazy" decoding="async"></button></figure>
@@ -376,6 +354,29 @@
       <details><summary>What kind of business is this for?</summary><p>Independent local businesses: showrooms and shops, contractors, clinics and studios, salons and groomers, restaurants, small manufacturers, game venues.</p></details>
       <details><summary>Which AI tools get used?</summary><p>ChatGPT, Claude and Grok, picked to fit the job. The team gets trained on the one it will keep using.</p></details>
       <details><summary>Who runs it after the visit?</summary><p>The team. Every job ends with the owner or staff running the tool themselves, and a one-page how-to stays behind. Help stays one text away.</p></details>
+    </div>
+  </div></section>
+  <!-- ---------- contact ---------- -->
+  <section class="band alt" id="contact"><div class="wrap">
+    <div class="reach">
+      <div>
+        <h2>Call, text or walk in.</h2>
+        <p class="lede">In person, anywhere in New York City.</p>
+        <a class="tact" id="tact" href="tel:+19179436912"><i><svg aria-hidden="true"><use href="#i-phone"/></svg></i><span><small>Call or text</small><b>917-943-6912</b></span></a>
+      </div>
+      <div class="reach-side">
+        <dl class="reach-rows">
+          <div class="reach-row"><dt>Email</dt><dd><a class="reach-big" href="mailto:rustam.shb@gmail.com">rustam.shb@gmail.com</a><button class="chip" type="button" data-copy="rustam.shb@gmail.com">Copy</button></dd></div>
+          <div class="reach-row"><dt>Message</dt><dd><a class="chip" href="https://wa.me/19179436912" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-wa"/></svg>WhatsApp</a><button class="chip" type="button" data-copy="917-943-6912">Copy the number</button></dd></div>
+          <div class="reach-row"><dt>Follow</dt><dd><a class="chip" href="https://www.instagram.com/leanbodyrustam/" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-ig"/></svg>Instagram</a><a class="chip" href="https://x.com/dimklyn" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-x"/></svg>X</a><a class="chip" href="https://github.com/rustamusa" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-gh"/></svg>GitHub</a></dd></div>
+        </dl>
+      <a class="visit" href="https://maps.google.com/?cid=10413442390860399771" target="_blank" rel="noopener" aria-label="Open the showroom in Google Maps">
+        <span class="note">The base</span>
+        <span><b>161 22nd Street</b><span>Brooklyn, NY 11232</span></span>
+        <span>The showroom: kitchens, doors, counters and tile on display. Walk in, or call first.</span>
+        <u>Open in Google Maps</u>
+      </a>
+      </div>
     </div>
   </div></section>
 </div>

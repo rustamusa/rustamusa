@@ -267,3 +267,15 @@ function wire(form, msg, need, build, done){
 }
 wire($('#revform'), $('#revmsg'), ['name', 'review'], d => ({ name: d.get('name'), business: d.get('business') || '', rating: (d.get('rating') || '5') + ' / 5', review: d.get('review'), ok_to_publish: d.get('ok_to_publish') ? 'yes' : 'no', _subject: 'New review on mycv4u.com' }), 'Thank you. The review is on its way.');
 wire($('#shopform'), $('#shopmsg'), ['name', 'contact'], d => ({ name: d.get('name'), business: d.get('business') || '', contact: d.get('contact'), would_fix_first: d.get('problem') || '', language: d.get('language') || 'English', _subject: 'Workshop sign-up on mycv4u.com' }), 'Saved. The date and place will come by text.');
+
+/* HOME: five businesses as tabs. Tap a tab or swipe the deck sideways. */
+(() => { const deck = $('#deck'); if (!deck) return; const tabs = $$('.btabs .btab'), cards = [...deck.children]; let cur = 0, tk;
+  const set = i => { cur = i; tabs.forEach((t, k) => { t.classList.toggle('on', k === i); t.setAttribute('aria-selected', k === i ? 'true' : 'false'); t.tabIndex = k === i ? 0 : -1; }); };
+  const go = (i, smooth) => { i = Math.max(0, Math.min(cards.length - 1, i)); set(i); deck.scrollTo({ left: i * deck.clientWidth, behavior: smooth && !calm ? 'smooth' : 'instant' }); };
+  tabs.forEach((t, i) => { t.addEventListener('click', () => go(i, true));
+    t.addEventListener('keydown', e => { if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return; e.preventDefault(); const n = (i + (e.key === 'ArrowRight' ? 1 : -1) + tabs.length) % tabs.length; go(n, true); tabs[n].focus(); }); });
+  deck.addEventListener('scroll', () => { clearTimeout(tk); tk = setTimeout(() => { if (deck.clientWidth) set(Math.round(deck.scrollLeft / deck.clientWidth)); }, 90); }, { passive: true });
+  if ('ResizeObserver' in window) new ResizeObserver(() => { if (deck.clientWidth) deck.scrollLeft = cur * deck.clientWidth; }).observe(deck);
+  const byHash = () => { const i = cards.findIndex(c => '#' + c.id === location.hash); if (i >= 0) go(i, false); };
+  addEventListener('hashchange', byHash); byHash();
+})();
