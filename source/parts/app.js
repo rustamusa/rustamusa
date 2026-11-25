@@ -269,17 +269,20 @@ wire($('#revform'), $('#revmsg'), ['name', 'review'], d => ({ name: d.get('name'
 wire($('#shopform'), $('#shopmsg'), ['name', 'contact'], d => ({ name: d.get('name'), business: d.get('business') || '', contact: d.get('contact'), would_fix_first: d.get('problem') || '', language: d.get('language') || 'English', _subject: 'Workshop sign-up on mycv4u.com' }), 'Saved. The date and place will come by text.');
 
 /* HOME: five businesses as tabs. Tap a tab or swipe the deck sideways. */
-(() => { const deck = $('#deck'); if (!deck) return; const tabs = $$('.btabs .btab'), cards = [...deck.children]; let cur = 0, tk;
-  const strip = $('.btabs');
+(() => { const deck = $('#deck'); if (!deck) return; const tabs = $$('.btabs .btab'), cards = [...deck.children], strip = $('.btabs'); let cur = 0, tk, hold = 0, busy = 0;
+  const now = () => performance.now();
+  /* the deck is as tall as the business on show, so nothing empty hangs under a shorter one */
   const fit = () => { const h = cards[cur].offsetHeight; if (h) deck.style.height = h + 'px'; };
-  const set = i => { const moved = i !== cur; cur = i; fit(); tabs.forEach((t, k) => { t.classList.toggle('on', k === i); t.setAttribute('aria-selected', k === i ? 'true' : 'false'); t.tabIndex = k === i ? 0 : -1; });
+  const set = i => { const moved = i !== cur; cur = i; tabs.forEach((t, k) => { t.classList.toggle('on', k === i); t.setAttribute('aria-selected', k === i ? 'true' : 'false'); t.tabIndex = k === i ? 0 : -1; }); fit();
     if (moved && strip.scrollWidth > strip.clientWidth + 2) strip.scrollTo({ left: tabs[i].offsetLeft - (strip.clientWidth - tabs[i].offsetWidth) / 2, behavior: calm ? 'instant' : 'smooth' }); };
-  const go = (i, smooth) => { i = Math.max(0, Math.min(cards.length - 1, i)); set(i); deck.scrollTo({ left: i * deck.clientWidth, behavior: smooth && !calm ? 'smooth' : 'instant' }); };
+  /* after a resize or a rotation the deck goes back to the business on show, never in the middle of a swipe */
+  const anchor = () => { const w = deck.clientWidth; if (!w || now() < busy) return; if (Math.abs(deck.scrollLeft - cur * w) > 2) { hold = now() + 300; deck.scrollTo({ left: cur * w, behavior: 'instant' }); } };
+  const go = (i, smooth) => { i = Math.max(0, Math.min(cards.length - 1, i)); set(i); const fly = smooth && !calm; busy = now() + (fly ? 800 : 0); hold = 0; deck.scrollTo({ left: i * deck.clientWidth, behavior: fly ? 'smooth' : 'instant' }); };
   tabs.forEach((t, i) => { t.addEventListener('click', () => go(i, true));
     t.addEventListener('keydown', e => { if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return; e.preventDefault(); const n = (i + (e.key === 'ArrowRight' ? 1 : -1) + tabs.length) % tabs.length; go(n, true); tabs[n].focus(); }); });
-  deck.addEventListener('scroll', () => { clearTimeout(tk); tk = setTimeout(() => { if (deck.clientWidth) set(Math.round(deck.scrollLeft / deck.clientWidth)); }, 90); }, { passive: true });
-  let lastW = 0;
-  if ('ResizeObserver' in window) { const ro = new ResizeObserver(() => { const w = deck.clientWidth; if (w && w !== lastW) { lastW = w; deck.scrollLeft = cur * w; } fit(); }); ro.observe(deck); cards.forEach(c => ro.observe(c)); }
+  deck.addEventListener('scroll', () => { if (now() < hold) return; clearTimeout(tk); tk = setTimeout(() => { const w = deck.clientWidth; if (!w || now() < hold) return; const x = deck.scrollLeft / w, n = Math.round(x); if (Math.abs(x - n) > .04 && now() >= busy) return anchor(); set(n); }, 90); }, { passive: true });
+  ['touchstart', 'touchmove', 'wheel', 'pointerdown'].forEach(ev => deck.addEventListener(ev, () => { busy = now() + 600; }, { passive: true }));
+  if ('ResizeObserver' in window) { const ro = new ResizeObserver(() => { anchor(); fit(); setTimeout(anchor, 350); }); ro.observe(deck); cards.forEach(c => ro.observe(c)); }
   addEventListener('load', fit); fit();
   const byHash = () => { const i = cards.findIndex(c => '#' + c.id === location.hash); if (i >= 0) go(i, false); };
   addEventListener('hashchange', byHash); byHash();
