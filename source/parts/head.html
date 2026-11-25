@@ -1470,6 +1470,151 @@ body{background-color:var(--page);background-image:radial-gradient(max(62vw,340p
 /* the photo viewer: the page behind it goes out of focus */
 dialog.lb::backdrop{background:rgba(var(--veil),.86);backdrop-filter:blur(16px) saturate(1.3);-webkit-backdrop-filter:blur(16px) saturate(1.3)}
 @media (prefers-reduced-motion:reduce){.sheetnav,.sheetnav.on a.big{transition:none}}
+
+/* ================================================================ v17 (11/25, after midnight)
+   Two seconds to understand a page: one line, one thing to look at. The paragraphs are gone or open on a tap. */
+
+/* ---------------------------------------------------------------- HOME: the headline says what is here; a card is one line and the lanes that run at the same time */
+@media (max-width:640px){.hero4 h1 .h1-w{display:none}}
+.bz .bz-text > p.bz-lede{margin-top:8px;max-width:none;font:400 1.35rem/1.25 var(--sans);letter-spacing:-.02em;color:var(--on);text-wrap:balance}
+.bz-at{list-style:none;margin:12px 0 0;padding:0;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:0 clamp(10px,1.4vw,18px)}
+.bz-at li{position:relative;overflow:hidden;padding-bottom:9px;font:500 1rem/1.2 var(--sans);letter-spacing:-.01em;color:var(--on-2);white-space:nowrap;text-overflow:ellipsis}
+.bz-at li::before{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;border-radius:2px;background:rgba(247,235,245,.16)}
+.bz-at li::after{content:"";position:absolute;left:0;bottom:0;width:36%;height:2px;border-radius:2px;background:linear-gradient(90deg,transparent,var(--glow),transparent);animation:lane 2.8s linear infinite;animation-delay:calc(var(--i,0) * -.51s)}
+@keyframes lane{from{transform:translateX(-110%)}to{transform:translateX(290%)}}
+@media (max-width:640px){
+  .bz .bz-text > p.bz-lede{font-size:1.0625rem;line-height:1.3;margin-top:5px}
+  .bz-at{grid-template-columns:repeat(3,minmax(0,1fr));gap:7px 12px;margin-top:9px}
+  .bz-at li{padding-bottom:6px}
+}
+@media (max-width:359px){.bz-at{grid-template-columns:repeat(2,minmax(0,1fr))}}
+/* what the owner liked most: a mark in the title line, never over the picture */
+.fav{display:inline-block;margin-left:10px;padding:3px 10px 4px;border-radius:999px;box-shadow:inset 0 0 0 1px var(--glow);font:500 1rem/1.2 var(--sans);letter-spacing:0;font-style:normal;color:var(--on);vertical-align:.12em;white-space:nowrap}
+@media (max-width:640px){.fav{margin:4px 0 0;display:table}}
+/* and what he said about it, word for word (business page) */
+.sp-q{display:block;margin:8px 0 2px;padding-left:12px;border-left:2px solid var(--glow);font:400 1.0625rem/1.45 var(--sans);letter-spacing:-.005em;color:var(--on)}
+.sp-q i{font-style:normal;color:var(--on-2);white-space:nowrap}
+
+/* ---------------------------------------------------------------- BUSINESS PAGE: the headache, what was done, what changed. Three panels, read left to right */
+.shift{--g:clamp(30px,3.4vw,48px);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.22fr) minmax(0,1fr);gap:var(--g);margin-top:clamp(16px,2vw,26px)}
+.shift > div{position:relative;padding:18px 22px 22px;border-radius:20px;background:var(--gl);box-shadow:var(--gl-top),inset 0 0 0 1px rgba(255,255,255,.07),0 26px 50px -36px rgba(0,0,0,.9)}
+.shift > .shift-c{background:var(--gl-hi);box-shadow:inset 0 1px 0 rgba(255,255,255,.5),inset 0 0 0 1px rgba(255,255,255,.16),0 26px 50px -36px rgba(0,0,0,.9)}
+.shift > div + div::before{content:"";position:absolute;left:calc(var(--g) / -2 - 8px);top:50%;width:12px;height:12px;border-top:2px solid var(--glow);border-right:2px solid var(--glow);border-radius:1px;transform:translateY(-50%) rotate(45deg)}
+.shift h2{margin:0;font:500 1rem/1.2 var(--sans);letter-spacing:0;color:var(--on-2)}
+.shift b{display:block;margin-top:12px;font:var(--t-title);line-height:1;letter-spacing:-.05em;color:var(--on);text-wrap:balance}
+.shift p{margin:10px 0 0;font:400 1.0625rem/1.45 var(--sans);color:var(--on-2);text-wrap:pretty}
+.shift-c p{color:var(--on)}
+.shift ul{list-style:none;margin:13px 0 0;padding:0;display:grid;gap:9px}
+.shift li{position:relative;padding-left:26px;font:500 1.0625rem/1.35 var(--sans);letter-spacing:-.005em;color:var(--on)}
+.shift li::before{content:"";position:absolute;left:5px;top:.22em;width:6px;height:11px;border-right:2px solid var(--glow);border-bottom:2px solid var(--glow);transform:rotate(45deg)}
+.phead .shift + .plinks{margin-top:clamp(16px,2vw,24px)}
+@media (max-width:900px){
+  .shift{--g:26px;grid-template-columns:minmax(0,1fr)}
+  .shift > div{padding:15px 18px 18px}
+  .shift > div + div::before{left:50%;top:calc(var(--g) / -2 - 8px);transform:translateX(-50%) rotate(135deg)}
+  .shift b{margin-top:8px}
+}
+
+/* ---------------------------------------------------------------- WITH AI: many jobs in, one person, checked work out */
+.flow{--flow:h;position:relative;display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);column-gap:clamp(70px,13.5vw,200px);align-items:center;margin:clamp(18px,2.2vw,30px) 0 0;padding:0}
+.flow ul{position:relative;z-index:1;grid-row:1;list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.flow-in{grid-column:1;justify-items:end} .flow-out{grid-column:3;justify-items:start}
+.flow li{display:inline-flex;align-items:center;gap:10px;min-height:40px;padding:5px 17px;border-radius:999px;background:var(--gl);box-shadow:var(--gl-top),inset 0 0 0 1px rgba(255,255,255,.06);font:500 1.0625rem/1.15 var(--sans);letter-spacing:-.01em;color:var(--on)}
+.flow-out li::before{content:"";flex:none;width:6px;height:11px;margin:-4px 1px 0 2px;border-right:2px solid var(--glow);border-bottom:2px solid var(--glow);transform:rotate(45deg)}
+.flow-node{grid-column:2;grid-row:1;position:relative;z-index:1;display:grid;justify-items:center;gap:14px;width:clamp(196px,19vw,240px);padding:24px 18px 22px;border-radius:28px;text-align:center;
+  background:var(--gl-hi);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.62),inset 0 0 0 1px rgba(255,255,255,.2),0 0 0 10px rgba(255,178,62,.06),0 0 0 26px rgba(255,178,62,.03),0 26px 54px -24px rgba(0,0,0,.9)}
+.flow-node svg{width:42px;height:42px;color:var(--glow)}
+.flow-node p{margin:0;display:grid;gap:7px}
+.flow-node b{font:650 1.35rem/1.12 var(--sans);letter-spacing:-.03em;color:var(--on)}
+.flow-node span{font:400 1rem/1.35 var(--sans);color:var(--on-2);text-wrap:balance}
+.flow-lines{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none}
+.flow-lines path{fill:none;stroke:rgba(247,235,245,.24);stroke-width:1.2}
+.flow-lines circle{fill:var(--glow);filter:drop-shadow(0 0 3px rgba(255,178,62,.95))}
+@media (min-width:761px) and (max-width:900px){.flow{column-gap:clamp(40px,7vw,64px)} .flow-node{width:172px;padding:20px 14px 18px} .flow li{padding:5px 14px}}
+@media (max-width:760px){
+  /* phones: the person on top; the jobs run up one side of the gutter, the results come down the other */
+  .flow{--flow:v;grid-template-columns:minmax(0,1fr) 54px minmax(0,1fr);column-gap:0;row-gap:16px;align-items:start}
+  .flow-node{grid-column:1 / -1;grid-row:1;width:auto;grid-template-columns:auto minmax(0,1fr);justify-items:start;align-items:center;gap:13px;padding:12px 16px 13px;border-radius:20px;text-align:left;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.62),inset 0 0 0 1px rgba(255,255,255,.2),0 0 0 6px rgba(255,178,62,.05),0 20px 40px -22px rgba(0,0,0,.9)}
+  .flow-node svg{width:32px;height:32px}
+  .flow-node p{gap:3px}
+  .flow-node b{font-size:1.2rem}
+  .flow-node span{line-height:1.3;text-wrap:pretty}
+  .flow ul{grid-row:2;gap:6px}
+  .flow-in{grid-column:1} .flow-out{grid-column:3}
+  .flow li{gap:6px;min-height:34px;padding:4px 10px;font-size:.9rem;border-radius:17px}
+  .flow-lines path{stroke:rgba(247,235,245,.15);stroke-width:1.4}
+  .flow-in li{text-align:right}
+  .flow-out li::before{width:5px;height:9px;margin:-3px 0 0 1px}
+}
+/* six things to look at, each a picture and a title; the five rules beside them open on a tap */
+.ai-two{display:grid;grid-template-columns:minmax(0,1.9fr) minmax(0,1fr);gap:clamp(28px,3.6vw,56px);align-items:start;margin-top:clamp(34px,4.4vw,60px)}
+.cans{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(18px,2vw,26px) clamp(12px,1.5vw,20px)}
+.can{display:block;text-decoration:none;color:var(--on)}
+.can-pic,.can-num{display:block;aspect-ratio:16/9.4;border-radius:12px;overflow:hidden;background:#fff;box-shadow:0 0 0 1px rgba(247,235,245,.1),0 24px 48px -32px rgba(0,0,0,.85);transition:box-shadow .2s}
+.can-pic img{width:100%;height:100%;object-fit:cover;object-position:50% 0}
+.can-num{display:grid;place-content:center;justify-items:center;gap:7px;text-align:center;background:var(--gl);box-shadow:var(--gl-top),inset 0 0 0 1px rgba(255,255,255,.07),0 24px 48px -32px rgba(0,0,0,.85)}
+.can-num b{display:block;font:var(--t-title);line-height:1;letter-spacing:-.05em;color:var(--on)}
+.can-num i{display:block;font:400 1rem/1.2 var(--sans);font-style:normal;color:var(--on-2)}
+.can > b{display:block;margin-top:10px;font:650 1.0625rem/1.25 var(--sans);letter-spacing:-.02em;text-wrap:balance}
+@media (hover:hover){.can:hover .can-pic,.can:hover .can-num{box-shadow:0 0 0 2px var(--glow),0 24px 48px -32px rgba(0,0,0,.85)}}
+.can:focus-visible{outline:0} .can:focus-visible .can-pic,.can:focus-visible .can-num{box-shadow:0 0 0 2px var(--glow)}
+.ai-care .vsub{margin-top:0}
+.rules{border-bottom:1px solid var(--rule)}
+.rules details{border-top:1px solid var(--rule)}
+.rules summary{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:54px;padding:8px 0;cursor:pointer;list-style:none;font:600 1.0625rem/1.3 var(--sans);letter-spacing:-.015em}
+.rules summary::-webkit-details-marker{display:none}
+.rules summary::after{content:"";flex:none;width:14px;height:14px;background:linear-gradient(var(--glow),var(--glow)) 50%/100% 2px no-repeat,linear-gradient(var(--glow),var(--glow)) 50%/2px 100% no-repeat;transition:transform .25s var(--out)}
+.rules details[open] summary::after{transform:rotate(45deg)}
+.rules p{margin:0 0 16px;max-width:62ch;font:400 1rem/1.5 var(--sans);color:var(--on-2)}
+@media (max-width:900px){.ai-two{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:640px){.cans{grid-template-columns:repeat(2,minmax(0,1fr));gap:16px 10px} .can > b{font-size:1rem;margin-top:7px}}
+
+/* ---------------------------------------------------------------- TEACHING: one day as a line, three numbers */
+.day{position:relative;list-style:none;margin:clamp(22px,2.8vw,40px) 0 0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr))}
+.day::before{content:"";position:absolute;left:12px;right:0;top:11px;height:2px;border-radius:2px;background:linear-gradient(90deg,rgba(247,235,245,.3),rgba(255,91,58,.8) 46%,var(--glow) 76%,var(--glow))}
+.day li{position:relative;padding:40px 22px 0 0}
+.day li::before{content:"";position:absolute;left:0;top:0;width:24px;height:24px;border-radius:50%;background:radial-gradient(circle at 50% 35%,rgba(255,255,255,.5),rgba(255,255,255,.14));box-shadow:inset 0 1px 0 rgba(255,255,255,.7),inset 0 0 0 1px rgba(255,255,255,.25),0 6px 14px -6px rgba(0,0,0,.8);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
+.day li:last-child::before{background:radial-gradient(circle at 50% 35%,#FFD79A,var(--glow));box-shadow:inset 0 1px 0 rgba(255,255,255,.7),0 0 0 6px rgba(255,178,62,.12),0 6px 14px -6px rgba(0,0,0,.8)}
+.day time{display:block;font:500 1rem/1.2 var(--sans);color:var(--on-2)}
+.day h3{margin:4px 0 0;font:650 1.35rem/1.15 var(--sans);letter-spacing:-.03em;color:var(--on)}
+.day p{margin:6px 0 0;max-width:24ch;font:400 1rem/1.4 var(--sans);color:var(--on-2)}
+@media (max-width:640px){
+  .day{grid-template-columns:minmax(0,1fr);gap:0}
+  .day::before{left:11px;right:auto;top:12px;bottom:26px;width:2px;height:auto;background:linear-gradient(180deg,rgba(247,235,245,.3),rgba(255,91,58,.8) 46%,var(--glow) 76%,var(--glow))}
+  .day li{padding:0 0 20px 42px}
+  .day h3{font-size:1.2rem}
+}
+.one-rule{margin:clamp(22px,2.6vw,34px) 0 0;padding-top:16px;border-top:1px solid var(--rule);font:400 1.2rem/1.4 var(--sans);letter-spacing:-.015em;color:var(--on)}
+.one-rule b{margin-right:14px;font:500 1rem/1 var(--sans);color:var(--on-2)}
+.nums{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(18px,2.6vw,40px);margin-top:16px}
+.nums b{display:block;font:var(--t-title);line-height:1;letter-spacing:-.05em;color:var(--on)}
+.nums span{display:block;margin-top:8px;max-width:30ch;font:400 1.0625rem/1.4 var(--sans);color:var(--on-2)}
+.by{margin:clamp(18px,2.2vw,26px) 0 0;font:400 1.0625rem/1.5 var(--sans);color:var(--on-2)}
+@media (max-width:640px){.nums{grid-template-columns:minmax(0,1fr);gap:16px} .nums > div{display:grid;grid-template-columns:4.6rem minmax(0,1fr);align-items:center;gap:12px} .nums span{margin:0}}
+
+/* ---------------------------------------------------------------- FEEDBACK: the owner's shortest sentence, large; the whole quote under it */
+.word{background:var(--gl);box-shadow:var(--gl-top),0 24px 48px -34px rgba(0,0,0,.85);border:0}
+.word blockquote,.pull blockquote{display:grid;gap:14px}
+.word .word-big,.pull .word-big{display:block;font:var(--t-h2);line-height:1.1;letter-spacing:-.04em;color:var(--on);text-wrap:balance}
+.word-all{display:block;font:400 1rem/1.5 var(--sans);letter-spacing:0;color:var(--on-2)}
+
+/* ---------------------------------------------------------------- ABOUT: who it is in two lines, and the path as four points */
+.me-who{display:flex;align-items:center;gap:18px;margin:0}
+.me-who img{flex:none;width:92px;height:92px;border-radius:50%;object-fit:cover;object-position:50% 20%;background:#fff;box-shadow:0 0 0 1px rgba(255,255,255,.22),0 12px 26px -12px rgba(0,0,0,.8)}
+.me-who span{font:400 1.0625rem/1.5 var(--sans);color:var(--on-2);max-width:44ch}
+.me-who b{display:block;margin-bottom:4px;font:650 1.35rem/1.15 var(--sans);letter-spacing:-.03em;color:var(--on)}
+.path{position:relative;list-style:none;margin:0;padding:0;display:grid;align-content:start}
+.path::before{content:"";position:absolute;left:11px;top:22px;bottom:30px;width:2px;border-radius:2px;background:linear-gradient(180deg,rgba(247,235,245,.22),rgba(255,91,58,.8) 60%,var(--glow))}
+.path li{position:relative;display:grid;grid-template-columns:7.2rem minmax(0,1fr);gap:1px 16px;padding:10px 0 16px 42px}
+.path li::before{content:"";position:absolute;left:0;top:10px;width:24px;height:24px;border-radius:50%;background:radial-gradient(circle at 50% 35%,rgba(255,255,255,.5),rgba(255,255,255,.14));box-shadow:inset 0 1px 0 rgba(255,255,255,.7),inset 0 0 0 1px rgba(255,255,255,.25),0 6px 14px -6px rgba(0,0,0,.8)}
+.path li:last-child::before{background:radial-gradient(circle at 50% 35%,#FFD79A,var(--glow))}
+.path time{grid-row:1/3;padding-top:3px;font:400 1rem/1.3 var(--sans);color:var(--on-2)}
+.path b{font:650 1.2rem/1.2 var(--sans);letter-spacing:-.02em;color:var(--on)}
+.path span{font:400 1rem/1.35 var(--sans);color:var(--on-2)}
+@media (max-width:640px){.me-who{align-items:flex-start} .me-who img{width:72px;height:72px} .path li{grid-template-columns:minmax(0,1fr)} .path time{grid-row:auto;padding:0}}
+@media (prefers-reduced-motion:reduce){.bz-at li::after{animation:none;transform:none;width:100%;opacity:.35}}
 </style>
 <noscript><style>.deck > .bz{position:relative!important;visibility:visible!important;margin-bottom:28px}</style></noscript>
 </head>

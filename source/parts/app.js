@@ -406,6 +406,27 @@ wire($('#shopform'), $('#shopmsg'), ['name', 'contact'], d => ({ name: d.get('na
 })();
 
 
+/* WITH AI: the figure of many jobs passing through one person. The lines are drawn from where the labels really are, so it holds at any width.
+   Wide screens: jobs on the left, results on the right, curves through the middle. Phones (--flow:v): the person on top, the jobs run up one side of the gutter and the results come down the other. */
+(() => { const fig = $('#flow'); if (!fig) return; const svg = $('.flow-lines', fig), node = $('.flow-node', fig), f = v => v.toFixed(1); let last = '';
+  const draw = () => { const R = fig.getBoundingClientRect(); if (!R.width || !R.height) return;
+    const N = node.getBoundingClientRect(), up = getComputedStyle(fig).getPropertyValue('--flow').trim() === 'v', nl = N.left - R.left, nr = N.right - R.left, nt = N.top - R.top, nb = N.bottom - R.top,
+      key = [R.width, R.height, nl, nt, nb].map(Math.round).join() + up;
+    if (key === last) return; last = key; svg.setAttribute('viewBox', '0 0 ' + f(R.width) + ' ' + f(R.height)); let h = '';
+    const add = (d, i, out) => { h += '<path d="' + d + '"/>' + (calm ? '' : '<circle r="2.6"><animateMotion dur="' + (2.4 + (i % 3) * .45).toFixed(2) + 's" begin="-' + ((i * .31) % 2.2 + (out ? 1.2 : 0)).toFixed(2) + 's" repeatCount="indefinite" path="' + d + '"/></circle>'); };
+    const box = li => { const b = li.getBoundingClientRect(); return { l: b.left - R.left, r: b.right - R.left, y: b.top - R.top + b.height / 2 }; }, ins = $$('.flow-in li', fig).map(box), outs = $$('.flow-out li', fig).map(box);
+    if (up) { const q = 8, xl = Math.max(...ins.map(b => b.r)) + 6, xr = Math.min(...outs.map(b => b.l)) - 6, mid = (xl + xr) / 2, tl = mid - Math.max(4, Math.min(13, (xr - xl) / 2 - q - 3)), tr = 2 * mid - tl;   // one trunk a side: the lines lie on each other, so it gets brighter towards the person
+      ins.forEach((b, i) => add('M' + f(b.r + 4) + ' ' + f(b.y) + 'H' + f(tl - q) + 'Q' + f(tl) + ' ' + f(b.y) + ' ' + f(tl) + ' ' + f(b.y - q) + 'V' + f(nb + 2), i, 0));
+      outs.forEach((b, i) => add('M' + f(tr) + ' ' + f(nb + 2) + 'V' + f(b.y - q) + 'Q' + f(tr) + ' ' + f(b.y) + ' ' + f(tr + q) + ' ' + f(b.y) + 'H' + f(b.l - 4), i, 1));
+    } else { const cy = (nt + nb) / 2, gap = Math.max(2, Math.min(7, (nb - nt - 56) / Math.max(1, ins.length - 1))), at = (i, n) => cy + (i - (n - 1) / 2) * gap,
+        curve = (x1, y1, x2, y2) => { const mx = (x1 + x2) / 2; return 'M' + f(x1) + ' ' + f(y1) + 'C' + f(mx) + ' ' + f(y1) + ' ' + f(mx) + ' ' + f(y2) + ' ' + f(x2) + ' ' + f(y2); };
+      ins.forEach((b, i, a) => add(curve(b.r + 5, b.y, nl - 3, at(i, a.length)), i, 0));
+      outs.forEach((b, i, a) => add(curve(nr + 3, at(i, a.length), b.l - 5, b.y), i, 1)); }
+    svg.innerHTML = h; };
+  if ('ResizeObserver' in window) new ResizeObserver(draw).observe(fig);
+  addEventListener('load', draw); addEventListener('hashchange', () => setTimeout(draw, 60)); if (document.fonts && document.fonts.ready) document.fonts.ready.then(draw); draw();
+})();
+
 /* ABOUT: every long section folds under its heading. A link to a section opens it. */
 (() => { const v = $('.view[data-view=about]'); if (!v) return;
   const NAMES = { 'review-sec': 'Leave a review' };
