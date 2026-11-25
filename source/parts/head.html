@@ -762,7 +762,7 @@ dialog.lb::backdrop{background:rgba(var(--veil),.92)}
   .hw span{left:6px;bottom:6px;right:6px;max-width:calc(100% - 12px);padding:6px 10px}
 }
 @media (prefers-reduced-motion:reduce){.hw img{transition:none}}
-/* five businesses, each its own block and its own bottleneck */
+/* the businesses, each its own block */
 .bzs{display:grid;gap:clamp(20px,2.6vw,36px);margin-top:clamp(26px,3.6vw,44px)}
 .bz{position:relative;display:grid;grid-template-columns:minmax(0,1.08fr) minmax(0,.92fr);gap:clamp(22px,3.6vw,60px);align-items:center;border-radius:var(--r)}
 .bz-fig{margin:0;border-radius:var(--r-sm);overflow:hidden;background:#fff;box-shadow:0 30px 60px -34px rgba(0,0,0,.7)}
@@ -859,7 +859,7 @@ dialog.lb::backdrop{background:rgba(var(--veil),.92)}
   .bz.alt{padding:18px}
 }
 
-/* HOME, one screen: the headline and the call button, then five businesses as tabs */
+/* HOME, one screen: the headline, then the businesses as tabs */
 .hero4{background:radial-gradient(60% 120% at 88% 0%,var(--hero-glow),transparent 62%)}
 .hero4-in{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:clamp(20px,3vw,48px);align-items:end;padding-block:clamp(14px,1.8vw,26px) clamp(10px,1.2vw,16px)}
 .hero4 h1{font:650 clamp(2rem,3.3vw,3rem)/1.02 var(--sans);letter-spacing:-.045em;max-width:20ch;text-wrap:balance}
@@ -1615,6 +1615,61 @@ dialog.lb::backdrop{background:rgba(var(--veil),.86);backdrop-filter:blur(16px) 
 .path span{font:400 1rem/1.35 var(--sans);color:var(--on-2)}
 @media (max-width:640px){.me-who{align-items:flex-start} .me-who img{width:72px;height:72px} .path li{grid-template-columns:minmax(0,1fr)} .path time{grid-row:auto;padding:0}}
 @media (prefers-reduced-motion:reduce){.bz-at li::after{animation:none;transform:none;width:100%;opacity:.35}}
+
+/* ================================================================ v18 (11/25, midday)
+   An outside audit of v17: the points that were real. Nothing here changes the look of a page. */
+
+/* the work count at the game venues: one bar in four parts, each part named under it */
+.stack-key{display:flex;flex-wrap:wrap;gap:4px 14px;margin-top:9px}
+.stack-key i{display:inline-flex;align-items:center;gap:6px;font:400 1rem/1.2 var(--sans);font-style:normal;color:var(--on-2)}
+.stack-key i::before{content:"";flex:none;width:10px;height:10px;border-radius:3px;background:var(--glow)}
+.stack-key i:nth-child(2)::before{background:#FFC978}
+.stack-key i:nth-child(3)::before{background:#FFDFAE}
+.stack-key i:nth-child(4)::before{background:#F7EBF5}
+@media (max-width:640px){.deck .stack-key{display:none}}
+
+/* forms: what is missing is said under the field, and the field is marked */
+.form .err{display:block;font:500 1rem/1.3 var(--sans);letter-spacing:0;text-transform:none;color:#FFC7B8}
+.form input[aria-invalid=true],.form textarea[aria-invalid=true]{border-color:#FF9A85;box-shadow:0 0 0 1px #FF9A85}
+.form-msg[role=alert]{color:#FFC7B8}
+
+/* the stars and the box of the review form: the whole 44 px square answers a finger */
+.stars{position:relative}
+.form .stars label{display:grid;place-items:center;width:44px;height:44px;padding:0}
+.form .stars input[type=radio]{position:absolute;top:0;width:44px;height:44px;margin:0;opacity:0;pointer-events:none}
+#st1{left:0} #st2{left:46px} #st3{left:92px} #st4{left:138px} #st5{left:184px}
+.form .pick label:has(> input[type=checkbox]){min-height:44px;gap:2px}
+.form .pick input[type=checkbox]{-webkit-appearance:none;appearance:none;flex:none;width:44px;height:44px;margin:0 0 0 -11px;border:0;border-radius:10px;cursor:pointer;
+  background:transparent url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 22 22'%3E%3Crect x='1' y='1' width='20' height='20' rx='5' fill='none' stroke='%23CBAFD1' stroke-width='1.5'/%3E%3C/svg%3E") center/22px 22px no-repeat}
+.form .pick input[type=checkbox]:checked{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 22 22'%3E%3Crect x='1' y='1' width='20' height='20' rx='5' fill='%23F7EBF5'/%3E%3Cpath d='M6 11.4l3.4 3.4L16.2 7.6' fill='none' stroke='%232B1437' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")}
+.form .pick input[type=checkbox]:focus-visible{outline:2px solid var(--glow);outline-offset:-9px}
+.pull cite .link{display:inline-flex;align-items:center;min-height:44px}
+
+/* lines of text stay readable on a wide screen */
+.by,.faq p{max-width:68ch}
+/* the camera is shown once on About, beside the name; the video heading stands alone */
+.reel-head{grid-template-columns:minmax(0,1fr)}
+
+/* ---------------------------------------------------------------- on paper: the page that is open, black on white, nothing fixed */
+@media print{
+  @page{margin:14mm}
+  html,body{background:#fff!important}
+  *,*::before,*::after{color:#000!important;background:transparent!important;box-shadow:none!important;text-shadow:none!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important;animation:none!important;transition:none!important}
+  .top,.dock,.sheetnav,#sheetnav,dialog,.skip,.filters,.more-btn,.btabs,.btabs-sub,.hero4-chips,.hero4-soc,.plinks,.stage,form,.rev-form,#g-review,.flow-lines,.bz-at,.pill,.reels,noscript{display:none!important}
+  .view{padding:0!important}
+  .wrap{max-width:none!important;padding:0!important}
+  a{text-decoration:underline}
+  .reach a[href^="mailto:"]::after{content:" (" attr(href) ")"}
+  .reach a[href^="https://wa.me"]::after{content:" (wa.me/19179436912)"}
+  .visit u::after{content:" (maps.google.com/?cid=10413442390860399771)"}
+  .foot::after{content:"mycv4u.com   917-943-6912";display:block;margin-top:8px}
+  .sp,.word,.pull,.can,.shift > div,figure,blockquote,details,.day li,.nums > div,.path li{break-inside:avoid}
+  h1,h2,h3{break-after:avoid}
+  img{max-width:100%!important}
+  .sp-pic,.can-pic,.sp-fig{border:1px solid #bbb!important}
+  .stack i{border:1px solid #000}
+  .shift > div,.word,.flow li,.flow-node{border:1px solid #bbb!important}
+}
 </style>
 <noscript><style>.deck > .bz{position:relative!important;visibility:visible!important;margin-bottom:28px}</style></noscript>
 </head>

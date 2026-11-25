@@ -762,7 +762,7 @@ dialog.lb::backdrop{background:rgba(var(--veil),.92)}
   .hw span{left:6px;bottom:6px;right:6px;max-width:calc(100% - 12px);padding:6px 10px}
 }
 @media (prefers-reduced-motion:reduce){.hw img{transition:none}}
-/* five businesses, each its own block and its own bottleneck */
+/* the businesses, each its own block */
 .bzs{display:grid;gap:clamp(20px,2.6vw,36px);margin-top:clamp(26px,3.6vw,44px)}
 .bz{position:relative;display:grid;grid-template-columns:minmax(0,1.08fr) minmax(0,.92fr);gap:clamp(22px,3.6vw,60px);align-items:center;border-radius:var(--r)}
 .bz-fig{margin:0;border-radius:var(--r-sm);overflow:hidden;background:#fff;box-shadow:0 30px 60px -34px rgba(0,0,0,.7)}
@@ -859,7 +859,7 @@ dialog.lb::backdrop{background:rgba(var(--veil),.92)}
   .bz.alt{padding:18px}
 }
 
-/* HOME, one screen: the headline and the call button, then five businesses as tabs */
+/* HOME, one screen: the headline, then the businesses as tabs */
 .hero4{background:radial-gradient(60% 120% at 88% 0%,var(--hero-glow),transparent 62%)}
 .hero4-in{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:clamp(20px,3vw,48px);align-items:end;padding-block:clamp(14px,1.8vw,26px) clamp(10px,1.2vw,16px)}
 .hero4 h1{font:650 clamp(2rem,3.3vw,3rem)/1.02 var(--sans);letter-spacing:-.045em;max-width:20ch;text-wrap:balance}
@@ -1615,6 +1615,61 @@ dialog.lb::backdrop{background:rgba(var(--veil),.86);backdrop-filter:blur(16px) 
 .path span{font:400 1rem/1.35 var(--sans);color:var(--on-2)}
 @media (max-width:640px){.me-who{align-items:flex-start} .me-who img{width:72px;height:72px} .path li{grid-template-columns:minmax(0,1fr)} .path time{grid-row:auto;padding:0}}
 @media (prefers-reduced-motion:reduce){.bz-at li::after{animation:none;transform:none;width:100%;opacity:.35}}
+
+/* ================================================================ v18 (11/25, midday)
+   An outside audit of v17: the points that were real. Nothing here changes the look of a page. */
+
+/* the work count at the game venues: one bar in four parts, each part named under it */
+.stack-key{display:flex;flex-wrap:wrap;gap:4px 14px;margin-top:9px}
+.stack-key i{display:inline-flex;align-items:center;gap:6px;font:400 1rem/1.2 var(--sans);font-style:normal;color:var(--on-2)}
+.stack-key i::before{content:"";flex:none;width:10px;height:10px;border-radius:3px;background:var(--glow)}
+.stack-key i:nth-child(2)::before{background:#FFC978}
+.stack-key i:nth-child(3)::before{background:#FFDFAE}
+.stack-key i:nth-child(4)::before{background:#F7EBF5}
+@media (max-width:640px){.deck .stack-key{display:none}}
+
+/* forms: what is missing is said under the field, and the field is marked */
+.form .err{display:block;font:500 1rem/1.3 var(--sans);letter-spacing:0;text-transform:none;color:#FFC7B8}
+.form input[aria-invalid=true],.form textarea[aria-invalid=true]{border-color:#FF9A85;box-shadow:0 0 0 1px #FF9A85}
+.form-msg[role=alert]{color:#FFC7B8}
+
+/* the stars and the box of the review form: the whole 44 px square answers a finger */
+.stars{position:relative}
+.form .stars label{display:grid;place-items:center;width:44px;height:44px;padding:0}
+.form .stars input[type=radio]{position:absolute;top:0;width:44px;height:44px;margin:0;opacity:0;pointer-events:none}
+#st1{left:0} #st2{left:46px} #st3{left:92px} #st4{left:138px} #st5{left:184px}
+.form .pick label:has(> input[type=checkbox]){min-height:44px;gap:2px}
+.form .pick input[type=checkbox]{-webkit-appearance:none;appearance:none;flex:none;width:44px;height:44px;margin:0 0 0 -11px;border:0;border-radius:10px;cursor:pointer;
+  background:transparent url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 22 22'%3E%3Crect x='1' y='1' width='20' height='20' rx='5' fill='none' stroke='%23CBAFD1' stroke-width='1.5'/%3E%3C/svg%3E") center/22px 22px no-repeat}
+.form .pick input[type=checkbox]:checked{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 22 22'%3E%3Crect x='1' y='1' width='20' height='20' rx='5' fill='%23F7EBF5'/%3E%3Cpath d='M6 11.4l3.4 3.4L16.2 7.6' fill='none' stroke='%232B1437' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")}
+.form .pick input[type=checkbox]:focus-visible{outline:2px solid var(--glow);outline-offset:-9px}
+.pull cite .link{display:inline-flex;align-items:center;min-height:44px}
+
+/* lines of text stay readable on a wide screen */
+.by,.faq p{max-width:68ch}
+/* the camera is shown once on About, beside the name; the video heading stands alone */
+.reel-head{grid-template-columns:minmax(0,1fr)}
+
+/* ---------------------------------------------------------------- on paper: the page that is open, black on white, nothing fixed */
+@media print{
+  @page{margin:14mm}
+  html,body{background:#fff!important}
+  *,*::before,*::after{color:#000!important;background:transparent!important;box-shadow:none!important;text-shadow:none!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important;animation:none!important;transition:none!important}
+  .top,.dock,.sheetnav,#sheetnav,dialog,.skip,.filters,.more-btn,.btabs,.btabs-sub,.hero4-chips,.hero4-soc,.plinks,.stage,form,.rev-form,#g-review,.flow-lines,.bz-at,.pill,.reels,noscript{display:none!important}
+  .view{padding:0!important}
+  .wrap{max-width:none!important;padding:0!important}
+  a{text-decoration:underline}
+  .reach a[href^="mailto:"]::after{content:" (" attr(href) ")"}
+  .reach a[href^="https://wa.me"]::after{content:" (wa.me/19179436912)"}
+  .visit u::after{content:" (maps.google.com/?cid=10413442390860399771)"}
+  .foot::after{content:"mycv4u.com   917-943-6912";display:block;margin-top:8px}
+  .sp,.word,.pull,.can,.shift > div,figure,blockquote,details,.day li,.nums > div,.path li{break-inside:avoid}
+  h1,h2,h3{break-after:avoid}
+  img{max-width:100%!important}
+  .sp-pic,.can-pic,.sp-fig{border:1px solid #bbb!important}
+  .stack i{border:1px solid #000}
+  .shift > div,.word,.flow li,.flow-node{border:1px solid #bbb!important}
+}
 </style>
 <noscript><style>.deck > .bz{position:relative!important;visibility:visible!important;margin-bottom:28px}</style></noscript>
 </head>
@@ -1650,12 +1705,12 @@ dialog.lb::backdrop{background:rgba(var(--veil),.86);backdrop-filter:blur(16px) 
 <div class="sheetnav" id="sheetnav" role="dialog" aria-modal="true" aria-label="Menu">
   <div class="sheetnav-head"><a class="brand" href="#home"><svg aria-hidden="true"><use href="#i-mark"/></svg>Rustam Shabanov</a><button class="close" type="button" id="menu-close">Close</button></div>
   <a class="big" href="#fixes">Work <small>four businesses, what was built</small></a>
-  <a class="big" href="#ai-edge">With AI <small>what was not possible before</small></a>
+  <a class="big" href="#ai-edge">With AI <small>many jobs at once, each checked</small></a>
   <a class="big" href="#how">Teaching <small>how the team learns it</small></a>
-  <a class="big" href="#words">Feedback <small>from three owners</small></a>
+  <a class="big" href="#words">Feedback <small>from owners and a customer</small></a>
   <a class="big" href="#about">About <small>background, questions</small></a>
   <a class="big" href="#reel" id="sheet-reel" hidden>Video <small>shot and edited</small></a>
-  <a class="big" href="#workshop">Workshop <small>free, sign up</small></a>
+  <a class="big" href="#workshop">Workshop <small>sign up</small></a>
   <a class="big" href="#contact">Contact <small>call, text, email</small></a>
   <div class="soc">
     <a href="https://www.instagram.com/kitchen4nyc/" target="_blank" rel="noopener" aria-label="Instagram"><svg aria-hidden="true"><use href="#i-ig"/></svg></a>
@@ -1665,7 +1720,7 @@ dialog.lb::backdrop{background:rgba(var(--veil),.86);backdrop-filter:blur(16px) 
 </div>
 
 <main id="main" tabindex="-1">
-<!-- =====================================================  HOME: one screen. The headline, then five businesses as tabs  -->
+<!-- =====================================================  HOME: one screen. The headline, then four businesses as tabs  -->
 <div class="view on" data-view="home">
 
   <section class="hero4" id="cover"><div class="wrap hero4-in">
@@ -1738,7 +1793,7 @@ dialog.lb::backdrop{background:rgba(var(--veil),.86);backdrop-filter:blur(16px) 
           <a class="sp sp-lead" href="#sp-sf-chat"><figure class="sp-fig"><span class="sp-pic"><img src="assets/img/sf-li-chat.webp" srcset="assets/img/sf-li-chat-400.webp 400w, assets/img/sf-li-chat-640.webp 640w, assets/img/sf-li-chat-800.webp 800w, assets/img/sf-li-chat-1100.webp 1100w, assets/img/sf-li-chat.webp 1389w" sizes="(max-width:900px) 92vw, 440px" width="1389" height="868" alt="The Strike Force Long Island site with its AI assistant open" loading="lazy" decoding="async" style="object-position:100% 60%"></span></figure><b class="sp-t">AI assistant on both sites<i class="fav">Owner’s favorite</i></b><span class="sp-d"><span class="d-l">Works out prices for tickets, sessions and parties from the site itself, takes a name and a phone, and passes the lead to staff. At any hour.</span><span class="d-s">Works out prices from the site and passes the lead to staff, at any hour.</span></span></a>
           <a class="sp" href="#sp-sf-buttons"><figure class="sp-fig"><span class="sp-pic"><img src="assets/img/sf-shop.webp" srcset="assets/img/sf-shop-400.webp 400w, assets/img/sf-shop-640.webp 640w, assets/img/sf-shop-800.webp 800w, assets/img/sf-shop-1100.webp 1100w, assets/img/sf-shop.webp 1130w" sizes="(max-width:900px) 46vw, 380px" width="1130" height="468" alt="Ticket cards on the Strike Force shop page with solid Select options buttons" loading="lazy" decoding="async" style="object-position:50% 100%"></span></figure><b class="sp-t">Buy buttons that look like buttons<i class="fav">Owner’s favorite</i></b><span class="sp-d">They were gray and looked switched off. Now every ticket has a solid one.</span></a>
           <a class="sp" href="#sp-sf-bar"><figure class="sp-fig"><span class="sp-pic"><img src="assets/img/sf-bar.webp" srcset="assets/img/sf-bar-400.webp 400w, assets/img/sf-bar-640.webp 640w, assets/img/sf-bar-800.webp 800w, assets/img/sf-bar-1100.webp 1100w, assets/img/sf-bar.webp 1119w" sizes="(max-width:900px) 46vw, 380px" width="1119" height="453" alt="The bottom of the Strike Force site on a phone: a Get tickets button and a Call button" loading="lazy" decoding="async" style="object-position:50% 100%"></span></figure><b class="sp-t">Get tickets and Call, on every phone page</b><span class="sp-d">A bar at the bottom of the phone screen, so a ticket is always one tap away.</span></a>
-          <a class="sp" href="#sp-sf-work"><span class="sp-fig sp-chart"><span class="sp-pic"><span class="stack"><i style="flex:35">35<span> built</span></i><i style="flex:21">21<span> fixed</span></i><i style="flex:9">9</i><i style="flex:3">3</i></span><span class="chart-cap">68 pieces of work, August 9 to October 13</span></span></span><b class="sp-t">68 pieces of work in two months</b><span class="sp-d">35 builds, 21 fixes, 9 problems found. Only 3 were routine upkeep.</span></a>
+          <a class="sp" href="#sp-sf-work"><span class="sp-fig sp-chart"><span class="sp-pic"><span class="stack" role="img" aria-label="68 pieces of work, August 9 to October 13: 35 built, 21 fixed, 9 found, 3 upkeep"><i style="flex:35">35</i><i style="flex:21">21</i><i style="flex:9">9</i><i style="flex:3">3</i></span><span class="stack-key" aria-hidden="true"><i>built</i><i>fixed</i><i>found</i><i>upkeep</i></span><span class="chart-cap">68 pieces of work, August 9 to October 13</span></span></span><b class="sp-t">68 pieces of work in two months</b><span class="sp-d">35 builds, 21 fixes, 9 problems found. Only 3 were routine upkeep.</span></a>
           <a class="sp" href="#sp-sf-plugins"><figure class="sp-fig"><span class="sp-pic"><img src="assets/img/sf-nj.webp" srcset="assets/img/sf-nj-400.webp 400w, assets/img/sf-nj-640.webp 640w, assets/img/sf-nj-800.webp 800w, assets/img/sf-nj-1100.webp 1100w, assets/img/sf-nj.webp 1389w" sizes="(max-width:900px) 46vw, 380px" width="1389" height="868" alt="The Strike Force New Jersey site" loading="lazy" decoding="async"></span></figure><b class="sp-t">Two sites kept current</b><span class="sp-d">Updates go out in batches with a backup first, on both sites together.</span></a>
         </div>
       </div>
@@ -1753,9 +1808,9 @@ dialog.lb::backdrop{background:rgba(var(--veil),.86);backdrop-filter:blur(16px) 
           <a class="pill small" href="#lconstruction"><span>See the work</span><i class="arr"><svg aria-hidden="true"><use href="#i-arr"/></svg></i></a>
         </header>
         <div class="subs">
-          <a class="sp sp-lead" href="#sp-lb-site"><figure class="sp-fig"><span class="sp-pic"><img src="assets/img/lb-home.webp" srcset="assets/img/lb-home-400.webp 400w, assets/img/lb-home-640.webp 640w, assets/img/lb-home-800.webp 800w, assets/img/lb-home-1100.webp 1100w, assets/img/lb-home.webp 1389w" sizes="(max-width:900px) 92vw, 440px" width="1389" height="868" alt="lbuildny.com home page" loading="lazy" decoding="async" style="object-position:0 0"></span></figure><b class="sp-t">lbuildny.com, built from zero<i class="fav">Owner’s favorite</i></b><span class="sp-d"><span class="d-l">Services, projects from 2015 to 2026 sorted by type, videos and a free estimate request. Built from years of job photos.</span><span class="d-s">Services, projects from 2015 to 2026, videos and a free estimate request.</span></span></a>
+          <a class="sp sp-lead" href="#sp-lb-site"><figure class="sp-fig"><span class="sp-pic"><img src="assets/img/lb-home.webp" srcset="assets/img/lb-home-400.webp 400w, assets/img/lb-home-640.webp 640w, assets/img/lb-home-800.webp 800w, assets/img/lb-home-1100.webp 1100w, assets/img/lb-home.webp 1389w" sizes="(max-width:900px) 92vw, 440px" width="1389" height="868" alt="lbuildny.com home page" loading="lazy" decoding="async" style="object-position:0 0"></span></figure><b class="sp-t">lbuildny.com, built from zero<i class="fav">Owner’s favorite</i></b><span class="sp-d"><span class="d-l">Services, projects from 2015 to 2026 sorted by type, videos and an estimate request. Built from years of job photos.</span><span class="d-s">Services, projects from 2015 to 2026, videos and an estimate request.</span></span></a>
           <a class="sp" href="#sp-lb-channels"><span class="sp-fig sp-chart"><span class="sp-pic"><span class="sp-names"><i>Instagram</i><i>Facebook</i><i>YouTube</i><i>TikTok</i><i>Houzz</i><i>Yelp</i></span></span></span><b class="sp-t">Six channels, set up together</b><span class="sp-d">All under one name, each linked from the site.</span></a>
-          <a class="sp" href="#sp-lb-link"><figure class="sp-fig"><span class="sp-pic" style="background:#0E0D0C"><img src="assets/img/lb-links.webp" srcset="assets/img/lb-links-400.webp 400w, assets/img/lb-links.webp 500w" sizes="(max-width:900px) 46vw, 380px" width="500" height="900" alt="The one-link page: call, text, WhatsApp, estimate and every channel" loading="lazy" decoding="async" style="object-position:50% 0"></span></figure><b class="sp-t">One link to send a client</b><span class="sp-d">Call, text, WhatsApp, a free estimate and every channel on one page.</span></a>
+          <a class="sp" href="#sp-lb-link"><figure class="sp-fig"><span class="sp-pic" style="background:#0E0D0C"><img src="assets/img/lb-links.webp" srcset="assets/img/lb-links-400.webp 400w, assets/img/lb-links.webp 500w" sizes="(max-width:900px) 46vw, 380px" width="500" height="900" alt="The one-link page: call, text, WhatsApp, estimate and every channel" loading="lazy" decoding="async" style="object-position:50% 0"></span></figure><b class="sp-t">One link to send a client</b><span class="sp-d">Call, text, WhatsApp, an estimate request and every channel on one page.</span></a>
           <a class="sp" href="#sp-lb-projects"><figure class="sp-fig"><span class="sp-pic"><img src="assets/img/lb-projects.webp" srcset="assets/img/lb-projects-400.webp 400w, assets/img/lb-projects-640.webp 640w, assets/img/lb-projects-800.webp 800w, assets/img/lb-projects-1100.webp 1100w, assets/img/lb-projects.webp 1389w" sizes="(max-width:900px) 46vw, 380px" width="1389" height="868" alt="The projects page of lbuildny.com, 2015 to 2026" loading="lazy" decoding="async"></span></figure><b class="sp-t">Years of jobs, put in order</b><span class="sp-d">Photos from 2015 to 2026, sorted into new homes, renovations, bathrooms and more.</span></a>
           <a class="sp" href="#sp-lb-camera"><figure class="sp-fig"><span class="sp-pic"><img src="assets/img/kit-fx30.webp" srcset="assets/img/kit-fx30-400.webp 400w, assets/img/kit-fx30-640.webp 640w, assets/img/kit-fx30-800.webp 800w, assets/img/kit-fx30-1100.webp 1100w, assets/img/kit-fx30.webp 1280w" sizes="(max-width:900px) 46vw, 380px" width="1280" height="960" alt="Sony FX30 camera on a gimbal with a wireless microphone receiver" loading="lazy" decoding="async" style="object-position:50% 40%"></span></figure><b class="sp-t">Filmed on a professional camera</b><span class="sp-d">Job sites and finished houses can be filmed on a Sony FX30 and cut for every channel.</span></a>
         </div>
@@ -1863,7 +1918,7 @@ dialog.lb::backdrop{background:rgba(var(--veil),.86);backdrop-filter:blur(16px) 
     <div class="pull">
       <div>
         <blockquote><b class="word-big">&ldquo;The doors are beautiful and fit perfectly.&rdquo;</b><span class="word-all">&ldquo;We ordered 17 doors, 4 of which were custom made, and despite some manufacturing issues that were beyond the control of Rustam and the NY Kitchen and Home Design Center team, they did an excellent job keeping me updated on the status. … The doors are beautiful and fit perfectly.&rdquo;</span></blockquote>
-        <cite>A showroom customer, August 2023 / <a class="link" href="https://maps.google.com/?cid=10413442390860399771" target="_blank" rel="noopener">read it on Google</a></cite>
+        <cite>Customer review of the showroom, Google, August 2023 / <a class="link" href="https://maps.google.com/?cid=10413442390860399771" target="_blank" rel="noopener">read it on Google</a></cite>
       </div>
       <div>
       <a class="pill solid" id="g-review" href="#" target="_blank" rel="noopener" hidden style="margin-bottom:12px;width:100%"><span>Leave a review on Google</span><i class="arr"><svg aria-hidden="true"><use href="#i-arr"/></svg></i></a>
@@ -1924,7 +1979,6 @@ dialog.lb::backdrop{background:rgba(var(--veil),.86);backdrop-filter:blur(16px) 
   <section class="sec tight" id="reel" hidden><div class="wrap">
     <div class="reel-head">
       <div><h2 class="h2">Video, shot and edited in-house</h2><p class="lede">Job-site stories, reels and short promos for a business's site and Instagram, filmed on a Sony FX30. Tap a clip to play.</p></div>
-      <figure class="kit"><img src="assets/img/kit-fx30.webp" width="1280" height="960" alt="Sony FX30 camera on a gimbal with a wireless microphone receiver" loading="lazy" decoding="async"><figcaption>The kit: Sony FX30, gimbal, wireless mic.</figcaption></figure>
     </div>
     <div class="reels"><div class="reels-v" id="reels-v"></div><div class="reels-h" id="reels-h"></div></div>
   </div></section>
@@ -1934,8 +1988,7 @@ dialog.lb::backdrop{background:rgba(var(--veil),.86);backdrop-filter:blur(16px) 
   <section class="sec tight" id="faq"><div class="wrap faq-in">
     <h2 class="h2">Common questions</h2>
     <div class="faq">
-      <details><summary>What does it cost?</summary><p>It starts with a conversation and a look at how the business runs. The price comes after that.</p></details>
-      <details><summary>Where does the work happen?</summary><p>At the business, in person, anywhere in New York City. Current jobs also reach Long Island and New Jersey. The base is the showroom at 161 22nd Street, Brooklyn.</p></details>
+      <details><summary>Where does the work happen?</summary><p>At the business, in person, anywhere in New York City. Current jobs also reach Long Island and New Jersey.</p></details>
       <details><summary>What kind of business is this for?</summary><p>Small local businesses. So far: a kitchen showroom, an elevator cab maker, two game venues and a general contractor.</p></details>
       <details><summary>Which AI tools get used?</summary><p>ChatGPT, Claude and Grok, picked to fit the job. The team gets trained on the one it will keep using.</p></details>
       <details><summary>Who runs it after the visit?</summary><p>The team. Every job ends with the owner or staff running the tool themselves, and a one-page how-to stays behind. Help stays one text away.</p></details>
@@ -1945,7 +1998,7 @@ dialog.lb::backdrop{background:rgba(var(--veil),.86);backdrop-filter:blur(16px) 
   <section class="band alt" id="contact"><div class="wrap">
     <div class="reach">
       <div>
-        <h2>Call, text or walk in.</h2>
+        <h2>Call, text, WhatsApp or email.</h2>
         <p class="lede">In person, anywhere in New York City.</p>
       </div>
       <div class="reach-side">
@@ -1955,7 +2008,7 @@ dialog.lb::backdrop{background:rgba(var(--veil),.86);backdrop-filter:blur(16px) 
           <div class="reach-row"><dt>Follow</dt><dd><a class="chip" href="https://www.instagram.com/kitchen4nyc/" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-ig"/></svg>Instagram</a><a class="chip" href="https://x.com/dimklyn" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-x"/></svg>X</a><a class="chip" href="https://github.com/rustamusa" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-gh"/></svg>GitHub</a></dd></div>
         </dl>
       <a class="visit" href="https://maps.google.com/?cid=10413442390860399771" target="_blank" rel="noopener" aria-label="Open the showroom in Google Maps">
-        <span class="note">The base</span>
+        <span class="note">NY Kitchen &amp; Home Design Center</span>
         <span><b>161 22nd Street</b><span>Brooklyn, NY 11232</span></span>
         <span>The showroom: kitchens, doors, counters and tile on display. Walk in, or call first.</span>
         <u>Open in Google Maps</u>
@@ -2085,7 +2138,7 @@ dialog.lb::backdrop{background:rgba(var(--veil),.86);backdrop-filter:blur(16px) 
       <article class="sp sp-lead" id="sp-sf-chat"><figure class="sp-fig"><span class="sp-pic"><img src="assets/img/sf-li-chat.webp" srcset="assets/img/sf-li-chat-400.webp 400w, assets/img/sf-li-chat-640.webp 640w, assets/img/sf-li-chat-800.webp 800w, assets/img/sf-li-chat-1100.webp 1100w, assets/img/sf-li-chat.webp 1389w" sizes="(max-width:900px) 92vw, 800px" width="1389" height="868" alt="The Strike Force Long Island site with its AI assistant open" loading="lazy" decoding="async" style="object-position:100% 60%"></span></figure><b class="sp-t">AI assistant on both sites<i class="fav">Owner’s favorite</i></b><span class="sp-d">Works out prices for tickets, sessions and parties from the site itself, takes a name and a phone first, and passes the lead to staff. Both sites answer at any hour.</span></article>
       <article class="sp" id="sp-sf-buttons"><figure class="sp-fig"><span class="sp-pic"><img src="assets/img/sf-shop.webp" srcset="assets/img/sf-shop-400.webp 400w, assets/img/sf-shop-640.webp 640w, assets/img/sf-shop-800.webp 800w, assets/img/sf-shop-1100.webp 1100w, assets/img/sf-shop.webp 1130w" sizes="(max-width:640px) 92vw, (max-width:900px) 46vw, 400px" width="1130" height="468" alt="Ticket cards on the Strike Force shop page with solid Select options buttons" loading="lazy" decoding="async" style="object-position:50% 100%"></span></figure><b class="sp-t">Buy buttons that look like buttons<i class="fav">Owner’s favorite</i></b><span class="sp-d">The buy buttons were gray and looked switched off. Now every ticket has a solid button, and the Tickets link that led to an error page opens the shop.</span></article>
       <article class="sp" id="sp-sf-bar"><figure class="sp-fig"><span class="sp-pic"><img src="assets/img/sf-bar.webp" srcset="assets/img/sf-bar-400.webp 400w, assets/img/sf-bar-640.webp 640w, assets/img/sf-bar-800.webp 800w, assets/img/sf-bar-1100.webp 1100w, assets/img/sf-bar.webp 1119w" sizes="(max-width:640px) 92vw, (max-width:900px) 46vw, 400px" width="1119" height="453" alt="The bottom of the Strike Force site on a phone: a Get tickets button and a Call button" loading="lazy" decoding="async" style="object-position:50% 100%"></span></figure><b class="sp-t">Get tickets and Call, on every phone page</b><span class="sp-d">Phones got a bar at the bottom of every page with Get tickets and Call, so a ticket is always one tap away.</span></article>
-      <article class="sp" id="sp-sf-work"><span class="sp-fig sp-chart"><span class="sp-pic"><span class="stack"><i style="flex:35">35<span> built</span></i><i style="flex:21">21<span> fixed</span></i><i style="flex:9">9</i><i style="flex:3">3</i></span><span class="chart-cap">68 pieces of work, August 9 to October 13</span></span></span><b class="sp-t">68 pieces of work in two months</b><span class="sp-d">From the report to the owner, August 9 to October 13: 35 new builds, 21 fixes to things broken before, 9 problems found and documented, 3 pieces of routine upkeep.</span></article>
+      <article class="sp" id="sp-sf-work"><span class="sp-fig sp-chart"><span class="sp-pic"><span class="stack" role="img" aria-label="68 pieces of work, August 9 to October 13: 35 built, 21 fixed, 9 found, 3 upkeep"><i style="flex:35">35</i><i style="flex:21">21</i><i style="flex:9">9</i><i style="flex:3">3</i></span><span class="stack-key" aria-hidden="true"><i>built</i><i>fixed</i><i>found</i><i>upkeep</i></span><span class="chart-cap">68 pieces of work, August 9 to October 13</span></span></span><b class="sp-t">68 pieces of work in two months</b><span class="sp-d">From the report to the owner, August 9 to October 13: 35 new builds, 21 fixes to things broken before, 9 problems found and documented, 3 pieces of routine upkeep.</span></article>
       <article class="sp" id="sp-sf-plugins"><figure class="sp-fig"><span class="sp-pic"><img src="assets/img/sf-nj.webp" srcset="assets/img/sf-nj-400.webp 400w, assets/img/sf-nj-640.webp 640w, assets/img/sf-nj-800.webp 800w, assets/img/sf-nj-1100.webp 1100w, assets/img/sf-nj.webp 1389w" sizes="(max-width:640px) 92vw, (max-width:900px) 46vw, 400px" width="1389" height="868" alt="The Strike Force New Jersey site" loading="lazy" decoding="async"></span></figure><b class="sp-t">Two sites kept current</b><span class="sp-d">Updates go out in batches with a backup first, on Long Island and New Jersey together.</span></article>
     </div>
     <ul class="did">
@@ -2117,9 +2170,9 @@ dialog.lb::backdrop{background:rgba(var(--veil),.86);backdrop-filter:blur(16px) 
   <section class="sec tight" id="sp-lb"><div class="wrap">
     <h2 class="sub-h">Everything done here</h2>
     <div class="subs all wide">
-      <article class="sp sp-lead" id="sp-lb-site"><figure class="sp-fig"><span class="sp-pic"><img src="assets/img/lb-home.webp" srcset="assets/img/lb-home-400.webp 400w, assets/img/lb-home-640.webp 640w, assets/img/lb-home-800.webp 800w, assets/img/lb-home-1100.webp 1100w, assets/img/lb-home.webp 1389w" sizes="(max-width:900px) 92vw, 800px" width="1389" height="868" alt="lbuildny.com home page" loading="lazy" decoding="async" style="object-position:0 0"></span></figure><b class="sp-t">lbuildny.com, built from zero<i class="fav">Owner’s favorite</i></b><span class="sp-q">&ldquo;He built lbuildny.com and our social pages from scratch, and now we finally look like a real company.&rdquo; <i>The owner</i></span><span class="sp-d">Services, projects from 2015 to 2026 sorted by type, videos and a free estimate request. Built from years of job photos.</span></article>
+      <article class="sp sp-lead" id="sp-lb-site"><figure class="sp-fig"><span class="sp-pic"><img src="assets/img/lb-home.webp" srcset="assets/img/lb-home-400.webp 400w, assets/img/lb-home-640.webp 640w, assets/img/lb-home-800.webp 800w, assets/img/lb-home-1100.webp 1100w, assets/img/lb-home.webp 1389w" sizes="(max-width:900px) 92vw, 800px" width="1389" height="868" alt="lbuildny.com home page" loading="lazy" decoding="async" style="object-position:0 0"></span></figure><b class="sp-t">lbuildny.com, built from zero<i class="fav">Owner’s favorite</i></b><span class="sp-q">&ldquo;He built lbuildny.com and our social pages from scratch, and now we finally look like a real company.&rdquo; <i>The owner</i></span><span class="sp-d">Services, projects from 2015 to 2026 sorted by type, videos and an estimate request. Built from years of job photos.</span></article>
       <article class="sp" id="sp-lb-channels"><span class="sp-fig sp-chart"><span class="sp-pic"><span class="sp-names"><i>Instagram</i><i>Facebook</i><i>YouTube</i><i>TikTok</i><i>Houzz</i><i>Yelp</i></span></span></span><b class="sp-t">Six channels, set up together</b><span class="sp-d">Instagram, Facebook, YouTube, TikTok, Houzz and Yelp, set up under one name and linked from the site.</span></article>
-      <article class="sp" id="sp-lb-link"><figure class="sp-fig"><span class="sp-pic" style="background:#0E0D0C"><img src="assets/img/lb-links.webp" srcset="assets/img/lb-links-400.webp 400w, assets/img/lb-links.webp 500w" sizes="(max-width:640px) 92vw, (max-width:900px) 46vw, 400px" width="500" height="900" alt="The one-link page: call, text, WhatsApp, estimate and every channel" loading="lazy" decoding="async" style="object-position:50% 0"></span></figure><b class="sp-t">One link to send a client</b><span class="sp-d">Call, text, WhatsApp, a free estimate and every channel on one page, made for sending to a client by text.</span></article>
+      <article class="sp" id="sp-lb-link"><figure class="sp-fig"><span class="sp-pic" style="background:#0E0D0C"><img src="assets/img/lb-links.webp" srcset="assets/img/lb-links-400.webp 400w, assets/img/lb-links.webp 500w" sizes="(max-width:640px) 92vw, (max-width:900px) 46vw, 400px" width="500" height="900" alt="The one-link page: call, text, WhatsApp, estimate and every channel" loading="lazy" decoding="async" style="object-position:50% 0"></span></figure><b class="sp-t">One link to send a client</b><span class="sp-d">Call, text, WhatsApp, an estimate request and every channel on one page, made for sending to a client by text.</span></article>
       <article class="sp" id="sp-lb-projects"><figure class="sp-fig"><span class="sp-pic"><img src="assets/img/lb-projects.webp" srcset="assets/img/lb-projects-400.webp 400w, assets/img/lb-projects-640.webp 640w, assets/img/lb-projects-800.webp 800w, assets/img/lb-projects-1100.webp 1100w, assets/img/lb-projects.webp 1389w" sizes="(max-width:640px) 92vw, (max-width:900px) 46vw, 400px" width="1389" height="868" alt="The projects page of lbuildny.com, 2015 to 2026" loading="lazy" decoding="async"></span></figure><b class="sp-t">Years of jobs, put in order</b><span class="sp-d">Photos from 2015 to 2026, sorted into new homes, renovations, bathrooms and more, each house shown from foundation to finish.</span></article>
       <article class="sp" id="sp-lb-camera"><figure class="sp-fig"><span class="sp-pic"><img src="assets/img/kit-fx30.webp" srcset="assets/img/kit-fx30-400.webp 400w, assets/img/kit-fx30-640.webp 640w, assets/img/kit-fx30-800.webp 800w, assets/img/kit-fx30-1100.webp 1100w, assets/img/kit-fx30.webp 1280w" sizes="(max-width:640px) 92vw, (max-width:900px) 46vw, 400px" width="1280" height="960" alt="Sony FX30 camera on a gimbal with a wireless microphone receiver" loading="lazy" decoding="async" style="object-position:50% 40%"></span></figure><b class="sp-t">Filmed on a professional camera</b><span class="sp-d">Job sites and finished houses can be filmed on a Sony FX30 with a gimbal and a wireless mic, then cut for the website and every channel.</span></article>
     </div>
@@ -2255,6 +2308,7 @@ $$('.gal').forEach(g => {
 /* ---------- design gallery: renders and drawings, by category ---------- */
 const CATS = [["cabs", "Elevator cabs", "Elevator cab interiors for CNS, rendered from the same model as the approval drawings."], ["drawings", "Shop drawings", "Dimensioned plans and elevations with cabinet codes, ready for the supplier."], ["kitchens", "Kitchens", "Full kitchens in 3D: layout, cabinets, island, colors. The client sees the finished room before the order goes in."], ["closets", "Closets and built-ins", "Closets, wardrobes and built-ins sized to the space."], ["countertops", "Countertops", "Stone layouts and shop drawings: pieces, seams, cut-outs and square footage."], ["doors", "Doors", "Entry, patio and interior doors drawn in place, with sizes and finishes the factory can build from."]];
 const DES = CATS.flatMap(c => M.filter(m => m.cat === c[0]));
+let setCat = null;
 (function(){
   const g = $('.dgal'); if (!g) return;
   let cur = DES.some(m => m.cat === 'kitchens') ? 'kitchens' : 'all';
@@ -2273,11 +2327,12 @@ const DES = CATS.flatMap(c => M.filter(m => m.cat === c[0]));
   }
   [['all', 'All', '']].concat(CATS).forEach(([k, name]) => {
     const n = k === 'all' ? DES.length : DES.filter(m => m.cat === k).length; if (!n) return;
-    const b = document.createElement('button'); b.type = 'button'; b.setAttribute('aria-pressed', k === cur);
+    const b = document.createElement('button'); b.type = 'button'; b.dataset.k = k; b.setAttribute('aria-pressed', k === cur);
     b.innerHTML = name + '<small>' + n + '</small>';
-    b.onclick = () => { cur = k; $$('button', filters).forEach(x => x.setAttribute('aria-pressed', x === b)); render(); };
+    b.onclick = () => { setCat(k); setHash('#design/' + k); };
     filters.append(b);
   });
+  setCat = k => { cur = $$('button', filters).some(x => x.dataset.k === k) ? k : 'all'; $$('button', filters).forEach(x => x.setAttribute('aria-pressed', x.dataset.k === cur)); render(); };
   g.append(filters, note, grid); render();
 })();
 
@@ -2422,6 +2477,8 @@ let hereI = null, hereHash = null, seq = Date.now() % 1e9, stk, booted = false;
 addEventListener('scroll', () => { clearTimeout(stk); stk = setTimeout(() => { if (hereI !== null && location.hash === hereHash && !document.documentElement.classList.contains('locked')) mem.set(hereI, scrollY); }, 120); }, { passive: true });
 function route(){
   let h = decodeURIComponent(location.hash.slice(1)); if (OLD[h]) h = OLD[h];
+  /* #design/kitchens or #design?cat=kitchens: the part after the name belongs to the page, it is never a missing page */
+  let sub = null; { const m = /^([\w-]+)[\/?](.*)$/.exec(h); if (m && (VIEWS.includes(m[1]) || document.getElementById(m[1]))) { h = OLD[m[1]] || m[1]; sub = m[2].replace(/^cat=/, ''); } }
   let v, anchor = '';
   if (h === '' || h === 'home') v = 'home';
   else if (VIEWS.includes(h)) v = h;
@@ -2436,6 +2493,7 @@ function route(){
   const land = () => {
     mark(anchor || v); document.title = TITLES[v] ? TITLES[v] + ' | Rustam Shabanov' : HOME_TITLE;
     if (anchor === 'review') $('#review').open = true;
+    if (v === 'design' && sub !== null && setCat) setCat(sub);
     const el = anchor && anchor !== 'cover' ? document.getElementById(anchor) : null;
     if (y != null) window.scrollTo({ top: y, behavior: 'instant' });
     else if (el) { if (!same) window.scrollTo({ top: 0, behavior: 'instant' }); el.scrollIntoView({ behavior: same && !calm ? 'smooth' : 'instant', block: 'start' }); }
@@ -2447,6 +2505,10 @@ function route(){
   if (same) return land();
   if (document.startViewTransition && cur && !calm) { const vt = document.startViewTransition(swap); vt.ready.catch(() => {}); vt.finished.catch(() => {}); vt.updateCallbackDone.then(land, () => { swap(); land(); }); } else { swap(); land(); }
 }
+const setHash = h => { history.replaceState(history.state, '', h); hereHash = location.hash; };
+/* a plain address such as /about is served the same page; it opens its view and the address takes the usual form */
+{ const seg = decodeURIComponent(location.pathname).replace(/^\/+|\/+$/g, ''), to = { 'with-ai': 'ai-edge' }[seg] || seg;
+  if (seg && seg !== 'index.html' && !location.hash && (VIEWS.includes(to) || OLD[to] || document.getElementById(to))) history.replaceState(history.state, '', '/#' + to); }
 addEventListener('hashchange', route); route();
 /* skip link: straight to the content, without changing the address */
 $('#skip').addEventListener('click', e => { e.preventDefault(); const m = $('#main'); m.focus({ preventScroll: true }); m.scrollIntoView({ block: 'start', behavior: 'instant' }); });
@@ -2463,19 +2525,29 @@ if ('IntersectionObserver' in window) {
 $$('[data-copy]').forEach(b => { const label = b.textContent; b.onclick = async () => { const v = b.dataset.copy; try { await navigator.clipboard.writeText(v); b.textContent = 'Copied'; } catch (e) { b.textContent = v; } setTimeout(() => { b.textContent = label; }, 1800); }; });
 
 /* ---------- forms go to email through FormSubmit; nothing is published automatically ---------- */
+const NEED = { name: 'Add a name.', review: 'Add a few words.', contact: 'Add a phone number or an email.' };
 function wire(form, msg, need, build, done){
   if (!form) return;
+  const field = k => form.elements[k], errId = k => form.id + '-' + k + '-err';
+  const clear = k => { const f = field(k), e = document.getElementById(errId(k)); if (e) e.remove(); f.removeAttribute('aria-invalid'); f.removeAttribute('aria-describedby'); };
+  need.forEach(k => field(k).addEventListener('input', () => { if (field(k).hasAttribute('aria-invalid')) { clear(k); if (!form.querySelector('[aria-invalid]')) { msg.textContent = ''; msg.setAttribute('role', 'status'); } } }));
   form.addEventListener('submit', async e => {
     e.preventDefault();
-    const d = new FormData(form);
-    if (need.some(k => !String(d.get(k) || '').trim())) { msg.textContent = 'Please fill in the fields above.'; return; }
+    const d = new FormData(form), miss = need.filter(k => !String(d.get(k) || '').trim());
+    need.forEach(clear);
+    if (miss.length) {
+      /* the note sits in the label under the field; aria-hidden keeps it out of the field's name, aria-describedby still reads it */
+      miss.forEach(k => { const f = field(k), s = document.createElement('span'); s.className = 'err'; s.id = errId(k); s.setAttribute('aria-hidden', 'true'); s.textContent = NEED[k] || 'This one is needed.'; f.setAttribute('aria-invalid', 'true'); f.setAttribute('aria-describedby', s.id); f.after(s); });
+      msg.setAttribute('role', 'alert'); msg.textContent = miss.length > 1 ? miss.length + ' fields need filling in.' : 'One field needs filling in.';
+      field(miss[0]).focus(); return; }
+    msg.setAttribute('role', 'status');
     if (d.get('_honey')) return;
     const btn = form.querySelector('button[type=submit]'); btn.disabled = true; msg.textContent = 'Sending…';
     try {
       const r = await fetch('https://formsubmit.co/ajax/rustam.shb@gmail.com', { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' }, body: JSON.stringify(Object.assign({ _template: 'table', _captcha: 'false' }, build(d))) });
       const j = await r.json().catch(() => ({}));
       if (r.ok && String(j.success) !== 'false') { form.reset(); msg.textContent = done; } else throw new Error('send');
-    } catch (err) { msg.textContent = 'It did not send. Please use Call or WhatsApp.'; }
+    } catch (err) { msg.setAttribute('role', 'alert'); msg.textContent = 'It did not send. Please use Call or WhatsApp.'; }
     btn.disabled = false;
   });
 }

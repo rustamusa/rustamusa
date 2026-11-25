@@ -100,6 +100,7 @@ $$('.gal').forEach(g => {
 /* ---------- design gallery: renders and drawings, by category ---------- */
 const CATS = [["cabs", "Elevator cabs", "Elevator cab interiors for CNS, rendered from the same model as the approval drawings."], ["drawings", "Shop drawings", "Dimensioned plans and elevations with cabinet codes, ready for the supplier."], ["kitchens", "Kitchens", "Full kitchens in 3D: layout, cabinets, island, colors. The client sees the finished room before the order goes in."], ["closets", "Closets and built-ins", "Closets, wardrobes and built-ins sized to the space."], ["countertops", "Countertops", "Stone layouts and shop drawings: pieces, seams, cut-outs and square footage."], ["doors", "Doors", "Entry, patio and interior doors drawn in place, with sizes and finishes the factory can build from."]];
 const DES = CATS.flatMap(c => M.filter(m => m.cat === c[0]));
+let setCat = null;
 (function(){
   const g = $('.dgal'); if (!g) return;
   let cur = DES.some(m => m.cat === 'kitchens') ? 'kitchens' : 'all';
@@ -118,11 +119,12 @@ const DES = CATS.flatMap(c => M.filter(m => m.cat === c[0]));
   }
   [['all', 'All', '']].concat(CATS).forEach(([k, name]) => {
     const n = k === 'all' ? DES.length : DES.filter(m => m.cat === k).length; if (!n) return;
-    const b = document.createElement('button'); b.type = 'button'; b.setAttribute('aria-pressed', k === cur);
+    const b = document.createElement('button'); b.type = 'button'; b.dataset.k = k; b.setAttribute('aria-pressed', k === cur);
     b.innerHTML = name + '<small>' + n + '</small>';
-    b.onclick = () => { cur = k; $$('button', filters).forEach(x => x.setAttribute('aria-pressed', x === b)); render(); };
+    b.onclick = () => { setCat(k); setHash('#design/' + k); };
     filters.append(b);
   });
+  setCat = k => { cur = $$('button', filters).some(x => x.dataset.k === k) ? k : 'all'; $$('button', filters).forEach(x => x.setAttribute('aria-pressed', x.dataset.k === cur)); render(); };
   g.append(filters, note, grid); render();
 })();
 
@@ -267,6 +269,8 @@ let hereI = null, hereHash = null, seq = Date.now() % 1e9, stk, booted = false;
 addEventListener('scroll', () => { clearTimeout(stk); stk = setTimeout(() => { if (hereI !== null && location.hash === hereHash && !document.documentElement.classList.contains('locked')) mem.set(hereI, scrollY); }, 120); }, { passive: true });
 function route(){
   let h = decodeURIComponent(location.hash.slice(1)); if (OLD[h]) h = OLD[h];
+  /* #design/kitchens or #design?cat=kitchens: the part after the name belongs to the page, it is never a missing page */
+  let sub = null; { const m = /^([\w-]+)[\/?](.*)$/.exec(h); if (m && (VIEWS.includes(m[1]) || document.getElementById(m[1]))) { h = OLD[m[1]] || m[1]; sub = m[2].replace(/^cat=/, ''); } }
   let v, anchor = '';
   if (h === '' || h === 'home') v = 'home';
   else if (VIEWS.includes(h)) v = h;
@@ -281,6 +285,7 @@ function route(){
   const land = () => {
     mark(anchor || v); document.title = TITLES[v] ? TITLES[v] + ' | Rustam Shabanov' : HOME_TITLE;
     if (anchor === 'review') $('#review').open = true;
+    if (v === 'design' && sub !== null && setCat) setCat(sub);
     const el = anchor && anchor !== 'cover' ? document.getElementById(anchor) : null;
     if (y != null) window.scrollTo({ top: y, behavior: 'instant' });
     else if (el) { if (!same) window.scrollTo({ top: 0, behavior: 'instant' }); el.scrollIntoView({ behavior: same && !calm ? 'smooth' : 'instant', block: 'start' }); }
@@ -292,6 +297,10 @@ function route(){
   if (same) return land();
   if (document.startViewTransition && cur && !calm) { const vt = document.startViewTransition(swap); vt.ready.catch(() => {}); vt.finished.catch(() => {}); vt.updateCallbackDone.then(land, () => { swap(); land(); }); } else { swap(); land(); }
 }
+const setHash = h => { history.replaceState(history.state, '', h); hereHash = location.hash; };
+/* a plain address such as /about is served the same page; it opens its view and the address takes the usual form */
+{ const seg = decodeURIComponent(location.pathname).replace(/^\/+|\/+$/g, ''), to = { 'with-ai': 'ai-edge' }[seg] || seg;
+  if (seg && seg !== 'index.html' && !location.hash && (VIEWS.includes(to) || OLD[to] || document.getElementById(to))) history.replaceState(history.state, '', '/#' + to); }
 addEventListener('hashchange', route); route();
 /* skip link: straight to the content, without changing the address */
 $('#skip').addEventListener('click', e => { e.preventDefault(); const m = $('#main'); m.focus({ preventScroll: true }); m.scrollIntoView({ block: 'start', behavior: 'instant' }); });
@@ -308,19 +317,29 @@ if ('IntersectionObserver' in window) {
 $$('[data-copy]').forEach(b => { const label = b.textContent; b.onclick = async () => { const v = b.dataset.copy; try { await navigator.clipboard.writeText(v); b.textContent = 'Copied'; } catch (e) { b.textContent = v; } setTimeout(() => { b.textContent = label; }, 1800); }; });
 
 /* ---------- forms go to email through FormSubmit; nothing is published automatically ---------- */
+const NEED = { name: 'Add a name.', review: 'Add a few words.', contact: 'Add a phone number or an email.' };
 function wire(form, msg, need, build, done){
   if (!form) return;
+  const field = k => form.elements[k], errId = k => form.id + '-' + k + '-err';
+  const clear = k => { const f = field(k), e = document.getElementById(errId(k)); if (e) e.remove(); f.removeAttribute('aria-invalid'); f.removeAttribute('aria-describedby'); };
+  need.forEach(k => field(k).addEventListener('input', () => { if (field(k).hasAttribute('aria-invalid')) { clear(k); if (!form.querySelector('[aria-invalid]')) { msg.textContent = ''; msg.setAttribute('role', 'status'); } } }));
   form.addEventListener('submit', async e => {
     e.preventDefault();
-    const d = new FormData(form);
-    if (need.some(k => !String(d.get(k) || '').trim())) { msg.textContent = 'Please fill in the fields above.'; return; }
+    const d = new FormData(form), miss = need.filter(k => !String(d.get(k) || '').trim());
+    need.forEach(clear);
+    if (miss.length) {
+      /* the note sits in the label under the field; aria-hidden keeps it out of the field's name, aria-describedby still reads it */
+      miss.forEach(k => { const f = field(k), s = document.createElement('span'); s.className = 'err'; s.id = errId(k); s.setAttribute('aria-hidden', 'true'); s.textContent = NEED[k] || 'This one is needed.'; f.setAttribute('aria-invalid', 'true'); f.setAttribute('aria-describedby', s.id); f.after(s); });
+      msg.setAttribute('role', 'alert'); msg.textContent = miss.length > 1 ? miss.length + ' fields need filling in.' : 'One field needs filling in.';
+      field(miss[0]).focus(); return; }
+    msg.setAttribute('role', 'status');
     if (d.get('_honey')) return;
     const btn = form.querySelector('button[type=submit]'); btn.disabled = true; msg.textContent = 'Sending…';
     try {
       const r = await fetch('https://formsubmit.co/ajax/rustam.shb@gmail.com', { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' }, body: JSON.stringify(Object.assign({ _template: 'table', _captcha: 'false' }, build(d))) });
       const j = await r.json().catch(() => ({}));
       if (r.ok && String(j.success) !== 'false') { form.reset(); msg.textContent = done; } else throw new Error('send');
-    } catch (err) { msg.textContent = 'It did not send. Please use Call or WhatsApp.'; }
+    } catch (err) { msg.setAttribute('role', 'alert'); msg.textContent = 'It did not send. Please use Call or WhatsApp.'; }
     btn.disabled = false;
   });
 }
