@@ -38,8 +38,8 @@ const B = 'http://127.0.0.1:8793/';
     ok('home view is on', await view(page) === 'home');
     ok('headline says what this is', /slow step out of a small business/i.test(await page.textContent('#cover h1')));
     ok('page title says what this is', /AI help for small businesses in New York/i.test(await page.title()));
-    ok('first screen: headline, call button, free first meeting', await page.evaluate(() => ['#cover h1', '#cover .pill.solid', '.hero2-note'].every(q => { const r = document.querySelector(q).getBoundingClientRect(); return r.top >= 0 && r.bottom <= innerHeight; }) && /first meeting is free/i.test(document.querySelector('.hero2-note').textContent)));
-    ok('one main action on the first screen', await page.evaluate(() => document.querySelectorAll('#cover .pill.solid').length === 1 && document.querySelector('#cover .pill.solid').getAttribute('href') === 'tel:+19179436912'));
+    ok('first screen: headline, the phone in the header, free first meeting', await page.evaluate(() => ['#cover h1', '.top .top-call', '.hero2-note'].every(q => { const r = document.querySelector(q).getBoundingClientRect(); return r.top >= 0 && r.bottom <= innerHeight; }) && /first meeting is free/i.test(document.querySelector('.hero2-note').textContent)));
+    ok('the phone number is on the home page once, in the header', await page.evaluate(() => [...document.querySelectorAll('a[href^="tel:"]')].filter(a => a.offsetParent && !a.closest('.view:not(.on)')).length === 1 && !!document.querySelector('.top a[href="tel:+19179436912"]') && !document.querySelector('.mega')));
     ok('home fits in one and a half screens, no long scroll', await page.evaluate(() => document.documentElement.scrollHeight / innerHeight <= 1.5), await page.evaluate(() => (document.documentElement.scrollHeight / innerHeight).toFixed(1)));
     ok('no 3D on the home page', await page.evaluate(() => !document.querySelector('.view[data-view=home] #stage3d, .view[data-view=home] .pano')));
     const small = await page.evaluate(() => { const out = []; document.querySelectorAll('.view[data-view=home] *').forEach(e => { if (!e.offsetParent || e.closest('.ln-months, svg, .foot') || ![...e.childNodes].some(n => n.nodeType === 3 && n.textContent.trim())) return; const f = parseFloat(getComputedStyle(e).fontSize); if (f < 15.5) out.push(f + ':' + e.textContent.trim().slice(0, 24)); }); return out.slice(0, 20); });
@@ -52,31 +52,35 @@ const B = 'http://127.0.0.1:8793/';
     ok('every in-page link has a target', await page.evaluate(() => { const views = [...document.querySelectorAll('.view')].map(v => v.dataset.view); return [...document.querySelectorAll('a[href^="#"]')].map(a => a.getAttribute('href').slice(1)).filter(h => h && !views.includes(h) && !document.getElementById(h) && !['c1','c2','c3','c4','c5','c6'].includes(h)); }).then(b => b.length === 0 || (fails.push('dead links ' + b.join(',')), false)));
     /* first screen: real work */
     ok('no sliders on the home page', await page.evaluate(() => !document.querySelector('.view[data-view=home] input[type=range]')));
-    ok('five tabs on the first screen, each with a picture and its result', await page.evaluate(() => { const t = [...document.querySelectorAll('.btabs .btab')]; return t.length === 5 && t.every(b => b.querySelector('img') && b.querySelector('b').textContent.includes('→') && document.getElementById(b.getAttribute('aria-controls'))) && document.querySelector('.btabs').getBoundingClientRect().bottom < innerHeight * .7; }));
+    ok('five tabs on the first screen, each a picture with its name and a second line', await page.evaluate(() => { const t = [...document.querySelectorAll('.btabs .btab')]; return t.length === 5 && t.every(b => b.querySelector('img') && b.querySelector('small').textContent.trim().length > 3 && b.querySelector('b').textContent.trim().length > 3 && document.getElementById(b.getAttribute('aria-controls')) && b.getBoundingClientRect().bottom <= innerHeight); }));
     ok('the tabs are pictures of the work, not small icons', await page.evaluate(() => [...document.querySelectorAll('.btabs .btab')].every(b => { const r = b.getBoundingClientRect(); return r.width >= 140 && r.height >= 90; })));
-    ok('how to reach is on the first screen: call, WhatsApp, email, Instagram, X, GitHub', await page.evaluate(() => ['tel:+19179436912', 'https://wa.me/19179436912', 'mailto:rustam.shb@gmail.com', 'https://www.instagram.com/kitchen4nyc/', 'https://x.com/dimklyn', 'https://github.com/rustamusa'].every(h => { const a = document.querySelector('#cover a[href="' + h + '"]'); if (!a) return false; const r = a.getBoundingClientRect(); return r.width > 0 && r.bottom <= innerHeight; })));
-    ok('the first business shows its picture, headline and result on the first screen', await page.evaluate(() => document.querySelector('#b-kitchen .bz-res').getBoundingClientRect().bottom <= innerHeight && document.querySelector('#b-kitchen .bz-fig').getBoundingClientRect().top < innerHeight * .7));
+    ok('how to reach is on the first screen: WhatsApp, email, Instagram, X, GitHub next to the headline', await page.evaluate(() => ['https://wa.me/19179436912', 'mailto:rustam.shb@gmail.com', 'https://www.instagram.com/kitchen4nyc/', 'https://x.com/dimklyn', 'https://github.com/rustamusa'].every(h => { const a = document.querySelector('#cover a[href="' + h + '"]'); if (!a) return false; const r = a.getBoundingClientRect(); return r.width > 30 && r.bottom <= innerHeight; }) && new Set([...document.querySelectorAll('#cover .hero4-soc a')].map(a => Math.round(a.getBoundingClientRect().height))).size === 1));
+    ok('the first business shows who it is and its first pictures on the first screen', await page.evaluate(() => document.querySelector('#b-kitchen .bz-lede').getBoundingClientRect().bottom <= innerHeight && document.querySelector('#b-kitchen .sp-fig').getBoundingClientRect().top < innerHeight * .75));
     await page.click('#t-cab'); await page.waitForTimeout(1100);
     ok('a tab shows its business', await page.evaluate(() => { const d = document.querySelector('#deck').getBoundingClientRect(), c = document.querySelector('#b-cab').getBoundingClientRect(); return Math.abs(c.left - d.left) < 4 && document.querySelector('#t-cab').classList.contains('on') && !document.querySelector('#t-kitchen').classList.contains('on'); }));
     await page.keyboard.press('ArrowRight'); await page.waitForTimeout(1100);
     ok('arrow key moves to the next business', await page.evaluate(() => document.querySelector('#t-sf').classList.contains('on') && Math.abs(document.querySelector('#b-sf').getBoundingClientRect().left - document.querySelector('#deck').getBoundingClientRect().left) < 4));
     await page.click('#t-kitchen'); await page.waitForTimeout(900);
     /* problem, fix, result */
-    ok('five businesses, each its own block with a picture, a bottleneck and a result', await page.evaluate(() => { const b = [...document.querySelectorAll('.bz')]; return b.length === 5 && b.every(x => x.querySelector('.bz-fig img') && x.querySelector('h3').textContent.trim().length > 10 && x.querySelector('.bz-res b').textContent.trim() && x.querySelector('a[href^="#"]')); }));
-    ok('each block tells its story in prose: the problem, then how it was solved, in big light text', await page.evaluate(() => [...document.querySelectorAll('.bz')].every(x => { const w = x.querySelector('.bz-was'), n = x.querySelector('.bz-now'); return w && n && w.textContent.trim().length > 40 && n.textContent.trim().length > 60 && [w, n].every(e => parseFloat(getComputedStyle(e).fontSize) >= 17) && !x.querySelector('.bz-text ul, .bz-story ul, h4'); })));
-    ok('no boxes: the blocks sit on the page (only the tomato band has a background), and no pink card', await page.evaluate(() => [...document.querySelectorAll('.bz')].every(x => x.classList.contains('alt') || (getComputedStyle(x).backgroundColor === 'rgba(0, 0, 0, 0)' && getComputedStyle(x).backgroundImage === 'none' && getComputedStyle(x).borderTopWidth === '0px' && !x.classList.contains('paper')))));
+    ok('five businesses, each with its story and its sub-projects as tiles', await page.evaluate(() => { const b = [...document.querySelectorAll('.bz')]; return b.length === 5 && b.every(x => x.querySelector('h3').textContent.trim().length > 8 && x.querySelector('.bz-lede .d-l').textContent.trim().length > 120 && x.querySelector('a.pill') && x.querySelectorAll('.subs .sp').length >= 4 && x.querySelectorAll('.subs .sp-lead').length === 1 && [...x.querySelectorAll('.subs .sp')].every(t => t.querySelector('.sp-pic img, .sp-chart') && t.querySelector('.sp-t').textContent.trim().length > 5 && t.querySelector('.sp-d').textContent.trim().length > 15 && document.getElementById(t.getAttribute('href').slice(1)))); }));
+    ok('a card reads in plain type: three sizes at most, no struck or coloured words in the story', await page.evaluate(() => { const c = document.querySelector('#b-kitchen'); const sizes = new Set(); c.querySelectorAll('*').forEach(e => { if (e.offsetParent && [...e.childNodes].some(n => n.nodeType === 3 && n.textContent.trim())) sizes.add(Math.round(parseFloat(getComputedStyle(e).fontSize))); }); return sizes.size <= 3 && !document.querySelector('.bz s, .bz .bz-res, .bz .bz-lede b'); }));
+    ok('no boxes and no frames laid over each other', await page.evaluate(() => [...document.querySelectorAll('.bz')].every(x => getComputedStyle(x).backgroundColor === 'rgba(0, 0, 0, 0)' && getComputedStyle(x).backgroundImage === 'none' && getComputedStyle(x).borderTopWidth === '0px') && !document.querySelector('.bz-second, .bz-pair, .bz.alt, .deck .paper')));
     ok('websites are shown with their address', await page.evaluate(() => { const u = [...document.querySelectorAll('.bz-url')].map(e => e.textContent); return ['nykhdc.com', 'strikeforcesports.net', 'strikeforcenj.com', 'lbuildny.com'].every(d => u.includes(d)); }));
-    ok('not one template: at least four different block layouts', await page.evaluate(() => new Set([...document.querySelectorAll('.bz')].map(b => [...b.classList].filter(c => c !== 'bz').sort().join(' '))).size >= 4));
+    ok('sub-project tiles are pictures, not icons', await page.evaluate(() => [...document.querySelectorAll('#b-kitchen .sp-pic')].every(e => { const r = e.getBoundingClientRect(); return r.width >= 220 && r.height >= 100; })));
+    ok('results with numbers are drawn as charts', await page.evaluate(() => document.querySelectorAll('.deck .sp-chart .bars, .deck .sp-chart .stack').length >= 4 && [...document.querySelectorAll('.deck .bar-t i')].some(i => parseFloat(i.style.width) > 0 && parseFloat(i.style.width) < 100)));
+    ok('the nutrition app is named plainly, with no made-up result', await page.evaluate(() => { const h = document.querySelector('.view[data-view=home]').textContent; return /Nutrition app/.test(h) && /client from the gym/.test(h) && !/private client/i.test(h) && !/one app\s*$/.test(document.querySelector('#t-app b').textContent) && !/channels\s*$/.test(document.querySelector('#t-lb b').textContent.replace('website, channels, video', '')); }));
+    await page.click('#b-kitchen .sp-lead'); await page.waitForTimeout(1300);
+    ok('a tile opens its sub-project on the business page', await view(page) === 'nykhdc' && Math.abs(await topOf(page, '#sp-nk-studio') - 92) < 60, [await view(page), await topOf(page, '#sp-nk-studio')]);
+    await hash(page, 'home', 900);
+    ok('the bottom of the home page is a footer, not empty space', await page.evaluate(() => { const f = document.querySelector('.foot'), d = document.querySelector('#deck'), c = document.querySelector('#b-kitchen'); return getComputedStyle(f).display !== 'none' && f.querySelectorAll('a').length >= 5 && Math.abs(d.getBoundingClientRect().height - c.getBoundingClientRect().height) < 4 && f.getBoundingClientRect().top - d.getBoundingClientRect().bottom < 60; }));
     ok('no Russian text and no first name inside the quotes', await page.evaluate(() => !/[\u0400-\u04FF]/.test(document.body.innerText) && !/Russian/.test(document.body.innerText) && [...document.querySelectorAll('.word blockquote')].every(q => !/Rustam/.test(q.textContent))));
-    ok('Stanley, not Slava', await page.evaluate(() => !/Slava/.test(document.documentElement.innerHTML) && /Stanley/.test(document.querySelector('.words').textContent)));
+    ok('no Slava; feedback is signed by role, without names', await page.evaluate(() => !/Slava/.test(document.documentElement.innerHTML) && !/Stanley|Steven|Lubomir/.test(document.querySelector('.words').textContent) && document.querySelectorAll('.words .word figcaption a').length === 3));
     ok('no tables on the home page', await page.evaluate(() => !document.querySelector('.view[data-view=home] table, .view[data-view=home] .fx')));
     ok('no diagram that explains business', await page.evaluate(() => !document.querySelector('.loop, #loop')));
-    /* timeline (in the About view now) */
-    await hash(page, 'work', 1000);
-    ok('five projects on the timeline', await page.evaluate(() => document.querySelectorAll('.lanes li').length === 5));
-    ok('five bars overlap in late October', await page.evaluate(() => { const x = document.querySelector('.ln-five').getBoundingClientRect(); const mid = x.left + x.width / 2; return [...document.querySelectorAll('.ln-track i')].every(i => { const r = i.getBoundingClientRect(); return r.left <= mid && r.right >= mid; }); }));
-    await page.click('.lanes a[href="#cns"]'); await page.waitForTimeout(1200);
-    ok('timeline opens a business page', await view(page) === 'cns');
+    /* no timeline, no repeated sections */
+    ok('no timeline, and the menu says Work, With AI, Feedback, About', await page.evaluate(() => !document.querySelector('.lanes, #work, #skills, #where, #pages, #builder') && [...document.querySelectorAll('.nav a')].filter(a => !a.hidden).map(a => a.textContent.trim()).filter(t => t !== 'Video').join('|') === 'Work|With AI|Feedback|About'));
+    await hash(page, 'cns', 1200);
+    ok('a business page opens', await view(page) === 'cns');
     await page.evaluate(() => document.querySelector('.view.on .pano').scrollIntoView({ block: 'center', behavior: 'instant' })); await page.waitForSelector('.view.on .pano.live', { timeout: 30000 }).catch(() => {}); await page.waitForTimeout(300);
     ok('CNS page: cab look-around goes live', await page.evaluate(() => !!document.querySelector('.view.on .pano.live canvas')));
     { const h = await page.$('.view.on .pano'); const l0 = await page.evaluate(e => e.__look().lon, h); const b = await h.boundingBox(); await page.mouse.move(b.x + b.width * .6, b.y + b.height * .5); await page.mouse.down(); await page.mouse.move(b.x + b.width * .3, b.y + b.height * .5, { steps: 6 }); await page.mouse.up(); ok('dragging turns the cab view', await page.evaluate(e => e.__look().lon, h) - l0 > 15); }
@@ -87,14 +91,15 @@ const B = 'http://127.0.0.1:8793/';
     ok('showroom page: the kitchen draws itself', await page.evaluate(() => !!document.querySelector('#stage3d canvas')));
     await page.waitForTimeout(6500); ok('kitchen finishes and shows the estimate', await page.evaluate(() => +document.querySelector('#scrub').value === 1000 && document.querySelector('#stage').classList.contains('priced')));
     /* links that used to point into the long page still land somewhere useful */
-    for (const [old, v, id] of [['c1', 'nykhdc', null], ['c2', 'cns', null], ['c6', 'about', 'work-app'], ['faq', 'about', 'faq'], ['workshop', 'about', 'workshop'], ['skills', 'about', 'skills'], ['pages', 'about', 'pages'], ['builder', 'about', 'builder'], ['what', 'home', 'fixes'], ['best', 'home', 'fixes']]) {
+    for (const [old, v, id] of [['c1', 'nykhdc', null], ['c2', 'cns', null], ['c6', 'about', 'work-app'], ['faq', 'about', 'faq'], ['workshop', 'about', 'workshop'], ['skills', 'about', 'ai-edge'], ['pages', 'nykhdc', null], ['builder', 'nykhdc', null], ['work', 'home', 'fixes'], ['what', 'home', 'fixes'], ['best', 'home', 'fixes']]) {
       await hash(page, old, 1500); const top = id ? await topOf(page, '#' + id) : 0;
       ok('link #' + old + ' opens ' + v + (id ? ' at ' + id : ''), await view(page) === v && (!id || Math.abs(top - 76) < 90 || await page.evaluate(() => innerHeight + scrollY >= document.documentElement.scrollHeight - 4)), [await view(page), top]); }
     /* About view: everything else */
     await hash(page, 'about', 900); ok('about view', await view(page) === 'about');
-    ok('about: nine kinds of work, five questions with the price first', await page.evaluate(() => document.querySelectorAll('.skills li').length === 9 && document.querySelectorAll('.faq details').length === 5 && /cost/i.test(document.querySelector('.faq summary').textContent)));
+    ok('about: plain heading, no list of tools, the camera is shown, four questions with the price first', await page.evaluate(() => { const v = document.querySelector('.view[data-view=about]'); return v.querySelector('h1').textContent.trim() === 'About' && !v.querySelector('.chips') && !/ChatGPT|Grok|three\.js|Vercel/.test(v.textContent) && !!v.querySelector('.me-kit img') && document.querySelectorAll('.faq details').length === 4 && /cost/i.test(document.querySelector('.faq summary').textContent); }));
+    ok('about: what AI makes possible, seven points', await page.evaluate(() => document.querySelectorAll('#ai-edge .edge > div').length === 7 && [...document.querySelectorAll('#ai-edge .edge p')].every(p => p.textContent.trim().length > 60)));
     await page.evaluate(() => { document.querySelectorAll('details.fold').forEach(d => { d.open = false; }); scrollTo({ top: 0, behavior: 'instant' }); }); await page.waitForTimeout(300);
-    ok('about is a short list: twelve sections fold under their headings, under 4 screens', await page.evaluate(() => document.querySelectorAll('.view[data-view=about] details.fold').length === 12 && document.documentElement.scrollHeight / innerHeight < 4));
+    ok('about is a short list: eight sections fold under their headings, under 4 screens, every plus in one column', await page.evaluate(() => { const f = [...document.querySelectorAll('.view[data-view=about] details.fold')]; const w = f.filter(d => d.offsetParent).map(d => Math.round(d.querySelector('summary').getBoundingClientRect().right)); return f.length === 8 && new Set(w).size === 1 && document.documentElement.scrollHeight / innerHeight < 4; }));
     await hash(page, 'faq', 1200);
     ok('a link to an About section opens it', await page.evaluate(() => document.querySelector('#faq details.fold').open && (Math.abs(document.querySelector('#faq').getBoundingClientRect().top - 76) < 90 || innerHeight + scrollY >= document.documentElement.scrollHeight - 4)));
     await hash(page, 'design', 900);
@@ -109,13 +114,10 @@ const B = 'http://127.0.0.1:8793/';
     ok('form controls on pink cards are light', await page.evaluate(() => getComputedStyle(document.querySelector('#revform input[type=radio]')).colorScheme.includes('light')));
     await hash(page, 'review', 900); ok('review link opens the form', await page.evaluate(() => document.querySelector('#review').open));
     await page.click('#revform button[type=submit]'); await page.waitForTimeout(200); ok('review form asks for the missing fields', (await page.textContent('#revmsg')).includes('fill in'));
-    await hash(page, 'builder', 1200); await page.click('#stage-load'); await page.waitForTimeout(700);
-    ok('live builder loads in a frame', await page.evaluate(() => { const f = document.querySelector('#stage-view iframe'); return !!f && /planner\/index\.html$/.test(f.src); }));
-    await hash(page, 'pages', 1200); const sl = await page.evaluate(() => document.querySelector('#pages-row').scrollLeft); await page.click('#pages-next'); await page.waitForTimeout(700);
-    ok('client pages arrow scrolls the row', await page.evaluate(() => document.querySelector('#pages-row').scrollLeft) > sl);
-    await page.click('#pages-row .page:nth-child(2) .shot'); await page.waitForTimeout(400);
-    ok('client page opens large', await page.evaluate(() => document.querySelector('#lb').open) && /cp-proposal-table/.test(await page.getAttribute('#lb-img', 'src')));
-    await page.click('#lb-next'); await page.waitForTimeout(200); ok('picture viewer: next', !/cp-proposal-table/.test(await page.getAttribute('#lb-img', 'src')));
+    await hash(page, 'nykhdc', 1000); await page.evaluate(() => document.querySelector('.view.on .wall button').scrollIntoView({ block: 'center', behavior: 'instant' })); await page.waitForTimeout(300); await page.click('.view.on .wall button'); await page.waitForTimeout(400);
+    const lb0 = await page.getAttribute('#lb-img', 'src');
+    ok('a gallery picture opens large', await page.evaluate(() => document.querySelector('#lb').open) && /assets\/img\//.test(lb0));
+    await page.click('#lb-next'); await page.waitForTimeout(200); ok('picture viewer: next', lb0 !== await page.getAttribute('#lb-img', 'src'));
     await page.keyboard.press('Escape'); await page.waitForTimeout(300); ok('picture viewer closes', await page.evaluate(() => !document.querySelector('#lb').open));
     const reels = await page.evaluate(() => document.querySelectorAll('.reel').length);
     if (REELS === 'reels') { ok('four clips', reels === 4, reels); ok('video link shows', await page.evaluate(() => !document.querySelector('#reel').hidden && !document.querySelector('#nav-reel').hidden)); }
@@ -126,13 +128,23 @@ const B = 'http://127.0.0.1:8793/';
     for (const [v, min] of [['nykhdc', 6], ['cns', 6], ['strikeforce', 3], ['lconstruction', 3]]) {
       await hash(page, v, 900); ok('page ' + v, await view(page) === v);
       ok(v + ': gallery has pictures', await page.evaluate(() => document.querySelectorAll('.view.on .wall button').length) >= min);
-      ok(v + ': problem, fix, result', await page.evaluate(() => document.querySelectorAll('.view.on .pdc3 > div').length === 3));
+      ok(v + ': opens with its story, then its sub-projects; no pink summary card', await page.evaluate(() => document.querySelector('.view.on .phead .meta').textContent.trim().length > 120 && document.querySelectorAll('.view.on .subs.all .sp').length >= 5 && !document.querySelector('.view.on .pdc3, .view.on .cta.paper') && document.querySelector('.view.on .phead').nextElementSibling.querySelector('.subs.all')));
       ok(v + ': no sideways scroll', await noSide(page) <= 0, await noSide(page)); }
     await hash(page, 'design', 900); ok('renders page', await view(page) === 'design');
     await hash(page, 'nothing-here', 700); ok('unknown link shows the not-found page', await view(page) === 'nf');
     await page.click('.nf a'); await page.waitForTimeout(800); ok('not-found leads home', await view(page) === 'home');
     ok('home: no sideways scroll', await noSide(page) <= 0, await noSide(page));
     ok('every local file answered', missing.length === 0, missing.slice(0, 5));
+    await ctx.close(); }
+
+  /* ================= a 13-inch laptop window ================= */
+  { const { ctx, page } = await open({ viewport: { width: 1230, height: 685 } });
+    await page.goto(B, { waitUntil: 'load' }); await page.waitForTimeout(700);
+    const hs = []; for (const t of ['kitchen', 'cab', 'sf', 'lb', 'app']) { await page.click('#t-' + t); await page.waitForTimeout(900); hs.push(await page.evaluate(() => +(document.documentElement.scrollHeight / innerHeight).toFixed(2))); }
+    ok('laptop: every business fits in one and a half screens', hs.every(h => h <= 1.5), hs);
+    await page.click('#t-kitchen'); await page.waitForTimeout(900);
+    ok('laptop: the first row of sub-projects starts on the first screen', await page.evaluate(() => document.querySelector('#b-kitchen .sp:not(.sp-lead) .sp-pic').getBoundingClientRect().top < innerHeight - 60));
+    ok('laptop: no sideways scroll', await noSide(page) <= 0, await noSide(page));
     await ctx.close(); }
 
   /* ================= desktop, reduced motion ================= */
@@ -151,19 +163,21 @@ const B = 'http://127.0.0.1:8793/';
   { const { ctx, page } = await open({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 2, isMobile: true, hasTouch: true });
     await page.goto(B, { waitUntil: 'load' }); await page.waitForTimeout(700);
     ok('phone: no sideways scroll', await noSide(page) <= 0, await noSide(page));
-    ok('phone: headline and call button fit the first screen', await page.evaluate(() => { const d = document.querySelector('.dock').getBoundingClientRect().top; return ['#cover h1', '#cover .pill.solid'].every(q => { const r = document.querySelector(q).getBoundingClientRect(); return r.top >= 0 && r.bottom <= d; }); }));
+    ok('phone: the headline fits the first screen and the call button is in the bar at the bottom', await page.evaluate(() => { const d = document.querySelector('.dock').getBoundingClientRect().top; const r = document.querySelector('#cover h1').getBoundingClientRect(); return r.top >= 0 && r.bottom <= d && !!document.querySelector('.dock a[href="tel:+19179436912"]') && !!document.querySelector('.dock a[href^="https://wa.me/"]') && !!document.querySelector('.dock a[href^="mailto:"]'); }));
     ok('phone: home fits in one and a half screens', await page.evaluate(() => document.documentElement.scrollHeight / innerHeight <= 1.5), await page.evaluate(() => (document.documentElement.scrollHeight / innerHeight).toFixed(1)));
-    ok('phone: socials sit under the call button, big enough to tap', await page.evaluate(() => { const c = [...document.querySelectorAll('#cover .hero4-soc a')]; return c.length === 5 && c.every(x => { const r = x.getBoundingClientRect(); return r.width >= 44 && r.height >= 44 && r.bottom <= innerHeight; }); }));
+    ok('phone: socials sit by the headline, big enough to tap, nothing doubled with the bar', await page.evaluate(() => { const c = [...document.querySelectorAll('#cover .hero4-soc a')].filter(x => x.offsetParent); return c.length === 3 && c.every(x => { const r = x.getBoundingClientRect(); return r.width >= 44 && r.height >= 44 && r.bottom <= innerHeight; }) && !c.some(x => /wa\.me|mailto/.test(x.href)); }));
     await page.tap('#t-lb'); await page.waitForTimeout(1100);
     ok('phone: tapping a tab shows its business', await page.evaluate(() => document.querySelector('#t-lb').classList.contains('on') && Math.abs(document.querySelector('#b-lb').getBoundingClientRect().left - document.querySelector('#deck').getBoundingClientRect().left) < 4));
+    await page.tap('#t-app'); await page.waitForTimeout(1400);
+    ok('phone: the last tab lands on its business', await page.evaluate(() => document.querySelector('#t-app').classList.contains('on') && Math.abs(document.querySelector('#b-app').getBoundingClientRect().left - document.querySelector('#deck').getBoundingClientRect().left) < 4));
+    ok('phone: tiles are two across with the main one full width', await page.evaluate(() => { const l = document.querySelector('#b-lb .sp-lead').getBoundingClientRect(), s = document.querySelector('#b-lb .sp:not(.sp-lead)').getBoundingClientRect(); return l.width > 300 && s.width > 150 && s.width < 200; }));
     await page.evaluate(() => document.querySelector('#deck').scrollTo({ left: 0, behavior: 'instant' })); await page.waitForTimeout(500);
     ok('phone: swiping the deck updates the tabs', await page.evaluate(() => document.querySelector('#t-kitchen').classList.contains('on')));
     ok('phone: dock is on screen', await page.evaluate(() => getComputedStyle(document.querySelector('.dock')).display !== 'none'));
     ok('phone: header nav is folded', await page.evaluate(() => getComputedStyle(document.querySelector('.nav')).display === 'none'));
     await page.tap('#menu-open'); await page.waitForTimeout(300); ok('phone: menu opens', await page.evaluate(() => document.querySelector('#sheetnav').classList.contains('on')));
-    await page.tap('#sheetnav a[href="#work"]'); await page.waitForTimeout(1300);
-    ok('phone: menu link closes the menu and goes to the section', await page.evaluate(() => !document.querySelector('#sheetnav').classList.contains('on')) && Math.abs(await topOf(page, '#work') - 76) < 90, await topOf(page, '#work'));
-    ok('phone: timeline results are readable text', await page.evaluate(() => [...document.querySelectorAll('.ln-res')].every(e => e.offsetParent && parseFloat(getComputedStyle(e).fontSize) >= 16)));
+    await page.tap('#sheetnav a[href="#ai-edge"]'); await page.waitForTimeout(1300);
+    ok('phone: menu link closes the menu and opens the section', await page.evaluate(() => !document.querySelector('#sheetnav').classList.contains('on') && document.querySelector('#ai-edge details.fold').open) && await view(page) === 'about');
     await hash(page, 'cns', 1200); await page.evaluate(() => document.querySelector('.view.on .pano').scrollIntoView({ block: 'center', behavior: 'instant' })); await page.waitForSelector('.view.on .pano.live', { timeout: 30000 }).catch(() => {});
     ok('phone: cab look-around goes live and lets the page scroll', await page.evaluate(() => { const h = document.querySelector('.view.on .pano'); return h.classList.contains('live') && getComputedStyle(h).touchAction === 'pan-y'; }));
     ok('phone: tap targets are big enough', await page.evaluate(() => [...document.querySelectorAll('.view.on a.pill, .view.on button.pill, .dock a, #menu-open, .chip, .rb')].filter(e => e.offsetParent).every(e => e.getBoundingClientRect().height >= 40)));

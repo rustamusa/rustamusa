@@ -28,7 +28,7 @@ $$('[data-open]').forEach(f => f.addEventListener('click', () => { const it = by
 (function(){ let x0 = null; lb.addEventListener('touchstart', e => { x0 = e.touches[0].clientX; }, { passive: true }); lb.addEventListener('touchend', e => { if (x0 === null) return; const dx = e.changedTouches[0].clientX - x0; if (Math.abs(dx) > 50) (dx < 0 ? $('#lb-next') : $('#lb-prev')).click(); x0 = null; }); })();
 
 /* ---------- galleries on the business pages ---------- */
-const PAGE = 18;
+const PAGE = 6;
 $$('.gal').forEach(g => {
   const biz = g.dataset.biz, groups = GROUPS[biz];
   const all = groups.flatMap(([k]) => M.filter(m => m.biz === biz && m.grp === k));
@@ -216,8 +216,8 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape' && sheet.clas
 
 /* ---------- pages and anchors ---------- */
 const VIEWS = ['home', 'about', 'design', 'nykhdc', 'cns', 'strikeforce', 'lconstruction'];
-const OLD = { best: 'fixes', services: 'skills', 'contact-home': 'contact', volunteer: 'me-sec', firstday: 'how', what: 'fixes', loop: 'fixes', c1: 'nykhdc', c2: 'cns', c3: 'nykhdc', c4: 'strikeforce', c5: 'lconstruction', c6: 'work-app', stage: 'nykhdc', words: 'words' };
-const NAV = { cover: 'fixes', results: 'fixes', nykhdc: 'work', cns: 'work', strikeforce: 'work', lconstruction: 'work', design: 'work', words: 'work' };
+const OLD = { best: 'fixes', services: 'ai-edge', work: 'fixes', pages: 'nykhdc', builder: 'nykhdc', where: 'contact', skills: 'ai-edge', 'contact-home': 'contact', volunteer: 'me-sec', firstday: 'how', what: 'fixes', loop: 'fixes', c1: 'nykhdc', c2: 'cns', c3: 'nykhdc', c4: 'strikeforce', c5: 'lconstruction', c6: 'work-app', stage: 'nykhdc', words: 'words' };
+const NAV = { cover: 'fixes', results: 'fixes', nykhdc: 'fixes', cns: 'fixes', strikeforce: 'fixes', lconstruction: 'fixes', design: 'fixes', 'me-sec': 'about' };
 function mark(id){ const k = NAV[id] || id; $$('.nav a').forEach(a => { if (a.getAttribute('href') === '#' + k) a.setAttribute('aria-current', 'true'); else a.removeAttribute('aria-current'); }); }
 /* a link is a view (#cns) or any section inside a view (#faq opens About and scrolls there) */
 function route(){
@@ -242,7 +242,7 @@ addEventListener('hashchange', route); route();
 /* keep the header link in step with what is on screen */
 if ('IntersectionObserver' in window) {
   const spy = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting && $('.view.on').dataset.view === 'home') mark(e.target.id); }), { rootMargin: '-45% 0px -50% 0px' });
-  ['cover', 'fixes', 'work', 'words', 'contact'].forEach(id => { const el = document.getElementById(id); if (el) spy.observe(el); });
+  ['cover', 'fixes'].forEach(id => { const el = document.getElementById(id); if (el) spy.observe(el); });
 }
 
 /* ---------- copy phone or email ---------- */
@@ -271,20 +271,23 @@ wire($('#shopform'), $('#shopmsg'), ['name', 'contact'], d => ({ name: d.get('na
 /* HOME: five businesses as tabs. Tap a tab or swipe the deck sideways. */
 (() => { const deck = $('#deck'); if (!deck) return; const tabs = $$('.btabs .btab'), cards = [...deck.children]; let cur = 0, tk;
   const strip = $('.btabs');
-  const set = i => { const moved = i !== cur; cur = i; tabs.forEach((t, k) => { t.classList.toggle('on', k === i); t.setAttribute('aria-selected', k === i ? 'true' : 'false'); t.tabIndex = k === i ? 0 : -1; });
+  const fit = () => { const h = cards[cur].offsetHeight; if (h) deck.style.height = h + 'px'; };
+  const set = i => { const moved = i !== cur; cur = i; fit(); tabs.forEach((t, k) => { t.classList.toggle('on', k === i); t.setAttribute('aria-selected', k === i ? 'true' : 'false'); t.tabIndex = k === i ? 0 : -1; });
     if (moved && strip.scrollWidth > strip.clientWidth + 2) strip.scrollTo({ left: tabs[i].offsetLeft - (strip.clientWidth - tabs[i].offsetWidth) / 2, behavior: calm ? 'instant' : 'smooth' }); };
   const go = (i, smooth) => { i = Math.max(0, Math.min(cards.length - 1, i)); set(i); deck.scrollTo({ left: i * deck.clientWidth, behavior: smooth && !calm ? 'smooth' : 'instant' }); };
   tabs.forEach((t, i) => { t.addEventListener('click', () => go(i, true));
     t.addEventListener('keydown', e => { if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return; e.preventDefault(); const n = (i + (e.key === 'ArrowRight' ? 1 : -1) + tabs.length) % tabs.length; go(n, true); tabs[n].focus(); }); });
   deck.addEventListener('scroll', () => { clearTimeout(tk); tk = setTimeout(() => { if (deck.clientWidth) set(Math.round(deck.scrollLeft / deck.clientWidth)); }, 90); }, { passive: true });
-  if ('ResizeObserver' in window) new ResizeObserver(() => { if (deck.clientWidth) deck.scrollLeft = cur * deck.clientWidth; }).observe(deck);
+  let lastW = 0;
+  if ('ResizeObserver' in window) { const ro = new ResizeObserver(() => { const w = deck.clientWidth; if (w && w !== lastW) { lastW = w; deck.scrollLeft = cur * w; } fit(); }); ro.observe(deck); cards.forEach(c => ro.observe(c)); }
+  addEventListener('load', fit); fit();
   const byHash = () => { const i = cards.findIndex(c => '#' + c.id === location.hash); if (i >= 0) go(i, false); };
   addEventListener('hashchange', byHash); byHash();
 })();
 
 /* ABOUT: every long section folds under its heading. A link to a section opens it. */
 (() => { const v = $('.view[data-view=about]'); if (!v) return;
-  const NAMES = { 'work-app': 'A private client\u2019s app', 'review-sec': 'Leave a review' };
+  const NAMES = { 'work-app': 'Nutrition app for a client from the gym', 'review-sec': 'Leave a review' };
   $$(':scope > section', v).forEach(sec => { if (!sec.id || sec.id === 'me-sec' || sec.id === 'contact') return;
     const h = sec.querySelector('h2'), box = sec.querySelector(':scope > .wrap') || sec, name = NAMES[sec.id] || (h && h.textContent.trim()); if (!name) return;
     const d = document.createElement('details'), s = document.createElement('summary'), body = document.createElement('div');

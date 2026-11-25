@@ -925,6 +925,151 @@ main:has(> .view[data-view=home].on) ~ .foot{display:none}
   .view[data-view=home]{padding-bottom:72px}
 }
 
+/* HOME, tighter: the phone number lives once, in the header. The hero is the headline and the ways to write. */
+.hero4-in{padding-block:clamp(12px,1.6vw,22px) clamp(8px,1vw,14px)}
+.hero4 h1{font-size:clamp(1.9rem,2.9vw,2.6rem)}
+.hero4 .hero2-lede{margin-top:8px;font-size:clamp(1.05rem,1.35vw,1.2rem)}
+.hero4-cta{gap:8px}
+.hero4-soc{flex-wrap:nowrap;max-width:none}
+.btabs-top{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:4px 28px}
+.btabs-sub{font:600 1rem/1.35 var(--sans);color:var(--glow);text-underline-offset:3px}
+@media (max-height:780px) and (min-width:901px){.btab{aspect-ratio:2/1}}
+.deck{align-items:flex-start;transition:height .25s ease;margin-top:clamp(12px,1.3vw,18px)}
+.tabsec{padding-bottom:clamp(14px,1.6vw,22px)}
+@media (prefers-reduced-motion:reduce){.deck{transition:none}}
+
+/* SUB-PROJECTS: who the business is and how it began, then what was built, as picture tiles. Two sizes of type. */
+.bz.bz-subs{display:block}
+.bz-head{position:relative}
+.bz-head .bz-text{min-width:0}
+.deck .bz-subs h3{padding-right:190px}
+.deck .bz-subs h3{margin:0;font:650 1.35rem/1.2 var(--sans);letter-spacing:-.03em;max-width:none}
+.deck .bz-subs h3 small{margin-left:8px;font:400 1rem/1.2 var(--sans);letter-spacing:0;color:var(--on-2)}
+.bz .bz-text > p.bz-lede{margin-top:6px;max-width:none;font:400 1.0625rem/1.45 var(--sans);color:var(--on);text-wrap:pretty}
+.bz-lede .d-s{display:none}
+.deck .bz-subs .pill{position:absolute;right:0;top:-6px;margin:0}
+.subs{display:grid;grid-template-columns:minmax(0,1.16fr) minmax(0,1fr) minmax(0,1fr);gap:clamp(12px,1.4vw,18px) clamp(12px,1.5vw,20px);margin-top:clamp(12px,1.4vw,18px)}
+.sp{display:flex;flex-direction:column;min-width:0;color:inherit;text-decoration:none;scroll-margin-top:16px}
+.sp-lead{grid-row:span 2}
+.sp-fig{display:flex;flex-direction:column;margin:0;border-radius:var(--r-sm);overflow:hidden;background:var(--page-lo);box-shadow:0 22px 44px -30px rgba(0,0,0,.8);transition:box-shadow .2s}
+.sp-pic{position:relative;display:block;aspect-ratio:16/6.2;overflow:hidden;background:#fff}
+.sp-pic img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 0}
+.sp-lead .sp-fig{flex:1 1 auto}
+.sp-lead .sp-pic{flex:1 1 auto;aspect-ratio:auto;min-height:200px}
+.sp-t{display:block;margin-top:9px;font:650 1.0625rem/1.25 var(--sans);letter-spacing:-.02em;color:var(--on)}
+.sp-d{display:block;margin-top:3px;font:400 1rem/1.4 var(--sans);color:var(--on-2);text-wrap:pretty}
+.sp-d .d-s{display:none}
+a.sp:hover .sp-fig,a.sp:focus-visible .sp-fig{box-shadow:0 0 0 3px var(--glow),0 22px 44px -30px rgba(0,0,0,.8)}
+a.sp:focus-visible{outline:none}
+.sp .bz-url{padding:6px 12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sp .bz-url::before{width:8px;height:8px;box-shadow:13px 0 0 #FFB23E,26px 0 0 #6B4A72;margin-right:36px}
+/* on the home tiles the address sits on the picture, so the small tiles stay short */
+.deck .sp:not(.sp-lead) .sp-fig{position:relative}
+.deck .sp:not(.sp-lead) .bz-url{position:absolute;left:8px;bottom:8px;z-index:1;max-width:calc(100% - 16px);padding:4px 10px;border-radius:999px;background:rgba(30,12,40,.88);color:var(--veil-on);font:500 1rem/1.2 var(--sans)}
+.deck .sp:not(.sp-lead) .bz-url::before{display:none}
+/* a result with numbers is a small chart in the same frame as the pictures: before in red, now in amber, to scale */
+.sp-fig.sp-chart{background:none;box-shadow:none}
+.sp-chart .sp-pic{display:flex;flex-direction:column;justify-content:center;padding:10px 16px;border:1px solid var(--rule-2);border-radius:var(--r-sm);background:none}
+a.sp:hover .sp-fig.sp-chart,a.sp:focus-visible .sp-fig.sp-chart{box-shadow:none}
+a.sp:hover .sp-chart .sp-pic,a.sp:focus-visible .sp-chart .sp-pic{border-color:var(--glow)}
+.bars{display:grid;gap:10px}
+.bar{display:block}
+.bar-l{display:flex;justify-content:space-between;gap:10px;font:400 1rem/1.2 var(--sans);color:var(--on-2);white-space:nowrap}
+.bar-l b{font-weight:650;color:var(--on)}
+.bar-t{display:block;height:10px;margin-top:5px;border-radius:5px;background:rgba(247,235,245,.13);overflow:hidden}
+.bar-t i{display:block;height:100%;border-radius:5px;background:var(--band)}
+.bar.new .bar-t i{background:var(--glow)}
+.stack{display:flex;gap:3px;height:40px}
+.stack i{display:flex;align-items:center;justify-content:center;min-width:24px;border-radius:5px;font:650 1rem/1 var(--sans);font-style:normal;white-space:nowrap;color:#2B1437;background:var(--glow)}
+.stack i span{margin-left:.3em}
+.stack i:nth-child(2){background:#FFC978}
+.stack i:nth-child(3){background:#FFDFAE}
+.stack i:nth-child(4){background:#F7EBF5}
+.sp-names{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px 14px;width:100%}
+.sp-names i{font:650 clamp(1rem,1.3vw,1.15rem)/1.25 var(--sans);font-style:normal;letter-spacing:-.02em;color:var(--on)}
+/* the phone app: its screens stand upright */
+.subs.n3{grid-template-columns:minmax(0,1.55fr) repeat(3,minmax(0,1fr))}
+.subs.n3 .sp-lead{grid-row:auto}
+.subs.n3 .sp:not(.sp-lead) .sp-pic{aspect-ratio:3/3.9}
+/* on a business page: every sub-project, the main one across two columns */
+.subs.all{grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(22px,2.6vw,36px) clamp(16px,2vw,28px);margin-top:0}
+.subs.all .sp-lead{grid-column:span 2}
+.subs.all .sp-pic{aspect-ratio:16/9}
+.subs.all .sp-lead .sp-pic{aspect-ratio:auto}
+.subs.all.wide .sp-lead{grid-row:auto}
+.subs.all.wide .sp-lead .sp-pic{aspect-ratio:2.4/1;flex:none}
+.subs.all .sp-t{font-size:1.2rem}
+.subs.all .sp-d{max-width:34em}
+.subs.all .sp-chart .sp-pic{padding:16px 22px}
+.subs.all + .did{margin-top:clamp(26px,3.4vw,44px)}
+.did li{scroll-margin-top:16px}
+.sp:target .sp-fig:not(.sp-chart){box-shadow:0 0 0 3px var(--glow)}
+.sp:target .sp-chart .sp-pic{border-color:var(--glow)}
+.did li:target b{color:var(--glow)}
+
+/* ABOUT: fewer sections, plain ones */
+.edge{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(22px,3vw,40px) clamp(24px,3.4vw,52px)}
+.edge h3{font:650 1.2rem/1.2 var(--sans);letter-spacing:-.025em;color:var(--glow)}
+.edge p{margin-top:8px;font:400 1.0625rem/1.45 var(--sans);color:var(--on);text-wrap:pretty}
+.me-kit{margin-top:22px;max-width:340px}
+.me-kit figcaption{font-size:1rem}
+.word figcaption a{font:500 1rem/1.3 var(--sans);color:var(--on-2);text-decoration:none}
+.view[data-view=about] .fold{grid-column:1/-1}
+
+/* BUSINESS PAGES: the story in plain type, then the sub-projects */
+.phead .meta{max-width:62em;font:400 1.0625rem/1.5 var(--sans);color:var(--on)}
+.cta:not(.paper){padding-inline:0;border-top:1px solid var(--rule-2);border-radius:0}
+/* FOOTER: one quiet line on every page. The phone number is in the header. */
+main:has(> .view[data-view=home].on) ~ .foot{display:block}
+.foot{padding-block:16px calc(16px + env(safe-area-inset-bottom,0px))}
+.foot-row{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:6px 36px;font-size:1rem;color:var(--on-2)}
+.foot-row p{max-width:none;margin:0}
+.foot-row b{display:inline;margin:0 8px 0 0;font:600 1rem/1.3 var(--sans);color:var(--accent)}
+.foot-row nav{display:flex;flex-wrap:wrap;gap:4px 20px}
+.foot-row nav a{text-decoration:none}
+.foot-row nav a:hover{color:var(--on)}
+
+@media (max-width:900px){
+  .subs,.subs.all{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .sp-lead,.subs.all .sp-lead{grid-column:1/-1;grid-row:auto}
+  .sp-lead .sp-pic,.subs.all .sp-lead .sp-pic{aspect-ratio:2/1;min-height:0;flex:none}
+  .subs.n3{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .edge{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:640px){
+  .hero4-soc .chip.dk{display:none}
+  .hero4-cta{grid-auto-flow:column;justify-content:space-between;align-items:center}
+  .btabs-sub{display:none}
+  .deck .bz-subs h3{font-size:1.2rem}
+  .deck .bz-subs h3 small{display:none}
+  .bz .bz-text > p.bz-lede{font-size:1rem;line-height:1.4;margin-top:4px}
+  .bz-lede .d-l{display:none}
+  .bz-lede .d-s{display:inline}
+  main:has(> .view[data-view=home].on) ~ .foot{display:none}
+  .deck .bz-subs .pill{display:none}
+  .deck .subs{gap:12px 10px;margin-top:10px}
+  .deck .sp-lead .sp-pic{aspect-ratio:21/9}
+  .deck .sp:not(.sp-lead) .sp-pic{aspect-ratio:16/8}
+  .deck .subs.n3 .sp:not(.sp-lead) .sp-pic{aspect-ratio:3/4}
+  .deck .sp:not(.sp-lead) .sp-d{display:none}
+  .deck .sp-t{margin-top:7px;font-size:1rem}
+  .sp-d .d-l{display:none}
+  .sp-d .d-s{display:inline}
+  .deck .sp:not(.sp-lead) .bz-url{left:5px;bottom:5px;padding:3px 8px;max-width:calc(100% - 10px)}
+  .deck .bz-subs h3{padding-right:0}
+  .deck .sp-lead .bz-url{padding:5px 10px}
+  .deck .sp-chart .sp-pic{padding:6px 10px}
+  .deck .bars{gap:5px}
+  .deck .bar-t{height:7px;margin-top:3px}
+  .deck .stack{height:34px}
+  .deck .stack i span{display:none}
+  .deck .sp-names{gap:0 8px}
+  .deck .sp-names i{font-size:1rem;line-height:1.2}
+  .subs.all{grid-template-columns:minmax(0,1fr)}
+  .edge{grid-template-columns:minmax(0,1fr)}
+  .foot-row{justify-content:flex-start}
+}
+
 /* ABOUT: the long sections fold under their headings, so the page is a short list, not a long scroll */
 .folded{padding-block:0 !important}
 .fold > summary{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:20px 0;border-top:1px solid var(--rule-2);font:600 clamp(1.25rem,2vw,1.6rem)/1.2 var(--sans);letter-spacing:-.025em;cursor:pointer;list-style:none}
