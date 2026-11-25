@@ -4,7 +4,7 @@
   "rewrites": [
     {
       "source": "/(about|teaching|feedback|withai|with-ai|how|words|ai-edge|nykhdc|cns|strikeforce|lconstruction|design|contact|workshop)",
-      "destination": "/index.html"
+      "destination": "/"
     }
   ],
   "headers": [
