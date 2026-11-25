@@ -215,9 +215,9 @@ sheet.addEventListener('click', e => { if (e.target.closest('a')) menu(false); }
 document.addEventListener('keydown', e => { if (e.key === 'Escape' && sheet.classList.contains('on')) { menu(false); $('#menu-open').focus(); } });
 
 /* ---------- pages and anchors ---------- */
-const VIEWS = ['home', 'about', 'design', 'nykhdc', 'cns', 'strikeforce', 'lconstruction'];
+const VIEWS = ['home', 'withai', 'teaching', 'feedback', 'about', 'design', 'nykhdc', 'cns', 'strikeforce', 'lconstruction'];
 const OLD = { best: 'fixes', services: 'ai-edge', work: 'fixes', pages: 'nykhdc', builder: 'nykhdc', where: 'contact', skills: 'ai-edge', 'contact-home': 'contact', volunteer: 'me-sec', firstday: 'how', what: 'fixes', loop: 'fixes', c1: 'nykhdc', c2: 'cns', c3: 'nykhdc', c4: 'strikeforce', c5: 'lconstruction', c6: 'work-app', stage: 'nykhdc', words: 'words' };
-const NAV = { cover: 'fixes', results: 'fixes', nykhdc: 'fixes', cns: 'fixes', strikeforce: 'fixes', lconstruction: 'fixes', design: 'fixes', 'me-sec': 'about' };
+const NAV = { cover: 'fixes', results: 'fixes', nykhdc: 'fixes', cns: 'fixes', strikeforce: 'fixes', lconstruction: 'fixes', design: 'fixes', 'me-sec': 'about', withai: 'ai-edge', 'ai-care': 'ai-edge', teaching: 'how', workshop: 'how', feedback: 'words', 'review-sec': 'words', review: 'words', faq: 'about', 'work-app': 'about', contact: 'about' };
 function mark(id){ const k = NAV[id] || id; $$('.nav a').forEach(a => { if (a.getAttribute('href') === '#' + k) a.setAttribute('aria-current', 'true'); else a.removeAttribute('aria-current'); }); }
 /* a link is a view (#cns) or any section inside a view (#faq opens About and scrolls there) */
 function route(){

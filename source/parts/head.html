@@ -3,8 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>My CV: hands-on AI help for small businesses in New York</title>
-<meta name="description" content="On site and in person: the slow step in a business gets rebuilt with AI tools, then the team learns to run it. Five businesses so far. Days became minutes, a week became hours. Brooklyn, New York.">
+<title>Rustam Shabanov: hands-on AI help for small businesses in New York</title>
+<meta name="author" content="Rustam Shabanov">
+<meta name="description" content="On site and in person: the slow step in a business gets rebuilt with AI tools, then the team learns to run it. Four businesses and a gym client so far. Days became minutes, a week became hours. Brooklyn, New York.">
 <meta property="og:title" content="Hands-on AI help for small businesses in New York">
 <meta property="og:description" content="On site and in person. Five businesses so far: days became minutes, a week became hours.">
 <meta property="og:image" content="https://mycv4u.com/assets/og.jpg">
@@ -952,7 +953,7 @@ main:has(> .view[data-view=home].on) ~ .foot{display:none}
 .sp{display:flex;flex-direction:column;min-width:0;color:inherit;text-decoration:none;scroll-margin-top:16px}
 .sp-lead{grid-row:span 2}
 .sp-fig{display:flex;flex-direction:column;margin:0;border-radius:var(--r-sm);overflow:hidden;background:var(--page-lo);box-shadow:0 22px 44px -30px rgba(0,0,0,.8);transition:box-shadow .2s}
-.sp-pic{position:relative;display:block;aspect-ratio:16/6.2;overflow:hidden;background:#fff}
+.sp-pic{position:relative;display:block;aspect-ratio:16/5.8;overflow:hidden;background:#fff}
 .sp-pic img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 0}
 .sp-lead .sp-fig{flex:1 1 auto}
 .sp-lead .sp-pic{flex:1 1 auto;aspect-ratio:auto;min-height:200px}
@@ -1071,6 +1072,45 @@ main:has(> .view[data-view=home].on) ~ .foot{display:block}
   .edge{grid-template-columns:minmax(0,1fr)}
   .foot-row{justify-content:flex-start}
 }
+
+/* WHO: the person behind the page, under the headline */
+.hero4-who{display:flex;align-items:center;gap:12px;margin-top:10px;font:400 clamp(1.05rem,1.3vw,1.18rem)/1.3 var(--sans);color:var(--on-2)}
+.hero4-who img{flex:none;width:42px;height:42px;border-radius:50%;object-fit:cover;object-position:50% 20%;background:#fff}
+.hero4-who b{margin-right:10px;font-weight:650;color:var(--on)}
+.hero4-who .who-s{display:none}
+/* quiet type: no coloured words. Colour is for links in use and for charts. */
+.hero4 .hero2-note{color:var(--on-2)}
+.btab small{font-weight:650;color:var(--veil-on)}
+.btab b{font-weight:400;color:rgba(247,235,245,.86)}
+.btabs-sub{font-weight:500;color:var(--on)}
+.edge h3{color:var(--on)}
+.phead .note b{color:inherit;font-weight:inherit}
+/* WITH AI, TEACHING, FEEDBACK: short pages of their own */
+.sec.vtop{padding-block:clamp(26px,3.6vw,52px) clamp(30px,4vw,56px)}
+.vh{font:650 clamp(1.9rem,3.1vw,2.6rem)/1.06 var(--sans);letter-spacing:-.04em;max-width:28ch;text-wrap:balance}
+.vlede{margin-top:10px;max-width:60em}
+.vh + .edge,.vlede + .edge,.vlede + .steps,.vh + .words{margin-top:clamp(20px,2.6vw,34px)}
+.vsub{margin:clamp(30px,4vw,52px) 0 clamp(14px,1.8vw,22px);font:650 clamp(1.3rem,2vw,1.7rem)/1.15 var(--sans);letter-spacing:-.03em}
+.month2{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;margin-top:18px;max-width:34rem}
+.month2 span{display:flex;align-items:center;justify-content:center;min-height:54px;border:1px solid var(--rule-2);border-radius:10px;font:600 1rem/1.2 var(--sans);text-align:center}
+.month2 .shop{border-color:transparent;background:var(--glow);color:#2B1437}
+.plain-note{margin-top:14px;max-width:34rem;font:400 1.0625rem/1.45 var(--sans);color:var(--on)}
+.chart-cap{display:block;margin-top:8px;font:400 1rem/1.2 var(--sans);color:var(--on-2)}
+.shopbox:not(.paper){padding:0}
+@media (max-width:640px){
+  .top .top-call{display:none}
+  .hero4-who{font-size:1rem;gap:10px;margin-top:8px}
+  .hero4-who img{width:42px;height:42px}
+  .hero4-who b{display:block;margin:0}
+  .hero4-who .who-l{display:none}
+  .hero4-who .who-s{display:inline}
+  .deck .chart-cap{display:none}
+}
+
+.steps time{color:var(--on-2)}
+.foot-row b{color:var(--on)}
+.view[data-view=teaching] .rule-note{background:none;border:0;border-top:1px solid var(--rule-2);border-radius:0;padding:16px 0 0}
+.view[data-view=teaching] .rule-note .note{color:var(--on-2)}
 
 /* ABOUT: the long sections fold under their headings, so the page is a short list, not a long scroll */
 .folded{padding-block:0 !important}
