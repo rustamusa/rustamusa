@@ -15,17 +15,54 @@ const GROUPS = {
 const byKey = Object.fromEntries(M.map(m => [m.k, m]));
 const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-/* ---------- picture viewer ---------- */
-const lb = $('#lb'); let view = [], idx = 0;
-function openLB(list, i){ view = list; idx = i; showLB(); if (!lb.open) lb.showModal(); }
-function showLB(){ const it = view[idx]; $('#lb-img').src = 'assets/img/' + it.k + '.webp'; $('#lb-img').alt = it.cap; $('#lb-cap').textContent = (idx + 1) + ' / ' + view.length + '  ' + it.cap; }
-$('#lb-prev').onclick = () => { idx = (idx - 1 + view.length) % view.length; showLB(); };
-$('#lb-next').onclick = () => { idx = (idx + 1) % view.length; showLB(); };
+/* ---------- picture viewer: zoom, swipe, and Back closes it ---------- */
+const lb = $('#lb'), lbImg = $('#lb-img'), lbStage = $('#lb-stage'), lbZoom = $('#lb-zoom'); let view = [], idx = 0, zoomed = false, lbTouch = 0;
+const lbSrc = it => 'assets/img/' + it.k + '.webp';
+/* zoom keeps the frame as it is and pans inside it; cx, cy = the point to keep under the finger */
+function zoom(on, cx, cy){
+  if (on === zoomed) return; zoomed = on;
+  if (on) { const r = lbImg.getBoundingClientRect(), sw = lbStage.clientWidth, sh = lbStage.clientHeight, fx = cx == null ? .5 : (cx - r.left) / r.width, fy = cy == null ? .5 : (cy - r.top) / r.height;
+    const z = Math.min(3, Math.max(1.8, lbImg.naturalWidth / r.width)), w = r.width * z, h = r.height * z;
+    lbStage.style.width = sw + 'px'; lbStage.style.height = sh + 'px'; lbStage.classList.add('zoomed'); lbImg.style.width = w + 'px'; lbImg.style.height = h + 'px';
+    lbStage.scrollLeft = Math.max(0, fx * w - sw / 2); lbStage.scrollTop = Math.max(0, fy * h - sh / 2); }
+  else { lbStage.classList.remove('zoomed'); lbStage.style.width = lbStage.style.height = lbImg.style.width = lbImg.style.height = ''; }
+  lbZoom.textContent = on ? '\u2212' : '+'; lbZoom.setAttribute('aria-pressed', on); lbZoom.setAttribute('aria-label', on ? 'Zoom out' : 'Zoom in');
+}
+function showLB(){ const it = view[idx]; zoom(false); if (lbImg.getAttribute('src') !== lbSrc(it)) lb.classList.add('wait'); lbImg.alt = it.cap; lbImg.src = lbSrc(it);
+  $('#lb-cap').textContent = (idx + 1) + ' / ' + view.length + '  ' + it.cap;
+  $('#lb-prev').hidden = $('#lb-next').hidden = view.length < 2;
+  /* the pictures on both sides are ready before they are asked for */
+  [-1, 1].forEach(d => { const n = view[(idx + d + view.length) % view.length]; if (n && n !== it) { const i = new Image(); i.src = lbSrc(n); } }); }
+['load', 'error'].forEach(ev => lbImg.addEventListener(ev, () => lb.classList.remove('wait')));
+/* opening adds a step to the history, so Back closes the picture and stays on the page */
+function openLB(list, i){ view = list; idx = i; showLB(); if (!lb.open) { lb.showModal(); history.pushState(Object.assign({}, history.state, { lb: 1 }), ''); } }
+lb.addEventListener('close', () => { zoom(false); if (history.state && history.state.lb) history.back(); });
+addEventListener('popstate', () => { if (lb.open && !(history.state && history.state.lb)) lb.close(); });
+const lbGo = d => { idx = (idx + d + view.length) % view.length; showLB(); };
+$('#lb-prev').onclick = () => lbGo(-1);
+$('#lb-next').onclick = () => lbGo(1);
 $('#lb-close').onclick = () => lb.close();
+lbZoom.onclick = () => zoom(!zoomed);
+lbImg.addEventListener('dblclick', e => { if (Date.now() - lbTouch > 700) zoom(!zoomed, e.clientX, e.clientY); });
 lb.addEventListener('click', e => { if (e.target === lb) lb.close(); });
-document.addEventListener('keydown', e => { if (!lb.open) return; if (e.key === 'ArrowLeft') $('#lb-prev').click(); if (e.key === 'ArrowRight') $('#lb-next').click(); });
+document.addEventListener('keydown', e => { if (!lb.open) return; const k = e.key;
+  if (k === 'ArrowLeft') lbGo(-1); else if (k === 'ArrowRight') lbGo(1);
+  else if (k === 'Home') { idx = 0; showLB(); } else if (k === 'End') { idx = view.length - 1; showLB(); }
+  else if (k === '+' || k === '=') zoom(true); else if (k === '-') zoom(false); });
 $$('[data-open]').forEach(f => f.addEventListener('click', () => { const it = byKey[f.dataset.open]; if (!it) return; const set = M.filter(m => m.biz === it.biz && m.grp === it.grp); openLB(set, set.indexOf(it)); }));
-(function(){ let x0 = null; lb.addEventListener('touchstart', e => { x0 = e.touches[0].clientX; }, { passive: true }); lb.addEventListener('touchend', e => { if (x0 === null) return; const dx = e.changedTouches[0].clientX - x0; if (Math.abs(dx) > 50) (dx < 0 ? $('#lb-next') : $('#lb-prev')).click(); x0 = null; }); })();
+/* touch: swipe sideways for the next picture, swipe down to close, tap twice to zoom; two fingers are left to the browser */
+(function(){ let x0 = null, y0 = 0, multi = false, tap = 0, tx = 0, ty = 0;
+  lb.addEventListener('touchstart', e => { multi = e.touches.length > 1; x0 = e.touches[0].clientX; y0 = e.touches[0].clientY; }, { passive: true });
+  lb.addEventListener('touchmove', e => { if (e.touches.length > 1) multi = true; }, { passive: true });
+  lb.addEventListener('touchend', e => { lbTouch = Date.now(); if (x0 === null) return; const t = e.changedTouches[0], dx = t.clientX - x0, dy = t.clientY - y0; x0 = null;
+    if (multi || (window.visualViewport && visualViewport.scale > 1.02)) return;
+    if (Math.abs(dx) < 12 && Math.abs(dy) < 12) { const now = Date.now();
+      if (e.target === lbImg && now - tap < 320 && Math.abs(t.clientX - tx) < 32 && Math.abs(t.clientY - ty) < 32) { tap = 0; zoom(!zoomed, t.clientX, t.clientY); }
+      else { tap = now; tx = t.clientX; ty = t.clientY; }
+      return; }
+    if (zoomed) return;
+    if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.2 && view.length > 1) lbGo(dx < 0 ? 1 : -1);
+    else if (dy > 80 && dy > Math.abs(dx) * 1.5) lb.close(); }); })();
 
 /* ---------- galleries on the business pages ---------- */
 const PAGE = 6;
@@ -129,17 +166,6 @@ const jobs = (function(){
   return { open: id => { const i = panels.findIndex(p => p.id === id); if (i < 0) return false; show(i, 'tap'); return true; }, ids: panels.map(p => p.id) };
 })();
 
-/* ---------- the month: four days on site, one workshop ---------- */
-(function(){
-  const g = $('#cal-grid'); if (!g) return;
-  const site = [2, 9, 16, 23], shop = 25; let h = '';
-  for (let d = 1; d <= 35; d++) {
-    if (d > 31) { h += '<span></span>'; continue; }
-    h += site.includes(d) ? '<span class="site">' + d + '<em>On site</em></span>' : d === shop ? '<span class="shop">' + d + '<em>Workshop</em></span>' : '<span>' + d + '</span>';
-  }
-  g.innerHTML = h;
-})();
-
 /* ---------- the live builder loads when asked ---------- */
 (function(){
   const btn = $('#stage-load'); if (!btn) return;
@@ -206,39 +232,72 @@ if (PORTRAIT) {
   });
 })();
 
-/* ---------- menu on small screens ---------- */
-const sheet = $('#sheetnav');
-const menu = on => { sheet.classList.toggle('on', on); document.body.style.overflow = on ? 'hidden' : ''; if (on) $('#menu-close').focus(); };
-$('#menu-open').addEventListener('click', () => menu(true));
-$('#menu-close').addEventListener('click', () => { menu(false); $('#menu-open').focus(); });
+/* ---------- menu on small screens: a dialog that leaves the page where it was ---------- */
+const sheet = $('#sheetnav'), menuBtn = $('#menu-open'); let menuY = 0;
+const menu = (on, back) => { if (on === sheet.classList.contains('on')) return;
+  if (on) menuY = scrollY;
+  sheet.classList.toggle('on', on); menuBtn.setAttribute('aria-expanded', on); document.documentElement.classList.toggle('locked', on);
+  if (on) $('#menu-close').focus({ preventScroll: true });
+  else if (back) { scrollTo({ top: menuY, behavior: 'instant' }); menuBtn.focus({ preventScroll: true }); } };
+menuBtn.addEventListener('click', () => menu(true));
+$('#menu-close').addEventListener('click', () => menu(false, true));
 sheet.addEventListener('click', e => { if (e.target.closest('a')) menu(false); });
-document.addEventListener('keydown', e => { if (e.key === 'Escape' && sheet.classList.contains('on')) { menu(false); $('#menu-open').focus(); } });
+document.addEventListener('keydown', e => { if (!sheet.classList.contains('on')) return;
+  if (e.key === 'Escape') return menu(false, true);
+  if (e.key !== 'Tab') return;
+  const f = $$('a[href], button', sheet).filter(el => !el.hidden && el.offsetParent); if (!f.length) return;
+  const first = f[0], last = f[f.length - 1], at = document.activeElement;
+  if (e.shiftKey && (at === first || !sheet.contains(at))) { e.preventDefault(); last.focus(); }
+  else if (!e.shiftKey && (at === last || !sheet.contains(at))) { e.preventDefault(); first.focus(); } });
 
 /* ---------- pages and anchors ---------- */
 const VIEWS = ['home', 'withai', 'teaching', 'feedback', 'about', 'design', 'nykhdc', 'cns', 'strikeforce', 'lconstruction'];
-const OLD = { best: 'fixes', services: 'ai-edge', work: 'fixes', pages: 'nykhdc', builder: 'nykhdc', where: 'contact', skills: 'ai-edge', 'contact-home': 'contact', volunteer: 'me-sec', firstday: 'how', what: 'fixes', loop: 'fixes', c1: 'nykhdc', c2: 'cns', c3: 'nykhdc', c4: 'strikeforce', c5: 'lconstruction', c6: 'work-app', stage: 'nykhdc', words: 'words' };
-const NAV = { cover: 'fixes', results: 'fixes', nykhdc: 'fixes', cns: 'fixes', strikeforce: 'fixes', lconstruction: 'fixes', design: 'fixes', 'me-sec': 'about', withai: 'ai-edge', 'ai-care': 'ai-edge', teaching: 'how', workshop: 'how', feedback: 'words', 'review-sec': 'words', review: 'words', faq: 'about', 'work-app': 'about', contact: 'about' };
-function mark(id){ const k = NAV[id] || id; $$('.nav a').forEach(a => { if (a.getAttribute('href') === '#' + k) a.setAttribute('aria-current', 'true'); else a.removeAttribute('aria-current'); }); }
-/* a link is a view (#cns) or any section inside a view (#faq opens About and scrolls there) */
+const OLD = { best: 'fixes', services: 'ai-edge', work: 'fixes', pages: 'nykhdc', builder: 'nykhdc', where: 'contact', skills: 'ai-edge', 'contact-home': 'contact', volunteer: 'me-sec', firstday: 'how', what: 'fixes', loop: 'fixes', c1: 'nykhdc', c2: 'cns', c3: 'nykhdc', c4: 'strikeforce', c5: 'lconstruction', c6: 'fixes', stage: 'nykhdc', words: 'words' };
+const NAV = { cover: 'fixes', results: 'fixes', nykhdc: 'fixes', cns: 'fixes', strikeforce: 'fixes', lconstruction: 'fixes', design: 'fixes', 'me-sec': 'about', withai: 'ai-edge', 'ai-care': 'ai-edge', teaching: 'how', workshop: 'how', feedback: 'words', 'review-sec': 'words', review: 'words', faq: 'about', contact: 'about' };
+function mark(id){ const k = NAV[id] || id; $$('.nav a').forEach(a => { if (a.getAttribute('href') === '#' + k) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current'); }); }
+/* a link is a view (#cns) or any section inside a view (#faq opens About and scrolls there).
+   Every page has its own title. Back and Forward return to the place the visitor left. */
+const TITLES = { nykhdc: 'NY Kitchen & Home Design Center', cns: 'CNS Elevator Cabs', strikeforce: 'Strike Force', lconstruction: 'L-Construction Group', withai: 'With AI', teaching: 'Teaching', feedback: 'Feedback', about: 'About', design: 'Renders and drawings', nf: 'Page not found' };
+const HOME_TITLE = document.title;
+if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+/* where each step of the history was left, kept for the tab's life */
+const mem = (() => { let m = {}; try { m = JSON.parse(sessionStorage.getItem('rs-scroll') || '{}'); } catch (e) {}
+  return { get: i => m[i], set: (i, y) => { m[i] = Math.round(y); try { sessionStorage.setItem('rs-scroll', JSON.stringify(m)); } catch (e) {} } }; })();
+let hereI = null, hereHash = null, seq = Date.now() % 1e9, stk, booted = false;
+addEventListener('scroll', () => { clearTimeout(stk); stk = setTimeout(() => { if (hereI !== null && location.hash === hereHash && !document.documentElement.classList.contains('locked')) mem.set(hereI, scrollY); }, 120); }, { passive: true });
 function route(){
   let h = decodeURIComponent(location.hash.slice(1)); if (OLD[h]) h = OLD[h];
   let v, anchor = '';
   if (h === '' || h === 'home') v = 'home';
   else if (VIEWS.includes(h)) v = h;
   else { const el = document.getElementById(h), view = el && el.closest('.view'); if (view) { v = view.dataset.view; anchor = h; } else v = 'nf'; }
+  /* a step that already has a number is one the visitor came back to */
+  const st = history.state, back = !!(st && st.i != null), i = back ? st.i : ++seq;
+  if (!back) history.replaceState(Object.assign({}, st, { i }), '');
+  const y = back ? mem.get(i) : undefined;
+  hereI = i; hereHash = location.hash;
   const cur = $('.view.on'), same = cur && cur.dataset.view === v;
   const swap = () => $$('.view').forEach(el => el.classList.toggle('on', el.dataset.view === v));
   const land = () => {
-    mark(anchor || v);
+    mark(anchor || v); document.title = TITLES[v] ? TITLES[v] + ' | Rustam Shabanov' : HOME_TITLE;
     if (anchor === 'review') $('#review').open = true;
     const el = anchor && anchor !== 'cover' ? document.getElementById(anchor) : null;
-    if (el) { if (!same) window.scrollTo({ top: 0, behavior: 'instant' }); el.scrollIntoView({ behavior: same && !calm ? 'smooth' : 'instant', block: 'start' }); }
+    if (y != null) window.scrollTo({ top: y, behavior: 'instant' });
+    else if (el) { if (!same) window.scrollTo({ top: 0, behavior: 'instant' }); el.scrollIntoView({ behavior: same && !calm ? 'smooth' : 'instant', block: 'start' }); }
     else window.scrollTo({ top: 0, behavior: same && !calm ? 'smooth' : 'instant' });
+    /* a keyboard or a screen reader starts from the top of the new page */
+    if (booted && !same) { const t = $('.view.on h1') || $('#main'); if (t) { t.tabIndex = -1; t.focus({ preventScroll: true }); } }
+    booted = true;
   };
   if (same) return land();
   if (document.startViewTransition && cur && !calm) { const vt = document.startViewTransition(swap); vt.ready.catch(() => {}); vt.finished.catch(() => {}); vt.updateCallbackDone.then(land, () => { swap(); land(); }); } else { swap(); land(); }
 }
 addEventListener('hashchange', route); route();
+/* skip link: straight to the content, without changing the address */
+$('#skip').addEventListener('click', e => { e.preventDefault(); const m = $('#main'); m.focus({ preventScroll: true }); m.scrollIntoView({ block: 'start', behavior: 'instant' }); });
+/* the bar at the bottom of a phone steps aside while a field is being filled */
+document.addEventListener('focusin', e => { if (e.target.matches && e.target.matches('input:not([type=radio]):not([type=checkbox]), textarea')) document.body.classList.add('typing'); });
+document.addEventListener('focusout', () => document.body.classList.remove('typing'));
 /* keep the header link in step with what is on screen */
 if ('IntersectionObserver' in window) {
   const spy = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting && $('.view.on').dataset.view === 'home') mark(e.target.id); }), { rootMargin: '-45% 0px -50% 0px' });
@@ -261,14 +320,14 @@ function wire(form, msg, need, build, done){
       const r = await fetch('https://formsubmit.co/ajax/rustam.shb@gmail.com', { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' }, body: JSON.stringify(Object.assign({ _template: 'table', _captcha: 'false' }, build(d))) });
       const j = await r.json().catch(() => ({}));
       if (r.ok && String(j.success) !== 'false') { form.reset(); msg.textContent = done; } else throw new Error('send');
-    } catch (err) { msg.textContent = 'It did not send. Please call or text 917-943-6912.'; }
+    } catch (err) { msg.textContent = 'It did not send. Please use Call or WhatsApp.'; }
     btn.disabled = false;
   });
 }
 wire($('#revform'), $('#revmsg'), ['name', 'review'], d => ({ name: d.get('name'), business: d.get('business') || '', rating: (d.get('rating') || '5') + ' / 5', review: d.get('review'), ok_to_publish: d.get('ok_to_publish') ? 'yes' : 'no', _subject: 'New review on mycv4u.com' }), 'Thank you. The review is on its way.');
 wire($('#shopform'), $('#shopmsg'), ['name', 'contact'], d => ({ name: d.get('name'), business: d.get('business') || '', contact: d.get('contact'), would_fix_first: d.get('problem') || '', language: d.get('language') || 'English', _subject: 'Workshop sign-up on mycv4u.com' }), 'Saved. The date and place will come by text.');
 
-/* HOME: five businesses as tabs. Tap a tab or swipe the deck sideways. */
+/* HOME: the businesses as tabs. Tap a tab or swipe the deck sideways. */
 (() => { const deck = $('#deck'); if (!deck) return; const tabs = $$('.btabs .btab'), cards = [...deck.children], strip = $('.btabs'); let cur = 0, tk, hold = 0, busy = 0;
   const now = () => performance.now();
   /* the deck is as tall as the business on show, so nothing empty hangs under a shorter one */
@@ -290,7 +349,7 @@ wire($('#shopform'), $('#shopmsg'), ['name', 'contact'], d => ({ name: d.get('na
 
 /* ABOUT: every long section folds under its heading. A link to a section opens it. */
 (() => { const v = $('.view[data-view=about]'); if (!v) return;
-  const NAMES = { 'work-app': 'Nutrition app for a client from the gym', 'review-sec': 'Leave a review' };
+  const NAMES = { 'review-sec': 'Leave a review' };
   $$(':scope > section', v).forEach(sec => { if (!sec.id || sec.id === 'me-sec' || sec.id === 'contact') return;
     const h = sec.querySelector('h2'), box = sec.querySelector(':scope > .wrap') || sec, name = NAMES[sec.id] || (h && h.textContent.trim()); if (!name) return;
     const d = document.createElement('details'), s = document.createElement('summary'), body = document.createElement('div');
@@ -298,6 +357,6 @@ wire($('#shopform'), $('#shopmsg'), ['name', 'contact'], d => ({ name: d.get('na
     if (h && h.textContent.trim() === name) h.hidden = true; });
   const open = () => { const el = location.hash.length > 1 && document.getElementById(decodeURIComponent(location.hash.slice(1))); if (!el || !v.contains(el)) return;
     const inside = el.closest('details.fold'), f = inside || (el.matches('section') ? el.querySelector('details.fold') : null); if (!f || f.open) return; f.open = true;
-    if (inside) requestAnimationFrame(() => scrollTo({ top: el.getBoundingClientRect().top + scrollY - 76, behavior: 'instant' })); };
+    requestAnimationFrame(() => scrollTo({ top: el.getBoundingClientRect().top + scrollY - (inside ? 76 : 0), behavior: 'instant' })); };
   addEventListener('hashchange', open); open();
 })();

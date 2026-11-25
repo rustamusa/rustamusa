@@ -4,37 +4,28 @@
 @font-face{font-family:"Geist";font-weight:100 900;src:url(/assets/fonts/geist-latin-wght-normal.woff2) format("woff2")}
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{width:100%;height:100%}
-body{background:radial-gradient(70% 90% at 92% 4%,rgba(255,80,130,.26),transparent 62%),#2B1437 url(/assets/img/grain.png);color:#F7EBF5;font-family:"Geist",sans-serif;overflow:hidden;position:relative;font-variant-numeric:tabular-nums}
-ol{list-style:none}
-/* ---- og / cover: the first screen of the site ---- */
-.og{position:absolute;inset:0;padding:54px 64px 98px;display:grid;grid-template-columns:1.08fr .92fr;gap:52px;align-items:center}
-.brand{display:flex;align-items:center;gap:12px;font:600 23px/1 "Geist";letter-spacing:-.02em}
-.brand svg{width:30px;height:30px}
-.og h1{font:600 62px/1.02 "Geist";letter-spacing:-.045em;margin-top:30px}
+body{background:radial-gradient(70% 90% at 92% 4%,rgba(255,80,130,.24),transparent 62%),#2B1437 url(/assets/img/grain.png);color:#F7EBF5;font-family:"Geist",sans-serif;overflow:hidden;position:relative}
+/* ---- link preview and cover: the first screen of the site. The name, the photo, the headline, the four businesses. ---- */
+.og{position:absolute;inset:0;padding:56px 64px 92px;display:grid;grid-template-columns:1.06fr .94fr;gap:52px;align-items:center}
+.who{display:flex;align-items:center;gap:16px;font:650 27px/1.1 "Geist";letter-spacing:-.025em}
+.who img{width:64px;height:64px;border-radius:50%;object-fit:cover;object-position:50% 20%;background:#fff}
+.og h1{font:650 61px/1.02 "Geist";letter-spacing:-.045em;margin-top:34px}
 .og h1 span{display:block;white-space:nowrap}
-.og p.l{font:400 24px/1.42 "Geist";color:#CBAFD1;margin-top:22px;letter-spacing:-.01em;max-width:20em}
-.card{background:#FFD3E2 url(/assets/img/grain.png);color:#2B1437;border-radius:22px;padding:22px 28px 8px;box-shadow:0 40px 80px -36px rgba(0,0,0,.65)}
-.card h2{font:500 17px/1.3 "Geist";color:#6B4470;display:flex;justify-content:space-between;padding-bottom:12px;border-bottom:1px solid rgba(43,20,55,.42)}
-.card li{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:16px;align-items:center;padding:14px 0}
-.card li + li{border-top:1px solid rgba(43,20,55,.16)}
-.card .w{font:600 20px/1.25 "Geist";letter-spacing:-.02em}
-.card .ba{display:grid;justify-items:end;gap:5px}
-.card s{font:400 16px/1 "Geist";color:#6B4470;text-decoration-color:#A8125F;text-decoration-thickness:1.5px}
-.card b{font:700 34px/1 "Geist";letter-spacing:-.045em}
-.og .ft{position:absolute;left:64px;right:64px;bottom:40px;display:flex;justify-content:space-between;align-items:baseline;border-top:1px solid rgba(247,235,245,.2);padding-top:16px;font:500 21px/1 "Geist";color:#CBAFD1;letter-spacing:-.01em}
-.og .ft b{font:600 27px/1 "Geist";color:#FFB23E;letter-spacing:-.02em}
-body.cover .og{padding:84px 100px 138px;gap:72px}
-body.cover .brand{font-size:30px}body.cover .brand svg{width:38px;height:38px}
-body.cover .og h1{font-size:84px;margin-top:40px}
+.og p.l{font:400 24px/1.42 "Geist";color:#CBAFD1;margin-top:22px;letter-spacing:-.01em;max-width:19.5em}
+.work{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.work figure{position:relative;aspect-ratio:5/4;border-radius:16px;overflow:hidden;background:#1E0C28;box-shadow:0 0 0 1px rgba(247,235,245,.12),0 30px 60px -34px rgba(0,0,0,.9)}
+.work img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.work figcaption{position:absolute;left:0;right:0;bottom:0;padding:34px 16px 13px;background:linear-gradient(180deg,rgba(20,8,26,0),rgba(20,8,26,.84) 62%,rgba(20,8,26,.95));font:650 21px/1.15 "Geist";letter-spacing:-.02em}
+.og .ft{position:absolute;left:64px;right:64px;bottom:38px;display:flex;justify-content:space-between;align-items:baseline;border-top:1px solid rgba(247,235,245,.2);padding-top:16px;font:500 21px/1 "Geist";color:#CBAFD1;letter-spacing:-.01em}
+.og .ft b{font:600 21px/1 "Geist";color:#F7EBF5;letter-spacing:-.015em}
+body.cover .og{padding:84px 100px 132px;gap:72px}
+body.cover .who{font-size:36px;gap:22px}body.cover .who img{width:86px;height:86px}
+body.cover .og h1{font-size:82px;margin-top:44px}
 body.cover .og p.l{font-size:32px;margin-top:30px}
-body.cover .card{padding:30px 36px 12px;border-radius:28px}
-body.cover .card h2{font-size:22px;padding-bottom:16px}
-body.cover .card li{padding:20px 0}
-body.cover .card .w{font-size:27px}
-body.cover .card s{font-size:21px}
-body.cover .card b{font-size:46px}
-body.cover .og .ft{left:100px;right:100px;bottom:58px;font-size:27px;padding-top:22px}
-body.cover .og .ft b{font-size:36px}
+body.cover .work{gap:20px}body.cover .work figure{border-radius:22px}
+body.cover .work figcaption{font-size:28px;padding:46px 22px 18px}
+body.cover .og .ft{left:100px;right:100px;bottom:54px;font-size:27px;padding-top:22px}
+body.cover .og .ft b{font-size:27px}
 /* ---- avatar ---- */
 .av{position:absolute;inset:0;display:grid;place-items:center}
 .av svg{width:58%;height:58%}
@@ -46,15 +37,12 @@ if (k === 'avatar') {
   document.body.innerHTML = '<div class="av">' + mark.replace('stroke-width="1.5"', 'stroke-width="1.15"') + '</div>';
 } else {
   if (k === 'cover') document.body.className = 'cover';
-  const row = (w, s, b) => '<li><span class="w">' + w + '</span><span class="ba"><s>' + s + '</s><b>' + b + '</b></span></li>';
-  document.body.innerHTML = '<div class="og"><div><p class="brand">' + mark + 'My CV</p>'
+  const tile = (img, name) => '<figure><img src="/assets/img/' + img + '.webp" alt=""><figcaption>' + name + '</figcaption></figure>';
+  document.body.innerHTML = '<div class="og"><div><p class="who"><img src="/assets/img/rustam-shabanov.webp" alt="">Rustam Shabanov</p>'
     + '<h1><span>Hands-on AI help</span><span>for small businesses</span><span>in New York.</span></h1>'
-    + '<p class="l">On site and in person. The slow step in the business gets rebuilt with AI tools.</p></div>'
-    + '<div class="card"><h2><span>Results so far</span><span>before, after</span></h2><ol>'
-    + row('A priced kitchen with a 3D view', 'days', 'Minutes') + row('A 10-sheet approval drawing set', 'a week', 'Hours')
-    + row('An online store buried in bot orders', '2,828 bot orders', 'Cleared') + row('Orders copied to a former contractor', 'every order', 'Closed')
-    + '</ol></div>'
-    + '<div class="ft"><span>mycv4u.com / Brooklyn, New York</span><b>917-943-6912</b></div></div>';
+    + '<p class="l">On site and in person. Built with the team, so the team runs it after.</p></div>'
+    + '<div class="work">' + tile('pl-k_09', 'Kitchen showroom') + tile('cab-inside', 'Elevator cab maker') + tile('sf-nj', 'Game venues') + tile('lb-projects', 'Builder') + '</div>'
+    + '<div class="ft"><b>mycv4u.com</b><span>Brooklyn, New York</span></div></div>';
 }
 </script>
 </body></html>
