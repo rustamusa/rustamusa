@@ -328,24 +328,83 @@ wire($('#revform'), $('#revmsg'), ['name', 'review'], d => ({ name: d.get('name'
 wire($('#shopform'), $('#shopmsg'), ['name', 'contact'], d => ({ name: d.get('name'), business: d.get('business') || '', contact: d.get('contact'), would_fix_first: d.get('problem') || '', language: d.get('language') || 'English', _subject: 'Workshop sign-up on mycv4u.com' }), 'Saved. The date and place will come by text.');
 
 /* HOME: the businesses as tabs. Tap a tab or swipe the deck sideways. */
-(() => { const deck = $('#deck'); if (!deck) return; const tabs = $$('.btabs .btab'), cards = [...deck.children], strip = $('.btabs'); let cur = 0, tk, hold = 0, busy = 0;
-  const now = () => performance.now();
-  /* the deck is as tall as the business on show, so nothing empty hangs under a shorter one */
-  const fit = () => { const h = cards[cur].offsetHeight; if (h) deck.style.height = h + 'px'; };
-  const set = i => { const moved = i !== cur; cur = i; tabs.forEach((t, k) => { t.classList.toggle('on', k === i); t.setAttribute('aria-selected', k === i ? 'true' : 'false'); t.tabIndex = k === i ? 0 : -1; }); fit();
-    if (moved && strip.scrollWidth > strip.clientWidth + 2) strip.scrollTo({ left: tabs[i].offsetLeft - (strip.clientWidth - tabs[i].offsetWidth) / 2, behavior: calm ? 'instant' : 'smooth' }); };
-  /* after a resize or a rotation the deck goes back to the business on show, never in the middle of a swipe */
-  const anchor = () => { const w = deck.clientWidth; if (!w || now() < busy) return; if (Math.abs(deck.scrollLeft - cur * w) > 2) { hold = now() + 300; deck.scrollTo({ left: cur * w, behavior: 'instant' }); } };
-  const go = (i, smooth) => { i = Math.max(0, Math.min(cards.length - 1, i)); set(i); const fly = smooth && !calm; busy = now() + (fly ? 800 : 0); hold = 0; deck.scrollTo({ left: i * deck.clientWidth, behavior: fly ? 'smooth' : 'instant' }); };
-  tabs.forEach((t, i) => { t.addEventListener('click', () => go(i, true));
-    t.addEventListener('keydown', e => { if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return; e.preventDefault(); const n = (i + (e.key === 'ArrowRight' ? 1 : -1) + tabs.length) % tabs.length; go(n, true); tabs[n].focus(); }); });
-  deck.addEventListener('scroll', () => { if (now() < hold) return; clearTimeout(tk); tk = setTimeout(() => { const w = deck.clientWidth; if (!w || now() < hold) return; const x = deck.scrollLeft / w, n = Math.round(x); if (Math.abs(x - n) > .04 && now() >= busy) return anchor(); set(n); }, 90); }, { passive: true });
-  ['touchstart', 'touchmove', 'wheel', 'pointerdown'].forEach(ev => deck.addEventListener(ev, () => { busy = now() + 600; }, { passive: true }));
-  if ('ResizeObserver' in window) { const ro = new ResizeObserver(() => { anchor(); fit(); setTimeout(anchor, 350); }); ro.observe(deck); cards.forEach(c => ro.observe(c)); }
-  addEventListener('load', fit); fit();
-  const byHash = () => { const i = cards.findIndex(c => '#' + c.id === location.hash); if (i >= 0) go(i, false); };
+(() => { const deck = $('#deck'); if (!deck) return;
+  /* One business is on show. The next one slides in under the finger or after a tap on its tab.
+     The deck is not a scroll box: cards are moved with transform, so nothing snaps back and a vertical scroll never shifts them. */
+  const tabs = $$('.btabs .btab'), cards = [...deck.children], bar = $('.btabs'), sec = deck.closest('section') || deck, n = cards.length;
+  let cur = Math.max(0, cards.findIndex(c => c.classList.contains('cur'))), peer = -1, goal = -1, timer = 0, g = null, dragged = 0;
+  const span = () => deck.clientWidth + (parseFloat(getComputedStyle(deck).columnGap) || 0);
+  const at = (i, x) => { cards[i].style.transform = 'translate3d(' + x.toFixed(1) + 'px,0,0)'; };
+  const thumb = p => bar.style.setProperty('--p', Math.max(-.05, Math.min(n - .95, p)).toFixed(4));   /* at either end the thumb presses into the wall of the track and no further */
+  const mark = i => tabs.forEach((t, k) => { const on = k === i; t.classList.toggle('on', on); t.setAttribute('aria-selected', on ? 'true' : 'false'); t.tabIndex = on ? 0 : -1; });
+  const drop = () => { if (peer < 0) return; cards[peer].classList.remove('peer'); cards[peer].style.transform = ''; peer = -1; };
+  /* the end of a slide: the new card takes its place in the page, the others are put away */
+  const settle = to => { clearTimeout(timer); timer = 0; goal = -1; deck.classList.remove('sliding', 'drag'); bar.classList.remove('sliding');
+    cards.forEach((c, k) => { c.classList.toggle('cur', k === to); c.classList.remove('peer'); c.style.transform = ''; });
+    deck.style.height = ''; cur = to; peer = -1; mark(cur); thumb(cur); };
+  /* from wherever the cards are now to the card `to`; dir is the side it comes from (1 = from the right) */
+  const slide = (to, dir, ms) => { const s = span(), h0 = deck.offsetHeight;
+    mark(to); goal = to; sec.style.setProperty('--ms', ms + 'ms');
+    deck.style.height = h0 + 'px'; deck.classList.remove('drag'); void deck.offsetWidth;
+    deck.classList.add('sliding'); bar.classList.add('sliding');
+    if (to === cur) { at(cur, 0); if (peer >= 0) at(peer, dir * s); }
+    else { at(cur, -dir * s); at(to, 0); deck.style.height = cards[to].offsetHeight + 'px'; }
+    thumb(to); clearTimeout(timer); timer = setTimeout(() => settle(to), ms + 40); };
+  const go = (i, quick) => { i = Math.max(0, Math.min(n - 1, i)); if (timer) settle(goal);
+    if (i === cur) return;
+    const s = span(); if (quick || calm || !deck.clientWidth) return settle(i);
+    const dir = i > cur ? 1 : -1; drop(); peer = i; cards[i].classList.add('peer'); at(i, dir * s); void deck.offsetWidth;
+    slide(i, dir, Math.round(Math.min(420, 240 + s * .14))); };
+
+  tabs.forEach((t, i) => { t.addEventListener('click', () => go(i));
+    t.addEventListener('keydown', e => { const k = { ArrowRight: (i + 1) % n, ArrowLeft: (i - 1 + n) % n, Home: 0, End: n - 1 }[e.key]; if (k === undefined) return; e.preventDefault(); go(k); tabs[k].focus(); }); });
+
+  /* the finger. The page still scrolls up and down by itself (touch-action: pan-y); a sideways drag moves the cards. */
+  const move = d => { const s = g.s, dir = d < 0 ? 1 : -1, to = cur + dir;
+    if (to < 0 || to >= n) { d *= .28; drop(); }                       /* the end of the row gives a little and comes back */
+    else if (peer !== to) { drop(); peer = to; cards[to].classList.add('peer'); }
+    at(cur, d); if (peer >= 0) at(peer, dir * s + d); thumb(cur - d / s); bar.style.setProperty('--k', Math.min(1, Math.abs(g.v) / 1.1).toFixed(2)); g.d = d; };
+  deck.addEventListener('touchstart', e => { if (e.touches.length !== 1) { if (g && g.lock === 'x') release(); g = null; return; }
+    if (timer) settle(goal); const t = e.touches[0]; g = { x: t.clientX, y: t.clientY, lock: '', d: 0, v: 0, lx: t.clientX, lt: e.timeStamp, s: span() }; }, { passive: true });
+  deck.addEventListener('touchmove', e => { if (!g) return; const t = e.touches[0], dx = t.clientX - g.x, dy = t.clientY - g.y;
+    if (!g.lock) { if (Math.abs(dx) < 8 && Math.abs(dy) < 8) return;
+      g.lock = Math.abs(dx) > Math.abs(dy) * 1.25 ? 'x' : 'y'; if (g.lock !== 'x') return;
+      g.x = t.clientX; g.lx = t.clientX; g.lt = e.timeStamp; dragged = 1; deck.classList.add('drag'); bar.classList.remove('sliding'); return; }
+    if (g.lock !== 'x') return;
+    const dt = e.timeStamp - g.lt; if (dt > 0) { g.v = g.v * .4 + (t.clientX - g.lx) / dt * .6; g.lx = t.clientX; g.lt = e.timeStamp; }
+    move(t.clientX - g.x); }, { passive: true });
+  const release = e => { const k = g; g = null; if (!k || k.lock !== 'x') return; setTimeout(() => { dragged = 0; }, 350); bar.style.setProperty('--k', 0);
+    if (e && e.timeStamp - k.lt > 90) k.v = 0;                           /* the finger stopped before it lifted */
+    const d = k.d, dir = d < 0 ? 1 : -1, to = cur + dir, far = Math.abs(d) > k.s * .22, flick = Math.abs(k.v) > .35 && Math.abs(d) > 16, back = k.v * d < 0 && Math.abs(k.v) > .25;
+    const yes = to >= 0 && to < n && !back && (far || flick), left = yes ? k.s - Math.abs(d) : Math.abs(d);
+    if (calm) return settle(yes ? to : cur);
+    slide(yes ? to : cur, dir, Math.round(Math.min(340, Math.max(170, 120 + left * .5)))); };
+  deck.addEventListener('touchend', release, { passive: true }); deck.addEventListener('touchcancel', release, { passive: true });
+  deck.addEventListener('click', e => { if (dragged) { e.preventDefault(); e.stopPropagation(); } }, true);   /* a drag that ends on a picture does not open it */
+
+  /* two fingers sideways on a trackpad: one business per gesture */
+  let acc = 0, quiet = 0, shut = false;
+  deck.addEventListener('wheel', e => { if (Math.abs(e.deltaX) <= Math.abs(e.deltaY) * 1.2) return; e.preventDefault();
+    clearTimeout(quiet); quiet = setTimeout(() => { acc = 0; shut = false; }, 160); if (shut) return;
+    acc += e.deltaX; if (Math.abs(acc) < 46) return; shut = true; go(cur + (acc > 0 ? 1 : -1)); acc = 0; }, { passive: false });
+
+  /* the pictures of the other businesses are fetched once the page has loaded, so a card never slides in empty */
+  const warm = () => cards.forEach(c => $$('img[loading=lazy]', c).forEach(im => { im.loading = 'eager'; if (im.decode) im.decode().catch(() => {}); }));
+  const later = () => ('requestIdleCallback' in window ? requestIdleCallback(warm, { timeout: 2500 }) : setTimeout(warm, 900));
+  if (document.readyState === 'complete') later(); else addEventListener('load', later);
+
+  mark(cur); thumb(cur);
+  const byHash = () => { const i = cards.findIndex(c => '#' + c.id === location.hash); if (i >= 0) go(i, true); };
   addEventListener('hashchange', byHash); byHash();
 })();
+/* GLASS: the highlight on a tab or a button follows the pointer; a pressed button gives a little (iOS needs a touch listener for :active) */
+(() => { document.addEventListener('touchstart', () => {}, { passive: true });
+  if (!matchMedia('(hover:hover)').matches) return; let ev = null, raf = 0;
+  addEventListener('pointermove', e => { ev = e; if (raf) return; raf = requestAnimationFrame(() => { raf = 0;
+    const t = ev.target && ev.target.closest && ev.target.closest('.btab,.chip,.pill,.menu-btn,.plinks a,.filters button,.lbbar button,.sheetnav .close'); if (!t) return;
+    const r = t.getBoundingClientRect(); t.style.setProperty('--mx', Math.round(ev.clientX - r.left) + 'px'); t.style.setProperty('--my', Math.round(ev.clientY - r.top) + 'px'); }); }, { passive: true });
+})();
+
 
 /* ABOUT: every long section folds under its heading. A link to a section opens it. */
 (() => { const v = $('.view[data-view=about]'); if (!v) return;

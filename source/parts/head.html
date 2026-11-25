@@ -1166,8 +1166,19 @@ html.locked{overflow:hidden}
 /* the story of a business: two short paragraphs side by side on a wide screen, so no line runs past eighty characters */
 .bz-lede .d-l > span{display:inline}
 @media (min-width:901px){
-  .bz-lede .d-l{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 clamp(28px,3.4vw,48px)}
-  .bz-lede .d-l > span{display:block}
+  .bz-lede .d-l.two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 clamp(28px,3.4vw,48px)}
+  .bz-lede .d-l.two > span{display:block}
+}
+/* the story as one plain statement and a quieter line of context under it */
+@media (min-width:641px){
+  .bz-lede .d-l.cc{display:grid;gap:3px}
+  .bz-lede .cc-claim{display:block;font:400 1.35rem/1.25 var(--sans);letter-spacing:-.02em;color:var(--on);text-wrap:balance}
+  .bz-lede .cc-ctx{display:block;font:400 1rem/1.4 var(--sans);letter-spacing:-.006em;color:var(--on-2);max-width:none}
+  /* the story as two rows: what it was, what it is */
+  .bz-lede .d-l.bn{display:grid;gap:2px}
+  .bz-lede .bn-r{display:grid;grid-template-columns:4rem minmax(0,1fr);gap:0 14px;align-items:baseline}
+  .bz-lede .bn-r i{font-style:normal;font-size:1rem;color:var(--on-2)}
+  .bz-lede .bn-r > span{display:block}
 }
 
 /* HERO: one column up to 900 px wide and on a phone held sideways */
@@ -1323,6 +1334,143 @@ dialog.lb{background:var(--page-lo);color:var(--on);border:1px solid var(--rule)
 @media (min-width:641px) and (max-width:900px){.deck .bz-subs h3 small{flex-basis:100%;margin-left:0}}
 .lb-stage:focus{outline:0}
 .deck{overscroll-behavior-x:contain}
+
+/* ================================================================ v16 (11/24, night)
+   Glass as one material, a switch that fits a phone, businesses that slide under the finger, and no slogan in the hero. */
+
+:root{
+  --out:cubic-bezier(.2,.8,.2,1);
+  --spring:cubic-bezier(.3,1.3,.5,1);
+  /* glass: the page shows through, the top edge catches the light, the rim is brightest where the light comes from */
+  --gl:linear-gradient(180deg,rgba(255,255,255,.13),rgba(255,255,255,.045));
+  --gl-hi:linear-gradient(180deg,rgba(255,255,255,.27),rgba(255,255,255,.11));
+  --gl-top:inset 0 1px 0 rgba(255,255,255,.26),inset 0 -1px 0 rgba(0,0,0,.22);
+  --gl-ring:linear-gradient(155deg,rgba(255,255,255,.62),rgba(255,255,255,.13) 28%,rgba(255,255,255,.03) 56%,rgba(255,255,255,.3));
+  --gl-blur:blur(22px) saturate(1.8);
+}
+@supports (transition-timing-function:linear(0,1)){:root{--spring:linear(0,0.068,0.222,0.406,0.584,0.736,0.855,0.941,0.996,1.028,1.043,1.046,1.042,1.034,1.026,1.018,1.011,1.006,1.002,1,0.999,0.998,0.998,0.998,0.998,0.999,0.999,1,1,1,1,1,1)}}
+a,button,summary,label,[role=tab]{-webkit-tap-highlight-color:transparent}
+html{scrollbar-color:rgba(247,235,245,.28) transparent}
+
+/* the glow at the top of every page is part of the page, so the header has something to bend */
+body{background-color:var(--page);background-image:radial-gradient(max(62vw,340px) 440px at 88% 0,var(--hero-glow),transparent 66%),var(--grain);background-repeat:no-repeat,repeat}
+.hero4{background:none}
+
+/* ---------------------------------------------------------------- HERO: who it is, how to reach; the headline of the page is the four businesses */
+.hero4-in{grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:clamp(12px,1.5vw,20px) clamp(20px,3vw,48px);padding-block:clamp(14px,1.8vw,24px) clamp(10px,1.1vw,14px)}
+.hero4-who{margin:0}
+.hero4-who img{box-shadow:0 0 0 1px rgba(255,255,255,.22),0 8px 18px -8px rgba(0,0,0,.7)}
+.hero4-h{grid-column:1/-1;display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:4px 28px}
+.hero4 h1{max-width:none;font:650 clamp(1.9rem,2.9vw,2.5rem)/1.06 var(--sans);letter-spacing:-.04em}
+.tabsec{padding-top:0}
+.tabsec .btabs{margin-top:0}
+@media (max-width:900px), (orientation:landscape) and (max-height:500px){
+  .hero4-in{grid-template-columns:minmax(0,1fr);gap:12px}
+  .hero4-soc{justify-content:flex-start}
+}
+@media (max-width:640px), (orientation:landscape) and (max-height:500px){
+  /* a phone, upright or sideways: the name is in the header right above, so the photo sits with the place and the links on one line */
+  .hero4-in{grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:14px 8px;padding-block:14px 12px}
+  .hero4-who b,.hero4-who .who-l{display:none}
+  .hero4-who .who-s{display:block;font-size:1.0625rem;line-height:1.22;letter-spacing:-.012em;color:var(--on)}
+  .hero4-soc{justify-content:flex-end;flex-wrap:nowrap;gap:6px}
+  .hero4-soc .chip{width:46px;height:46px;min-height:0;padding:0;justify-content:center;border-radius:50%}
+  .hero4-soc .chip span{display:none}
+}
+@media (max-width:640px){.hero4 h1{font-size:clamp(1.6rem,7.2vw,1.85rem);line-height:1.08;letter-spacing:-.035em}}
+@media (max-width:349px){.hero4-in{grid-template-columns:minmax(0,1fr)} .hero4-soc{justify-content:flex-start}}
+/* up to 900 px the link to the page about AI is in the menu */
+@media (max-width:900px){.hero4-h .btabs-sub{display:none}}
+@media (min-height:800px) and (min-width:1200px){.hero4 h1{font-size:clamp(2.3rem,3vw,2.75rem)} .tabsec .btabs{margin-top:4px}}
+
+/* ---------------------------------------------------------------- GLASS */
+/* the header: what scrolls under it shows through */
+.top{background:linear-gradient(180deg,rgba(40,18,52,.82),rgba(40,18,52,.68));backdrop-filter:blur(26px) saturate(1.9);-webkit-backdrop-filter:blur(26px) saturate(1.9);border-bottom:0;box-shadow:inset 0 -1px 0 rgba(255,255,255,.12),0 16px 32px -28px rgba(0,0,0,.95)}
+/* round buttons and pills: a glass fill, light on the top edge, a rim that is brightest at the top left */
+.chip,.menu-btn,.sheetnav .close,.sheetnav .soc a,.pill:not(.solid),.plinks a,.filters button:not([aria-pressed=true]),.lbbar button{position:relative;border:0;background:var(--gl);box-shadow:var(--gl-top),0 10px 22px -16px rgba(0,0,0,.8);color:var(--on);transition:transform .2s var(--out),background .25s}
+.deck .bz-subs .pill{position:absolute}
+:is(.chip,.menu-btn,.sheetnav .close,.sheetnav .soc a,.pill:not(.solid),.plinks a,.filters button:not([aria-pressed=true]),.lbbar button)::after{content:"";position:absolute;inset:0;border-radius:inherit;padding:1px;background:var(--gl-ring);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);mask-composite:exclude;pointer-events:none}
+@media (hover:hover){
+  :is(.chip,.menu-btn,.sheetnav .close,.pill:not(.solid),.plinks a,.filters button:not([aria-pressed=true]),.lbbar button):hover{background:radial-gradient(130px circle at var(--mx,50%) var(--my,0px),rgba(255,255,255,.26),transparent 72%),var(--gl-hi)}
+}
+:is(.chip,.menu-btn,.sheetnav .close,.sheetnav .soc a,.plinks a,.filters button,.lbbar button):active{transform:scale(.95)}
+/* the menu: a sheet of glass over the page */
+.sheetnav{background:linear-gradient(180deg,rgba(40,17,52,.78),rgba(24,9,34,.86));backdrop-filter:blur(30px) saturate(1.7);-webkit-backdrop-filter:blur(30px) saturate(1.7)}
+
+/* the bar at the bottom of a phone: one capsule of glass that floats over the page */
+@media (max-width:640px){
+  .dock{left:max(10px,env(safe-area-inset-left,0px));right:max(10px,env(safe-area-inset-right,0px));bottom:calc(8px + env(safe-area-inset-bottom,0px));padding:5px;gap:2px;border:0;border-radius:999px;
+    background:linear-gradient(180deg,rgba(255,255,255,.1),rgba(255,255,255,0) 50%),linear-gradient(180deg,rgba(52,26,66,.72),rgba(26,10,36,.8));backdrop-filter:blur(28px) saturate(1.9);-webkit-backdrop-filter:blur(28px) saturate(1.9);
+    box-shadow:inset 0 -1px 0 rgba(0,0,0,.3),0 18px 38px -14px rgba(0,0,0,.8),0 2px 6px rgba(0,0,0,.25)}
+  .dock::after{content:"";position:absolute;inset:0;border-radius:inherit;padding:1px;background:var(--gl-ring);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);mask-composite:exclude;pointer-events:none}
+  .dock a{border:0;min-height:50px;transition:transform .2s var(--out),background .2s}
+  .dock a:active{transform:scale(.96);background:rgba(255,255,255,.1)}
+  .dock a.hot{background:linear-gradient(180deg,#fff,#ECDDEA);box-shadow:inset 0 1px 0 #fff,0 8px 18px -10px rgba(0,0,0,.7)}
+  .dock a.hot:active{background:linear-gradient(180deg,#F4E8F2,#DFCCDC)}
+  main:has(> .view[data-view=home].on){padding-bottom:calc(84px + env(safe-area-inset-bottom,0px))}
+}
+
+/* ---------------------------------------------------------------- THE SWITCH: up to 900 px the four businesses are one glass control that fits the screen */
+@media (max-width:900px){
+  .btabs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;margin:0;padding:4px;overflow:hidden;scroll-snap-type:none;border-radius:999px;
+    background:var(--gl);box-shadow:var(--gl-top),0 14px 30px -20px rgba(0,0,0,.85);backdrop-filter:var(--gl-blur);-webkit-backdrop-filter:var(--gl-blur)}
+  .btabs::after{content:"";position:absolute;inset:0;border-radius:inherit;padding:1px;background:var(--gl-ring);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);mask-composite:exclude;pointer-events:none}
+  /* the thumb: a lens of clearer glass. It follows the finger while a card is dragged, and stretches a little on the way. */
+  .btabs::before{content:"";position:absolute;z-index:0;top:4px;bottom:4px;left:4px;width:calc((100% - 8px) / 4);border-radius:999px;
+    background:var(--gl-hi);box-shadow:inset 0 1px 0 rgba(255,255,255,.62),inset 0 0 0 1px rgba(255,255,255,.2),inset 0 -8px 14px -10px rgba(255,255,255,.3),0 8px 18px -10px rgba(0,0,0,.75);
+    transform:translate3d(calc(var(--p,0) * 100%),0,0);scale:calc(1 + var(--k,0) * .1) calc(1 - var(--k,0) * .06);transition:scale .25s var(--out);will-change:transform}
+  .btabs.sliding::before{transition:transform var(--ms,.34s) var(--spring),scale .25s var(--out);animation:thumb-go var(--ms,.34s) var(--out)}
+  .btab,.btab.on{position:relative;z-index:1;flex:none;display:grid;place-items:center;min-width:0;min-height:44px;aspect-ratio:auto;padding:0 2px;border-radius:999px;overflow:visible;background:none;box-shadow:none;text-align:center;scroll-snap-align:none}
+  .btab img,.btab b,.btab .t-l{display:none}
+  .btab > span{position:static;padding:0;background:none}
+  .btab .t-s{display:block;font:600 1rem/1 var(--sans);letter-spacing:-.015em;color:var(--on-2);white-space:nowrap;transition:color .25s}
+  .btab.on .t-s,.btab:active .t-s{color:var(--on)}
+  .btab:focus-visible{outline-offset:-3px}
+}
+@keyframes thumb-go{45%{scale:1.1 .94}}
+@media (max-width:359px){.btab .t-s{font-size:.9rem;letter-spacing:-.025em}}
+
+/* on a wide screen the tabs stay pictures: the name sits on glass that blurs the picture more and more toward the bottom, and the light follows the pointer */
+@media (min-width:901px){
+  .btab{transition:transform .35s var(--out),box-shadow .25s}
+  .btab > span{z-index:2;isolation:isolate;padding:34px 14px 11px;background:linear-gradient(180deg,rgba(var(--veil),0),rgba(var(--veil),.46) 46%,rgba(var(--veil),.82))}
+  .btab > span::before{content:"";position:absolute;inset:0;z-index:-1;backdrop-filter:blur(9px) saturate(1.5);-webkit-backdrop-filter:blur(9px) saturate(1.5);-webkit-mask-image:linear-gradient(180deg,transparent,#000 60%);mask-image:linear-gradient(180deg,transparent,#000 60%)}
+  .btab::before{content:"";position:absolute;inset:0;z-index:1;border-radius:inherit;pointer-events:none;background:radial-gradient(260px circle at var(--mx,50%) var(--my,0px),rgba(255,255,255,.22),transparent 64%);opacity:0;transition:opacity .35s}
+  .btab::after{content:"";position:absolute;inset:0;z-index:3;border-radius:inherit;pointer-events:none;box-shadow:inset 0 1px 0 rgba(255,255,255,.3),inset 0 0 0 1px rgba(255,255,255,.1)}
+  .btab:active{transform:scale(.985)}
+}
+@media (min-width:901px) and (hover:hover){.btab:hover::before{opacity:1}}
+
+/* ---------------------------------------------------------------- THE DECK: one business on show, the next slides in. Not a scroll box. */
+.deck{position:relative;display:block;overflow:hidden;overflow:clip;scroll-snap-type:none;touch-action:pan-y;transition:none;--gap:clamp(32px,5vw,72px);column-gap:var(--gap)}
+/* a card that is not on show waits to the side, outside the clip, so its pictures are not fetched ahead of the first screen */
+.deck > .bz{position:absolute;top:0;left:0;width:100%;flex:none;scroll-snap-align:none;visibility:hidden;transform:translate3d(calc(100% + var(--gap) + 2px),0,0)}
+.deck > .bz.cur{position:relative;visibility:visible;transform:none}
+.deck > .bz.peer{visibility:visible}
+.deck.drag > .bz{will-change:transform}
+.deck.sliding{transition:height var(--ms,.34s) var(--out)}
+.deck.sliding > .bz{transition:transform var(--ms,.34s) var(--out)}
+/* a fine line in the gap between two businesses, seen only while they move */
+.deck > .bz:not(:last-child)::after{content:"";position:absolute;top:0;bottom:0;left:calc(100% + var(--gap) / 2);width:1px;background:linear-gradient(180deg,transparent,var(--rule-2) 12%,var(--rule-2) 88%,transparent);pointer-events:none}
+@media (max-width:900px){
+  /* the cards run to the edges of the screen, so a slide starts and ends at the glass, not in the margin */
+  .deck{--gap:0px;margin-inline:calc(-1 * var(--pad));margin-top:16px}
+  .deck > .bz{padding-inline:var(--pad)}
+}
+@media (prefers-reduced-motion:reduce){.deck.sliding,.deck.sliding > .bz,.btabs.sliding::before{transition:none;animation:none}}
+
+/* ---------------------------------------------------------------- small motions that answer the hand */
+/* the menu comes in softly, its lines one after another (only where the browser can animate a box that was not there a moment ago) */
+.sheetnav{opacity:0;transition:opacity .28s var(--out),display .28s allow-discrete}
+.sheetnav.on{opacity:1}
+.sheetnav.on a.big{transition:opacity .45s var(--out),transform .45s var(--out)}
+.sheetnav.on a.big:nth-of-type(2){transition-delay:.03s} .sheetnav.on a.big:nth-of-type(3){transition-delay:.06s} .sheetnav.on a.big:nth-of-type(4){transition-delay:.09s}
+.sheetnav.on a.big:nth-of-type(5){transition-delay:.12s} .sheetnav.on a.big:nth-of-type(6){transition-delay:.15s} .sheetnav.on a.big:nth-of-type(7){transition-delay:.18s} .sheetnav.on a.big:nth-of-type(8){transition-delay:.21s}
+@starting-style{.sheetnav.on{opacity:0} .sheetnav.on a.big{opacity:0;transform:translateY(12px)}}
+/* the photo viewer: the page behind it goes out of focus */
+dialog.lb::backdrop{background:rgba(var(--veil),.86);backdrop-filter:blur(16px) saturate(1.3);-webkit-backdrop-filter:blur(16px) saturate(1.3)}
+@media (prefers-reduced-motion:reduce){.sheetnav,.sheetnav.on a.big{transition:none}}
 </style>
+<noscript><style>.deck > .bz{position:relative!important;visibility:visible!important;margin-bottom:28px}</style></noscript>
 </head>
 <body>

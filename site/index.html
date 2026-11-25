@@ -1166,8 +1166,19 @@ html.locked{overflow:hidden}
 /* the story of a business: two short paragraphs side by side on a wide screen, so no line runs past eighty characters */
 .bz-lede .d-l > span{display:inline}
 @media (min-width:901px){
-  .bz-lede .d-l{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 clamp(28px,3.4vw,48px)}
-  .bz-lede .d-l > span{display:block}
+  .bz-lede .d-l.two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 clamp(28px,3.4vw,48px)}
+  .bz-lede .d-l.two > span{display:block}
+}
+/* the story as one plain statement and a quieter line of context under it */
+@media (min-width:641px){
+  .bz-lede .d-l.cc{display:grid;gap:3px}
+  .bz-lede .cc-claim{display:block;font:400 1.35rem/1.25 var(--sans);letter-spacing:-.02em;color:var(--on);text-wrap:balance}
+  .bz-lede .cc-ctx{display:block;font:400 1rem/1.4 var(--sans);letter-spacing:-.006em;color:var(--on-2);max-width:none}
+  /* the story as two rows: what it was, what it is */
+  .bz-lede .d-l.bn{display:grid;gap:2px}
+  .bz-lede .bn-r{display:grid;grid-template-columns:4rem minmax(0,1fr);gap:0 14px;align-items:baseline}
+  .bz-lede .bn-r i{font-style:normal;font-size:1rem;color:var(--on-2)}
+  .bz-lede .bn-r > span{display:block}
 }
 
 /* HERO: one column up to 900 px wide and on a phone held sideways */
@@ -1323,7 +1334,144 @@ dialog.lb{background:var(--page-lo);color:var(--on);border:1px solid var(--rule)
 @media (min-width:641px) and (max-width:900px){.deck .bz-subs h3 small{flex-basis:100%;margin-left:0}}
 .lb-stage:focus{outline:0}
 .deck{overscroll-behavior-x:contain}
+
+/* ================================================================ v16 (11/24, night)
+   Glass as one material, a switch that fits a phone, businesses that slide under the finger, and no slogan in the hero. */
+
+:root{
+  --out:cubic-bezier(.2,.8,.2,1);
+  --spring:cubic-bezier(.3,1.3,.5,1);
+  /* glass: the page shows through, the top edge catches the light, the rim is brightest where the light comes from */
+  --gl:linear-gradient(180deg,rgba(255,255,255,.13),rgba(255,255,255,.045));
+  --gl-hi:linear-gradient(180deg,rgba(255,255,255,.27),rgba(255,255,255,.11));
+  --gl-top:inset 0 1px 0 rgba(255,255,255,.26),inset 0 -1px 0 rgba(0,0,0,.22);
+  --gl-ring:linear-gradient(155deg,rgba(255,255,255,.62),rgba(255,255,255,.13) 28%,rgba(255,255,255,.03) 56%,rgba(255,255,255,.3));
+  --gl-blur:blur(22px) saturate(1.8);
+}
+@supports (transition-timing-function:linear(0,1)){:root{--spring:linear(0,0.068,0.222,0.406,0.584,0.736,0.855,0.941,0.996,1.028,1.043,1.046,1.042,1.034,1.026,1.018,1.011,1.006,1.002,1,0.999,0.998,0.998,0.998,0.998,0.999,0.999,1,1,1,1,1,1)}}
+a,button,summary,label,[role=tab]{-webkit-tap-highlight-color:transparent}
+html{scrollbar-color:rgba(247,235,245,.28) transparent}
+
+/* the glow at the top of every page is part of the page, so the header has something to bend */
+body{background-color:var(--page);background-image:radial-gradient(max(62vw,340px) 440px at 88% 0,var(--hero-glow),transparent 66%),var(--grain);background-repeat:no-repeat,repeat}
+.hero4{background:none}
+
+/* ---------------------------------------------------------------- HERO: who it is, how to reach; the headline of the page is the four businesses */
+.hero4-in{grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:clamp(12px,1.5vw,20px) clamp(20px,3vw,48px);padding-block:clamp(14px,1.8vw,24px) clamp(10px,1.1vw,14px)}
+.hero4-who{margin:0}
+.hero4-who img{box-shadow:0 0 0 1px rgba(255,255,255,.22),0 8px 18px -8px rgba(0,0,0,.7)}
+.hero4-h{grid-column:1/-1;display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:4px 28px}
+.hero4 h1{max-width:none;font:650 clamp(1.9rem,2.9vw,2.5rem)/1.06 var(--sans);letter-spacing:-.04em}
+.tabsec{padding-top:0}
+.tabsec .btabs{margin-top:0}
+@media (max-width:900px), (orientation:landscape) and (max-height:500px){
+  .hero4-in{grid-template-columns:minmax(0,1fr);gap:12px}
+  .hero4-soc{justify-content:flex-start}
+}
+@media (max-width:640px), (orientation:landscape) and (max-height:500px){
+  /* a phone, upright or sideways: the name is in the header right above, so the photo sits with the place and the links on one line */
+  .hero4-in{grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:14px 8px;padding-block:14px 12px}
+  .hero4-who b,.hero4-who .who-l{display:none}
+  .hero4-who .who-s{display:block;font-size:1.0625rem;line-height:1.22;letter-spacing:-.012em;color:var(--on)}
+  .hero4-soc{justify-content:flex-end;flex-wrap:nowrap;gap:6px}
+  .hero4-soc .chip{width:46px;height:46px;min-height:0;padding:0;justify-content:center;border-radius:50%}
+  .hero4-soc .chip span{display:none}
+}
+@media (max-width:640px){.hero4 h1{font-size:clamp(1.6rem,7.2vw,1.85rem);line-height:1.08;letter-spacing:-.035em}}
+@media (max-width:349px){.hero4-in{grid-template-columns:minmax(0,1fr)} .hero4-soc{justify-content:flex-start}}
+/* up to 900 px the link to the page about AI is in the menu */
+@media (max-width:900px){.hero4-h .btabs-sub{display:none}}
+@media (min-height:800px) and (min-width:1200px){.hero4 h1{font-size:clamp(2.3rem,3vw,2.75rem)} .tabsec .btabs{margin-top:4px}}
+
+/* ---------------------------------------------------------------- GLASS */
+/* the header: what scrolls under it shows through */
+.top{background:linear-gradient(180deg,rgba(40,18,52,.82),rgba(40,18,52,.68));backdrop-filter:blur(26px) saturate(1.9);-webkit-backdrop-filter:blur(26px) saturate(1.9);border-bottom:0;box-shadow:inset 0 -1px 0 rgba(255,255,255,.12),0 16px 32px -28px rgba(0,0,0,.95)}
+/* round buttons and pills: a glass fill, light on the top edge, a rim that is brightest at the top left */
+.chip,.menu-btn,.sheetnav .close,.sheetnav .soc a,.pill:not(.solid),.plinks a,.filters button:not([aria-pressed=true]),.lbbar button{position:relative;border:0;background:var(--gl);box-shadow:var(--gl-top),0 10px 22px -16px rgba(0,0,0,.8);color:var(--on);transition:transform .2s var(--out),background .25s}
+.deck .bz-subs .pill{position:absolute}
+:is(.chip,.menu-btn,.sheetnav .close,.sheetnav .soc a,.pill:not(.solid),.plinks a,.filters button:not([aria-pressed=true]),.lbbar button)::after{content:"";position:absolute;inset:0;border-radius:inherit;padding:1px;background:var(--gl-ring);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);mask-composite:exclude;pointer-events:none}
+@media (hover:hover){
+  :is(.chip,.menu-btn,.sheetnav .close,.pill:not(.solid),.plinks a,.filters button:not([aria-pressed=true]),.lbbar button):hover{background:radial-gradient(130px circle at var(--mx,50%) var(--my,0px),rgba(255,255,255,.26),transparent 72%),var(--gl-hi)}
+}
+:is(.chip,.menu-btn,.sheetnav .close,.sheetnav .soc a,.plinks a,.filters button,.lbbar button):active{transform:scale(.95)}
+/* the menu: a sheet of glass over the page */
+.sheetnav{background:linear-gradient(180deg,rgba(40,17,52,.78),rgba(24,9,34,.86));backdrop-filter:blur(30px) saturate(1.7);-webkit-backdrop-filter:blur(30px) saturate(1.7)}
+
+/* the bar at the bottom of a phone: one capsule of glass that floats over the page */
+@media (max-width:640px){
+  .dock{left:max(10px,env(safe-area-inset-left,0px));right:max(10px,env(safe-area-inset-right,0px));bottom:calc(8px + env(safe-area-inset-bottom,0px));padding:5px;gap:2px;border:0;border-radius:999px;
+    background:linear-gradient(180deg,rgba(255,255,255,.1),rgba(255,255,255,0) 50%),linear-gradient(180deg,rgba(52,26,66,.72),rgba(26,10,36,.8));backdrop-filter:blur(28px) saturate(1.9);-webkit-backdrop-filter:blur(28px) saturate(1.9);
+    box-shadow:inset 0 -1px 0 rgba(0,0,0,.3),0 18px 38px -14px rgba(0,0,0,.8),0 2px 6px rgba(0,0,0,.25)}
+  .dock::after{content:"";position:absolute;inset:0;border-radius:inherit;padding:1px;background:var(--gl-ring);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);mask-composite:exclude;pointer-events:none}
+  .dock a{border:0;min-height:50px;transition:transform .2s var(--out),background .2s}
+  .dock a:active{transform:scale(.96);background:rgba(255,255,255,.1)}
+  .dock a.hot{background:linear-gradient(180deg,#fff,#ECDDEA);box-shadow:inset 0 1px 0 #fff,0 8px 18px -10px rgba(0,0,0,.7)}
+  .dock a.hot:active{background:linear-gradient(180deg,#F4E8F2,#DFCCDC)}
+  main:has(> .view[data-view=home].on){padding-bottom:calc(84px + env(safe-area-inset-bottom,0px))}
+}
+
+/* ---------------------------------------------------------------- THE SWITCH: up to 900 px the four businesses are one glass control that fits the screen */
+@media (max-width:900px){
+  .btabs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;margin:0;padding:4px;overflow:hidden;scroll-snap-type:none;border-radius:999px;
+    background:var(--gl);box-shadow:var(--gl-top),0 14px 30px -20px rgba(0,0,0,.85);backdrop-filter:var(--gl-blur);-webkit-backdrop-filter:var(--gl-blur)}
+  .btabs::after{content:"";position:absolute;inset:0;border-radius:inherit;padding:1px;background:var(--gl-ring);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);mask-composite:exclude;pointer-events:none}
+  /* the thumb: a lens of clearer glass. It follows the finger while a card is dragged, and stretches a little on the way. */
+  .btabs::before{content:"";position:absolute;z-index:0;top:4px;bottom:4px;left:4px;width:calc((100% - 8px) / 4);border-radius:999px;
+    background:var(--gl-hi);box-shadow:inset 0 1px 0 rgba(255,255,255,.62),inset 0 0 0 1px rgba(255,255,255,.2),inset 0 -8px 14px -10px rgba(255,255,255,.3),0 8px 18px -10px rgba(0,0,0,.75);
+    transform:translate3d(calc(var(--p,0) * 100%),0,0);scale:calc(1 + var(--k,0) * .1) calc(1 - var(--k,0) * .06);transition:scale .25s var(--out);will-change:transform}
+  .btabs.sliding::before{transition:transform var(--ms,.34s) var(--spring),scale .25s var(--out);animation:thumb-go var(--ms,.34s) var(--out)}
+  .btab,.btab.on{position:relative;z-index:1;flex:none;display:grid;place-items:center;min-width:0;min-height:44px;aspect-ratio:auto;padding:0 2px;border-radius:999px;overflow:visible;background:none;box-shadow:none;text-align:center;scroll-snap-align:none}
+  .btab img,.btab b,.btab .t-l{display:none}
+  .btab > span{position:static;padding:0;background:none}
+  .btab .t-s{display:block;font:600 1rem/1 var(--sans);letter-spacing:-.015em;color:var(--on-2);white-space:nowrap;transition:color .25s}
+  .btab.on .t-s,.btab:active .t-s{color:var(--on)}
+  .btab:focus-visible{outline-offset:-3px}
+}
+@keyframes thumb-go{45%{scale:1.1 .94}}
+@media (max-width:359px){.btab .t-s{font-size:.9rem;letter-spacing:-.025em}}
+
+/* on a wide screen the tabs stay pictures: the name sits on glass that blurs the picture more and more toward the bottom, and the light follows the pointer */
+@media (min-width:901px){
+  .btab{transition:transform .35s var(--out),box-shadow .25s}
+  .btab > span{z-index:2;isolation:isolate;padding:34px 14px 11px;background:linear-gradient(180deg,rgba(var(--veil),0),rgba(var(--veil),.46) 46%,rgba(var(--veil),.82))}
+  .btab > span::before{content:"";position:absolute;inset:0;z-index:-1;backdrop-filter:blur(9px) saturate(1.5);-webkit-backdrop-filter:blur(9px) saturate(1.5);-webkit-mask-image:linear-gradient(180deg,transparent,#000 60%);mask-image:linear-gradient(180deg,transparent,#000 60%)}
+  .btab::before{content:"";position:absolute;inset:0;z-index:1;border-radius:inherit;pointer-events:none;background:radial-gradient(260px circle at var(--mx,50%) var(--my,0px),rgba(255,255,255,.22),transparent 64%);opacity:0;transition:opacity .35s}
+  .btab::after{content:"";position:absolute;inset:0;z-index:3;border-radius:inherit;pointer-events:none;box-shadow:inset 0 1px 0 rgba(255,255,255,.3),inset 0 0 0 1px rgba(255,255,255,.1)}
+  .btab:active{transform:scale(.985)}
+}
+@media (min-width:901px) and (hover:hover){.btab:hover::before{opacity:1}}
+
+/* ---------------------------------------------------------------- THE DECK: one business on show, the next slides in. Not a scroll box. */
+.deck{position:relative;display:block;overflow:hidden;overflow:clip;scroll-snap-type:none;touch-action:pan-y;transition:none;--gap:clamp(32px,5vw,72px);column-gap:var(--gap)}
+/* a card that is not on show waits to the side, outside the clip, so its pictures are not fetched ahead of the first screen */
+.deck > .bz{position:absolute;top:0;left:0;width:100%;flex:none;scroll-snap-align:none;visibility:hidden;transform:translate3d(calc(100% + var(--gap) + 2px),0,0)}
+.deck > .bz.cur{position:relative;visibility:visible;transform:none}
+.deck > .bz.peer{visibility:visible}
+.deck.drag > .bz{will-change:transform}
+.deck.sliding{transition:height var(--ms,.34s) var(--out)}
+.deck.sliding > .bz{transition:transform var(--ms,.34s) var(--out)}
+/* a fine line in the gap between two businesses, seen only while they move */
+.deck > .bz:not(:last-child)::after{content:"";position:absolute;top:0;bottom:0;left:calc(100% + var(--gap) / 2);width:1px;background:linear-gradient(180deg,transparent,var(--rule-2) 12%,var(--rule-2) 88%,transparent);pointer-events:none}
+@media (max-width:900px){
+  /* the cards run to the edges of the screen, so a slide starts and ends at the glass, not in the margin */
+  .deck{--gap:0px;margin-inline:calc(-1 * var(--pad));margin-top:16px}
+  .deck > .bz{padding-inline:var(--pad)}
+}
+@media (prefers-reduced-motion:reduce){.deck.sliding,.deck.sliding > .bz,.btabs.sliding::before{transition:none;animation:none}}
+
+/* ---------------------------------------------------------------- small motions that answer the hand */
+/* the menu comes in softly, its lines one after another (only where the browser can animate a box that was not there a moment ago) */
+.sheetnav{opacity:0;transition:opacity .28s var(--out),display .28s allow-discrete}
+.sheetnav.on{opacity:1}
+.sheetnav.on a.big{transition:opacity .45s var(--out),transform .45s var(--out)}
+.sheetnav.on a.big:nth-of-type(2){transition-delay:.03s} .sheetnav.on a.big:nth-of-type(3){transition-delay:.06s} .sheetnav.on a.big:nth-of-type(4){transition-delay:.09s}
+.sheetnav.on a.big:nth-of-type(5){transition-delay:.12s} .sheetnav.on a.big:nth-of-type(6){transition-delay:.15s} .sheetnav.on a.big:nth-of-type(7){transition-delay:.18s} .sheetnav.on a.big:nth-of-type(8){transition-delay:.21s}
+@starting-style{.sheetnav.on{opacity:0} .sheetnav.on a.big{opacity:0;transform:translateY(12px)}}
+/* the photo viewer: the page behind it goes out of focus */
+dialog.lb::backdrop{background:rgba(var(--veil),.86);backdrop-filter:blur(16px) saturate(1.3);-webkit-backdrop-filter:blur(16px) saturate(1.3)}
+@media (prefers-reduced-motion:reduce){.sheetnav,.sheetnav.on a.big{transition:none}}
 </style>
+<noscript><style>.deck > .bz{position:relative!important;visibility:visible!important;margin-bottom:28px}</style></noscript>
 </head>
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -1376,37 +1524,31 @@ dialog.lb{background:var(--page-lo);color:var(--on);border:1px solid var(--rule)
 <div class="view on" data-view="home">
 
   <section class="hero4" id="cover"><div class="wrap hero4-in">
-    <div class="hero4-copy">
-      <h1>AI that takes the slow step out of a small business.</h1>
-      <p class="hero4-who"><img src="assets/img/rustam-shabanov.webp" width="188" height="188" alt="Rustam Shabanov" decoding="async"><span><b>Rustam Shabanov</b><span class="who-l">In person, in New York. Built with the team, so the team runs it after.</span><span class="who-s">In person, in New York.</span></span></p>
+    <p class="hero4-who"><img src="assets/img/rustam-shabanov.webp" width="188" height="188" alt="Rustam Shabanov" decoding="async"><span><b>Rustam Shabanov</b><span class="who-l">In person, in New York. Built with the team, so the team runs it after.</span><span class="who-s">In person,<br>in New York.</span></span></p>
+    <div class="hero4-soc" aria-label="Message or follow">
+      <a class="chip dk" href="https://wa.me/19179436912" target="_blank" rel="noopener" aria-label="WhatsApp"><svg aria-hidden="true"><use href="#i-wa"/></svg><span>WhatsApp</span></a>
+      <a class="chip dk" href="mailto:rustam.shb@gmail.com" aria-label="Email"><svg aria-hidden="true"><use href="#i-mail"/></svg><span>Email</span></a>
+      <a class="chip" href="https://www.instagram.com/kitchen4nyc/" target="_blank" rel="noopener" aria-label="Instagram"><svg aria-hidden="true"><use href="#i-ig"/></svg><span>Instagram</span></a>
+      <a class="chip" href="https://x.com/dimklyn" target="_blank" rel="noopener" aria-label="X"><svg aria-hidden="true"><use href="#i-x"/></svg><span>X</span></a>
+      <a class="chip" href="https://github.com/rustamusa" target="_blank" rel="noopener" aria-label="GitHub"><svg aria-hidden="true"><use href="#i-gh"/></svg><span>GitHub</span></a>
     </div>
-    <div class="hero4-cta">
-      <p class="hero2-note">The first meeting is free.</p>
-      <div class="hero4-soc" aria-label="Message or follow">
-        <a class="chip dk" href="https://wa.me/19179436912" target="_blank" rel="noopener" aria-label="WhatsApp"><svg aria-hidden="true"><use href="#i-wa"/></svg><span>WhatsApp</span></a>
-        <a class="chip dk" href="mailto:rustam.shb@gmail.com" aria-label="Email"><svg aria-hidden="true"><use href="#i-mail"/></svg><span>Email</span></a>
-        <a class="chip" href="https://www.instagram.com/kitchen4nyc/" target="_blank" rel="noopener" aria-label="Instagram"><svg aria-hidden="true"><use href="#i-ig"/></svg><span>Instagram</span></a>
-        <a class="chip" href="https://x.com/dimklyn" target="_blank" rel="noopener" aria-label="X"><svg aria-hidden="true"><use href="#i-x"/></svg><span>X</span></a>
-        <a class="chip" href="https://github.com/rustamusa" target="_blank" rel="noopener" aria-label="GitHub"><svg aria-hidden="true"><use href="#i-gh"/></svg><span>GitHub</span></a>
-      </div>
-    </div>
+    <div class="hero4-h"><h1>Four businesses, served at the same time</h1><a class="btabs-sub" href="#ai-edge">What became possible with AI</a></div>
   </div></section>
 
   <section class="tabsec" id="fixes"><div class="wrap">
-    <div class="btabs-top"><h2 class="btabs-h">Four businesses, served at the same time</h2><a class="btabs-sub" href="#ai-edge">What became possible with AI</a></div>
     <div class="btabs" role="tablist" aria-label="Four businesses">
-      <button class="btab on" type="button" role="tab" id="t-kitchen" aria-controls="b-kitchen" aria-selected="true"><img src="assets/img/pl-k_09.webp" srcset="assets/img/pl-k_09-400.webp 400w, assets/img/pl-k_09-640.webp 640w, assets/img/pl-k_09-800.webp 800w, assets/img/pl-k_09-1100.webp 1100w, assets/img/pl-k_09.webp 1158w" sizes="(max-width:900px) 200px, 300px" width="96" height="96" alt="" decoding="async"><span><small>Kitchen showroom</small><b>days → minutes</b></span></button>
-      <button class="btab" type="button" role="tab" id="t-cab" aria-controls="b-cab" aria-selected="false" tabindex="-1"><img src="assets/img/cab-inside.webp" srcset="assets/img/cab-inside-400.webp 400w, assets/img/cab-inside-640.webp 640w, assets/img/cab-inside-800.webp 800w, assets/img/cab-inside-1100.webp 1100w, assets/img/cab-inside.webp 1600w" sizes="(max-width:900px) 200px, 300px" width="96" height="96" alt="" decoding="async"><span><small>Elevator cab maker</small><b>1 week → 2 hours</b></span></button>
-      <button class="btab" type="button" role="tab" id="t-sf" aria-controls="b-sf" aria-selected="false" tabindex="-1"><img src="assets/img/sf-nj.webp" srcset="assets/img/sf-nj-400.webp 400w, assets/img/sf-nj-640.webp 640w, assets/img/sf-nj-800.webp 800w, assets/img/sf-nj-1100.webp 1100w, assets/img/sf-nj.webp 1389w" sizes="(max-width:900px) 200px, 300px" width="96" height="96" alt="" decoding="async"><span><small>Game venues</small><b>calls → answers online</b></span></button>
-      <button class="btab" type="button" role="tab" id="t-lb" aria-controls="b-lb" aria-selected="false" tabindex="-1"><img src="assets/img/lb-projects.webp" srcset="assets/img/lb-projects-400.webp 400w, assets/img/lb-projects-640.webp 640w, assets/img/lb-projects-800.webp 800w, assets/img/lb-projects-1100.webp 1100w, assets/img/lb-projects.webp 1389w" sizes="(max-width:900px) 200px, 300px" width="96" height="96" alt="" decoding="async"><span><small>Builder</small><b>website, channels, video</b></span></button>
+      <button class="btab on" type="button" role="tab" id="t-kitchen" aria-controls="b-kitchen" aria-selected="true"><img src="assets/img/pl-k_09.webp" srcset="assets/img/pl-k_09-400.webp 400w, assets/img/pl-k_09-640.webp 640w, assets/img/pl-k_09-800.webp 800w, assets/img/pl-k_09-1100.webp 1100w, assets/img/pl-k_09.webp 1158w" sizes="(max-width:900px) 200px, 300px" width="96" height="96" alt="" loading="lazy" decoding="async"><span><small class="t-l">Kitchen showroom</small><small class="t-s">Kitchens</small><b>days → minutes</b></span></button>
+      <button class="btab" type="button" role="tab" id="t-cab" aria-controls="b-cab" aria-selected="false" tabindex="-1"><img src="assets/img/cab-inside.webp" srcset="assets/img/cab-inside-400.webp 400w, assets/img/cab-inside-640.webp 640w, assets/img/cab-inside-800.webp 800w, assets/img/cab-inside-1100.webp 1100w, assets/img/cab-inside.webp 1600w" sizes="(max-width:900px) 200px, 300px" width="96" height="96" alt="" loading="lazy" decoding="async"><span><small class="t-l">Elevator cab maker</small><small class="t-s">Elevators</small><b>1 week → 2 hours</b></span></button>
+      <button class="btab" type="button" role="tab" id="t-sf" aria-controls="b-sf" aria-selected="false" tabindex="-1"><img src="assets/img/sf-nj.webp" srcset="assets/img/sf-nj-400.webp 400w, assets/img/sf-nj-640.webp 640w, assets/img/sf-nj-800.webp 800w, assets/img/sf-nj-1100.webp 1100w, assets/img/sf-nj.webp 1389w" sizes="(max-width:900px) 200px, 300px" width="96" height="96" alt="" loading="lazy" decoding="async"><span><small class="t-l">Game venues</small><small class="t-s">Games</small><b>calls → answers online</b></span></button>
+      <button class="btab" type="button" role="tab" id="t-lb" aria-controls="b-lb" aria-selected="false" tabindex="-1"><img src="assets/img/lb-projects.webp" srcset="assets/img/lb-projects-400.webp 400w, assets/img/lb-projects-640.webp 640w, assets/img/lb-projects-800.webp 800w, assets/img/lb-projects-1100.webp 1100w, assets/img/lb-projects.webp 1389w" sizes="(max-width:900px) 200px, 300px" width="96" height="96" alt="" loading="lazy" decoding="async"><span><small class="t-l">Builder</small><small class="t-s">Builder</small><b>website, channels, video</b></span></button>
     </div>
     <div class="deck" id="deck">
 
-      <div class="bz bz-subs" id="b-kitchen" role="tabpanel" aria-labelledby="t-kitchen">
+      <div class="bz bz-subs cur" id="b-kitchen" role="tabpanel" aria-labelledby="t-kitchen">
         <header class="bz-head">
           <div class="bz-text">
-            <h3>NY Kitchen &amp; Home Design Center <small>Kitchen showroom, Brooklyn</small></h3>
-            <p class="bz-lede"><span class="d-l"><span>It started here, as the showroom’s sales manager and designer since 2023. A priced kitchen with a render took days.</span> <span>In 2026 the slow steps were rebuilt with AI, so design, quotes, email and social media now move at the same time.</span></span><span class="d-s">The showroom’s sales manager since 2023 rebuilt its slow steps with AI in 2026.</span></p>
+            <h3 aria-level="2">NY Kitchen &amp; Home Design Center <small>Kitchen showroom, Brooklyn</small></h3>
+            <p class="bz-lede"><span class="d-l two"><span>It started here, as the showroom’s sales manager and designer since 2023. A priced kitchen with a render took days.</span> <span>In 2026 the slow steps were rebuilt with AI, so design, quotes, email and social media now move at the same time.</span></span><span class="d-s">The showroom’s sales manager since 2023 rebuilt its slow steps with AI in 2026.</span></p>
           </div>
           <a class="pill small" href="#nykhdc"><span>See the work</span><i class="arr"><svg aria-hidden="true"><use href="#i-arr"/></svg></i></a>
         </header>
@@ -1422,8 +1564,8 @@ dialog.lb{background:var(--page-lo);color:var(--on);border:1px solid var(--rule)
       <div class="bz bz-subs" id="b-cab" role="tabpanel" aria-labelledby="t-cab">
         <header class="bz-head">
           <div class="bz-text">
-            <h3>CNS Elevator Cabs <small>Elevator cab maker, Brooklyn</small></h3>
-            <p class="bz-lede"><span class="d-l"><span>CNS builds elevator cab interiors, in the same building as the showroom. A full drawing set has to be approved before a cab is built.</span> <span>Each set took about a week from a drafter far away. Now the drawings, the weights and the renders come from one 3D model in about two hours.</span></span><span class="d-s">A drawing set took a week from a drafter far away. Now one 3D model gives it in two hours.</span></p>
+            <h3 aria-level="2">CNS Elevator Cabs <small>Elevator cab maker, Brooklyn</small></h3>
+            <p class="bz-lede"><span class="d-l two"><span>CNS builds elevator cab interiors, in the same building as the showroom. A full drawing set has to be approved before a cab is built.</span> <span>Each set took about a week from a drafter far away. Now the drawings, the weights and the renders come from one 3D model in about two hours.</span></span><span class="d-s">A drawing set took a week from a drafter far away. Now one 3D model gives it in two hours.</span></p>
           </div>
           <a class="pill small" href="#cns"><span>See the work</span><i class="arr"><svg aria-hidden="true"><use href="#i-arr"/></svg></i></a>
         </header>
@@ -1439,8 +1581,8 @@ dialog.lb{background:var(--page-lo);color:var(--on);border:1px solid var(--rule)
       <div class="bz bz-subs" id="b-sf" role="tabpanel" aria-labelledby="t-sf">
         <header class="bz-head">
           <div class="bz-text">
-            <h3>Strike Force <small>Two game venues, Long Island and New Jersey</small></h3>
-            <p class="bz-lede"><span class="d-l"><span>Airsoft and tabletop game venues with the same owner as the showroom. Customers kept calling to ask prices and add up tickets and rentals.</span> <span>Since August both ticket sites are run with AI: an assistant works out the price, and the path to a ticket got shorter.</span></span><span class="d-s">Customers kept calling to ask prices. Now an AI assistant on both sites works them out.</span></p>
+            <h3 aria-level="2">Strike Force <small>Two game venues, Long Island and New Jersey</small></h3>
+            <p class="bz-lede"><span class="d-l two"><span>Airsoft and tabletop game venues with the same owner as the showroom. Customers kept calling to ask prices and add up tickets and rentals.</span> <span>Since August both ticket sites are run with AI: an assistant works out the price, and the path to a ticket got shorter.</span></span><span class="d-s">Customers kept calling to ask prices. Now an AI assistant on both sites works them out.</span></p>
           </div>
           <a class="pill small" href="#strikeforce"><span>See the work</span><i class="arr"><svg aria-hidden="true"><use href="#i-arr"/></svg></i></a>
         </header>
@@ -1456,8 +1598,8 @@ dialog.lb{background:var(--page-lo);color:var(--on);border:1px solid var(--rule)
       <div class="bz bz-subs" id="b-lb" role="tabpanel" aria-labelledby="t-lb">
         <header class="bz-head">
           <div class="bz-text">
-            <h3>L-Construction Group <small>General contractor, New York City</small></h3>
-            <p class="bz-lede"><span class="d-l"><span>A contractor who builds houses from the foundation up, with years of finished work and nothing online to send a client.</span> <span>He handed over his job photos. With AI, one person turned them into a website, six channels and a links page in a month.</span></span><span class="d-s">Years of finished houses and nothing online. Job photos became a website, six channels and video.</span></p>
+            <h3 aria-level="2">L-Construction Group <small>General contractor, New York City</small></h3>
+            <p class="bz-lede"><span class="d-l two"><span>A contractor who builds houses from the foundation up, with years of finished work and nothing online to send a client.</span> <span>He handed over his job photos. With AI, one person turned them into a website, six channels and a links page in a month.</span></span><span class="d-s">Years of finished houses and nothing online. Job photos became a website, six channels and video.</span></p>
           </div>
           <a class="pill small" href="#lconstruction"><span>See the work</span><i class="arr"><svg aria-hidden="true"><use href="#i-arr"/></svg></i></a>
         </header>
@@ -1641,7 +1783,7 @@ dialog.lb{background:var(--page-lo);color:var(--on);border:1px solid var(--rule)
   <section class="sec tight" id="faq"><div class="wrap faq-in">
     <h2 class="h2">Common questions</h2>
     <div class="faq">
-      <details><summary>What does it cost?</summary><p>The first meeting is free: a conversation and a look at how the business runs. The price comes after that.</p></details>
+      <details><summary>What does it cost?</summary><p>It starts with a conversation and a look at how the business runs. The price comes after that.</p></details>
       <details><summary>Where does the work happen?</summary><p>At the business, in person, anywhere in New York City. Current jobs also reach Long Island and New Jersey. The base is the showroom at 161 22nd Street, Brooklyn.</p></details>
       <details><summary>What kind of business is this for?</summary><p>Small local businesses. So far: a kitchen showroom, an elevator cab maker, two game venues and a general contractor.</p></details>
       <details><summary>Which AI tools get used?</summary><p>ChatGPT, Claude and Grok, picked to fit the job. The team gets trained on the one it will keep using.</p></details>
@@ -2190,24 +2332,83 @@ wire($('#revform'), $('#revmsg'), ['name', 'review'], d => ({ name: d.get('name'
 wire($('#shopform'), $('#shopmsg'), ['name', 'contact'], d => ({ name: d.get('name'), business: d.get('business') || '', contact: d.get('contact'), would_fix_first: d.get('problem') || '', language: d.get('language') || 'English', _subject: 'Workshop sign-up on mycv4u.com' }), 'Saved. The date and place will come by text.');
 
 /* HOME: the businesses as tabs. Tap a tab or swipe the deck sideways. */
-(() => { const deck = $('#deck'); if (!deck) return; const tabs = $$('.btabs .btab'), cards = [...deck.children], strip = $('.btabs'); let cur = 0, tk, hold = 0, busy = 0;
-  const now = () => performance.now();
-  /* the deck is as tall as the business on show, so nothing empty hangs under a shorter one */
-  const fit = () => { const h = cards[cur].offsetHeight; if (h) deck.style.height = h + 'px'; };
-  const set = i => { const moved = i !== cur; cur = i; tabs.forEach((t, k) => { t.classList.toggle('on', k === i); t.setAttribute('aria-selected', k === i ? 'true' : 'false'); t.tabIndex = k === i ? 0 : -1; }); fit();
-    if (moved && strip.scrollWidth > strip.clientWidth + 2) strip.scrollTo({ left: tabs[i].offsetLeft - (strip.clientWidth - tabs[i].offsetWidth) / 2, behavior: calm ? 'instant' : 'smooth' }); };
-  /* after a resize or a rotation the deck goes back to the business on show, never in the middle of a swipe */
-  const anchor = () => { const w = deck.clientWidth; if (!w || now() < busy) return; if (Math.abs(deck.scrollLeft - cur * w) > 2) { hold = now() + 300; deck.scrollTo({ left: cur * w, behavior: 'instant' }); } };
-  const go = (i, smooth) => { i = Math.max(0, Math.min(cards.length - 1, i)); set(i); const fly = smooth && !calm; busy = now() + (fly ? 800 : 0); hold = 0; deck.scrollTo({ left: i * deck.clientWidth, behavior: fly ? 'smooth' : 'instant' }); };
-  tabs.forEach((t, i) => { t.addEventListener('click', () => go(i, true));
-    t.addEventListener('keydown', e => { if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return; e.preventDefault(); const n = (i + (e.key === 'ArrowRight' ? 1 : -1) + tabs.length) % tabs.length; go(n, true); tabs[n].focus(); }); });
-  deck.addEventListener('scroll', () => { if (now() < hold) return; clearTimeout(tk); tk = setTimeout(() => { const w = deck.clientWidth; if (!w || now() < hold) return; const x = deck.scrollLeft / w, n = Math.round(x); if (Math.abs(x - n) > .04 && now() >= busy) return anchor(); set(n); }, 90); }, { passive: true });
-  ['touchstart', 'touchmove', 'wheel', 'pointerdown'].forEach(ev => deck.addEventListener(ev, () => { busy = now() + 600; }, { passive: true }));
-  if ('ResizeObserver' in window) { const ro = new ResizeObserver(() => { anchor(); fit(); setTimeout(anchor, 350); }); ro.observe(deck); cards.forEach(c => ro.observe(c)); }
-  addEventListener('load', fit); fit();
-  const byHash = () => { const i = cards.findIndex(c => '#' + c.id === location.hash); if (i >= 0) go(i, false); };
+(() => { const deck = $('#deck'); if (!deck) return;
+  /* One business is on show. The next one slides in under the finger or after a tap on its tab.
+     The deck is not a scroll box: cards are moved with transform, so nothing snaps back and a vertical scroll never shifts them. */
+  const tabs = $$('.btabs .btab'), cards = [...deck.children], bar = $('.btabs'), sec = deck.closest('section') || deck, n = cards.length;
+  let cur = Math.max(0, cards.findIndex(c => c.classList.contains('cur'))), peer = -1, goal = -1, timer = 0, g = null, dragged = 0;
+  const span = () => deck.clientWidth + (parseFloat(getComputedStyle(deck).columnGap) || 0);
+  const at = (i, x) => { cards[i].style.transform = 'translate3d(' + x.toFixed(1) + 'px,0,0)'; };
+  const thumb = p => bar.style.setProperty('--p', Math.max(-.05, Math.min(n - .95, p)).toFixed(4));   /* at either end the thumb presses into the wall of the track and no further */
+  const mark = i => tabs.forEach((t, k) => { const on = k === i; t.classList.toggle('on', on); t.setAttribute('aria-selected', on ? 'true' : 'false'); t.tabIndex = on ? 0 : -1; });
+  const drop = () => { if (peer < 0) return; cards[peer].classList.remove('peer'); cards[peer].style.transform = ''; peer = -1; };
+  /* the end of a slide: the new card takes its place in the page, the others are put away */
+  const settle = to => { clearTimeout(timer); timer = 0; goal = -1; deck.classList.remove('sliding', 'drag'); bar.classList.remove('sliding');
+    cards.forEach((c, k) => { c.classList.toggle('cur', k === to); c.classList.remove('peer'); c.style.transform = ''; });
+    deck.style.height = ''; cur = to; peer = -1; mark(cur); thumb(cur); };
+  /* from wherever the cards are now to the card `to`; dir is the side it comes from (1 = from the right) */
+  const slide = (to, dir, ms) => { const s = span(), h0 = deck.offsetHeight;
+    mark(to); goal = to; sec.style.setProperty('--ms', ms + 'ms');
+    deck.style.height = h0 + 'px'; deck.classList.remove('drag'); void deck.offsetWidth;
+    deck.classList.add('sliding'); bar.classList.add('sliding');
+    if (to === cur) { at(cur, 0); if (peer >= 0) at(peer, dir * s); }
+    else { at(cur, -dir * s); at(to, 0); deck.style.height = cards[to].offsetHeight + 'px'; }
+    thumb(to); clearTimeout(timer); timer = setTimeout(() => settle(to), ms + 40); };
+  const go = (i, quick) => { i = Math.max(0, Math.min(n - 1, i)); if (timer) settle(goal);
+    if (i === cur) return;
+    const s = span(); if (quick || calm || !deck.clientWidth) return settle(i);
+    const dir = i > cur ? 1 : -1; drop(); peer = i; cards[i].classList.add('peer'); at(i, dir * s); void deck.offsetWidth;
+    slide(i, dir, Math.round(Math.min(420, 240 + s * .14))); };
+
+  tabs.forEach((t, i) => { t.addEventListener('click', () => go(i));
+    t.addEventListener('keydown', e => { const k = { ArrowRight: (i + 1) % n, ArrowLeft: (i - 1 + n) % n, Home: 0, End: n - 1 }[e.key]; if (k === undefined) return; e.preventDefault(); go(k); tabs[k].focus(); }); });
+
+  /* the finger. The page still scrolls up and down by itself (touch-action: pan-y); a sideways drag moves the cards. */
+  const move = d => { const s = g.s, dir = d < 0 ? 1 : -1, to = cur + dir;
+    if (to < 0 || to >= n) { d *= .28; drop(); }                       /* the end of the row gives a little and comes back */
+    else if (peer !== to) { drop(); peer = to; cards[to].classList.add('peer'); }
+    at(cur, d); if (peer >= 0) at(peer, dir * s + d); thumb(cur - d / s); bar.style.setProperty('--k', Math.min(1, Math.abs(g.v) / 1.1).toFixed(2)); g.d = d; };
+  deck.addEventListener('touchstart', e => { if (e.touches.length !== 1) { if (g && g.lock === 'x') release(); g = null; return; }
+    if (timer) settle(goal); const t = e.touches[0]; g = { x: t.clientX, y: t.clientY, lock: '', d: 0, v: 0, lx: t.clientX, lt: e.timeStamp, s: span() }; }, { passive: true });
+  deck.addEventListener('touchmove', e => { if (!g) return; const t = e.touches[0], dx = t.clientX - g.x, dy = t.clientY - g.y;
+    if (!g.lock) { if (Math.abs(dx) < 8 && Math.abs(dy) < 8) return;
+      g.lock = Math.abs(dx) > Math.abs(dy) * 1.25 ? 'x' : 'y'; if (g.lock !== 'x') return;
+      g.x = t.clientX; g.lx = t.clientX; g.lt = e.timeStamp; dragged = 1; deck.classList.add('drag'); bar.classList.remove('sliding'); return; }
+    if (g.lock !== 'x') return;
+    const dt = e.timeStamp - g.lt; if (dt > 0) { g.v = g.v * .4 + (t.clientX - g.lx) / dt * .6; g.lx = t.clientX; g.lt = e.timeStamp; }
+    move(t.clientX - g.x); }, { passive: true });
+  const release = e => { const k = g; g = null; if (!k || k.lock !== 'x') return; setTimeout(() => { dragged = 0; }, 350); bar.style.setProperty('--k', 0);
+    if (e && e.timeStamp - k.lt > 90) k.v = 0;                           /* the finger stopped before it lifted */
+    const d = k.d, dir = d < 0 ? 1 : -1, to = cur + dir, far = Math.abs(d) > k.s * .22, flick = Math.abs(k.v) > .35 && Math.abs(d) > 16, back = k.v * d < 0 && Math.abs(k.v) > .25;
+    const yes = to >= 0 && to < n && !back && (far || flick), left = yes ? k.s - Math.abs(d) : Math.abs(d);
+    if (calm) return settle(yes ? to : cur);
+    slide(yes ? to : cur, dir, Math.round(Math.min(340, Math.max(170, 120 + left * .5)))); };
+  deck.addEventListener('touchend', release, { passive: true }); deck.addEventListener('touchcancel', release, { passive: true });
+  deck.addEventListener('click', e => { if (dragged) { e.preventDefault(); e.stopPropagation(); } }, true);   /* a drag that ends on a picture does not open it */
+
+  /* two fingers sideways on a trackpad: one business per gesture */
+  let acc = 0, quiet = 0, shut = false;
+  deck.addEventListener('wheel', e => { if (Math.abs(e.deltaX) <= Math.abs(e.deltaY) * 1.2) return; e.preventDefault();
+    clearTimeout(quiet); quiet = setTimeout(() => { acc = 0; shut = false; }, 160); if (shut) return;
+    acc += e.deltaX; if (Math.abs(acc) < 46) return; shut = true; go(cur + (acc > 0 ? 1 : -1)); acc = 0; }, { passive: false });
+
+  /* the pictures of the other businesses are fetched once the page has loaded, so a card never slides in empty */
+  const warm = () => cards.forEach(c => $$('img[loading=lazy]', c).forEach(im => { im.loading = 'eager'; if (im.decode) im.decode().catch(() => {}); }));
+  const later = () => ('requestIdleCallback' in window ? requestIdleCallback(warm, { timeout: 2500 }) : setTimeout(warm, 900));
+  if (document.readyState === 'complete') later(); else addEventListener('load', later);
+
+  mark(cur); thumb(cur);
+  const byHash = () => { const i = cards.findIndex(c => '#' + c.id === location.hash); if (i >= 0) go(i, true); };
   addEventListener('hashchange', byHash); byHash();
 })();
+/* GLASS: the highlight on a tab or a button follows the pointer; a pressed button gives a little (iOS needs a touch listener for :active) */
+(() => { document.addEventListener('touchstart', () => {}, { passive: true });
+  if (!matchMedia('(hover:hover)').matches) return; let ev = null, raf = 0;
+  addEventListener('pointermove', e => { ev = e; if (raf) return; raf = requestAnimationFrame(() => { raf = 0;
+    const t = ev.target && ev.target.closest && ev.target.closest('.btab,.chip,.pill,.menu-btn,.plinks a,.filters button,.lbbar button,.sheetnav .close'); if (!t) return;
+    const r = t.getBoundingClientRect(); t.style.setProperty('--mx', Math.round(ev.clientX - r.left) + 'px'); t.style.setProperty('--my', Math.round(ev.clientY - r.top) + 'px'); }); }, { passive: true });
+})();
+
 
 /* ABOUT: every long section folds under its heading. A link to a section opens it. */
 (() => { const v = $('.view[data-view=about]'); if (!v) return;
