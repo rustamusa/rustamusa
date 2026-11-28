@@ -1670,6 +1670,78 @@ dialog.lb::backdrop{background:rgba(var(--veil),.86);backdrop-filter:blur(16px) 
   .stack i{border:1px solid #000}
   .shift > div,.word,.flow li,.flow-node{border:1px solid #bbb!important}
 }
+
+/* ---------------------------------------------------------------- v19 try (11/28, take 2): the home as a catalog. A big carousel of the four businesses, then every project as a big card to swipe */
+.hero4-sub{grid-column:1/-1;margin:-2px 0 0;max-width:56ch;font:500 clamp(1.06rem,1.3vw,1.2rem)/1.4 var(--sans);letter-spacing:-.012em;color:var(--on-2)}
+.dz{position:relative}
+.dz-track{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;overscroll-behavior-x:contain;scroll-behavior:smooth}
+.dz-track::-webkit-scrollbar,.dz-rail::-webkit-scrollbar{display:none}
+.dz-slide{flex:0 0 94%;scroll-snap-align:start;display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);min-height:clamp(270px,40vh,340px);border-radius:18px;overflow:hidden;background:var(--gl);box-shadow:var(--gl-top),0 24px 48px -34px rgba(0,0,0,.85)}
+.dz-pic{position:relative;display:block;overflow:hidden;background:var(--page-lo)}
+.dz-pic img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(1.015);transition:transform .7s var(--out)}
+.dz-slide:hover .dz-pic img{transform:scale(1.045)}
+.dz-text{display:flex;flex-direction:column;gap:6px;min-width:0;padding:clamp(18px,2.2vw,28px)}
+.dz-kind{margin:0;font:500 1rem/1.3 var(--sans);color:var(--on-2)}
+.dz-name{margin:0;font:650 clamp(1.3rem,1.8vw,1.6rem)/1.15 var(--sans);letter-spacing:-.025em;color:var(--on)}
+.dz-name a{color:inherit;text-decoration:none;border-radius:4px}
+.dz-name a:focus-visible,.dz-q a:focus-visible{outline:2px solid var(--glow);outline-offset:3px}
+.dz-name a:hover{text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:2px}
+.dz-cs{display:none}
+.dz-res{margin:2px 0 0;font:700 clamp(1.45rem,2.2vw,1.95rem)/1.1 var(--sans);letter-spacing:-.03em;color:var(--glow)}
+.dz-lede{margin:2px 0 0;font:400 1rem/1.45 var(--sans);color:var(--on-2)}
+.dz-q{margin:8px 0 0;display:grid;gap:2px}
+.dz-q blockquote{margin:0;font:650 1.125rem/1.25 var(--sans);letter-spacing:-.02em;color:var(--on)}
+.dz-q figcaption{display:flex}
+.dz-q a{font:500 1rem/1.3 var(--sans);color:var(--on-2);text-decoration:none}
+.dz-q a:hover{color:var(--accent)}
+.dz-text .pill{margin-top:auto;align-self:flex-start}
+.dz-nav{display:flex;align-items:center;justify-content:flex-end;gap:8px;margin-top:6px}
+.dz-prev,.dz-next,.dz-rp,.dz-rn{display:grid;place-items:center;width:44px;height:44px;padding:0;border:0;border-radius:999px;background:var(--gl);box-shadow:var(--gl-top);color:var(--on);cursor:pointer;transition:opacity .2s}
+.dz-prev svg,.dz-next svg,.dz-rp svg,.dz-rn svg{width:16px;height:16px}
+.dz-prev:disabled,.dz-next:disabled,.dz-rp:disabled,.dz-rn:disabled{opacity:.3;cursor:default}
+.dz-dots{display:flex}
+.dz-dot{position:relative;width:30px;height:44px;padding:0;border:0;background:none;cursor:pointer}
+.dz-dot::before{content:"";position:absolute;left:5px;right:5px;top:50%;height:4px;margin-top:-2px;border-radius:2px;background:rgba(247,235,245,.28);transition:background .25s}
+.dz-dot[aria-current=true]::before{background:var(--on)}
+.dz-prev:focus-visible,.dz-next:focus-visible,.dz-dot:focus-visible,.dz-rp:focus-visible,.dz-rn:focus-visible{outline:2px solid var(--glow);outline-offset:2px}
+.dz-row{margin-top:clamp(4px,1vw,12px)}
+.dz-row-h{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.dz-row-h h2{margin:0;font:600 clamp(1.15rem,1.5vw,1.35rem)/1.25 var(--sans);letter-spacing:-.02em;color:var(--on)}
+.dz-rail-nav{display:flex;gap:8px}
+.dz-rail{display:flex;gap:16px;margin:0;padding:10px 4px 12px;list-style:none;overflow-x:auto;scroll-snap-type:x proximity;scroll-padding-inline:4px;scrollbar-width:none;overscroll-behavior-x:contain;scroll-behavior:smooth}
+.dz-rail li{flex:0 0 calc((100% - 4 * 16px) / 4.35);min-width:0;scroll-snap-align:start}
+.dz-card{display:block;color:inherit;text-decoration:none;outline:none}
+.dz-cpic{position:relative;display:block;aspect-ratio:16/9;border-radius:12px;overflow:hidden;background:var(--page-lo);box-shadow:0 0 0 1px rgba(255,255,255,.08);transition:transform .3s var(--out),box-shadow .3s}
+.dz-cpic img{display:block;width:100%;height:100%;object-fit:cover;object-position:50% 0}
+.dz-card:hover .dz-cpic,.dz-card:focus-visible .dz-cpic{transform:scale(1.04);box-shadow:0 0 0 3px rgba(247,235,245,.88),0 18px 30px -16px rgba(0,0,0,.9)}
+.dz-cbiz{display:block;margin-top:10px;font:500 1rem/1.3 var(--sans);color:var(--on-2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dz-ct{display:block;margin-top:2px;font:650 1rem/1.3 var(--sans);letter-spacing:-.015em;color:var(--on)}
+.dz-ct .fav{display:table;margin:6px 0 0}
+@media (max-width:900px){
+  .dz-slide{flex-basis:88%;grid-template-columns:minmax(0,1fr);grid-template-rows:auto 1fr;min-height:0}
+  .dz-pic{aspect-ratio:2/1}
+  .dz-text{gap:2px;padding:10px 14px 12px}
+  .dz-kind,.dz-lede,.dz-text .pill,.dz-cl{display:none}
+  .dz-cs{display:inline}
+  .dz-name{font-size:1.15rem}
+  .dz-res{font-size:1.3rem}
+  .dz-q{margin-top:4px;gap:0}
+  .dz-q blockquote{font-size:1.0625rem}
+  .dz-q a{display:inline-flex;align-items:center;min-height:28px}
+  .dz-nav{justify-content:center;margin-top:0}
+  .dz-prev,.dz-next,.dz-rail-nav{display:none}
+  .dz-rail li{flex-basis:68%}
+  .dz-row{margin-top:0}
+}
+@media (max-width:359px){.dz-rail li{flex-basis:80%}}
+@media (prefers-reduced-motion:reduce){.dz-track,.dz-rail{scroll-behavior:auto}.dz-pic img,.dz-cpic{transition:none}}
+@media print{
+  .dz-nav,.dz-rail-nav{display:none!important}
+  .dz-track,.dz-rail{overflow:visible;flex-wrap:wrap;scroll-snap-type:none}
+  .dz-slide{flex-basis:100%;break-inside:avoid;box-shadow:none;background:none;border:1px solid #bbb}
+  .dz-rail li{flex-basis:calc((100% - 32px) / 3);break-inside:avoid}
+  .dz-cpic{box-shadow:none}
+}
 </style>
 <noscript><style>.deck > .bz{position:relative!important;visibility:visible!important;margin-bottom:28px}</style></noscript>
 </head>

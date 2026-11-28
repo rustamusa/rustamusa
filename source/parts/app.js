@@ -459,3 +459,21 @@ wire($('#shopform'), $('#shopmsg'), ['name', 'contact'], d => ({ name: d.get('na
     requestAnimationFrame(() => scrollTo({ top: el.getBoundingClientRect().top + scrollY - (inside ? 76 : 0), behavior: 'instant' })); };
   addEventListener('hashchange', open); open();
 })();
+
+/* v19 try (11/28): the carousel of the four businesses and the row of projects. Native scrolling with snap points: swipe, trackpad and the buttons all move the same thing. */
+(() => { const dz = document.querySelector('.dz'); if (!dz) return;
+  const tr = dz.querySelector('.dz-track'), sl = [...tr.children], dots = [...dz.querySelectorAll('.dz-dot')], pv = dz.querySelector('.dz-prev'), nx = dz.querySelector('.dz-next');
+  const at = () => { const x = tr.scrollLeft, o = sl[0].offsetLeft; let k = 0, best = Infinity; sl.forEach((s, i) => { const d = Math.abs(s.offsetLeft - o - x); if (d < best) { best = d; k = i; } }); return k; };
+  const go = i => { i = Math.max(0, Math.min(sl.length - 1, i)); tr.scrollTo({ left: sl[i].offsetLeft - sl[0].offsetLeft }); };
+  let raf = 0; const paint = () => { raf = 0; const k = at(); dots.forEach((d, i) => d.setAttribute('aria-current', i === k ? 'true' : 'false')); pv.disabled = k === 0; nx.disabled = k === sl.length - 1; };
+  const later = () => { if (!raf) raf = requestAnimationFrame(paint); };
+  tr.addEventListener('scroll', later, { passive: true }); addEventListener('resize', later);
+  pv.addEventListener('click', () => go(at() - 1)); nx.addEventListener('click', () => go(at() + 1));
+  dots.forEach((d, i) => d.addEventListener('click', () => go(i)));
+  paint();
+  const rail = document.querySelector('.dz-rail'), rp = document.querySelector('.dz-rp'), rn = document.querySelector('.dz-rn'); if (!rail) return;
+  const rpaint = () => { rp.disabled = rail.scrollLeft < 4; rn.disabled = rail.scrollLeft + rail.clientWidth > rail.scrollWidth - 4; };
+  rail.addEventListener('scroll', () => requestAnimationFrame(rpaint), { passive: true }); addEventListener('resize', rpaint);
+  rp.addEventListener('click', () => rail.scrollBy({ left: -rail.clientWidth * .9 })); rn.addEventListener('click', () => rail.scrollBy({ left: rail.clientWidth * .9 }));
+  rpaint();
+})();
